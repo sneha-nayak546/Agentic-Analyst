@@ -1,0 +1,14 @@
+[
+    {
+        "question": "Show first 10 users",
+        "sql": "SELECT id, name, email FROM users LIMIT 10;"
+    },
+    {
+        "question": "Show wallet transactions",
+        "sql": "SELECT id, user_id, amount, transaction_type FROM wallet_transaction LIMIT 10;"
+    },
+    {
+        "question": "Show companies",
+        "sql": "SELECT id, company_name FROM companies LIMIT 10;"
+    }
+]

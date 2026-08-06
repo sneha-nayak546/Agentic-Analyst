@@ -1,0 +1,87 @@
+# Sub-Second (<1s) Backend Performance Optimization Plan
+
+Optimize the existing Enterprise AI SQL Agent backend architecture to achieve **sub-second (<1s)** natural language to SQL generation and execution times while maintaining 100% local offline execution and strict 8-table database scope.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Performance Target**: Achieve NL-to-SQL generation under 1 second by combining in-memory LRU schema caching, query pattern date substitution, compressed prompts (<500 tokens), tuned local LLM generation parameters (`temperature=0`, `max_tokens=200`, `stop=[';']`), and SQLAlchemy connection pooling.
+
+> [!NOTE]
+> **Preserve Existing Structure**: All 8 allowed tables (`users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`) and existing module layout (`agent`, `retriever`, `embedding`, `prompt`, `validator`, `database`, `api`, `utils`, `static`) remain intact.
+
+---
+
+## Proposed Technical Changes
+
+### 1. Database Connection Pooling & Fast Execution
+#### [MODIFY] [read_executor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/read_executor.py)
+- Replace per-request `pymysql.connect()` with a persistent SQLAlchemy engine connection pool (`pool_size=10`, `max_overflow=20`, `pool_recycle=3600`, `pool_pre_ping=True`).
+- Eliminate TCP connection setup latency (reduces DB overhead from ~150ms to <10ms).
+
+---
+
+### 2. In-Memory Schema Caching, Relationship Graph & Intent Retrieval
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- Load schema metadata into memory on startup (`@functools.lru_cache`). Avoid disk/ChromaDB queries on every request.
+- Implement Smart Intent Detection using keyword matching to pull ONLY relevant table cards.
+- Build an in-memory **Relationship Graph** (`users.id` -> `wallet_transaction.user_id`, etc.) for instant join resolution.
+- Enforce strict chunk limits: maximum 3 schema cards, 2 SQL syntax patterns.
+
+---
+
+### 3. Query Pattern & Exact Match Caching
+#### [MODIFY] [sql_agent.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/sql_agent.py)
+- **Exact Match Cache**: Store normalized user prompts -> SQL queries. Repeat queries return in <5ms.
+- **Pattern Date Submitter**: Recognize date range query templates (e.g. "Show July wallet transactions" vs "Show August wallet transactions") and swap date bounds without calling LLM (0ms LLM overhead!).
+- Execute retrieval, ambiguity check, and AST validation in parallel using `concurrent.futures.ThreadPoolExecutor`.
+
+---
+
+### 4. Compressed Prompt Engineering (<500 Tokens)
+#### [MODIFY] [prompt_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/prompt/prompt_builder.py)
+- Rewrite system prompt to stay under 500 tokens.
+- Include ONLY user prompt, matched schema cards, relationship graph joins, and concise zero-copy rules.
+
+---
+
+### 5. Fast LLM Generation Parameters
+#### [MODIFY] [sql_generator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/llm/sql_generator.py)
+- Tune Ollama generation parameters:
+  - `temperature = 0.0`
+  - `top_p = 0.8`
+  - `do_sample = False`
+  - `max_tokens = 200`
+  - `stop = [";", "\n\n"]`
+- Force model to stop immediately after completing the `SELECT` query statement.
+
+---
+
+### 6. Benchmark Logging & API Payload
+#### [MODIFY] [main.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/api/main.py)
+- Log detailed benchmark metrics for every query:
+  - `schema_retrieval_ms`
+  - `prompt_build_ms`
+  - `llm_generation_ms`
+  - `validation_ms`
+  - `db_execution_ms`
+  - `total_ms`
+- Include benchmark breakdown object in `/query` API response for UI badge display.
+
+---
+
+### 7. UI Benchmark Badge Display
+#### [MODIFY] [index.html](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/static/index.html)
+- Display real-time timing badges on AI response cards (e.g. `LLM: 320ms | DB: 8ms | Total: 345ms`).
+
+---
+
+## Verification Plan
+
+### Automated & Benchmark Verification
+- Run test benchmark script comparing before/after generation and execution latencies.
+- Verify exact prompt token count is under 500 tokens.
+- Test query pattern date substitution (e.g., July -> August) to verify 0ms LLM generation time on template reuse.
+- Verify AST security validator blocks `INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, etc.

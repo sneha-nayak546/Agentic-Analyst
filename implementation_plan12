@@ -1,0 +1,86 @@
+# Database-Driven AI SQL Agent Enforcement Plan
+
+This plan outlines the changes to completely remove hardcoded database concepts, implement automatic schema/lookup/enum learning, enforce read-only safety, and construct a purely deterministic RAG SQL generator that never hallucinates database information.
+
+## User Review Required
+> [!IMPORTANT]
+> The agent will lose its hardcoded "fallback" queries (e.g. `PREDEFINED_COMMON_QUERIES` in `sql_agent.py`) and hardcoded intent shortcuts. Everything will strictly be resolved via the database schema and lookup tables.
+
+## Open Questions
+> [!NOTE]
+> 1. In `app/knowledge/db_profiler.py`, should we extract values for ALL `varchar` columns, or only ones under a certain cardinality threshold (e.g. max 100 unique values) to prevent loading millions of user names into the enum knowledge base? (I will assume <100 unique values for now).
+> 2. For `app/embedding/chroma_builder.py`, I will add separate RAG chunks for schema, lookup tables, and enums so the agent can semantically search for valid enums. Is this correct?
+
+## Proposed Changes
+
+---
+
+### Knowledge Builder & Profiler
+
+#### [MODIFY] [schema_extractor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/schema_extractor.py)
+- Ensure all target tables' metadata is dynamically read from `INFORMATION_SCHEMA` without fallback schemas.
+- Improve foreign key, primary key, and unique key parsing.
+
+#### [MODIFY] [db_profiler.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/db_profiler.py)
+- **Lookup Tables**: Dynamically identify lookup/master tables (e.g. ends with `_role`, `_status`, or explicitly categorized as `lookup_master_table`). Fetch ALL rows from these tables to build the business dictionary dynamically. Remove hardcoded `user_role` logic.
+- **Enum Learning**: Dynamically find `ENUM` columns and `VARCHAR` columns (with low cardinality) from `schema_metadata.json` and query `SELECT DISTINCT` to gather all possible values. Remove hardcoded `profiling_targets`.
+- **Cache**: Store all of this in `business_metadata.json`.
+
+#### [MODIFY] [schema_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/schema_builder.py)
+- Generate distinct knowledge chunks for:
+  - Table definitions and column descriptions
+  - Business Dictionary entries (Lookup table rows)
+  - Enumeration sets (Distinct values for categorical columns)
+  - Join patterns and relationships
+
+---
+
+### RAG and Retriever
+
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- Remove `SCHEMA_DICTIONARY` and `TABLE_KEYWORD_MAP` which contain hardcoded table structures and mappings. Load them purely from `schema_metadata.json` and `business_metadata.json`.
+- Replace hardcoded `retrieve_sql_history` with dynamically generated join examples based on discovered foreign keys.
+
+#### [MODIFY] [knowledge_graph.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/knowledge_graph.py)
+- Remove hardcoded `RELATIONSHIP_EDGES`. Read relationships strictly from `relationships.json` and `schema_metadata.json`.
+
+---
+
+### SQL Agent Orchestration
+
+#### [MODIFY] [sql_agent.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/sql_agent.py)
+- Delete `PREDEFINED_COMMON_QUERIES` and `match_predefined_query` bypassing logic.
+- Query Generation Pipeline:
+  - Step 1: Detect Intent.
+  - Step 2-5: Retrieve tables, relationships, lookups, enums via RAG/Retriever.
+  - Step 6: Generate SQL strictly using context.
+
+#### [MODIFY] [ambiguity_checker.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/ambiguity_checker.py)
+- Parse noun/value entities from the user's question.
+- Cross-reference with `business_metadata.json`.
+- If an entity matches the context of a categorical/enum column but the exact value doesn't exist (e.g., user says `scan_reward`, but DB only has `scan`, `topup`), return clarification options explicitly asking "Which one did you mean?".
+
+---
+
+### Database Execution & Validation
+
+#### [MODIFY] [read_executor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/read_executor.py)
+- Ensure execution uses a connection strictly constrained to `SELECT`, `SHOW`, `DESCRIBE`, `EXPLAIN`.
+
+#### [MODIFY] [sql_validator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_validator.py)
+- Post-Generation Validation:
+  - Verify every table exists in schema.
+  - Verify every column accessed exists in schema.
+  - Verify every `JOIN` is on valid columns.
+  - If a generated SQL queries for `status = 'Completed'` but `'Completed'` is not in the extracted enum values, reject the query.
+- Maintain the strict ban on `INSERT`, `UPDATE`, `DELETE`, etc.
+
+## Verification Plan
+
+### Automated Tests
+- Run `app/knowledge/knowledge_builder.py` to assert that zero hardcoded enums are generated in `knowledge/business_metadata.json` and `knowledge/schema/schema_metadata.json`.
+- Run `benchmark.py` or test cases to ensure the agent asks clarification questions when given unknown enums (e.g. "Show retailer scan count").
+
+### Manual Verification
+- Ask the agent questions about "scan_reward" when only "scan" exists. The agent must return clarification UI.
+- Ask questions requiring joins and verify no hallucinatory joins are fabricated, using only what was dynamically loaded.

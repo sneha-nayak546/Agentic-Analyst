@@ -1,0 +1,164 @@
+# Implementation Plan - Database-Driven AI SQL Agent (Zero-Hallucination & Dynamic DB Learning)
+
+Transform the SQL Agent into a 100% database-driven, zero-hallucination enterprise reporting engine. The database will serve as the **ONLY source of truth**. The agent will never guess, infer, or hardcode table names, columns, lookup IDs, enum values, or relationships. If any value cannot be verified directly against the database, the agent will prompt the user with exact database options for clarification.
+
+---
+
+## Technical Architecture & Core Principles
+
+1. **Zero-Hallucination & Zero-Hardcoding**:
+   - All lookup table rows (`user_role`: `id`, `name`), enum values (`reference_type`, `transaction_type`, `status`), and foreign keys are dynamically read from the database at startup/build time.
+   - Hardcoded values (e.g. static role ID mappings or assumed enum strings) are completely replaced by dynamic database profiler lookup queries.
+2. **Database Scope (9 Tables)**:
+   - `users`
+   - `user_role` (mapped to physical `role` table)
+   - `wallet_transaction`
+   - `sku_inventories`
+   - `companies`
+   - `machine_details`
+   - `withdrawal` (mapped to physical `withdrawal_request` table)
+   - `automatic_transactions_bank` (mapped to physical `automatic_transactions` table)
+   - `automate`
+3. **Dynamic Database Knowledge Builder**:
+   - Runs `SHOW TABLES`, `SHOW CREATE TABLE`, `SHOW COLUMNS`, `SHOW INDEX`, `INFORMATION_SCHEMA.TABLES`, `COLUMNS`, `KEY_COLUMN_USAGE`, `REFERENTIAL_CONSTRAINTS`.
+   - Learns Primary Keys, Foreign Keys, Unique Keys, Indexes, Table Categories, and Column Nullability automatically.
+4. **Lookup & Enum Profiler**:
+   - Reads **ALL rows** from every lookup/master table (`user_role`).
+   - Reads `SELECT DISTINCT column_name FROM table_name` for all VARCHAR and ENUM columns.
+   - Stores all distinct values inside `knowledge/business_metadata.json`.
+5. **Database Validation & Clarification Engine**:
+   - Validates generated SQL against discovered database schema, lookup tables, and distinct enum values.
+   - If a requested term matches multiple distinct DB values or does not exist in DB distinct values, **DO NOT GUESS**. Immediately return a structured clarification question listing the exact database options.
+6. **Strict Read-Only Enforcement**:
+   - Allows only `SELECT`, `SHOW`, `DESCRIBE`, `EXPLAIN`, `INFORMATION_SCHEMA`. Blocks all write/modification operations.
+
+---
+
+## User Review Required
+
+> [!NOTE]
+> **Table Alias Normalization**: The physical MySQL database uses table names `role`, `withdrawal_request`, and `automatic_transactions`. The system maps canonical names `user_role`, `withdrawal`, and `automatic_transactions_bank` and automatically translates them during MySQL query execution without requiring the user to know internal database schema names.
+>
+> All database access remains **100% READ-ONLY**.
+
+---
+
+## Proposed Changes
+
+### Database Scope & Allowed Tables
+
+#### [MODIFY] [allowed_tables.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/allowed_tables.py)
+- Update `TARGET_SCOPE_TABLES` to: `users`, `user_role`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal`, `automatic_transactions_bank`, `automate`.
+- Update `TABLE_ALIAS_MAP`:
+  - `user_role` $\rightarrow$ `user_role` (physical `role`)
+  - `withdrawal` $\rightarrow$ `withdrawal` (physical `withdrawal_request`)
+  - `automatic_transactions_bank` $\rightarrow$ `automatic_transactions_bank` (physical `automatic_transactions`)
+- Update `is_allowed_table()` and `get_canonical_table_name()`.
+
+---
+
+### Database Metadata Extractor & Knowledge Builder
+
+#### [MODIFY] [schema_extractor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/schema_extractor.py)
+- Query `INFORMATION_SCHEMA.TABLES`, `COLUMNS`, `KEY_COLUMN_USAGE`, `STATISTICS`, `REFERENTIAL_CONSTRAINTS`.
+- Automatically extract Primary Keys, Foreign Keys, Unique Indexes, Column Datatypes, and Nullability for all 9 target tables.
+- Automatically categorize tables into:
+  - `lookup_master_table` (`user_role`)
+  - `transaction_fact_table` (`wallet_transaction`, `withdrawal`, `automatic_transactions_bank`)
+  - `dimension_table` (`users`, `companies`, `sku_inventories`, `machine_details`, `automate`)
+- Save complete schema metadata to `knowledge/schema/schema_metadata.json`.
+
+---
+
+### Lookup & Enum Database Profiler
+
+#### [MODIFY] [db_profiler.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/db_profiler.py)
+- Read sample records (`LIMIT 50-100`) from allowed fact/dimension tables.
+- For every lookup table (`user_role`), read **ALL rows** (`SELECT * FROM role` / `user_role`).
+- Dynamically build the Business Dictionary from database rows:
+  - Extract all roles (`id`, `name`) directly from DB rows into `integer_mappings["users.user_role"]` and `business_terminology`. Zero hardcoded roles in code!
+- Run `SELECT DISTINCT column_name FROM table_name WHERE column_name IS NOT NULL` for all categorical/enum columns (`wallet_transaction.reference_type`, `wallet_transaction.transaction_type`, `wallet_transaction.status`, `withdrawal.status`, `machine_details.status`, `companies.business_unit`, `users.status`).
+- Store distinct discovered values in `knowledge/business_metadata.json` under `enum_values` and `lookup_tables_data`.
+
+---
+
+### Relationship Discovery & Knowledge Graph
+
+#### [MODIFY] [relationship_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/relationship_builder.py)
+- Discover foreign keys and relationships automatically from `INFORMATION_SCHEMA.KEY_COLUMN_USAGE` + column naming heuristics:
+  - `users.user_role` $\rightarrow$ `user_role.id`
+  - `wallet_transaction.user_id` $\rightarrow$ `users.id`
+  - `withdrawal.user_id` $\rightarrow$ `users.id`
+  - `automatic_transactions_bank.user_id` $\rightarrow$ `users.id`
+  - `machine_details.company_id` $\rightarrow$ `companies.id`
+  - `sku_inventories.distributer_id` $\rightarrow$ `users.id`
+  - `sku_inventories.company_id` $\rightarrow$ `companies.id`
+- Save relationship graph to `knowledge/relationships/relationships.json`.
+
+#### [MODIFY] [knowledge_graph.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/knowledge_graph.py)
+- Build in-memory graph connecting terms $\rightarrow$ lookup tables $\rightarrow$ physical tables $\rightarrow$ columns $\rightarrow$ distinct DB values $\rightarrow$ join paths.
+- Prevent LLM from inventing joins; restrict to discovered relationship edges.
+
+---
+
+### Hybrid RAG Retriever (Step 1 to Step 7 Pipeline)
+
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- Implement 7-step retrieval pipeline:
+  1. Detect User Intent.
+  2. Retrieve Relevant Tables.
+  3. Retrieve Discovered Relationships.
+  4. Retrieve Lookup Table Rows (all rows of `user_role`).
+  5. Retrieve Discovered Enum & Distinct DB Values.
+  6. Retrieve Similar SQL Examples.
+  7. Construct context for SQL Generation.
+- Provide 0ms in-memory cached retrieval.
+
+---
+
+### DB-Driven Validation & Clarification Engine
+
+#### [MODIFY] [ambiguity_checker.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/ambiguity_checker.py)
+- Check user questions against discovered DB distinct values and lookup dictionary.
+- If a requested term (e.g. "scan") corresponds to multiple distinct DB reference types (e.g. `scan`, `scan_reward`) or if the requested value is not found in distinct DB values:
+  - **DO NOT GUESS**. Return a structured clarification question listing the exact distinct DB options:
+    `"I found multiple transaction types in the database: ['scan', 'scan_reward', 'topup', 'cash_point']. Which one did you mean?"`
+
+#### [MODIFY] [sql_validator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_validator.py) & [sql_optimizer.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_optimizer.py)
+- Validate every table, column, JOIN, lookup ID, and enum value in the generated AST against the extracted database metadata.
+- If any invalid object or value is detected, block execution and prompt for clarification.
+- Translate canonical table names (`user_role` $\rightarrow$ `role`, `withdrawal` $\rightarrow$ `withdrawal_request`, `automatic_transactions_bank` $\rightarrow$ `automatic_transactions`) for transparent MySQL execution.
+
+---
+
+### Rebuildable Knowledge Builder & Server Lifespan
+
+#### [MODIFY] [knowledge_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/knowledge_builder.py)
+- Run complete 4-step read-only knowledge builder pipeline:
+  1. Schema extraction (`extract_db_schema()`)
+  2. Relationship discovery (`get_relationship_graph()`)
+  3. Lookup table row capture & distinct enum profiling (`run_database_profiler()`)
+  4. Knowledge Graph in-memory pre-indexing
+
+---
+
+## Verification Plan
+
+### Automated Tests
+1. **Database Profiler & Lookup Table Extraction**:
+   - Run `python -m app.knowledge.db_profiler`
+   - Verify `knowledge/business_metadata.json` contains:
+     - All rows of `user_role` read directly from MySQL.
+     - Distinct enum values for `reference_type`, `transaction_type`, `status`, `transfer_type`.
+2. **Schema & Relationship Discovery**:
+   - Run `python -m app.knowledge.schema_extractor` and `python -m app.knowledge.relationship_builder`
+   - Confirm 9 allowed scope tables and exact foreign key join paths.
+3. **Zero-Hallucination & Clarification Test**:
+   - Run test query with ambiguous or unconfirmed term.
+   - Verify agent returns DB clarification options instead of guessing SQL.
+4. **End-to-End Execution Test**:
+   - Run test question: `"Retailer scan count in Jan 2026"`
+   - Confirm generated SQL uses discovered lookup ID and distinct DB enum values (`reference_type`) without hallucination.
+
+### Manual Verification
+- Test query execution in UI (`http://localhost:8000`) and inspect performance benchmarks.

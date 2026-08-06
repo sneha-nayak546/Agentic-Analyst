@@ -1,0 +1,162 @@
+# Implementation Plan - Master & Lookup Tables Knowledge Base Redesign
+
+Redesign the SQL Agent knowledge base, database metadata extractor, relationship discovery, business semantics engine, and hybrid retriever to treat master and lookup tables (specifically `user_role` alongside 8 existing tables) as first-class citizens.
+
+## Overview & Technical Objectives
+Currently, the agent uses an 8-table scope and lacks understanding of lookup/master tables like `user_role`. When a user asks a business question like `"Retailer scan count in Jan 2026"`, the model mistakenly generates `WHERE user_role = 'retailer'` instead of joining `users` to `user_role` or applying the discovered integer code mapping (`user_role = 5` / `user_role.id = 5`).
+
+This plan redesigns the knowledge base to:
+1. Expand target database scope to **9 tables**: `users`, `user_role` (mapped to physical `role` table), `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`.
+2. Automatically detect Primary Keys, Foreign Keys, Lookup/Master tables, Enum columns, and Business Meanings using MySQL read-only metadata (`INFORMATION_SCHEMA`, `SHOW TABLES`, `SHOW COLUMNS`, `SHOW INDEX`).
+3. Capture **ALL rows** for lookup/master tables (`user_role`) during training/knowledge generation to dynamically build a **Business Dictionary** (`Retailer` $\rightarrow$ `user_role.id = 5`, `Distributor` $\rightarrow$ `user_role.id = 2`, `Dealer` $\rightarrow$ `user_role.id = 3`, `Company` $\rightarrow$ `user_role.id = 4`).
+4. Discover relationships (e.g. `users.user_role` $\rightarrow$ `user_role.id`, `wallet_transaction.user_id` $\rightarrow$ `users.id`) without hardcoding or guessing joins.
+5. Perform **Hybrid Retrieval** supplying relevant tables, discovered relationships, lookup table data, business mappings, and SQL examples.
+6. Provide an automated, read-only **Knowledge Builder** (`app/knowledge/knowledge_builder.py`) to rebuild the knowledge base on schema changes.
+
+---
+
+## User Review Required
+
+> [!NOTE]
+> **Database Table Mapping (`user_role` vs `role`)**: In the MySQL target database (`jghMasterDB`), the physical role lookup table is named `role`. The system will map `user_role` as the canonical master table entity and automatically translate `user_role` references in queries to `role` if required, keeping full backward and forward compatibility.
+> All database access will remain **strictly READ-ONLY** (`SELECT` and `INFORMATION_SCHEMA` queries).
+
+---
+
+## Proposed Changes
+
+### Database Scope & Allowed Tables
+
+#### [MODIFY] [allowed_tables.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/allowed_tables.py)
+- Expand `TARGET_SCOPE_TABLES` to 9 tables including `"user_role"`.
+- Add `"role"`, `"user_role"`, `"user_roles"`, `"role_master"`, `"user_type"` to `TABLE_ALIAS_MAP` mapping to `"user_role"`.
+- Update `is_allowed_table()` and `get_canonical_table_name()` to recognize `user_role` and `role`.
+
+---
+
+### Database Schema & Metadata Extraction
+
+#### [MODIFY] [schema_extractor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/schema_extractor.py)
+- Update `TARGET_SCOPE_TABLES` to include `user_role` (and physical `role` table).
+- Query `INFORMATION_SCHEMA.TABLES`, `COLUMNS`, `KEY_COLUMN_USAGE`, `STATISTICS`, and `REFERENTIAL_CONSTRAINTS`.
+- Automatically categorize extracted tables into:
+  - `lookup_master_tables`: (`user_role`)
+  - `transaction_fact_tables`: (`wallet_transaction`, `withdrawal_request`, `automatic_transactions`)
+  - `dimension_tables`: (`users`, `companies`, `sku_inventories`, `machine_details`, `automate`)
+- Save complete metadata output to `knowledge/schema/schema_metadata.json`.
+
+#### [MODIFY] [metadata_extractor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/metadata_extractor.py)
+- Update to support 9 allowed tables including `user_role`.
+
+---
+
+### DB Profiler & Dynamic Business Dictionary
+
+#### [MODIFY] [db_profiler.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/db_profiler.py)
+- Execute read-only sampling queries on allowed tables (`LIMIT 50-100`).
+- For lookup/master tables (specifically `user_role` / `role`), **fetch ALL rows** to capture the complete business vocabulary (`id`, `name`).
+- Automatically construct the **Business Dictionary** in `knowledge/business_metadata.json`:
+  - `Retailer` $\rightarrow$ `user_role.id = 5` (or `user_role = 5` / `role.name = 'Retailer'`)
+  - `Distributor` $\rightarrow$ `user_role.id = 2`
+  - `Dealer` $\rightarrow$ `user_role.id = 3`
+  - `Company` $\rightarrow$ `user_role.id = 4`
+  - `Admin` $\rightarrow$ `user_role.id = 1`
+  - `Wholesaler` $\rightarrow$ `user_role.id = 5`
+  - `Executive` $\rightarrow$ `user_role.id = 6`
+- Profile enum & distinct categorical values for `wallet_transaction.reference_type` (`scan_reward`, `topup`, etc.), `wallet_transaction.transaction_type`, `automatic_transactions.transfer_type`, `withdrawal_request.status`, `users.status`.
+- Save output to `knowledge/business_metadata.json`.
+
+---
+
+### Relationship Discovery & Knowledge Graph
+
+#### [MODIFY] [relationship_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/relationship_builder.py)
+- Discover FK constraints and column naming relationships dynamically from `INFORMATION_SCHEMA.KEY_COLUMN_USAGE`.
+- Add explicit discovery rules for:
+  - `users.user_role` $\rightarrow$ `user_role.id` (or `role.id`)
+  - `wallet_transaction.user_id` $\rightarrow$ `users.id`
+  - `withdrawal_request.user_id` $\rightarrow$ `users.id`
+  - `automatic_transactions.user_id` $\rightarrow$ `users.id`
+  - `sku_inventories.distributer_id` $\rightarrow$ `users.id`
+  - `sku_inventories.company_id` $\rightarrow$ `companies.id`
+  - `companies.customer_id` $\rightarrow$ `users.id`
+- Save relationship graph to `knowledge/relationships/relationships.json`.
+
+#### [MODIFY] [knowledge_graph.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/knowledge_graph.py)
+- Register `user_role` table nodes and column nodes.
+- Update `RELATIONSHIP_EDGES` with `users.user_role` $\rightarrow$ `user_role.id`.
+- Enhance `resolve_business_query(question)`:
+  - When terms like `Retailer` are detected, resolve `user_role` table mapping (`role_id = 5` or `ur.name = 'Retailer'`).
+  - Automatically inject required JOIN paths: `JOIN users u ON wt.user_id = u.id JOIN user_role ur ON u.user_role = ur.id`.
+  - Resolve scan transaction type (`wt.reference_type = 'scan_reward'`).
+
+---
+
+### Hybrid Retriever & Vector Embeddings
+
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- Add `user_role` to `SCHEMA_DICTIONARY` and `TABLE_KEYWORD_MAP`.
+- Update `detect_domain_intent()` to support role queries.
+- Enhance `retrieve_schema()` to perform **Hybrid Retrieval**:
+  1. Relevant Table schemas & column definitions (including `user_role`).
+  2. Discovered FK Relationships & Join Paths (`users.user_role = user_role.id`).
+  3. Discovered Business Mappings (`Retailer` $\rightarrow$ `user_role.id = 5`).
+  4. Master Table lookup rows (`user_role`: 1=Admin, 2=Distributor, 3=Dealer, 4=Company, 5=Retailer).
+  5. Relevant SQL query pattern examples using proper JOINs.
+
+---
+
+### SQL Generator, AST Validator & Query Cleaner
+
+#### [MODIFY] [sql_optimizer.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_optimizer.py) & [sql_cleaner.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/utils/sql_cleaner.py)
+- Support alias translation of `user_role` $\rightarrow$ `role` when executing against MySQL if `user_role` is queried directly as a table name.
+- Ensure AST optimizer validates queries with `user_role` joins.
+
+#### [MODIFY] [sql_agent.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/sql_agent.py)
+- Support role-based intent handling and multi-table queries.
+- Update predefined queries and thinking steps to display lookup table traversal.
+
+---
+
+### Knowledge Base Orchestrator Script
+
+#### [NEW] [knowledge_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/knowledge_builder.py)
+- Create a unified script to run all extraction and profiling modules in sequence:
+  1. `extract_db_schema()`
+  2. `get_relationship_graph()`
+  3. `run_database_profiler()`
+  4. Rebuild Knowledge Graph & Embedding Index
+- Enables complete re-building of the knowledge base at any time when the database schema changes.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+1. **Schema & Metadata Extraction Test**:
+   - Run `python -m app.database.schema_extractor`
+   - Verify `knowledge/schema/schema_metadata.json` includes `user_role` and all 9 target tables with primary/foreign keys.
+
+2. **Database Profiler & Business Dictionary Test**:
+   - Run `python -m app.knowledge.db_profiler`
+   - Verify `knowledge/business_metadata.json` captures all rows of `user_role` (`Retailer`, `Distributor`, `Dealer`, `Company`, `Admin`) and categorical enums.
+
+3. **Relationship Discovery Test**:
+   - Run `python -m app.knowledge.relationship_builder`
+   - Verify `knowledge/relationships/relationships.json` contains `users.user_role` $\rightarrow$ `user_role.id` and `wallet_transaction.user_id` $\rightarrow$ `users.id`.
+
+4. **Knowledge Base Rebuilder Test**:
+   - Run `python -m app.knowledge.knowledge_builder`
+   - Ensure the entire knowledge base is re-generated cleanly without error.
+
+5. **End-to-End Query Verification Test**:
+   - Test target question: `"Retailer scan count in Jan 2026"`
+   - Assert generated SQL includes:
+     - JOIN between `users` and `wallet_transaction`
+     - Role filtering for Retailer (`users.user_role = 5` or `JOIN user_role` / `role.name = 'Retailer'`)
+     - Reference type filter for scan (`reference_type = 'scan_reward'`)
+     - Date range filter for January 2026 (`created_at >= '2026-01-01' AND created_at < '2026-02-01'`)
+     - Execution returns valid read-only query result from MySQL.
+
+### Manual Verification
+- Test query execution via terminal and inspect performance benchmarks log.

@@ -1,0 +1,1382 @@
+{
+    "companies": {
+        "name": "companies",
+        "columns": {
+            "id": {
+                "name": "id",
+                "type": "BIGINT",
+                "nullable": false,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 442,
+                "distinct_count": 442,
+                "null_count": 0
+            },
+            "name": {
+                "name": "name",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": false,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 442,
+                "distinct_count": 435,
+                "null_count": 0
+            },
+            "phone": {
+                "name": "phone",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 442,
+                "distinct_count": 442,
+                "null_count": 0
+            },
+            "email": {
+                "name": "email",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 439,
+                "distinct_count": 434,
+                "null_count": 3
+            },
+            "sap_code": {
+                "name": "sap_code",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 442,
+                "distinct_count": 442,
+                "null_count": 0
+            },
+            "business_unit": {
+                "name": "business_unit",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 335,
+                "distinct_count": 1,
+                "null_count": 107,
+                "top_values": [
+                    "CORE"
+                ]
+            },
+            "jgh_company": {
+                "name": "jgh_company",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 243,
+                "distinct_count": 239,
+                "null_count": 199
+            },
+            "image": {
+                "name": "image",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 442,
+                "top_values": []
+            },
+            "created_at": {
+                "name": "created_at",
+                "type": "TIMESTAMP",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 442,
+                "distinct_count": 129,
+                "null_count": 0
+            },
+            "updated_at": {
+                "name": "updated_at",
+                "type": "TIMESTAMP",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 441,
+                "distinct_count": 295,
+                "null_count": 1
+            },
+            "business_info_id": {
+                "name": "business_info_id",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 1,
+                "distinct_count": 1,
+                "null_count": 441,
+                "top_values": [
+                    "6"
+                ]
+            },
+            "customer_id": {
+                "name": "customer_id",
+                "type": "BIGINT",
+                "nullable": false,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 442,
+                "distinct_count": 410,
+                "null_count": 0
+            },
+            "monthly_percent_deactivate_qr_limit": {
+                "name": "monthly_percent_deactivate_qr_limit",
+                "type": "DECIMAL(8, 2)",
+                "nullable": false,
+                "default": "'20.00'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 442,
+                "distinct_count": 3,
+                "null_count": 0,
+                "top_values": [
+                    "15.00",
+                    "0.00",
+                    "20.00"
+                ]
+            },
+            "additional_monthly_deactivate_qr_limit": {
+                "name": "additional_monthly_deactivate_qr_limit",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": "'0'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 442,
+                "distinct_count": 45,
+                "null_count": 0,
+                "top_values": [
+                    "0",
+                    "50",
+                    "70"
+                ]
+            },
+            "additional_limit_valid_upto": {
+                "name": "additional_limit_valid_upto",
+                "type": "DATE",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 108,
+                "distinct_count": 1,
+                "null_count": 334,
+                "top_values": [
+                    "2026-09-30"
+                ]
+            }
+        },
+        "primary_keys": [
+            "id"
+        ],
+        "foreign_keys": [],
+        "indexes": [
+            {
+                "name": "companies_sap_code_unique",
+                "column_names": [
+                    "sap_code"
+                ],
+                "unique": true,
+                "type": "UNIQUE"
+            }
+        ],
+        "unique_constraints": [
+            {
+                "name": "companies_sap_code_unique",
+                "column_names": [
+                    "sap_code"
+                ],
+                "duplicates_index": "companies_sap_code_unique"
+            }
+        ],
+        "row_count": 442
+    },
+    "users": {
+        "name": "users",
+        "columns": {
+            "id": {
+                "name": "id",
+                "type": "BIGINT",
+                "nullable": false,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 28982,
+                "null_count": 0
+            },
+            "name": {
+                "name": "name",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 21854,
+                "null_count": 0
+            },
+            "last_name": {
+                "name": "last_name",
+                "type": "VARCHAR(100) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 2,
+                "distinct_count": 2,
+                "null_count": 28980,
+                "top_values": [
+                    "Nigam",
+                    "Naik"
+                ]
+            },
+            "email": {
+                "name": "email",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28684,
+                "distinct_count": 28059,
+                "null_count": 298
+            },
+            "email_verified_at": {
+                "name": "email_verified_at",
+                "type": "TIMESTAMP",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "password": {
+                "name": "password",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 194,
+                "distinct_count": 175,
+                "null_count": 28788
+            },
+            "two_factor_secret": {
+                "name": "two_factor_secret",
+                "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "two_factor_recovery_codes": {
+                "name": "two_factor_recovery_codes",
+                "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "remember_token": {
+                "name": "remember_token",
+                "type": "VARCHAR(100) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 15,
+                "distinct_count": 15,
+                "null_count": 28967,
+                "top_values": [
+                    "jRIXNXjp7l6hn3tQ5u2aK6xD76iScgZZeBt4iq4JcEir6JZ2gQswquloajwJ",
+                    "J1WZU6GGuoa6LGnTR3UM3N4K6dyOeNdZcAtxQiHRKzhqUccoth1RhwcDS1tB",
+                    "R1XAgqe0hUZ4NRigsLCcA6MaGVZgx1vCT0IStheAKBKxcxvKO2cldihopVxV"
+                ]
+            },
+            "deleted_at": {
+                "name": "deleted_at",
+                "type": "TIMESTAMP",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 107,
+                "distinct_count": 104,
+                "null_count": 28875
+            },
+            "created_at": {
+                "name": "created_at",
+                "type": "TIMESTAMP",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28979,
+                "distinct_count": 28513,
+                "null_count": 3
+            },
+            "updated_at": {
+                "name": "updated_at",
+                "type": "TIMESTAMP",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 7531,
+                "null_count": 0
+            },
+            "country_code": {
+                "name": "country_code",
+                "type": "VARCHAR(10) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28583,
+                "distinct_count": 2,
+                "null_count": 399,
+                "top_values": [
+                    "+91",
+                    "91"
+                ]
+            },
+            "mobile_number": {
+                "name": "mobile_number",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28962,
+                "distinct_count": 28892,
+                "null_count": 20
+            },
+            "user_role": {
+                "name": "user_role",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28957,
+                "distinct_count": 13,
+                "null_count": 25,
+                "top_values": [
+                    "2",
+                    "5",
+                    "4"
+                ]
+            },
+            "club": {
+                "name": "club",
+                "type": "VARCHAR(50) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "designation": {
+                "name": "designation",
+                "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 203,
+                "distinct_count": 7,
+                "null_count": 28779,
+                "top_values": [
+                    "Sales Executive",
+                    "Area Sales Manager",
+                    "Regional Sales Manager"
+                ]
+            },
+            "dob": {
+                "name": "dob",
+                "type": "DATE",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 9358,
+                "distinct_count": 6683,
+                "null_count": 19624
+            },
+            "city": {
+                "name": "city",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 27933,
+                "distinct_count": 2139,
+                "null_count": 1049
+            },
+            "state_id": {
+                "name": "state_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28798,
+                "distinct_count": 29,
+                "null_count": 184,
+                "top_values": [
+                    "14",
+                    "8",
+                    "11"
+                ]
+            },
+            "address": {
+                "name": "address",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 9212,
+                "distinct_count": 8784,
+                "null_count": 19770
+            },
+            "pincode": {
+                "name": "pincode",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 27320,
+                "distinct_count": 4377,
+                "null_count": 1662
+            },
+            "anniversary_date": {
+                "name": "anniversary_date",
+                "type": "DATE",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 5813,
+                "distinct_count": 3933,
+                "null_count": 23169
+            },
+            "lang_id": {
+                "name": "lang_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "nat_state_id": {
+                "name": "nat_state_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "account_holder_name": {
+                "name": "account_holder_name",
+                "type": "VARCHAR(200) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 169,
+                "distinct_count": 166,
+                "null_count": 28813
+            },
+            "bank_name": {
+                "name": "bank_name",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 169,
+                "distinct_count": 59,
+                "null_count": 28813
+            },
+            "account_no": {
+                "name": "account_no",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 191,
+                "distinct_count": 187,
+                "null_count": 28791
+            },
+            "ifsc_code": {
+                "name": "ifsc_code",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 169,
+                "distinct_count": 162,
+                "null_count": 28813
+            },
+            "account_type": {
+                "name": "account_type",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 169,
+                "distinct_count": 2,
+                "null_count": 28813,
+                "top_values": [
+                    "Current",
+                    "Savings"
+                ]
+            },
+            "image_path": {
+                "name": "image_path",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": "Bank images",
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "district": {
+                "name": "district",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 25244,
+                "distinct_count": 449,
+                "null_count": 3738
+            },
+            "gender": {
+                "name": "gender",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 45,
+                "distinct_count": 1,
+                "null_count": 28937,
+                "top_values": [
+                    "male"
+                ]
+            },
+            "profile_image": {
+                "name": "profile_image",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 4389,
+                "distinct_count": 4388,
+                "null_count": 24593
+            },
+            "membership_id": {
+                "name": "membership_id",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 88,
+                "distinct_count": 88,
+                "null_count": 28894
+            },
+            "wallet_balance": {
+                "name": "wallet_balance",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "'0'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 1752,
+                "null_count": 0
+            },
+            "bank_details_status": {
+                "name": "bank_details_status",
+                "type": "TINYINT",
+                "nullable": true,
+                "default": "'0'",
+                "comment": "0=bank data not present,1= bank data present",
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 2,
+                "null_count": 0,
+                "top_values": [
+                    "0",
+                    "1"
+                ]
+            },
+            "adhaar": {
+                "name": "adhaar",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28480,
+                "distinct_count": 28082,
+                "null_count": 502
+            },
+            "adhaar_image": {
+                "name": "adhaar_image",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "adhaar_front_image": {
+                "name": "adhaar_front_image",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 3228,
+                "distinct_count": 3228,
+                "null_count": 25754
+            },
+            "adhaar_back_image": {
+                "name": "adhaar_back_image",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 3219,
+                "distinct_count": 3219,
+                "null_count": 25763
+            },
+            "pan_card": {
+                "name": "pan_card",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 14776,
+                "distinct_count": 14487,
+                "null_count": 14206
+            },
+            "pan_card_image": {
+                "name": "pan_card_image",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "passbook_image": {
+                "name": "passbook_image",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "upi": {
+                "name": "upi",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "status": {
+                "name": "status",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "'pending'",
+                "comment": "pending or approved",
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 2,
+                "null_count": 0,
+                "top_values": [
+                    "approved",
+                    "pending"
+                ]
+            },
+            "business_info_id": {
+                "name": "business_info_id",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "None",
+                "comment": "0for supper admin",
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28654,
+                "distinct_count": 1,
+                "null_count": 328,
+                "top_values": [
+                    "6"
+                ]
+            },
+            "distributer_id": {
+                "name": "distributer_id",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "None",
+                "comment": "0 for supper admin and business admin",
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 456,
+                "distinct_count": 456,
+                "null_count": 28526
+            },
+            "old_user_id": {
+                "name": "old_user_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": "None",
+                "comment": "old user id for the separate pannels",
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "kyc_status": {
+                "name": "kyc_status",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": "'0'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 2,
+                "null_count": 0,
+                "top_values": [
+                    "1",
+                    "0"
+                ]
+            },
+            "adhaar_details": {
+                "name": "adhaar_details",
+                "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 20800,
+                "distinct_count": 17449,
+                "null_count": 8182
+            },
+            "business_pan": {
+                "name": "business_pan",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 12387,
+                "distinct_count": 12163,
+                "null_count": 16595
+            },
+            "bonus_points": {
+                "name": "bonus_points",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "'0'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 445,
+                "null_count": 0
+            },
+            "isBlacklisted": {
+                "name": "isBlacklisted",
+                "type": "TINYINT",
+                "nullable": false,
+                "default": "'0'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 2,
+                "null_count": 0,
+                "top_values": [
+                    "0",
+                    "1"
+                ]
+            },
+            "scan_limit": {
+                "name": "scan_limit",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": "'200'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 10,
+                "null_count": 0,
+                "top_values": [
+                    "200",
+                    "100",
+                    "300"
+                ]
+            },
+            "referral_code": {
+                "name": "referral_code",
+                "type": "VARCHAR(6) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28914,
+                "distinct_count": 28914,
+                "null_count": 68
+            },
+            "device_id": {
+                "name": "device_id",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 13878,
+                "distinct_count": 9293,
+                "null_count": 15104
+            },
+            "last_login": {
+                "name": "last_login",
+                "type": "DATETIME",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 27545,
+                "distinct_count": 27482,
+                "null_count": 1437
+            },
+            "app_updated": {
+                "name": "app_updated",
+                "type": "TINYINT",
+                "nullable": false,
+                "default": "'0'",
+                "comment": "0:old_version 1:current_version",
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 2,
+                "null_count": 0,
+                "top_values": [
+                    "0",
+                    "1"
+                ]
+            },
+            "block_withdrawal": {
+                "name": "block_withdrawal",
+                "type": "TINYINT",
+                "nullable": false,
+                "default": "'0'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 2,
+                "null_count": 0,
+                "top_values": [
+                    "0",
+                    "1"
+                ]
+            },
+            "block_withdrawal_message": {
+                "name": "block_withdrawal_message",
+                "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 606,
+                "distinct_count": 9,
+                "null_count": 28376,
+                "top_values": [
+                    "Retailer / wholesaler verification is pending.",
+                    "To reactivate your cash withdrawal feature, please go to Shop Photo section in the menu & click a clear photograph of your shop front from outside with the Dealer Board clearly visible in it",
+                    "As per the Income Tax Rules, you have reached the withdrawal limit, and we are required to deduct TDS. Currently, you do not have sufficient funds available for this cash withdrawal."
+                ]
+            },
+            "shop_branding": {
+                "name": "shop_branding",
+                "type": "TINYINT",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 0,
+                "distinct_count": 0,
+                "null_count": 28982,
+                "top_values": []
+            },
+            "block_gift_redeem": {
+                "name": "block_gift_redeem",
+                "type": "TINYINT",
+                "nullable": false,
+                "default": "'0'",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 28982,
+                "distinct_count": 2,
+                "null_count": 0,
+                "top_values": [
+                    "0",
+                    "1"
+                ]
+            },
+            "block_gift_redeem_message": {
+                "name": "block_gift_redeem_message",
+                "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 397,
+                "distinct_count": 9,
+                "null_count": 28585,
+                "top_values": [
+                    "To reactivate your cash withdrawal feature, please go to Shop Photo section in the menu & click a clear photograph of your shop front from outside with the Dealer Board clearly visible in it",
+                    "As per the Income Tax Rules, you have reached the withdrawal limit, and we are required to deduct TDS. Currently, you do not have sufficient funds available for this cash withdrawal.",
+                    "Magic App is not active in your area."
+                ]
+            },
+            "disable_scan": {
+                "name": "disable_scan",
+                "type": "TINYINT",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 20592,
+                "distinct_count": 2,
+                "null_count": 8390,
+                "top_values": [
+                    "0",
+                    "1"
+                ]
+            },
+            "disable_scan_message": {
+                "name": "disable_scan_message",
+                "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 37,
+                "distinct_count": 3,
+                "null_count": 28945,
+                "top_values": [
+                    "To reactivate your cash withdrawal feature, please go to Shop Photo section in the menu & click a clear photograph of your shop front from outside with the Dealer Board clearly visible in it",
+                    "Magic App is not active in your area.",
+                    "Blocked due to non-payment."
+                ]
+            },
+            "direct_manager_id": {
+                "name": "direct_manager_id",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 146,
+                "distinct_count": 34,
+                "null_count": 28836,
+                "top_values": [
+                    "74207",
+                    "70912",
+                    "70983"
+                ]
+            },
+            "employee_id": {
+                "name": "employee_id",
+                "type": "VARCHAR(20) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 103,
+                "distinct_count": 103,
+                "null_count": 28879
+            },
+            "primary_distributor_id": {
+                "name": "primary_distributor_id",
+                "type": "BIGINT",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 23542,
+                "distinct_count": 382,
+                "null_count": 5440
+            },
+            "remark": {
+                "name": "remark",
+                "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 3,
+                "distinct_count": 3,
+                "null_count": 28979,
+                "top_values": [
+                    "test",
+                    "reject",
+                    "rejecting"
+                ]
+            },
+            "fcm_token": {
+                "name": "fcm_token",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": [],
+                "non_null_count": 44,
+                "distinct_count": 30,
+                "null_count": 28938,
+                "top_values": [
+                    "FCM_TOKEN",
+                    "di7XGycyTOOsO9fd56_ECR:APA91bE2UOM3lCYHcTU9muB1IHsO91EKLjBU0fZnwYa73Ox_cjaePBFtEhd0vr_vOzMB3x5HSYNQxfGCagVYl2BVy5xug8pkmMJ3vCDyYErKv_pItS2ls_A",
+                    "drr9OrKpSI6cZA11DYa5GN:APA91bFWuwLNkAuoTK0tiiLE09IeUceGMrHzTOCKa_88Nm8AZrA3mKMM956MUvKvf3V1UOKgZFuep1w07tDyzPOISzsSujqlrH_dorwMQCAPjsVd0MuGUH8"
+                ]
+            }
+        },
+        "primary_keys": [
+            "id"
+        ],
+        "foreign_keys": [],
+        "indexes": [
+            {
+                "name": "distributer_id",
+                "column_names": [
+                    "distributer_id"
+                ],
+                "unique": false
+            },
+            {
+                "name": "employee_id",
+                "column_names": [
+                    "employee_id"
+                ],
+                "unique": true,
+                "type": "UNIQUE"
+            },
+            {
+                "name": "state_id",
+                "column_names": [
+                    "state_id"
+                ],
+                "unique": false
+            },
+            {
+                "name": "user_role",
+                "column_names": [
+                    "user_role"
+                ],
+                "unique": false
+            },
+            {
+                "name": "user_role_2",
+                "column_names": [
+                    "user_role"
+                ],
+                "unique": false
+            }
+        ],
+        "unique_constraints": [
+            {
+                "name": "employee_id",
+                "column_names": [
+                    "employee_id"
+                ],
+                "duplicates_index": "employee_id"
+            }
+        ],
+        "row_count": 28982
+    },
+    "wallet_transaction": {
+        "name": "wallet_transaction",
+        "columns": {
+            "id": {
+                "name": "id",
+                "type": "BIGINT",
+                "nullable": false,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": []
+            },
+            "user_id": {
+                "name": "user_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": []
+            },
+            "amount": {
+                "name": "amount",
+                "type": "DECIMAL(10, 2)",
+                "nullable": false,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": []
+            },
+            "transaction_type": {
+                "name": "transaction_type",
+                "type": "TINYINT",
+                "nullable": false,
+                "default": "None",
+                "comment": "0:Debit,1:Credit",
+                "is_enum": false,
+                "enum_values": []
+            },
+            "reference_id": {
+                "name": "reference_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": []
+            },
+            "reference_type": {
+                "name": "reference_type",
+                "type": "ENUM",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": true,
+                "enum_values": [
+                    "ENU"
+                ]
+            },
+            "status": {
+                "name": "status",
+                "type": "TINYINT",
+                "nullable": false,
+                "default": "None",
+                "comment": "0:pending, 1:success,2:failed",
+                "is_enum": false,
+                "enum_values": []
+            },
+            "remark": {
+                "name": "remark",
+                "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+                "nullable": false,
+                "default": "None",
+                "comment": "success scan qr,cash widthdrawal, bonus convertion,etc",
+                "is_enum": false,
+                "enum_values": []
+            },
+            "created_at": {
+                "name": "created_at",
+                "type": "TIMESTAMP",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": []
+            },
+            "updated_at": {
+                "name": "updated_at",
+                "type": "TIMESTAMP",
+                "nullable": true,
+                "default": "None",
+                "comment": null,
+                "is_enum": false,
+                "enum_values": []
+            }
+        },
+        "primary_keys": [
+            "id"
+        ],
+        "foreign_keys": [],
+        "indexes": [
+            {
+                "name": "created_at",
+                "column_names": [
+                    "created_at"
+                ],
+                "unique": false
+            },
+            {
+                "name": "user_id",
+                "column_names": [
+                    "user_id",
+                    "amount",
+                    "transaction_type",
+                    "reference_id",
+                    "reference_type",
+                    "status"
+                ],
+                "unique": false
+            }
+        ],
+        "unique_constraints": [],
+        "row_count": 6488093
+    }
+}

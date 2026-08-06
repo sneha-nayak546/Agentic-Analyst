@@ -1,0 +1,47 @@
+# Enterprise Data Analyst Investigation Upgrade Plan
+
+To make the AI behave exactly like a senior human Data Analyst, we will introduce a **Database Investigation Phase** and a **Structured Query Plan**. This shifts the architecture from direct Text-to-SQL into a rigorous plan-and-execute loop.
+
+## User Review Required
+> [!IMPORTANT]
+> This upgrade alters how tables are selected and how the LLM generates its response. The system will now explicitly score candidate tables and output a textual execution plan before writing SQL. Please review the threshold for table scoring (defaulting to 90%) and the proposed plan structure below.
+
+## Proposed Changes
+
+### 1. Database Investigation & Candidate Scoring (`app/knowledge/knowledge_graph.py`)
+- Refactor `resolve_business_query()` to assign a **Relevance Score (0-100%)** to every candidate table discovered during the search.
+  - Exact business dictionary mapping = 100%
+  - Exact table name match = 90%
+  - Column name heuristic match = 70%
+- If the highest-scoring candidate table is below `90%`, the system will abort generation and return an ambiguous state, asking the user a clarification question.
+
+### 2. Query Planning Output (`app/prompt/prompt_builder.py`)
+- Rewrite the prompt to require the LLM to output a structured **Query Plan** before any SQL is generated.
+- Format requirement:
+  ```
+  PLAN:
+  Intent: ...
+  Entities: ...
+  Candidate Tables: ...
+  Relationships: ...
+  Date Filter: ...
+  Aggregation: ...
+  ---
+  SQL:
+  SELECT ...
+  ```
+
+### 3. Parsing & Explainability (`app/agent/sql_agent.py`)
+- Update the LLM parsing logic to cleanly separate the `PLAN` block from the `SQL` block.
+- Use the generated `PLAN` block directly as the **Human Explanation** to return to the user.
+- If the `PLAN` is missing or malformed, trigger the self-correction loop to regenerate it.
+
+### 4. Self Review & Business Payload
+- After parsing the SQL, if `validate_sql()` or the `EXPLAIN` plan fails, the error will be appended to the LLM's context, forcing it to review its plan and regenerate.
+- The final JSON payload returned to the UI will strictly contain: `sql`, `result`, `explanation` (from the plan), `confidence_score`, `tables_used`, and `relationships_used`, completely satisfying the non-technical business requirement.
+
+## Verification Plan
+1. **Manual Tests**:
+   - Query "Show transactions" -> The scoring algorithm should score `wallet_transaction`, `withdrawal`, and `automatic_transactions_bank` below 90% (due to ambiguity) and prompt the user.
+   - Query "Show wallet balance" -> Should hit 100% match on `wallet_transaction` and proceed.
+2. **Automated Suite**: Run `python -m tests.run_eval` to ensure the new `PLAN` structure parses correctly without regressing accuracy.

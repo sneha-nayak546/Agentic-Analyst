@@ -1,0 +1,123 @@
+# Enterprise AI SQL Agent: Business Knowledge Graph & Semantic Metadata Architecture
+
+Transform the current SQL agent into an **Enterprise AI SQL Agent** equipped with a **Business Knowledge Graph**, **Automated Database Profiler**, **Business Metadata Layer**, and **Semantic Term Mapper**. 
+
+The end user interacts purely in natural business terms (e.g. *"Retailer scan count in January 2026"* or *"Show pending withdrawals"*), while the agent automatically resolves business concepts to physical tables, columns, integer role codes, enum values, and foreign key join paths without requiring the user to know anything about the database.
+
+---
+
+## 🏛️ Architecture Overview
+
+```mermaid
+graph TD
+    A["User Business Query (Natural Language)"] --> B["Knowledge Graph Semantic Resolver (O(1) In-Memory)"]
+    B --> C["Discovered Metadata & DB Profiler (Enums, Status Codes, Role Mappings)"]
+    B --> D["Relationship Graph (Foreign Keys & Join Paths)"]
+    C --> E["Business Reasoning Context Engine"]
+    D --> E
+    E --> F["Ultra-Compressed Semantic Prompt (< 250 tokens)"]
+    F --> G["Local Qwen2.5-Coder Generation / Direct Execution"]
+    G --> H["SQL Validation & Optimization (sqlglot)"]
+    H --> I["MySQL Read-Only Database Execution"]
+    I --> J["Response Payload + Business Reasoning Steps UI"]
+```
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Zero Manual Coding for New Queries & 100% Offline**:
+> All business metadata, enum mappings, status codes, and relationship graphs are stored locally in `knowledge/business_metadata.json` and loaded into an O(1) in-memory Knowledge Graph at startup. No external paid APIs or vector DB lookups are required.
+
+> [!TIP]
+> **Sub-Second Performance Preserved**:
+> Semantic resolution in the Knowledge Graph executes in **< 1 ms**, ensuring end-to-end response times remain under **1.0 second**.
+
+---
+
+## Proposed Technical Components
+
+### 1. Business Metadata Layer & Database Profiler
+
+#### [NEW] [business_metadata.json](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/knowledge/business_metadata.json)
+Structured semantic metadata defining table business purposes, column meanings, status dictionaries, integer role codes, and business terminology:
+- **Table Purposes**: Business descriptions for `users`, `wallet_transaction`, `withdrawal_request`, `companies`, `sku_inventories`, `machine_details`, `automatic_transactions`, `automate`.
+- **Integer Code & Enum Value Mappings**:
+  - `users.user_role`: `{1: "Admin", 2: "Distributor", 3: "Dealer", 4: "Company", 5: "Retailer", 6: "Employee"}`
+  - `users.status`: `{0: "Pending", 1: "Active", 2: "Rejected", 3: "Suspended"}`
+  - `withdrawal_request.status`: `{0: "Pending", 1: "Approved", 2: "Rejected", 3: "Cancelled"}`
+  - `wallet_transaction.transaction_type`: `{1: "Credit", 2: "Debit"}`
+  - `wallet_transaction.reference_type`: `["scan_reward", "scan", "topup", "cash_point", "withdrawal", "bonus", "transfer"]`
+- **Business Terms Dictionary**:
+  - Maps terms (`Retailer`, `Dealer`, `Distributor`, `Scan`, `Topup`, `Pending`, `Approved`, `Withdrawal`, `Credit`, `Debit`, `Bonus`, `Growth points`, `Machine`) to physical columns, values, and filtering logic.
+
+#### [NEW] [db_profiler.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/db_profiler.py)
+- Startup profiler that analyzes MySQL `INFORMATION_SCHEMA` and sample data.
+- Auto-discovers distinct enum values, sample integer codes, distinct `reference_type` and `status` values, column comments, primary keys, and foreign keys.
+- Automatically merges discovered data into the in-memory metadata layer.
+
+---
+
+### 2. Semantic Knowledge Graph Engine
+
+#### [NEW] [knowledge_graph.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/knowledge_graph.py)
+- In-memory graph data structure composed of:
+  - **Nodes**: `TableNode`, `ColumnNode`, `BusinessTermNode`, `EnumNode`, `RelationshipNode`.
+  - **Edges**: `belongs_to`, `references`, `means`, `mapped_to`, `related_to`.
+- `KnowledgeGraph.resolve_business_query(question: str)` method:
+  - Identifies business terms in the query (e.g. *"Retailer scan count in January 2026"*).
+  - Resolves *"Retailer"* -> `users.user_role = 5`.
+  - Resolves *"Scan"* -> `wallet_transaction.reference_type = 'scan_reward'`.
+  - Traverses Foreign Key join path: `wallet_transaction.user_id = users.id`.
+  - Resolves date range sargable filter: `created_at >= '2026-01-01' AND created_at < '2026-02-01'`.
+  - Generates a structured `ReasoningContext`.
+
+---
+
+### 3. Retriever & Prompt Builder Integration
+
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- Integrates `KnowledgeGraph` for semantic retrieval.
+- Replaces generic schema text with resolved semantic business context (Required Tables, Discovered Mappings, Join Paths, Business Rules).
+
+#### [MODIFY] [prompt_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/prompt/prompt_builder.py)
+- Updates `build_sql_prompt()` to include resolved business reasoning context:
+  ```text
+  Business Reasoning Context:
+  - Target Tables: wallet_transaction, users
+  - Join Path: wallet_transaction.user_id = users.id
+  - Business Mappings: users.user_role = 5 (Retailer), wallet_transaction.reference_type = 'scan_reward' (Scan)
+  - Date Filter: created_at >= '2026-01-01' AND created_at < '2026-02-01'
+  ```
+
+---
+
+### 4. Agent Orchestrator & UI Explanation Logging
+
+#### [MODIFY] [sql_agent.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/sql_agent.py)
+- Updates `run_agent()` to execute Knowledge Graph semantic resolution.
+- Exposes structured reasoning steps (`Detected Business Terms`, `Detected Tables`, `Detected Relationships`, `Detected Filters`, `Detected Join Path`) in the response payload (`result["reasoning"]`).
+
+#### [MODIFY] [main.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/api/main.py)
+- Adds `/admin/knowledge-graph` endpoint to inspect the active Knowledge Graph nodes, edges, and metadata.
+- Updates SSE streaming progress to emit:
+  `Resolving business terms...` -> `Traversing knowledge graph...` -> `Building semantic SQL...` -> `Validating AST...` -> `Executing query...`.
+
+#### [MODIFY] [index.html](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/static/index.html)
+- Renders expandable **"Enterprise Business Reasoning & Knowledge Graph Mappings"** card in chat output.
+- Displays detected business terms, mapped integer codes, and join paths clearly.
+
+---
+
+## Verification Plan
+
+### Automated Verification
+- Run test queries covering complex business terms:
+  1. *"Retailer scan count in January 2026"* -> Verify `users.user_role = 5`, `wallet_transaction.reference_type = 'scan_reward'`, `wallet_transaction.user_id = users.id`.
+  2. *"Show pending withdrawals"* -> Verify `withdrawal_request.status = 0`.
+  3. *"Distributor wallet transactions"* -> Verify `users.user_role = 2`, `wallet_transaction.user_id = users.id`.
+  4. *"Approved automatic bank transactions"* -> Verify `automatic_transactions`.
+
+### Performance & Latency Verification
+- Run benchmark script `benchmark.py` to confirm total response times remain **< 1.0 second**.

@@ -1,0 +1,38 @@
+# Enterprise AI Data Analyst Finalization Plan
+
+To fulfill the requirements of transforming the existing AI SQL Agent into a production-grade Enterprise AI Data Analyst Platform, we will complete the wiring for the UI pages (History, Settings, Admin Observability) and implement the self-correcting execution loop in the backend. 
+
+All underlying APIs (`/history`, `/admin/stats`, `/export/*`) already exist. We just need to integrate them into the premium Vite React UI and harden the backend execution loop.
+
+## User Review Required
+> [!IMPORTANT]
+> The backend endpoints for history, stats, and exports are already built and returning data. This plan will primarily focus on building the React UI components to consume these APIs, plus adding a strict SQL execution retry loop to the backend. Please review the architectural steps below.
+
+## Proposed Changes
+
+### 1. Frontend: History & Settings & Observability
+We will implement routing (using simple state-based views to keep it lightweight) in `App.jsx` to swap between the Chat, History, and Settings views.
+#### [NEW] `frontend/src/components/HistoryView.jsx`
+- Fetches from `/history` and displays a searchable, filterable list of past queries, execution times, and confidence scores.
+#### [NEW] `frontend/src/components/SettingsView.jsx`
+- Fetches from `/admin/status` and `/admin/settings`.
+- Displays database status, LLM status, ChromaDB status, and controls to refresh metadata or rebuild embeddings.
+#### [NEW] `frontend/src/components/AdminPanel.jsx`
+- Fetches from `/admin/stats`.
+- Displays system health metrics: Average latency, confidence, query count, mapped relationships, and vocab size.
+
+### 2. Frontend: Exports (DataGrid Integration)
+#### [MODIFY] `frontend/src/components/DataGrid.jsx`
+- Currently, the Export CSV button is a placeholder `onExportCSV={() => {}}`.
+- We will wire this to send a POST request to `/export/csv` with the `columns` and `data` payload, triggering a browser download. We will also add buttons for Excel and JSON.
+
+### 3. Backend: SQL Execution Self-Correction
+#### [MODIFY] `app/agent/sql_agent.py`
+- Currently, the self-correction loop (`while attempt < max_retries`) only triggers if the AST validation fails.
+- We will modify this loop so that if AST validation passes, it *immediately* attempts `execute_read_query(validated_sql)`. 
+- If execution fails (e.g., column doesn't exist despite passing AST), the MySQL error will be caught, appended to `error_feedback`, and the loop will retry (up to 3 times) to rewrite the SQL before failing completely.
+
+## Verification Plan
+1. **Frontend**: Click the "Recent Queries" and "Settings" buttons in the sidebar to verify the new components render and fetch data successfully.
+2. **Exports**: Run a query and click "Export CSV" to ensure the browser downloads the file.
+3. **Self-Correction**: Inject a bad column into the LLM prompt response internally to verify the `sql_agent.py` catches the execution error and automatically rewrites it.

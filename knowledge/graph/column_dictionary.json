@@ -1,0 +1,1010 @@
+{
+    "id": [
+        {
+            "table": "automatic_transactions",
+            "type": "BIGINT"
+        },
+        {
+            "table": "companies",
+            "type": "BIGINT"
+        },
+        {
+            "table": "inventory",
+            "type": "BIGINT"
+        },
+        {
+            "table": "role",
+            "type": "INTEGER"
+        },
+        {
+            "table": "sku_inventories",
+            "type": "BIGINT"
+        },
+        {
+            "table": "users",
+            "type": "BIGINT"
+        },
+        {
+            "table": "wallet_transaction",
+            "type": "BIGINT"
+        },
+        {
+            "table": "withdrawal_request",
+            "type": "BIGINT"
+        }
+    ],
+    "user_id": [
+        {
+            "table": "automatic_transactions",
+            "type": "BIGINT"
+        },
+        {
+            "table": "wallet_transaction",
+            "type": "INTEGER"
+        },
+        {
+            "table": "withdrawal_request",
+            "type": "INTEGER"
+        }
+    ],
+    "reference_id": [
+        {
+            "table": "automatic_transactions",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        },
+        {
+            "table": "wallet_transaction",
+            "type": "INTEGER"
+        }
+    ],
+    "transaction_id": [
+        {
+            "table": "automatic_transactions",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "transfer_type": [
+        {
+            "table": "automatic_transactions",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "res_code": [
+        {
+            "table": "automatic_transactions",
+            "type": "LONGTEXT"
+        }
+    ],
+    "status": [
+        {
+            "table": "automatic_transactions",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        },
+        {
+            "table": "inventory",
+            "type": "INTEGER"
+        },
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        },
+        {
+            "table": "wallet_transaction",
+            "type": "TINYINT"
+        },
+        {
+            "table": "withdrawal_request",
+            "type": "TINYINT"
+        }
+    ],
+    "users_phone_number": [
+        {
+            "table": "automatic_transactions",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "users_account_number": [
+        {
+            "table": "automatic_transactions",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "created_at": [
+        {
+            "table": "automatic_transactions",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "companies",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "inventory",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "role",
+            "type": "DATETIME"
+        },
+        {
+            "table": "sku_inventories",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "users",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "wallet_transaction",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "withdrawal_request",
+            "type": "TIMESTAMP"
+        }
+    ],
+    "updated_at": [
+        {
+            "table": "automatic_transactions",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "companies",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "inventory",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "role",
+            "type": "DATETIME"
+        },
+        {
+            "table": "sku_inventories",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "users",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "wallet_transaction",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "withdrawal_request",
+            "type": "TIMESTAMP"
+        }
+    ],
+    "amount": [
+        {
+            "table": "automatic_transactions",
+            "type": "DOUBLE"
+        },
+        {
+            "table": "wallet_transaction",
+            "type": "DECIMAL(10, 2)"
+        },
+        {
+            "table": "withdrawal_request",
+            "type": "INTEGER"
+        }
+    ],
+    "bank_reference_number": [
+        {
+            "table": "automatic_transactions",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "response_data": [
+        {
+            "table": "automatic_transactions",
+            "type": "LONGTEXT"
+        }
+    ],
+    "transaction_source": [
+        {
+            "table": "automatic_transactions",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "name": [
+        {
+            "table": "companies",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        },
+        {
+            "table": "role",
+            "type": "VARCHAR(100)"
+        },
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "phone": [
+        {
+            "table": "companies",
+            "type": "BIGINT"
+        }
+    ],
+    "email": [
+        {
+            "table": "companies",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        },
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "sap_code": [
+        {
+            "table": "companies",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "business_unit": [
+        {
+            "table": "companies",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "jgh_company": [
+        {
+            "table": "companies",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "image": [
+        {
+            "table": "companies",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "business_info_id": [
+        {
+            "table": "companies",
+            "type": "BIGINT"
+        },
+        {
+            "table": "users",
+            "type": "BIGINT"
+        }
+    ],
+    "customer_id": [
+        {
+            "table": "companies",
+            "type": "BIGINT"
+        }
+    ],
+    "monthly_percent_deactivate_qr_limit": [
+        {
+            "table": "companies",
+            "type": "DECIMAL(8, 2)"
+        }
+    ],
+    "additional_monthly_deactivate_qr_limit": [
+        {
+            "table": "companies",
+            "type": "INTEGER"
+        }
+    ],
+    "additional_limit_valid_upto": [
+        {
+            "table": "companies",
+            "type": "DATE"
+        }
+    ],
+    "product_id": [
+        {
+            "table": "inventory",
+            "type": "BIGINT"
+        },
+        {
+            "table": "sku_inventories",
+            "type": "BIGINT"
+        }
+    ],
+    "quantity": [
+        {
+            "table": "inventory",
+            "type": "BIGINT"
+        }
+    ],
+    "points": [
+        {
+            "table": "inventory",
+            "type": "INTEGER"
+        }
+    ],
+    "qrcode": [
+        {
+            "table": "inventory",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "file_path": [
+        {
+            "table": "inventory",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "print_status": [
+        {
+            "table": "inventory",
+            "type": "INTEGER"
+        }
+    ],
+    "deleted_at": [
+        {
+            "table": "inventory",
+            "type": "TIMESTAMP"
+        },
+        {
+            "table": "role",
+            "type": "DATETIME"
+        },
+        {
+            "table": "users",
+            "type": "TIMESTAMP"
+        }
+    ],
+    "product_price": [
+        {
+            "table": "inventory",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "batch_id": [
+        {
+            "table": "inventory",
+            "type": "BIGINT"
+        }
+    ],
+    "company_id": [
+        {
+            "table": "inventory",
+            "type": "BIGINT"
+        }
+    ],
+    "branch_id": [
+        {
+            "table": "inventory",
+            "type": "BIGINT"
+        }
+    ],
+    "used_by_wholeseller": [
+        {
+            "table": "inventory",
+            "type": "TINYINT"
+        }
+    ],
+    "old_id": [
+        {
+            "table": "inventory",
+            "type": "INTEGER"
+        }
+    ],
+    "sku_inventory_id": [
+        {
+            "table": "inventory",
+            "type": "BIGINT"
+        }
+    ],
+    "is_editable": [
+        {
+            "table": "role",
+            "type": "TINYINT"
+        }
+    ],
+    "mrp": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "sku_code": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "unit_price": [
+        {
+            "table": "sku_inventories",
+            "type": "DECIMAL(10, 2)"
+        }
+    ],
+    "sku_description": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "invoiced_quantity": [
+        {
+            "table": "sku_inventories",
+            "type": "INTEGER"
+        }
+    ],
+    "batch_details": [
+        {
+            "table": "sku_inventories",
+            "type": "JSON"
+        }
+    ],
+    "outer_lpn_number": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "lpn_number": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "carton_no": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "lpn_code": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "packed_quantity": [
+        {
+            "table": "sku_inventories",
+            "type": "INTEGER"
+        }
+    ],
+    "order_type": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "order_reference": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "uom": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "invoice_number": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "invoice_date": [
+        {
+            "table": "sku_inventories",
+            "type": "DATE"
+        }
+    ],
+    "warehouse": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "invoiced_by": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "order_date": [
+        {
+            "table": "sku_inventories",
+            "type": "DATE"
+        }
+    ],
+    "customer_info": [
+        {
+            "table": "sku_inventories",
+            "type": "JSON"
+        }
+    ],
+    "distributer_id": [
+        {
+            "table": "sku_inventories",
+            "type": "BIGINT"
+        },
+        {
+            "table": "users",
+            "type": "BIGINT"
+        }
+    ],
+    "is_callback": [
+        {
+            "table": "sku_inventories",
+            "type": "TINYINT"
+        }
+    ],
+    "status_wholeseller_id": [
+        {
+            "table": "sku_inventories",
+            "type": "BIGINT"
+        }
+    ],
+    "status_retailer_id": [
+        {
+            "table": "sku_inventories",
+            "type": "BIGINT"
+        }
+    ],
+    "sources": [
+        {
+            "table": "sku_inventories",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "wholesaler_scanned_at": [
+        {
+            "table": "sku_inventories",
+            "type": "DATETIME"
+        }
+    ],
+    "retailer_scanned_at": [
+        {
+            "table": "sku_inventories",
+            "type": "DATETIME"
+        }
+    ],
+    "is_active": [
+        {
+            "table": "sku_inventories",
+            "type": "TINYINT"
+        }
+    ],
+    "is_offline": [
+        {
+            "table": "sku_inventories",
+            "type": "TINYINT"
+        }
+    ],
+    "last_name": [
+        {
+            "table": "users",
+            "type": "VARCHAR(100) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "email_verified_at": [
+        {
+            "table": "users",
+            "type": "TIMESTAMP"
+        }
+    ],
+    "password": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "two_factor_secret": [
+        {
+            "table": "users",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "two_factor_recovery_codes": [
+        {
+            "table": "users",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "remember_token": [
+        {
+            "table": "users",
+            "type": "VARCHAR(100) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "country_code": [
+        {
+            "table": "users",
+            "type": "VARCHAR(10) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "mobile_number": [
+        {
+            "table": "users",
+            "type": "BIGINT"
+        }
+    ],
+    "user_role": [
+        {
+            "table": "users",
+            "type": "INTEGER"
+        }
+    ],
+    "club": [
+        {
+            "table": "users",
+            "type": "VARCHAR(50) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "designation": [
+        {
+            "table": "users",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "dob": [
+        {
+            "table": "users",
+            "type": "DATE"
+        }
+    ],
+    "city": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "state_id": [
+        {
+            "table": "users",
+            "type": "INTEGER"
+        }
+    ],
+    "address": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "pincode": [
+        {
+            "table": "users",
+            "type": "INTEGER"
+        }
+    ],
+    "anniversary_date": [
+        {
+            "table": "users",
+            "type": "DATE"
+        }
+    ],
+    "lang_id": [
+        {
+            "table": "users",
+            "type": "INTEGER"
+        }
+    ],
+    "nat_state_id": [
+        {
+            "table": "users",
+            "type": "INTEGER"
+        }
+    ],
+    "account_holder_name": [
+        {
+            "table": "users",
+            "type": "VARCHAR(200) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "bank_name": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "account_no": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "ifsc_code": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "account_type": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "image_path": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "district": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "gender": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "profile_image": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "membership_id": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "wallet_balance": [
+        {
+            "table": "users",
+            "type": "BIGINT"
+        }
+    ],
+    "bank_details_status": [
+        {
+            "table": "users",
+            "type": "TINYINT"
+        }
+    ],
+    "adhaar": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "adhaar_image": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "adhaar_front_image": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "adhaar_back_image": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "pan_card": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "pan_card_image": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "passbook_image": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "upi": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "old_user_id": [
+        {
+            "table": "users",
+            "type": "INTEGER"
+        }
+    ],
+    "kyc_status": [
+        {
+            "table": "users",
+            "type": "INTEGER"
+        }
+    ],
+    "adhaar_details": [
+        {
+            "table": "users",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "business_pan": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "bonus_points": [
+        {
+            "table": "users",
+            "type": "BIGINT"
+        }
+    ],
+    "isBlacklisted": [
+        {
+            "table": "users",
+            "type": "TINYINT"
+        }
+    ],
+    "scan_limit": [
+        {
+            "table": "users",
+            "type": "INTEGER"
+        }
+    ],
+    "referral_code": [
+        {
+            "table": "users",
+            "type": "VARCHAR(6) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "device_id": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "last_login": [
+        {
+            "table": "users",
+            "type": "DATETIME"
+        }
+    ],
+    "app_updated": [
+        {
+            "table": "users",
+            "type": "TINYINT"
+        }
+    ],
+    "block_withdrawal": [
+        {
+            "table": "users",
+            "type": "TINYINT"
+        }
+    ],
+    "block_withdrawal_message": [
+        {
+            "table": "users",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "shop_branding": [
+        {
+            "table": "users",
+            "type": "TINYINT"
+        }
+    ],
+    "block_gift_redeem": [
+        {
+            "table": "users",
+            "type": "TINYINT"
+        }
+    ],
+    "block_gift_redeem_message": [
+        {
+            "table": "users",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "disable_scan": [
+        {
+            "table": "users",
+            "type": "TINYINT"
+        }
+    ],
+    "disable_scan_message": [
+        {
+            "table": "users",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "direct_manager_id": [
+        {
+            "table": "users",
+            "type": "BIGINT"
+        }
+    ],
+    "employee_id": [
+        {
+            "table": "users",
+            "type": "VARCHAR(20) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "primary_distributor_id": [
+        {
+            "table": "users",
+            "type": "BIGINT"
+        }
+    ],
+    "remark": [
+        {
+            "table": "users",
+            "type": "TEXT COLLATE \"utf8mb4_unicode_ci\""
+        },
+        {
+            "table": "wallet_transaction",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "fcm_token": [
+        {
+            "table": "users",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "transaction_type": [
+        {
+            "table": "wallet_transaction",
+            "type": "TINYINT"
+        }
+    ],
+    "reference_type": [
+        {
+            "table": "wallet_transaction",
+            "type": "ENUM"
+        }
+    ],
+    "bank_transaction_id": [
+        {
+            "table": "withdrawal_request",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "delivery_proof": [
+        {
+            "table": "withdrawal_request",
+            "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ],
+    "automatic_transaction_id": [
+        {
+            "table": "withdrawal_request",
+            "type": "BIGINT"
+        }
+    ],
+    "tds_amount": [
+        {
+            "table": "withdrawal_request",
+            "type": "DECIMAL(10, 2)"
+        }
+    ],
+    "tds_deducted_amount": [
+        {
+            "table": "withdrawal_request",
+            "type": "DECIMAL(10, 2)"
+        }
+    ],
+    "gift_order_id": [
+        {
+            "table": "withdrawal_request",
+            "type": "BIGINT"
+        }
+    ],
+    "withdraw_request_type": [
+        {
+            "table": "withdrawal_request",
+            "type": "VARCHAR(50) COLLATE \"utf8mb4_unicode_ci\""
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+[
+    {
+        "from_table": "users",
+        "from_column": "user_role",
+        "to_table": "user_role",
+        "to_column": "id"
+    },
+    {
+        "from_table": "users",
+        "from_column": "user_role",
+        "to_table": "role",
+        "to_column": "id"
+    },
+    {
+        "from_table": "wallet_transaction",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id"
+    },
+    {
+        "from_table": "withdrawal_request",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id"
+    },
+    {
+        "from_table": "withdrawal_request",
+        "from_column": "automatic_transaction_id",
+        "to_table": "automatic_transactions",
+        "to_column": "id"
+    },
+    {
+        "from_table": "automatic_transactions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id"
+    },
+    {
+        "from_table": "sku_inventories",
+        "from_column": "distributer_id",
+        "to_table": "users",
+        "to_column": "id"
+    },
+    {
+        "from_table": "sku_inventories",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id"
+    },
+    {
+        "from_table": "machine_details",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id"
+    },
+    {
+        "from_table": "companies",
+        "from_column": "customer_id",
+        "to_table": "users",
+        "to_column": "id"
+    }
+]

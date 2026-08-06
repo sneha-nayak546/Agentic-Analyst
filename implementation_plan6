@@ -1,0 +1,138 @@
+# Implementation Plan - High-Speed AI SQL Agent Backend Refactor
+
+Refactor the existing AI SQL Agent backend for maximum speed (sub-second target for natural language to SQL generation) without altering the existing folder/file project structure.
+
+## User Review Required
+
+> [!IMPORTANT]
+> - **Zero Structural Changes**: The directory layout (`app/agent`, `app/retriever`, `app/embedding`, `app/prompt`, `app/validator`, `app/database`, `app/api`, `app/static`) will remain unchanged.
+> - **Strict 8-Table Database Scope**: Queries and schema index are restricted exclusively to: `users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`.
+> - **Local Ollama Qwen Optimization**: Tuning Ollama parameters (`temperature=0`, `top_p=0.8`, `do_sample=False`, `num_predict=200`, `stop=[";"]`) to generate minimal SQL output instantly without markdown commentary.
+
+## Proposed Changes
+
+---
+
+### [Component 1] Allowed Scope & Database Connection Pooling
+
+#### [MODIFY] [allowed_tables.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/allowed_tables.py)
+- Confirm strict scope to the 8 target tables (`users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`).
+- Expand alias lookup table to normalize natural language terms (e.g. `withdrawals`, `cashout`, `user balance`, `stock`, `inventory`) to canonical table names.
+
+#### [MODIFY] [read_executor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/read_executor.py) & [connection.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/connection.py)
+- Ensure persistent SQLAlchemy connection engine with `pool_size=10`, `max_overflow=20`, `pool_recycle=3600`, `pool_pre_ping=True` is reused across all requests. Eliminate per-query reconnection delays.
+
+---
+
+### [Component 2] Smart Intent Detection, Split Chroma Collections & Memory Schema Caching
+
+#### [MODIFY] [chroma_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/embedding/chroma_builder.py)
+- Re-architect vector store setup to build **8 separate ChromaDB collections**:
+  - `wallet_schema`
+  - `user_schema`
+  - `withdrawal_schema`
+  - `sku_schema`
+  - `company_schema`
+  - `machine_schema`
+  - `automatic_transaction_schema`
+  - `automate_schema`
+
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- **Smart Intent Detection**: Implement fast keyword matching to map incoming user questions to target domain intents.
+- **In-Memory Schema Cache**: Cache schema cards in memory at startup. When intent is matched, fetch schema directly from memory without querying ChromaDB on every request.
+- **Single-Collection Search & Deduplication**: If Chroma lookup is needed, query strictly the single matching collection. Deduplicate schema cards and SQL history (max 3 schema cards, max 2 SQL syntax examples).
+
+---
+
+### [Component 3] Relationship Graph & SQL Template / Memory Caching
+
+#### [MODIFY] [relationship_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/relationship_builder.py)
+- Expose structured in-memory foreign key relationship graph (`users.id` <-> `wallet_transaction.user_id`, `withdrawal_request.user_id`, `automatic_transactions.user_id`, `sku_inventories.distributer_id`, `companies.id` <-> `sku_inventories.company_id`).
+
+#### [MODIFY] [sql_agent.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/sql_agent.py)
+- **Exact Question Cache**: Store exact question -> SQL mapping in fast Python memory cache. Exact repeat queries return immediately (< 1 ms) without calling the LLM.
+- **SQL Template Cache & Param Swap**: Cache parameterized SQL templates (e.g. replacing month/date values such as "July 2026" vs "August 2026"). Swap date conditions directly in cached templates when structure matches.
+- **Parallel Processing (`ThreadPoolExecutor`)**: Run schema retrieval, SQL history retrieval, and initial checks concurrently.
+- **Detailed Microsecond Benchmarking & Professional Logging**:
+  - Track and print timing for: Schema retrieval, Prompt build, LLM generation, AST Validation/Optimization, DB Execution, CSV export, Total time.
+
+---
+
+### [Component 4] Compressed Prompt & Tuned Qwen Generation
+
+#### [MODIFY] [prompt_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/prompt/prompt_builder.py)
+- Compress SQL prompt to stay **under 500 tokens** (typically 200-350 tokens).
+- Include only: User question, Relevant tables & columns, Relationship joins, and strict rules. Eliminate unnecessary conversational text.
+
+#### [MODIFY] [sql_generator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/llm/sql_generator.py)
+- Pass optimized Ollama configuration:
+  - `temperature = 0.0`
+  - `top_p = 0.8`
+  - `do_sample = False`
+  - `num_predict = 200`
+  - `stop = [";", "\n\n"]`
+- Ensure 100% clean raw SQL return without markdown fences or explanations.
+
+---
+
+### [Component 5] AST Validation & SQL Optimization (`sqlglot`)
+
+#### [MODIFY] [sql_validator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_validator.py)
+- Parse SQL AST with `sqlglot`. Validate that statement is strictly `SELECT`.
+- Reject `DELETE`, `UPDATE`, `DROP`, `INSERT`, `ALTER`, `CREATE`, `TRUNCATE`, `REPLACE`, `CALL`.
+- Verify referenced tables are strictly within the 8 target scope tables.
+
+#### [MODIFY] [sql_optimizer.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_optimizer.py)
+- Perform AST rewriting:
+  - Replace `SELECT *` with explicit required columns.
+  - Remove unnecessary `ORDER BY` clauses if not explicitly requested.
+  - Inject `LIMIT 100` by default on unaggregated queries without limits.
+  - Convert `DATE(column) = 'YYYY-MM-DD'` or `YEAR/MONTH` functions to index-friendly sargable date ranges (`column >= 'YYYY-MM-DD 00:00:00' AND column < 'YYYY-MM-DD 23:59:59'`).
+
+---
+
+### [Component 6] Streaming UI & pandas CSV Streaming
+
+#### [MODIFY] [report_generator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/utils/report_generator.py)
+- Implement memory-efficient pandas CSV generator using streaming buffer / `StringIO` iterators for large result sets.
+
+#### [MODIFY] [main.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/api/main.py)
+- Add streaming endpoint `/query/stream` using Server-Sent Events (SSE) / `EventSource` to emit real-time pipeline status updates:
+  - `Searching schema...`
+  - `Generating SQL...`
+  - `Executing query...`
+  - `Preparing report...`
+- Pre-load schema into memory cache on FastAPI startup (`lifespan`).
+
+#### [MODIFY] [index.html](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/static/index.html)
+- Update frontend UI chat interface to consume streaming status events, rendering step progress dynamically for an instant ChatGPT-like feel.
+
+---
+
+### [Component 7] Benchmark Script
+
+#### [NEW] [benchmark.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/benchmark.py)
+- Standalone benchmark tool testing queries across all 8 tables. Measure and report stage-by-stage timings (schema retrieval, prompt build, LLM, validation, execution, total ms) comparing cached vs uncached runs.
+
+---
+
+## Verification Plan
+
+### Automated Tests & Benchmarks
+- Run `python benchmark.py` to verify:
+  1. Smart intent detection latency (< 2 ms)
+  2. Memory schema cache latency (< 1 ms)
+  3. Memory question/template cache latency (< 1 ms)
+  4. LLM query generation latency (< 1 second)
+  5. AST SQL validation & optimization pass
+  6. Overall pipeline latency (< 1 second)
+- Run `pytest` or standalone assertion scripts for `sqlglot` security AST rules (rejecting `DELETE`, `UPDATE`, etc.).
+
+### Manual Verification
+- Test natural language queries in UI (`http://localhost:8000/static/index.html`):
+  - "Show wallet transactions for July 2026"
+  - "Show wallet transactions for August 2026" (verify template cache hit)
+  - "Show top 10 users by balance"
+  - "Show withdrawal requests summary"
+- Verify streaming progress step indicators (`Searching schema...`, `Generating SQL...`, etc.) on the UI.
+- Verify CSV export for large data queries.

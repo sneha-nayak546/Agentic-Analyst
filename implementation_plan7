@@ -1,0 +1,162 @@
+# High-Speed AI SQL Agent Refactoring Plan (< 1 Second Latency)
+
+Refactor and optimize the existing local AI SQL Agent codebase to achieve sub-second end-to-end response times (< 1.0 second) without altering the project directory structure or changing the core stack (FastAPI, SQLAlchemy, MySQL, Qwen2.5-Coder, sqlglot).
+
+## Technical Overview & Bottleneck Strategy
+
+Currently, natural language queries take 2–5 seconds due to:
+1. RAG vector search overhead against Chroma on every request.
+2. Large prompt sizes containing redundant schema, relationship cards, and SQL history.
+3. Unoptimized LLM generation parameters causing long text output.
+4. Sequential step execution.
+5. Re-generation of SQL for common or parameterized queries.
+
+### Optimization Highlights & Target Latencies
+
+| Optimization Step | Technique | Target Latency Impact |
+| :--- | :--- | :--- |
+| **1. Intent Detection & In-Memory Schema** | Classify query to 1 of 8 domains (`users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`); retrieve from O(1) in-memory schema dict. Skip Chroma for single-table queries. | **1 - 2 ms** (vs 50-100 ms) |
+| **2. Fast Predefined Common Pattern Bypass** | Skip LLM entirely for common requests ("Show wallet transactions", "Top 10 users", "Today's withdrawals", "Monthly report"). | **0 - 5 ms** (vs 2000 ms) |
+| **3. Parameterized Template Cache** | Date/parameter substitution for similar queries (e.g. "July" vs "August"). Reuse cached template without LLM call. | **0 - 2 ms** (vs 2000 ms) |
+| **4. Exact Match Memory Cache** | Cache successful SQL queries in-memory for exact question matches. | **0 ms** LLM time |
+| **5. Ultra-Compressed Prompt (< 300 tokens)** | Send strictly required table schema, key foreign relationships, and 1 SQL example. Limit schema to 1 document and 1 SQL example. | Prompt build **2 - 4 ms** |
+| **6. Qwen2.5-Coder Generation Tuning** | `temperature=0`, `top_p=0.9`, `do_sample=False`, `max_new_tokens=120`, `repetition_penalty=1.0`, `stop=[";"]`. Stop immediately after first `;`. | LLM gen **300 - 600 ms** (vs 2500+ ms) |
+| **7. Parallelized Processing** | Execute intent detection, schema lookup, and SQL history lookup simultaneously using `ThreadPoolExecutor`. | Saved **15 - 30 ms** |
+| **8. MySQL Connection Pooling** | Persistent SQLAlchemy connection pool (`pool_size=10`, `max_overflow=20`, `pool_recycle=3600`, `pool_pre_ping=True`). | DB Exec **10 - 40 ms** |
+| **9. AST Optimization & Rewrite** | sqlglot rules: expand `SELECT *` to explicit columns, sargable date ranges (`BETWEEN` / `>=`), default `LIMIT 100`, strip unnecessary `ORDER BY`. | Validation **3 - 8 ms** |
+| **10. Micro-Benchmarking & UI Streaming** | Print detailed timing breakdown per stage. Stream real-time UI step notifications (`Detecting intent...` -> `Finding schema...` -> `Generating SQL...` -> `Validating SQL...` -> `Executing query...` -> `Preparing report...`). | Perceived latency < 100 ms |
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **No External API Dependencies or Architectural Changes**:
+> All refactoring is executed locally in-place within the existing codebase structure (`app/agent`, `app/retriever`, `app/prompt`, `app/llm`, `app/validator`, `app/database`, `app/api`, `app/static`). No new directories or third-party paid APIs are introduced.
+
+> [!TIP]
+> **Common Query Bypass & Template Reuse**:
+> Queries matching common administrative patterns or month parameter substitutions will execute in **under 10 ms** by reusing tested templates, reserving the local LLM only for custom/novel questions.
+
+---
+
+## Open Questions
+
+*None. All requirements and 19 optimization criteria are explicitly defined in the prompt.*
+
+---
+
+## Proposed Changes
+
+### 1. In-Memory Schema Dictionary & Startup Loader
+
+#### [MODIFY] [schema_extractor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/schema_extractor.py)
+- Build an in-memory schema dictionary structure:
+  ```python
+  SCHEMA_DICT = {
+      "domain_name": {
+          "columns": [...],
+          "primary_keys": [...],
+          "foreign_keys": [...],
+          "relationships": [...]
+      }
+  }
+  ```
+- Add startup schema initialization that extracts schema once and caches it in memory.
+
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- Refactor `identify_relevant_tables(question)` to implement Intent Detection mapping the query into one of the 8 allowed domains (`users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`).
+- Implement `retrieve_schema(question)` using O(1) in-memory lookup from `SCHEMA_DICT`.
+- Completely skip Chroma vector DB search for simple single-table queries.
+- Restrict retrieval to strictly **1 schema document** and **1 SQL example**.
+
+---
+
+### 2. Prompt Compression & LLM Optimization
+
+#### [MODIFY] [prompt_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/prompt/prompt_builder.py)
+- Compress prompt format to under 300 tokens:
+  - Target table and explicit columns only.
+  - Foreign key relationships relevant to the domain only.
+  - Minimal SQL rules.
+  - Exactly 1 relevant SQL example.
+  - Question and SQL trigger prompt.
+
+#### [MODIFY] [sql_generator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/llm/sql_generator.py)
+- Update Ollama / Qwen model execution parameters:
+  - `temperature`: 0.0
+  - `top_p`: 0.9
+  - `do_sample`: False
+  - `num_predict` / `max_new_tokens`: 120
+  - `repetition_penalty`: 1.0
+  - `stop`: `[";", "\n\n", "User:", "Question:", "Explanation:"]`
+- Instantly chop output after the first `;` and discard any explanation text.
+
+---
+
+### 3. Direct Template Bypass & Parallel Execution Pipeline
+
+#### [MODIFY] [sql_agent.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/sql_agent.py)
+- Implement **Common Query Pattern Bypass**: direct SQL template generation for common queries ("Show wallet transactions", "Top 10 users", "Today's withdrawals", "Monthly report").
+- Enhance **Parameterized Template Cache** (`SQL_TEMPLATE_CACHE`) for swapping date filters (July vs August vs September) without calling LLM.
+- Enhance **Exact Question Memory Cache** (`EXACT_QUESTION_CACHE`).
+- Parallelize intent detection, schema lookup, and SQL history lookup using `ThreadPoolExecutor`.
+- Implement microsecond timing for every step and print structured benchmark logs:
+  - Intent Detection
+  - Schema Lookup
+  - Prompt Build
+  - LLM Generation
+  - Validation
+  - Execution
+  - Total Pipeline Time
+
+---
+
+### 4. SQL Optimization Rules & AST Rewriter
+
+#### [MODIFY] [sql_optimizer.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_optimizer.py)
+- Enforce strict rewrite rules using `sqlglot`:
+  - Never `SELECT *` -> expand to explicit domain columns.
+  - Convert `DATE(col) = 'YYYY-MM-DD'` to sargable date range (`>= 'YYYY-MM-DD 00:00:00' AND <= 'YYYY-MM-DD 23:59:59'`).
+  - Inject `LIMIT 100` default on unaggregated non-limited queries.
+  - Eliminate unnecessary `JOIN`s and redundant `ORDER BY` clauses.
+
+#### [MODIFY] [read_executor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/read_executor.py)
+- Verify persistent SQLAlchemy connection pool (`pool_size=10`, `max_overflow=20`, `pool_recycle=3600`, `pool_pre_ping=True`).
+- Fast execution with dictionary mapping and benchmark return.
+
+---
+
+### 5. Progress Streaming & Frontend UI Updates
+
+#### [MODIFY] [main.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/api/main.py)
+- Update SSE endpoint `/query/stream` to push real-time step events:
+  - `Detecting intent...`
+  - `Finding schema...`
+  - `Generating SQL...`
+  - `Validating SQL...`
+  - `Executing query...`
+  - `Preparing report...`
+
+#### [MODIFY] [index.html](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/static/index.html)
+- Update React UI to consume real-time SSE step messages and display step-by-step progress indicator during query execution.
+- Display detailed timing benchmarks badge in query results (e.g. `Total: 482 ms | LLM: 420 ms | Schema: 1 ms`).
+
+---
+
+## Verification Plan
+
+### Automated Tests & Benchmarks
+- Run `benchmark.py` or inline Python test scripts to measure latency across multiple test queries:
+  1. Exact cached query
+  2. Predefined common query
+  3. Parameterized date swap query
+  4. Novel custom single-table query
+  5. Multi-table JOIN query
+
+### Manual Verification
+- Launch FastAPI server with `uvicorn app.api.main:app --reload`.
+- Open `http://localhost:8000/static/index.html` in browser.
+- Verify real-time progress steps (`Detecting intent...` -> `Finding schema...` -> `Generating SQL...` -> ...).
+- Verify total latency display < 1.0s.
+- Test CSV and Excel exports.

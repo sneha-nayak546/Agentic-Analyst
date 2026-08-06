@@ -1,0 +1,9 @@
+{
+    "nodes": [
+        "companies",
+        "users",
+        "wallet_transaction"
+    ],
+    "edges": [],
+    "entities": {}
+}

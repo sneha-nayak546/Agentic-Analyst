@@ -1,0 +1,124 @@
+# Enterprise AI SQL Agent - Professional Enhancement Implementation Plan
+
+This implementation plan outlines the professional enhancement of the existing local AI SQL Agent while strictly preserving existing working modules and architecture.
+
+## Overview of Existing Project & Understanding (Step 1 Complete)
+
+The existing project is a Python/FastAPI application backed by MySQL (read-only credentials in `.env`) and ChromaDB vector store for schema and SQL retrieval, using Ollama `qwen2.5-coder:7b` locally.
+
+### Key Architecture Components:
+1. **API & Server** (`app/api/main.py`, `app/main.py`): FastAPI server with read-only database health checks, query execution endpoint (`/query`), audit logging (`/history`), table scope info (`/admin/tables`), and export handlers.
+2. **Agent Orchestration** (`app/agent/sql_agent.py`): Pipeline that retrieves schema and SQL examples from ChromaDB, builds prompts, calls local Ollama `qwen2.5-coder:7b`, cleans SQL code blocks, validates AST via `sqlglot`, executes read queries against MySQL, and runs a self-correction loop on error.
+3. **Database Scope & Executor** (`app/database/allowed_tables.py`, `app/database/read_executor.py`): Restricts execution strictly to 8 canonical target tables (`users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`). Performs safe read-only queries with data serialization.
+4. **Knowledge & RAG** (`app/knowledge/*`, `app/embedding/*`, `app/retriever/*`): Schema cards and relationships stored in ChromaDB persistent storage using `sentence-transformers` (`all-MiniLM-L6-v2`).
+5. **Frontend UI** (`app/static/index.html`): Modern dark-mode web application featuring chat view, SQL history view, and target database scope view.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Zero Architectural Disruption**: All enhancements will strictly reuse existing modules (`app/agent`, `app/database`, `app/validator`, `app/retriever`, `app/llm`, `app/static`). No existing working files will be replaced or deleted.
+>
+> **Strict Local Offline Execution**: No external API calls (OpenAI, Gemini, Claude) will be introduced. Only local models via Ollama (`qwen2.5-coder:7b` or configured local Ollama models) will be used.
+
+---
+
+## Proposed Incremental Enhancements
+
+---
+
+### Component 1: Redesigned Structured RAG & Metadata Discovery
+
+#### [MODIFY] [schema_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/schema_builder.py)
+- Refactor knowledge cards to represent **Structured Knowledge** containing:
+  - Table name & business description
+  - Column names, data types, nullable attributes, default flags
+  - Primary Key & Foreign Keys
+  - Date filtering columns
+  - Numerical aggregation columns
+  - Common joins & common filter patterns
+- Enhance schema builder to dynamically read column metadata and foreign key relationships directly from MySQL `information_schema` for target scope tables.
+
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- Refactor retrieval logic to match query keywords/embeddings against table cards so that **only relevant tables** are returned in prompt context (e.g., "wallet transactions for July 2026" returns `wallet_transaction` and `users`, excluding `companies`, `machine_details`, `automate`).
+
+---
+
+### Component 2: Ambiguity Detection & Prompt Engineering
+
+#### [MODIFY] [prompt_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/prompt/prompt_builder.py)
+- Rewrite system prompts to explicitly instruct LLM to:
+  - Use retrieved context **strictly as schema guidance**, NEVER copying hardcoded dates/ids/values from historical query examples.
+  - Rely exclusively on user question constraints for values/dates (e.g. `WHERE created_at >= '2026-07-01'`).
+  - Output standard MySQL 8.0 SELECT statements.
+
+#### [NEW] [ambiguity_checker.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/ambiguity_checker.py)
+- Introduce a lightweight rule & LLM-assisted ambiguity classifier to catch vague/underspecified user prompts (e.g., "Show transactions", "Show report").
+- Returns follow-up question choices back to the UI instead of generating an inaccurate SQL query.
+
+---
+
+### Component 3: Advanced SQL Validation & AST Column Verification
+
+#### [MODIFY] [sql_validator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_validator.py)
+- Enhance `validate_sql` using `sqlglot` AST traversal:
+  - Validate root statement is `exp.Select` (Strictly block `INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `TRUNCATE`, `CREATE`).
+  - Verify every referenced table against target allowed scope (`users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`).
+  - **Hallucinated Column Validation**: Cross-reference referenced table columns in AST against known schema columns to reject hallucinated field names before execution.
+
+---
+
+### Component 4: SQL Optimization Pipeline
+
+#### [NEW] [sql_optimizer.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_optimizer.py)
+- Implement AST-based SQL optimization pass:
+  - Replace `SELECT *` with explicit column selections where appropriate.
+  - Remove redundant or unreferenced JOIN clauses.
+  - Optimize date range filters (converting `YEAR()` or `MONTH()` function wrappers on indexed columns into efficient `created_at >= '...' AND created_at < '...'` range bounds).
+  - Enforce explicit `LIMIT` bounds where appropriate while preserving user intent.
+
+---
+
+### Component 5: Searchable Query Audit History & Extended Reporting
+
+#### [MODIFY] [query_history.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/sql_history/query_history.py)
+- Update JSON audit log schema to record: `question`, `generated_sql`, `optimized_sql`, `execution_time_ms`, `timestamp`, `row_count`, `validation_status`, `affected_tables`, `error`.
+- Add search and filter function (`search_query_history(search_term)`) to enable keyword filtering across user history.
+
+#### [MODIFY] [api/main.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/api/main.py)
+- Update `/history` endpoint to accept a `search` query parameter.
+- Add endpoint `/export/sql` to handle downloading the generated SQL string as `.sql` files.
+- Add admin control endpoints for rebuilding embeddings (`/admin/rebuild-embeddings`) and refreshing schema metadata (`/admin/refresh-metadata`).
+
+---
+
+### Component 6: ChatGPT-like UI with Live Thinking Steps & Enhanced Admin Panel
+
+#### [MODIFY] [static/index.html](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/static/index.html)
+- **Thinking Steps Animation**: Display interactive, step-by-step progress cards during query processing:
+  1. 🔍 *Searching schema...*
+  2. 🔗 *Finding relationships & scope tables...*
+  3. 🤖 *Generating SQL with local Qwen...*
+  4. 🛡️ *Validating AST & column schema...*
+  5. ⚡ *Executing read query...*
+  6. 📊 *Preparing report table...*
+- **Ambiguity Interactor**: Render clickable follow-up option chips when an ambiguous query is detected.
+- **Enhanced Exports**: Buttons for CSV, Excel, and SQL file downloads directly on result cards.
+- **Admin Panel Enhancements**: Display database connectivity, allowed tables list, ChromaDB embedding status, collection counts, query history count, Ollama model status, plus interactive action buttons to "Rebuild Embeddings" and "Refresh Metadata".
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Test AST validator with valid SELECT queries and destructive queries (INSERT, DROP, UPDATE).
+- Test column hallucination detector against known scope table schemas.
+- Test SQL optimizer against unoptimized sample queries (e.g. `SELECT *` and month function filters).
+
+### Manual Verification
+1. Launch local server via `python app/main.py`.
+2. Access `http://localhost:8000`.
+3. Test natural language query: `"Show wallet transactions for July 2026"` -> Verify step-by-step thinking indicator, correct `wallet_transaction` / `users` schema retrieval, accurate SQL generation with `WHERE created_at >= '2026-07-01'`, successful execution, and CSV/Excel/SQL download options.
+4. Test ambiguous question: `"Show transactions"` -> Verify follow-up options presented ("Wallet Transaction", "Withdrawal", "Automatic Bank Transaction").
+5. Check Admin Panel -> Verify database status, scope count, model status, and click "Rebuild Embeddings" / "Refresh Metadata".

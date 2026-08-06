@@ -1,0 +1,893 @@
+[
+  {
+    "timestamp": "2026-08-07 00:34:12",
+    "question": "Show wallet transactions of January 2026",
+    "generated_sql": "SELECT \n    id,\n    user_id,\n    amount,\n    transaction_type,\n    reference_id,\n    reference_type,\n    status,\n    remark,\n    created_at,\n    updated_at\nFROM \n    wallet_transaction wt\nWHERE \n    created_at BETWEEN '2026-01-01 00:00:00' AND '2026-01-31 23:59:59'\nLIMIT 500;",
+    "optimized_sql": "SELECT \n    id,\n    user_id,\n    amount,\n    transaction_type,\n    reference_id,\n    reference_type,\n    status,\n    remark,\n    created_at,\n    updated_at\nFROM \n    wallet_transaction wt\nWHERE \n    created_at BETWEEN '2026-01-01 00:00:00' AND '2026-01-31 23:59:59'\nLIMIT 500;",
+    "status": "success",
+    "execution_time_ms": 250.34,
+    "row_count": 500,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show wallet transactions of January 2026\nOutput: The SQL query to retrieve wallet transactions for the month of January 2026, limited to 500 records.\n\n---",
+    "execution_plan_cost": 770530.89,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-07 00:33:22",
+    "question": "Show me top 5 users by ID from users table",
+    "generated_sql": "SELECT id, name, last_name \nFROM users \nORDER BY id ASC \nLIMIT 5;",
+    "optimized_sql": "SELECT id, name, last_name \nFROM users \nORDER BY id ASC \nLIMIT 5;",
+    "status": "success",
+    "execution_time_ms": 98.46,
+    "row_count": 5,
+    "affected_tables": [
+      "users"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show me top 5 users by ID from users table\nOutput: The query will return the top 5 users based on their IDs from the `users` table.\n\n---",
+    "execution_plan_cost": 22287.07,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: users",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-07 00:29:33",
+    "question": "Show wallet transactions of January 2026",
+    "generated_sql": "",
+    "optimized_sql": "",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "LLM Generation Error: Failed to generate SQL: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download"
+  },
+  {
+    "timestamp": "2026-08-07 00:25:02",
+    "question": "Show me top 5 users by ID from users table",
+    "generated_sql": "",
+    "optimized_sql": "",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "LLM Generation Error: Failed to generate SQL: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download"
+  },
+  {
+    "timestamp": "2026-08-06 23:52:17",
+    "question": "show all the wallet transaction of jan moth 2026",
+    "generated_sql": "SELECT COUNT(*) AS total_count FROM wallet_transaction WHERE created_at >= '2026-01-01 00:00:00' AND created_at <= '2026-01-31 23:59:59';",
+    "optimized_sql": "SELECT COUNT(*) AS total_count FROM wallet_transaction WHERE created_at >= '2026-01-01 00:00:00' AND created_at <= '2026-01-31 23:59:59';",
+    "status": "success",
+    "execution_time_ms": 675.85,
+    "row_count": 1,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 141625.43,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:51:23",
+    "question": "i want wallet transaction of jan 2026",
+    "generated_sql": "SELECT COUNT(*) AS total_count FROM wallet_transaction WHERE created_at >= '2026-01-01 00:00:00' AND created_at <= '2026-01-31 23:59:59';",
+    "optimized_sql": "SELECT COUNT(*) AS total_count FROM wallet_transaction WHERE created_at >= '2026-01-01 00:00:00' AND created_at <= '2026-01-31 23:59:59';",
+    "status": "success",
+    "execution_time_ms": 586.74,
+    "row_count": 1,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 141625.3,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:50:29",
+    "question": "Show wallet transactions of January 2026",
+    "generated_sql": "SELECT COUNT(*) AS total_count FROM wallet_transaction WHERE created_at >= '2026-01-01 00:00:00' AND created_at <= '2026-01-31 23:59:59';",
+    "optimized_sql": "SELECT COUNT(*) AS total_count FROM wallet_transaction WHERE created_at >= '2026-01-01 00:00:00' AND created_at <= '2026-01-31 23:59:59';",
+    "status": "success",
+    "execution_time_ms": 683.82,
+    "row_count": 1,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 141625.05,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:16:07",
+    "question": "Show companies",
+    "generated_sql": "SELECT \n    id, \n    name, \n    phone, \n    email, \n    sap_code, \n    business_unit, \n    jgh_company, \n    image, \n    created_at, \n    updated_at, \n    business_info_id, \n    customer_id, \n    monthly_percent_deactivate_qr_limit, \n    additional_monthly_deactivate_qr_limit, \n    additional_limit_valid_upto\nFROM \n    companies\nLIMIT 500;",
+    "optimized_sql": "SELECT \n    id, \n    name, \n    phone, \n    email, \n    sap_code, \n    business_unit, \n    jgh_company, \n    image, \n    created_at, \n    updated_at, \n    business_info_id, \n    customer_id, \n    monthly_percent_deactivate_qr_limit, \n    additional_monthly_deactivate_qr_limit, \n    additional_limit_valid_upto\nFROM \n    companies\nLIMIT 500;",
+    "status": "success",
+    "execution_time_ms": 168.35,
+    "row_count": 442,
+    "affected_tables": [
+      "companies"
+    ],
+    "confidence_score": 100,
+    "explanation": "Intent: Show companies\nOutput: List of companies with their details\n\n---",
+    "execution_plan_cost": 44.12,
+    "thinking_steps": [
+      "[CACHE HIT] Memory cache hit! (0 ms LLM time)",
+      "Preparing cached results..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:15:59",
+    "question": "Show companies",
+    "generated_sql": "SELECT \n    id, \n    name, \n    phone, \n    email, \n    sap_code, \n    business_unit, \n    jgh_company, \n    image, \n    created_at, \n    updated_at, \n    business_info_id, \n    customer_id, \n    monthly_percent_deactivate_qr_limit, \n    additional_monthly_deactivate_qr_limit, \n    additional_limit_valid_upto\nFROM \n    companies\nLIMIT 500;",
+    "optimized_sql": "SELECT \n    id, \n    name, \n    phone, \n    email, \n    sap_code, \n    business_unit, \n    jgh_company, \n    image, \n    created_at, \n    updated_at, \n    business_info_id, \n    customer_id, \n    monthly_percent_deactivate_qr_limit, \n    additional_monthly_deactivate_qr_limit, \n    additional_limit_valid_upto\nFROM \n    companies\nLIMIT 500;",
+    "status": "success",
+    "execution_time_ms": 158.34,
+    "row_count": 442,
+    "affected_tables": [
+      "companies"
+    ],
+    "confidence_score": 100,
+    "explanation": "Intent: Show companies\nOutput: List of companies with their details\n\n---",
+    "execution_plan_cost": 44.12,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: companies",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:15:07",
+    "question": "Show first 10 wallet transactions",
+    "generated_sql": "SELECT \n    id, \n    user_id, \n    amount, \n    transaction_type, \n    reference_id, \n    reference_type, \n    status, \n    remark, \n    created_at, \n    updated_at \nFROM \n    wallet_transaction \nLIMIT 10;",
+    "optimized_sql": "SELECT \n    id, \n    user_id, \n    amount, \n    transaction_type, \n    reference_id, \n    reference_type, \n    status, \n    remark, \n    created_at, \n    updated_at \nFROM \n    wallet_transaction \nLIMIT 10;",
+    "status": "success",
+    "execution_time_ms": 92.18,
+    "row_count": 10,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show first 10 wallet transactions\n\nOutput: The SQL query will retrieve the first 10 records from the `wallet_transaction` table.\n\n---",
+    "execution_plan_cost": 618132.88,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:14:47",
+    "question": "Show first 10 wallet transactions",
+    "generated_sql": "SELECT \n    id,\n    user_id,\n    amount,\n    transaction_type,\n    reference_id,\n    status,\n    created_at\nFROM \n    wallet_transaction\nORDER BY \n    created_at DESC\nLIMIT 10;",
+    "optimized_sql": "SELECT \n    id,\n    user_id,\n    amount,\n    transaction_type,\n    reference_id,\n    status,\n    created_at\nFROM \n    wallet_transaction\nORDER BY \n    created_at DESC\nLIMIT 10;",
+    "status": "success",
+    "execution_time_ms": 97.77,
+    "row_count": 10,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show first 10 wallet transactions\n\nOutput: The SQL query will retrieve the first 10 records from the `wallet_transaction` table, including specific columns such as `id`, `user_id`, `amount`, `transaction_type`, `reference_id`, `status`, and `created_at`.\n\n---",
+    "execution_plan_cost": 618132.88,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:14:07",
+    "question": "Show first 10 users",
+    "generated_sql": "SELECT id, name, last_name, email, created_at \nFROM users \nLIMIT 10;",
+    "optimized_sql": "SELECT id, name, last_name, email, created_at \nFROM users \nLIMIT 10;",
+    "status": "success",
+    "execution_time_ms": 100.58,
+    "row_count": 10,
+    "affected_tables": [
+      "users"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show first 10 users\nOutput: The query will return the first 10 users from the `users` table, including their ID, name, last name, email, and creation timestamp.\n\n---",
+    "execution_plan_cost": 22299.96,
+    "thinking_steps": [
+      "[CACHE HIT] Memory cache hit! (0 ms LLM time)",
+      "Preparing cached results..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:13:46",
+    "question": "Show first 10 users",
+    "generated_sql": "SELECT id, name, last_name, email, created_at \nFROM users \nLIMIT 10;",
+    "optimized_sql": "SELECT id, name, last_name, email, created_at \nFROM users \nLIMIT 10;",
+    "status": "success",
+    "execution_time_ms": 108.61,
+    "row_count": 10,
+    "affected_tables": [
+      "users"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show first 10 users\nOutput: The query will return the first 10 users from the `users` table, including their ID, name, last name, email, and creation timestamp.\n\n---",
+    "execution_plan_cost": 22299.96,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: users",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-06 23:13:27",
+    "question": "Show first 10 users",
+    "generated_sql": "SELECT id, name, last_name, email, created_at \nFROM users \nLIMIT 10;",
+    "optimized_sql": "SELECT id, name, last_name, email, created_at \nFROM users \nLIMIT 10;",
+    "status": "success",
+    "execution_time_ms": 90.46,
+    "row_count": 10,
+    "affected_tables": [
+      "users"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show first 10 users\nOutput: The query will return the first 10 users from the `users` table, including their ID, name, last name, email, and creation timestamp.\n\n---",
+    "execution_plan_cost": 22299.96,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: users",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 18:18:25",
+    "question": "List all products in stock",
+    "generated_sql": "SELECT p.product_id, p.product_name, p.stock_quantity \nFROM products p \nWHERE p.stock_quantity > 0 \nLIMIT 500;",
+    "optimized_sql": "SELECT p.product_id, p.product_name, p.stock_quantity \nFROM products p \nWHERE p.stock_quantity > 0 \nLIMIT 500;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Execution Plan created for 0 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Table 'products' is not allowed or does not exist."
+  },
+  {
+    "timestamp": "2026-08-05 18:17:36",
+    "question": "Show sales data for Q1",
+    "generated_sql": "SELECT \n    s.order_id, \n    s.customer_id, \n    s.product_id, \n    s.quantity, \n    s.price, \n    s.order_date\nFROM \n    sales s\nWHERE \n    s.order_date BETWEEN '2023-01-01' AND '2023-03-31'\nLIMIT 500;",
+    "optimized_sql": "SELECT \n    s.order_id, \n    s.customer_id, \n    s.product_id, \n    s.quantity, \n    s.price, \n    s.order_date\nFROM \n    sales s\nWHERE \n    s.order_date BETWEEN '2023-01-01' AND '2023-03-31'\nLIMIT 500;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Execution Plan created for 0 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Table 'sales' is not allowed or does not exist."
+  },
+  {
+    "timestamp": "2026-08-05 18:16:28",
+    "question": "What are the recent orders?",
+    "generated_sql": "SELECT o.order_id, o.customer_id, o.order_date, o.total_amount \nFROM orders o \nORDER BY o.order_date DESC \nLIMIT 500;",
+    "optimized_sql": "SELECT o.order_id, o.customer_id, o.order_date, o.total_amount \nFROM orders o \nORDER BY o.order_date DESC \nLIMIT 500;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Execution Plan created for 0 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Table 'orders' is not allowed or does not exist."
+  },
+  {
+    "timestamp": "2026-08-05 18:15:37",
+    "question": "How many users are there?",
+    "generated_sql": "SELECT COUNT(id) AS total_users \nFROM users u;",
+    "optimized_sql": "SELECT COUNT(id) AS total_users \nFROM users u;",
+    "status": "success",
+    "execution_time_ms": 45.93,
+    "row_count": 1,
+    "affected_tables": [
+      "users"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: How many users are there?\nOutput: The total number of users in the system.\n---",
+    "execution_plan_cost": 20698.56,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: users",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 18:14:54",
+    "question": "Show machine statuses",
+    "generated_sql": "SELECT \n    ut.id AS transaction_id,\n    u.id AS user_id,\n    u.name AS user_name,\n    u.last_name AS user_last_name,\n    ut.amount AS transaction_amount,\n    ut.transaction_type AS transaction_type,\n    ut.status AS transaction_status,\n    ut.created_at AS transaction_created_at\nFROM \n    wallet_transaction ut\nJOIN \n    users u ON ut.user_id = u.id\nLIMIT 500;",
+    "optimized_sql": "SELECT \n    ut.id AS transaction_id,\n    u.id AS user_id,\n    u.name AS user_name,\n    u.last_name AS user_last_name,\n    ut.amount AS transaction_amount,\n    ut.transaction_type AS transaction_type,\n    ut.status AS transaction_status,\n    ut.created_at AS transaction_created_at\nFROM \n    wallet_transaction ut\nJOIN \n    users u ON ut.user_id = u.id\nLIMIT 500;",
+    "status": "success",
+    "execution_time_ms": 73.11,
+    "row_count": 500,
+    "affected_tables": [
+      "wallet_transaction",
+      "users"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show machine statuses\nOutput: The SQL query to retrieve the required data based on the provided Execution Plan.\n\n---",
+    "execution_plan_cost": 2218879.94,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction, users",
+      "Step 2: Execution Plan created for 2 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 18:13:53",
+    "question": "List pending withdrawals",
+    "generated_sql": "SELECT w.id, w.amount, w.status, w.created_at \nFROM withdrawals w \nWHERE w.status = 'pending' \nLIMIT 500;",
+    "optimized_sql": "SELECT w.id, w.amount, w.status, w.created_at \nFROM withdrawals w \nWHERE w.status = 'pending' \nLIMIT 500;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Execution Plan created for 0 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Table 'withdrawals' is not allowed or does not exist."
+  },
+  {
+    "timestamp": "2026-08-05 18:13:42",
+    "question": "Show wallet report",
+    "generated_sql": "SELECT w.id AS wallet_id, w.balance, w.user_id, u.username\nFROM wallets w\nJOIN users u ON w.user_id = u.id\nLIMIT 500;",
+    "optimized_sql": "SELECT w.id AS wallet_id, w.balance, w.user_id, u.username\nFROM wallets w\nJOIN users u ON w.user_id = u.id\nLIMIT 500;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Execution Plan created for 0 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Table 'wallets' is not allowed or does not exist."
+  },
+  {
+    "timestamp": "2026-08-05 18:12:08",
+    "question": "Show active retailers",
+    "generated_sql": "SELECT r.retailer_id, r.retailer_name, r.contact_info \nFROM retailers r \nWHERE r.is_active = TRUE \nLIMIT 500;",
+    "optimized_sql": "SELECT r.retailer_id, r.retailer_name, r.contact_info \nFROM retailers r \nWHERE r.is_active = TRUE \nLIMIT 500;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Execution Plan created for 0 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Table 'retailers' is not allowed or does not exist."
+  },
+  {
+    "timestamp": "2026-08-05 18:11:16",
+    "question": "What is the total inventory count?",
+    "generated_sql": "SELECT COUNT(*) AS total_inventory_count \nFROM inventory i;",
+    "optimized_sql": "SELECT COUNT(*) AS total_inventory_count \nFROM inventory i;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Execution Plan created for 0 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Table 'inventory' is not allowed or does not exist."
+  },
+  {
+    "timestamp": "2026-08-05 18:10:41",
+    "question": "List all companies",
+    "generated_sql": "SELECT \n    id,\n    name,\n    phone,\n    email,\n    sap_code,\n    business_unit,\n    jgh_company,\n    image,\n    created_at,\n    updated_at,\n    business_info_id,\n    customer_id,\n    monthly_percent_deactivate_qr_limit,\n    additional_monthly_deactivate_qr_limit,\n    additional_limit_valid_upto\nFROM \n    companies c\nLIMIT 500;",
+    "optimized_sql": "SELECT \n    id,\n    name,\n    phone,\n    email,\n    sap_code,\n    business_unit,\n    jgh_company,\n    image,\n    created_at,\n    updated_at,\n    business_info_id,\n    customer_id,\n    monthly_percent_deactivate_qr_limit,\n    additional_monthly_deactivate_qr_limit,\n    additional_limit_valid_upto\nFROM \n    companies c\nLIMIT 500;",
+    "status": "success",
+    "execution_time_ms": 40.86,
+    "row_count": 442,
+    "affected_tables": [
+      "companies"
+    ],
+    "confidence_score": 100,
+    "explanation": "Intent: List all companies\nOutput: A list of company details, limited to 500 records.\n\n---",
+    "execution_plan_cost": 46.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: companies",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 18:10:06",
+    "question": "Show wallet transactions for July 2026",
+    "generated_sql": "SELECT \n    id, \n    user_id, \n    amount, \n    transaction_type, \n    reference_id, \n    reference_type, \n    status, \n    remark, \n    created_at, \n    updated_at\nFROM \n    wallet_transaction wt\nWHERE \n    created_at BETWEEN '2026-07-01 00:00:00' AND '2026-08-01 00:00:00'\nLIMIT 500;",
+    "optimized_sql": "SELECT \n    id, \n    user_id, \n    amount, \n    transaction_type, \n    reference_id, \n    reference_type, \n    status, \n    remark, \n    created_at, \n    updated_at\nFROM \n    wallet_transaction wt\nWHERE \n    created_at BETWEEN '2026-07-01 00:00:00' AND '2026-08-01 00:00:00'\nLIMIT 500;",
+    "status": "success",
+    "execution_time_ms": 187.8,
+    "row_count": 500,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show wallet transactions for July 2026\nOutput: Wallet transactions within the specified date range\n\n---",
+    "execution_plan_cost": 539411.92,
+    "thinking_steps": [
+      "[CACHE HIT] Memory cache hit! (0 ms LLM time)",
+      "Preparing cached results..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 18:09:33",
+    "question": "Show wallet transactions for July 2026",
+    "generated_sql": "SELECT \n    id, \n    user_id, \n    amount, \n    transaction_type, \n    reference_id, \n    reference_type, \n    status, \n    remark, \n    created_at, \n    updated_at\nFROM \n    wallet_transaction wt\nWHERE \n    created_at BETWEEN '2026-07-01 00:00:00' AND '2026-08-01 00:00:00'\nLIMIT 500;",
+    "optimized_sql": "SELECT \n    id, \n    user_id, \n    amount, \n    transaction_type, \n    reference_id, \n    reference_type, \n    status, \n    remark, \n    created_at, \n    updated_at\nFROM \n    wallet_transaction wt\nWHERE \n    created_at BETWEEN '2026-07-01 00:00:00' AND '2026-08-01 00:00:00'\nLIMIT 500;",
+    "status": "success",
+    "execution_time_ms": 165.66,
+    "row_count": 500,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show wallet transactions for July 2026\nOutput: Wallet transactions within the specified date range\n\n---",
+    "execution_plan_cost": 539411.92,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Execution Plan created for 1 tables.",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 17:05:33",
+    "question": "Show first 10 records from wallet_transaction",
+    "generated_sql": "SELECT id, user_id, amount, transaction_type, reference_id, reference_type, status, remark, created_at, updated_at \nFROM wallet_transaction \nLIMIT 10;",
+    "optimized_sql": "SELECT id, user_id, amount, transaction_type, reference_id, reference_type, status, remark, created_at, updated_at \nFROM wallet_transaction \nLIMIT 10;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Matching entities to schema via Hybrid RAG...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Validation Error: module 'sqlglot.expressions' has no attribute 'Truncate'"
+  },
+  {
+    "timestamp": "2026-08-05 17:02:55",
+    "question": "Show first 10 wallet transactions",
+    "generated_sql": "PLAN:\nIntent: The user wants to see the first 10 wallet transactions.\nEntities: Wallet Transaction\nCandidate Tables: `wallet_transaction`\nRelationships: None needed as we are only interested in the transaction table itself.\nDate Filter: None specified, so no date filter will be applied.\nAggregation: None required;",
+    "optimized_sql": "PLAN:\nIntent: The user wants to see the first 10 wallet transactions.\nEntities: Wallet Transaction\nCandidate Tables: `wallet_transaction`\nRelationships: None needed as we are only interested in the transaction table itself.\nDate Filter: None specified, so no date filter will be applied.\nAggregation: None required;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: wallet_transaction",
+      "Step 2: Matching entities to schema via Hybrid RAG...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "SQL Syntax Error: Invalid expression / Unexpected token. Line 2, Col: 7.\n  PLAN:\nIntent\u001b[4m:\u001b[0m The user wants to see the first 10 wallet transactions.\nEntities: Wallet Transaction\nCandidate Tabl"
+  },
+  {
+    "timestamp": "2026-08-05 16:44:34",
+    "question": "i want retailer scan count in jan 2026",
+    "generated_sql": "SELECT COUNT(DISTINCT c.id) AS retailer_scan_count\nFROM companies c\nJOIN transactions t ON c.id = t.company_id\nWHERE t.scan_date BETWEEN '2026-01-01' AND '2026-01-31';",
+    "optimized_sql": "SELECT COUNT(DISTINCT c.id) AS retailer_scan_count\nFROM companies c\nJOIN transactions t ON c.id = t.company_id\nWHERE t.scan_date BETWEEN '2026-01-01' AND '2026-01-31';",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Matching entities to schema via Hybrid RAG...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Validation Error: module 'sqlglot.expressions' has no attribute 'Truncate'"
+  },
+  {
+    "timestamp": "2026-08-05 16:44:03",
+    "question": "i want retailer scan count in jan 2026",
+    "generated_sql": "SELECT COUNT(DISTINCT c.id) AS retailer_scan_count\nFROM companies c\nJOIN transactions t ON c.id = t.company_id\nWHERE t.scan_date BETWEEN '2026-01-01' AND '2026-01-31';",
+    "optimized_sql": "SELECT COUNT(DISTINCT c.id) AS retailer_scan_count\nFROM companies c\nJOIN transactions t ON c.id = t.company_id\nWHERE t.scan_date BETWEEN '2026-01-01' AND '2026-01-31';",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Matching entities to schema via Hybrid RAG...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: AST Validating SQL (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: AST Validating SQL (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: AST Validating SQL (Attempt 3)..."
+    ],
+    "error": "Validation Error: module 'sqlglot.expressions' has no attribute 'Truncate'"
+  },
+  {
+    "timestamp": "2026-08-05 15:51:12",
+    "question": "i want retailer scan count in jan 2026\ni want retailer scan count in jan 2026",
+    "generated_sql": "SELECT COUNT(*) \nFROM wallet_transaction wt \nJOIN role r ON wt.reference_type = 'scan_reward;",
+    "optimized_sql": "SELECT COUNT(*) \nFROM wallet_transaction wt \nJOIN role r ON wt.reference_type = 'scan_reward;",
+    "status": "blocked",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Entities Discovered: scan, retailer",
+      "Step 2: Matching entities to schema...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: Validating joins and logic (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: Validating joins and logic (Attempt 2)...",
+      "Step 3: Generating Plan & SQL (Attempt 3)...",
+      "Step 4: Validating joins and logic (Attempt 3)...",
+      "Step 5: Evaluating Execution Plan (Attempt 3)..."
+    ],
+    "error": "Execution Plan Error: (pymysql.err.ProgrammingError) (1064, \"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''scan_reward' at line 3\")\n[SQL: EXPLAIN FORMAT=JSON SELECT COUNT(*) \nFROM wallet_transaction wt \nJOIN role r ON wt.reference_type = 'scan_reward]\n(Background on this error at: https://sqlalche.me/e/20/f405)"
+  },
+  {
+    "timestamp": "2026-08-05 15:47:50",
+    "question": "Show wallet transactions for July 2026",
+    "generated_sql": "SELECT id, user_id, amount, transaction_type, reference_id, reference_type, status, remark, created_at \nFROM wallet_transaction;",
+    "optimized_sql": "SELECT id, user_id, amount, transaction_type, reference_id, reference_type, status, remark, created_at FROM wallet_transaction LIMIT 100",
+    "status": "success",
+    "execution_time_ms": 42.41,
+    "row_count": 100,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "confidence_score": 90,
+    "explanation": "Intent: Show wallet transactions for July 2026.\nEntities: Wallet, Transactions.\nCandidate Tables: wallet_transaction.\nRelationships: None needed as we are filtering by date.\nDate Filter: created_at BETWEEN '2026-07-01' AND '2026-07-31'.\nAggregation: None.\nOutput: List of wallet transactions for July 2026.\n\n---",
+    "execution_plan_cost": 616787.1,
+    "thinking_steps": [
+      "Step 1: Extracting intent and entities...",
+      "Step 2: Matching entities to schema...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: Validating joins and logic (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 3: Generating Plan & SQL (Attempt 2)...",
+      "Step 4: Validating joins and logic (Attempt 2)...",
+      "Step 5: Evaluating Execution Plan (Attempt 2)...",
+      "Step 6: Formatting query explanation from execution plan...",
+      "Step 7: Executing query against database..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 13:04:53",
+    "question": "i want retailer scan count in jan 2026",
+    "generated_sql": "SELECT COUNT(wt.id) AS scan_count \nFROM wallet_transaction wt \nJOIN users u ON wt.user_id = u.id \nJOIN user_role ur ON u.user_role = ur.id \nWHERE (ur.name = 'Retailer' OR u.user_role = 5) \nAND wt.reference_type = 'scan_reward' \nAND wt.created_at >= '2026-01-01' \nAND wt.created_at < '2026-02-01';",
+    "optimized_sql": "SELECT COUNT(wt.id) AS scan_count FROM wallet_transaction AS wt JOIN users AS u ON wt.user_id = u.id JOIN role AS ur ON u.user_role = ur.id WHERE (ur.name = 'Retailer' OR u.user_role = 5) AND wt.reference_type = 'scan_reward' AND wt.created_at >= '2026-01-01' AND wt.created_at < '2026-02-01'",
+    "status": "success",
+    "execution_time_ms": 4682.56,
+    "row_count": 1,
+    "affected_tables": [
+      "wallet_transaction",
+      "user_role",
+      "users"
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 12:19:05",
+    "question": "i want retailer scan count in jan 2026",
+    "generated_sql": "SELECT COUNT(*) AS retailer_scan_count \nFROM users \nWHERE user_role = 'retailer' \nAND created_at >= '2026-01-01' \nAND created_at < '2026-02-01';",
+    "optimized_sql": "SELECT COUNT(*) AS retailer_scan_count FROM users WHERE user_role = 'retailer' AND created_at >= '2026-01-01' AND created_at < '2026-02-01'",
+    "status": "success",
+    "execution_time_ms": 47.19,
+    "row_count": 1,
+    "affected_tables": [
+      "users"
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 12:10:38",
+    "question": "Top 10 users by wallet transaction",
+    "generated_sql": "SELECT id, user_id, amount, transaction_type, status, created_at FROM wallet_transaction ORDER BY id DESC LIMIT 100;",
+    "optimized_sql": "SELECT id, user_id, amount, transaction_type, status, created_at FROM wallet_transaction ORDER BY id DESC LIMIT 100",
+    "status": "success",
+    "execution_time_ms": 81.07,
+    "row_count": 100,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 12:09:50",
+    "question": "Active SKU inventory unit prices",
+    "generated_sql": "SELECT id, sku_code, mrp, unit_price, sku_description, invoiced_quantity FROM sku_inventories LIMIT 100;",
+    "optimized_sql": "SELECT id, sku_code, mrp, unit_price, sku_description, invoiced_quantity FROM sku_inventories LIMIT 100",
+    "status": "success",
+    "execution_time_ms": 38.16,
+    "row_count": 100,
+    "affected_tables": [
+      "sku_inventories"
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 12:09:38",
+    "question": "Show withdrawal requests summary",
+    "generated_sql": "SELECT id, user_id, amount, status, created_at FROM withdrawal_request ORDER BY id DESC LIMIT 100;",
+    "optimized_sql": "SELECT id, user_id, amount, status, created_at FROM withdrawal_request ORDER BY id DESC LIMIT 100",
+    "status": "success",
+    "execution_time_ms": 62.53,
+    "row_count": 100,
+    "affected_tables": [
+      "withdrawal_request"
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 12:09:32",
+    "question": "Show wallet transactions for July 2026",
+    "generated_sql": "SELECT DATE(created_at) AS date, SUM(amount) AS total \nFROM wallet_transaction \nWHERE created_at >= '2026-07-01' AND created_at < '2026-08-01' \nGROUP BY DATE(created_at);",
+    "optimized_sql": "SELECT DATE(created_at) AS date, SUM(amount) AS total FROM wallet_transaction WHERE created_at >= '2026-07-01' AND created_at < '2026-08-01' GROUP BY DATE(created_at)",
+    "status": "success",
+    "execution_time_ms": 2249.64,
+    "row_count": 31,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 11:16:41",
+    "question": "Show wallet transactions for July 2026",
+    "generated_sql": "SELECT \n    DATE(wallet_transaction.created_at) AS transaction_date, \n    SUM(wallet_transaction.amount) AS total_amount \nFROM \n    wallet_transaction \nWHERE \n    wallet_transaction.status = 1 \n    AND wallet_transaction.created_at >= '2026-07-01' \n    AND wallet_transaction.created_at < '2026-08-01' \nGROUP BY \n    DATE(wallet_transaction.created_at);",
+    "optimized_sql": "SELECT DATE(wallet_transaction.created_at) AS transaction_date, SUM(wallet_transaction.amount) AS total_amount FROM wallet_transaction WHERE wallet_transaction.status = 1 AND wallet_transaction.created_at >= '2026-07-01' AND wallet_transaction.created_at < '2026-08-01' GROUP BY DATE(wallet_transaction.created_at)",
+    "status": "success",
+    "execution_time_ms": 2987.24,
+    "row_count": 31,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 11:00:04",
+    "question": "Show wallet transactions for July 2026",
+    "generated_sql": "SELECT \n    DATE(created_at) AS transaction_date, \n    SUM(amount) AS total_amount \nFROM \n    wallet_transaction \nWHERE \n    created_at >= '2026-07-01' AND created_at < '2026-08-01' \nGROUP BY \n    DATE(created_at);",
+    "optimized_sql": "SELECT DATE(created_at) AS transaction_date, SUM(amount) AS total_amount FROM wallet_transaction WHERE created_at >= '2026-07-01' AND created_at < '2026-08-01' GROUP BY DATE(created_at)",
+    "status": "success",
+    "execution_time_ms": 2789.88,
+    "row_count": 31,
+    "affected_tables": [
+      "wallet_transaction"
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-05 10:24:48",
+    "question": "Show all wallet transactions for July 2026.",
+    "generated_sql": "SELECT \n    w.id AS transaction_id,\n    u.name AS user_name,\n    w.amount AS transaction_amount,\n    w.transaction_type AS transaction_type,\n    w.reference_id AS reference_id,\n    w.reference_type AS reference_type,\n    w.status AS transaction_status,\n    w.remark AS transaction_remark,\n    w.created_at AS transaction_date\nFROM \n    wallet_transaction w\nJOIN \n    users u ON w.user_id = u.id\nWHERE \n    w.created_at >= '2026-07-01' AND w.created_at < '2026-08-01' LIMIT 100",
+    "status": "success",
+    "execution_time_ms": 192.71,
+    "row_count": 100,
+    "error": null
+  }
+]

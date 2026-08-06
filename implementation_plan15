@@ -1,0 +1,50 @@
+# AI SQL Agent Frontend Redesign Plan
+
+To transform the UI from a basic dashboard into a premium SaaS-style "Enterprise AI Data Analyst" (similar to ChatGPT, Linear, or Cursor), we will architect a modern, modular React application using Vite, built entirely with Vanilla CSS as requested.
+
+## User Review Required
+> [!IMPORTANT]
+> Since the current frontend is a single `index.html` file, achieving a "modular, production-ready, and easy to maintain" React application requires a build step. I will create a new Vite React project in a `frontend` directory. Its build output will automatically replace the contents of `app/static`, ensuring the FastAPI backend continues to serve the frontend without any backend code changes. Please approve this architectural approach.
+
+## Proposed Changes
+
+### 1. Project Initialization
+- Create a new directory `frontend`.
+- Initialize a React project using Vite (`npx -y create-vite@latest frontend --template react`).
+- Configure `vite.config.js` to output the production build (`outDir`) directly into `../app/static`.
+- Clear the existing 52KB `app/static/index.html` to make way for the modular build.
+
+### 2. Design System & CSS (Vanilla CSS)
+- Define all design tokens in `frontend/src/index.css`.
+- Base background: `#0B1220`
+- Cards/Panels: `#111827`
+- Primary Accent: `#4F7CFF`
+- Implement fluid micro-animations (fade-ins, smooth expansions) and typography (Inter font).
+- *Note: As per system rules, Tailwind CSS is avoided in favor of strict Vanilla CSS.*
+
+### 3. Component Architecture
+The React application will be highly modularized into three main columns:
+
+#### `frontend/src/components/Sidebar.jsx`
+- Fixed width, containing logo, New Chat, Chat History, Knowledge Base links, and connection status.
+
+#### `frontend/src/components/CenterChat.jsx`
+- The core chat interface acting exactly like ChatGPT.
+- Handles user/AI message alignments, avatars, and streaming/thinking animations.
+- Contains the `MessageBubble` component which selectively expands to show the generated SQL and `DataGrid`.
+
+#### `frontend/src/components/RightPanel.jsx`
+- Collapsible contextual side panel.
+- Displays the active Database Scope, Tables Involved, Relationships, and Confidence Score.
+
+#### `frontend/src/components/DataGrid.jsx`
+- A custom, responsive data table for query results replacing simple HTML tables.
+- Includes sticky headers and row hover effects.
+
+### 4. Integration with Existing API
+- The frontend will utilize the native `fetch` API to communicate with existing FastAPI endpoints (`/query`, `/admin/stats`, etc.) ensuring absolutely zero backend changes.
+
+## Verification Plan
+1. Start the frontend dev server and verify the 3-column layout, animations, and dark mode palette.
+2. Build the project and run the FastAPI server to ensure the static files are served correctly from `app/static`.
+3. Submit a test query to verify the full user experience (thinking animation -> plain English response + Data Grid -> hidden SQL).

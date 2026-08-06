@@ -1,0 +1,117 @@
+# Implementation Plan: Enterprise AI SQL Agent Upgrade
+
+Refactor and enhance the existing Python project to transform it into a production-grade, schema-aware, offline Enterprise AI SQL Agent with a modern ChatGPT-style chat interface, dynamic schema auto-extraction, high-priority schema RAG, AST security validation, SQL query optimization, and fast memory caching.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> - **Local Offline Model**: The agent relies on local Ollama / llama.cpp models (`qwen2.5-coder:7b`) and sentence-transformers (`all-MiniLM-L6-v2`). No external cloud APIs are used.
+> - **Target Scope Restriction**: Strictly 8 tables are allowed (`users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`). All other tables are ignored and blocked.
+> - **Database Operations**: Only read-only operations (`SELECT`, `SHOW`, `DESCRIBE`, `EXPLAIN`) are allowed. Unsafe SQL statements (`INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `TRUNCATE`, `CREATE`, `EXEC`) are blocked via AST parsing.
+
+---
+
+## Proposed Changes
+
+### Core Architecture & Database Engine
+
+#### [NEW] [schema_extractor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/schema_extractor.py)
+- Create dynamic MySQL schema extractor that auto-discovers table metadata, column data types, nullability, primary keys, foreign keys, indexes, and relationships for the 8 target scope tables upon application startup.
+- Cache extracted schema in memory and JSON knowledge store.
+
+#### [MODIFY] [allowed_tables.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/allowed_tables.py)
+- Strict enforcement of target scope (`users`, `wallet_transaction`, `sku_inventories`, `companies`, `machine_details`, `withdrawal_request`, `automatic_transactions`, `automate`).
+- Complete mapping of aliases to canonical names.
+
+#### [MODIFY] [read_executor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/read_executor.py)
+- Optimize PyMySQL execution with connection pooling, execution timing, data type sanitization for JSON, and row bounds.
+
+---
+
+### RAG & Embedding Architecture
+
+#### [MODIFY] [schema_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/schema_builder.py)
+- Integrate dynamic schema extraction into knowledge card creation.
+- Build rich schema text cards containing table metadata, column descriptions, PKs, FKs, business rules, common joins, and constraints.
+
+#### [MODIFY] [chroma_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/embedding/chroma_builder.py)
+- Generate vector embeddings solely for schema metadata, relationships, column descriptions, and business rules using `all-MiniLM-L6-v2`.
+- Ensure old SQL queries are NOT embedded as primary knowledge.
+
+#### [MODIFY] [retriever.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/retriever/retriever.py)
+- High-priority schema retrieval (<300ms) with in-memory model & vector store caching.
+- Deprecate old query override; schema text is always prioritized.
+
+---
+
+### Agent Logic, Ambiguity & Prompt Engineering
+
+#### [MODIFY] [ambiguity_checker.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/ambiguity_checker.py)
+- Enhance ambiguity detection rules to catch vague requests (e.g. "Show transactions") and prompt for date filters ("Today", "Yesterday", "Last 7 days", "Last 30 days", "Custom date") or transaction types without generating premature SQL.
+
+#### [MODIFY] [prompt_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/prompt/prompt_builder.py)
+- Strict compliance rules: zero-copy date rule (derive dates strictly from user request, e.g. July 2026 -> `2026-07-01` to `2026-08-01`), no hardcoded user IDs, column selection over `SELECT *`, clean joins.
+
+#### [MODIFY] [sql_generator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/llm/sql_generator.py) & [qwen.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/llm/qwen.py)
+- Optimize local LLM chat calls with model reuse and parameter tuning (`temperature=0.1`).
+
+#### [MODIFY] [sql_validator.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_validator.py) & [sql_optimizer.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/validator/sql_optimizer.py)
+- Parse SQL AST with `sqlglot` (MySQL dialect).
+- Block `INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `TRUNCATE`, `CREATE`, `EXEC`, `MERGE`.
+- Optimize queries: rewrite `SELECT *` to required columns, convert `YEAR()/MONTH()` to sargable indexed date ranges (`>= 'YYYY-MM-01' AND < 'YYYY-MM-01'`), inject `LIMIT 100` for unaggregated queries.
+
+#### [MODIFY] [sql_agent.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/agent/sql_agent.py)
+- Complete pipeline orchestration with structured thinking steps for real-time progress updates, execution timing, self-correction on SQL failure, and detailed response metadata.
+
+---
+
+### Backend API & Admin Routes
+
+#### [MODIFY] [main.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/api/main.py)
+- Add endpoints for frontend navigation and admin controls:
+  - `POST /query`: Handles natural language questions with real-time thinking steps.
+  - `GET /health`: Health check and model status.
+  - `GET /history`, `DELETE /history`: Query history management.
+  - `GET /admin/status`, `GET /admin/tables`: Admin metrics and schema info.
+  - `POST /admin/refresh-schema`, `POST /admin/rebuild-embeddings`: Admin actions.
+  - `GET /scope`: Scope tables overview for database scope page.
+  - Export endpoints: `/export/csv`, `/export/excel`, `/export/pdf`, `/export/sql`.
+
+---
+
+### ChatGPT-Style UI & Modern Frontend
+
+#### [MODIFY] [index.html](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/static/index.html)
+- Redesign UI with a modern ChatGPT / Cursor / Linear inspired interface:
+  - **Sidebar**: Collapsible sidebar with navigation for **AI Chat**, **SQL History**, **Admin**, **Target Database Scope**, and **Settings**.
+  - **Main Chat View**: Single chat interface with message bubbles, suggestion chips, input box, real-time animated thinking steps ("Searching schema...", "Generating SQL...", "Validating...", "Executing...").
+  - **Interactive Results**: SQL code block with syntax highlighting, line numbers, Copy button; interactive data table with pagination and column sorting; CSV/Excel/PDF/SQL export buttons.
+  - **Ambiguity Option Cards**: Clickable buttons when clarification is required.
+  - **SQL History View**: Searchable & filterable execution log with rerun and copy options.
+  - **Admin Panel View**: System metrics, health check, table/column counts, schema refresh & embedding rebuild triggers.
+  - **Database Scope View**: Detail cards for all 8 target scope tables showing columns, datatypes, PKs, FKs, and business descriptions.
+  - **Settings View**: Theme toggle (Dark/Light/System), model parameters, max rows, and temperature controls.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+1. Run Python unit check for database connectivity and schema auto-extraction:
+   `python -c "from app.database.schema_extractor import extract_db_schema; print(extract_db_schema())"`
+2. Verify AST validator safety blocking:
+   `python -c "from app.validator.sql_validator import validate_sql; print(validate_sql('DELETE FROM users;'))"`
+3. Verify query optimizer sargable date transformation:
+   `python -c "from app.validator.sql_optimizer import optimize_sql; print(optimize_sql('SELECT * FROM wallet_transaction WHERE YEAR(created_at) = 2026 AND MONTH(created_at) = 7;'))"`
+
+### Manual Verification
+1. Access `http://localhost:8000` in browser.
+2. Test sample queries:
+   - "Show wallet transactions for July 2026" (Check exact date range bounds `2026-07-01` to `2026-08-01`).
+   - "Show top 10 users" (Ensure no user_id is injected).
+   - "Show transactions" (Ensure ambiguity prompt appears with date/type options).
+3. Test sidebar navigation:
+   - Navigate to **SQL History**, **Admin**, **Database Scope**, and **Settings**.
+4. Test export functionality (CSV, Excel, PDF, SQL downloads).

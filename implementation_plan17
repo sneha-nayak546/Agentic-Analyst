@@ -1,0 +1,80 @@
+# Enterprise AI Data Analyst Implementation Plan
+
+## Goal Description
+Perform a massive upgrade to the existing AI Data Analyst platform according to the 15-phase requirement list. The goal is to make the system fully dynamic (no hardcoded schemas), highly reliable (self-healing, EXPLAIN validation), enterprise-grade (Enterprise RAG, full downloads), and feature a highly professional UI/UX that matches modern top-tier applications (ChatGPT, Cursor).
+
+## User Review Required
+> [!IMPORTANT]
+> The database schema extraction will be modified to scan the **complete database** instead of relying on `ALLOWED_TABLE_NAMES`. This could take longer during the first startup depending on the size of the database.
+> The UI will undergo a significant overhaul to implement a clean, professional dark/light mode interface. 
+
+## Open Questions
+> [!NOTE]
+> Are there any specific database credentials I should use for local testing? Currently, I will use whatever is in your `.env` file.
+> Do you have a preferred UI framework if Vanilla CSS gets too complex, or should I stick strictly to Vanilla CSS/React as currently implemented? (I plan to stick to Vanilla CSS + React as requested).
+
+## Proposed Changes
+
+### Phase 2: Environment Verification
+- [ ] Ensure backend and frontend run smoothly locally with `python -m app.api.main` and `npm run dev`.
+- [ ] Verify all API endpoints are reachable.
+
+### Phase 3 & 4: Database Understanding & Relationship Discovery
+- **`app/database/metadata_extractor.py`**:
+  - [MODIFY] Remove reliance on `allowed_tables.py`.
+  - [MODIFY] Dynamically scan every table, view, column, constraints, and relationships.
+  - [MODIFY] Extract statistics and generate `schema_metadata.json`, `relationship_metadata.json`, `business_metadata.json`, `entity_dictionary.json`, `column_dictionary.json`, `join_graph.json`, `knowledge_graph.json`.
+- **`app/database/allowed_tables.py`**:
+  - [DELETE] File will be removed or ignored as we move to dynamic discovery.
+- **`app/knowledge/knowledge_graph.py`**:
+  - [MODIFY] Ensure intelligent inference of joins across discovered relationships.
+
+### Phase 5 & 6: Enterprise RAG & AI Analyst
+- **`app/embedding/chroma_builder.py`** & **`app/retriever/retriever.py`**:
+  - [MODIFY] Enhance retrieval logic to use hybrid search (Vector, Metadata, Graph).
+- **`app/agent/sql_agent.py`**:
+  - [MODIFY] Strengthen the intent matching and internal reasoning steps without exposing the raw LLM prompt to the user.
+
+### Phase 7, 8, 9, 10: SQL Generation, Validation, Optimization, Self-Healing
+- **`app/llm/sql_generator.py`**:
+  - [MODIFY] Prompt adjustments to force specific columns (no `SELECT *`), optimized joins, and limits.
+- **`app/validator/sql_ast_validator.py`**:
+  - [MODIFY] Strengthen AST validation to strictly reject UPDATE, DELETE, DROP, ALTER, INSERT.
+- **`app/database/read_executor.py`**:
+  - [MODIFY] Ensure `EXPLAIN` query is robustly executed and parsed to estimate cost.
+- **`app/agent/sql_agent.py`**:
+  - [MODIFY] Implement 3-retry self-healing loop for MySQL execution failures.
+
+### Phase 11: Report Generation
+- **`app/api/main.py`** & **`app/utils/report_generator.py`**:
+  - [MODIFY] Ensure CSV, Excel, JSON, PDF, and SQL download endpoints exist and function correctly. (Currently JSON is missing, will add).
+
+### Phase 12 & 13: History & Settings
+- **`app/sql_history/query_history.py`**:
+  - [MODIFY] Save full history (Question, Intent, SQL, Execution Time, Timestamp).
+  - [MODIFY] Add filter, favorite, and search capabilities.
+- **`app/api/main.py`**:
+  - [MODIFY] Ensure Settings endpoints correctly update state.
+- **`frontend/src/components/Settings.jsx`**:
+  - [MODIFY] Fully implement the settings UI (Theme, DB Status, Rebuild KB, Clear Cache).
+
+### Phase 14: Professional UI Redesign
+- **`frontend/src/App.jsx`**, **`frontend/src/index.css`**, **`frontend/src/components/DataGrid.jsx`**:
+  - [MODIFY] Complete overhaul of the CSS and layout.
+  - [MODIFY] Implement Left Sidebar (New Chat, History, Settings), Center Area (Chat, Thinking Steps, Results, Downloads), Right Sidebar (DB Status, Tables, Confidence).
+  - [MODIFY] Apply modern dark mode color palette, smooth animations, sticky headers, and professional typography.
+
+### Phase 15: Final E2E Testing
+- [ ] Run comprehensive tests across all features, ensuring zero errors.
+
+## Verification Plan
+
+### Automated Tests
+- N/A for this project (no existing test suite mentioned, but will verify script executions).
+
+### Manual Verification
+- Start the API backend and Vite frontend.
+- Enter sample queries like "Retailer scan count" and verify the generated SQL and visual report.
+- Verify download buttons produce valid files.
+- Verify the Settings tab successfully updates configuration and triggers KB rebuilds.
+- Confirm the design matches premium, modern aesthetics.

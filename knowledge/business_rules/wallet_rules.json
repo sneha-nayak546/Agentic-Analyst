@@ -1,0 +1,66 @@
+{
+    "domain": "wallet",
+
+    "concepts": [
+
+        {
+            "name": "wallet transaction",
+
+            "description":
+            "Stores customer wallet credit and debit activities.",
+
+            "primary_table":
+            "wallet_transaction",
+
+            "important_columns": [
+                "user_id",
+                "amount",
+                "transaction_type",
+                "status",
+                "created_at"
+            ],
+
+            "common_questions": [
+                "Show wallet transactions",
+                "Wallet transaction report",
+                "Total wallet amount",
+                "Monthly wallet activity"
+            ],
+
+            "sql_rules": [
+                "Use wallet_transaction for general wallet reports",
+                "Use created_at for date filtering",
+                "Use amount for financial calculations"
+            ]
+        },
+
+
+        {
+            "name": "gift scan wallet",
+
+            "description":
+            "Contains wallet transactions generated from gift scanning.",
+
+            "table":
+            "gift_scan_wallet_transactions",
+
+            "usage":
+            "Only use when user specifically mentions gift scanning"
+        },
+
+
+        {
+            "name": "wholesale wallet",
+
+            "description":
+            "Contains wallet transactions related to wholesale operations.",
+
+            "table":
+            "wholesale_wallet_transactions",
+
+            "usage":
+            "Only use when user mentions wholesale"
+        }
+
+    ]
+}

@@ -1,0 +1,50 @@
+npm install tailwindcss @tailwindcss/vite
+npx shadcn@latest init
+npm install tailwindcss @tailwindcss/vite
+dir
+dir src
+type package.json
+type vite.config.js
+code .
+npm install -D @types/node
+npm run dev
+y
+npm run dev
+y
+npm install
+npm run dev
+y
+cd C:\Users\nayak_o7hopi6\Desktop\Agent
+venv\Scripts\activate
+python -m uvicorn app.api.main:app --reload
+python -m app.agent.sql_agent
+code app\agent\sql_agent.py
+cd C:\Users\nayak_o7hopi6\Desktop\Agent
+venv\Scripts\activate
+python -m app.agent.sql_agent
+cd C:\Users\nayak_o7hopi6\Desktop\Agent
+code app\prompt\prompt_builder.py
+python -m app.agent.sql_agent
+cd C:\Users\nayak_o7hopi6\Desktop\Agent
+code app\prompt\prompt_builder.py
+python -m app.agent.sql_agent
+cd C:\Users\nayak_o7hopi6\Desktop\Agent
+code app\retriever\retriever.py
+dir
+dir app /s
+type app\retriever\retriever.py
+type app\prompt\prompt_builder.py
+type app\agent\sql_agent.py
+type app\embedding\chroma_builder.py
+type app\embedding\sql_history_embedding.py
+cd C:\Users\nayak_o7hopi6\Desktop\Agent
+code app\embedding\chroma_builder.py
+python app\embedding\chroma_builder.py
+code app\embedding\sql_history_embedding.py
+python app\embedding\sql_history_embedding.py
+code app\retriever\retriever.py
+code app\prompt\prompt_builder.py
+code app\agent\sql_agent.py
+python -m app.agent.sql_agent
+script cmd_output.txt
+doskey /history > cmd_history.txt

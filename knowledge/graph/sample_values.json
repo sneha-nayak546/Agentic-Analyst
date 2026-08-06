@@ -1,0 +1,131 @@
+{
+    "companies": {
+        "business_unit": [
+            "CORE"
+        ],
+        "business_info_id": [
+            "6"
+        ],
+        "monthly_percent_deactivate_qr_limit": [
+            "15.00",
+            "0.00",
+            "20.00"
+        ],
+        "additional_monthly_deactivate_qr_limit": [
+            "0",
+            "50",
+            "70"
+        ],
+        "additional_limit_valid_upto": [
+            "2026-09-30"
+        ]
+    },
+    "users": {
+        "last_name": [
+            "Nigam",
+            "Naik"
+        ],
+        "remember_token": [
+            "jRIXNXjp7l6hn3tQ5u2aK6xD76iScgZZeBt4iq4JcEir6JZ2gQswquloajwJ",
+            "J1WZU6GGuoa6LGnTR3UM3N4K6dyOeNdZcAtxQiHRKzhqUccoth1RhwcDS1tB",
+            "R1XAgqe0hUZ4NRigsLCcA6MaGVZgx1vCT0IStheAKBKxcxvKO2cldihopVxV"
+        ],
+        "country_code": [
+            "+91",
+            "91"
+        ],
+        "user_role": [
+            "2",
+            "5",
+            "4"
+        ],
+        "designation": [
+            "Sales Executive",
+            "Area Sales Manager",
+            "Regional Sales Manager"
+        ],
+        "state_id": [
+            "14",
+            "8",
+            "11"
+        ],
+        "account_type": [
+            "Current",
+            "Savings"
+        ],
+        "gender": [
+            "male"
+        ],
+        "bank_details_status": [
+            "0",
+            "1"
+        ],
+        "status": [
+            "approved",
+            "pending"
+        ],
+        "business_info_id": [
+            "6"
+        ],
+        "kyc_status": [
+            "1",
+            "0"
+        ],
+        "isBlacklisted": [
+            "0",
+            "1"
+        ],
+        "scan_limit": [
+            "200",
+            "100",
+            "300"
+        ],
+        "app_updated": [
+            "0",
+            "1"
+        ],
+        "block_withdrawal": [
+            "0",
+            "1"
+        ],
+        "block_withdrawal_message": [
+            "Retailer / wholesaler verification is pending.",
+            "To reactivate your cash withdrawal feature, please go to Shop Photo section in the menu & click a clear photograph of your shop front from outside with the Dealer Board clearly visible in it",
+            "As per the Income Tax Rules, you have reached the withdrawal limit, and we are required to deduct TDS. Currently, you do not have sufficient funds available for this cash withdrawal."
+        ],
+        "block_gift_redeem": [
+            "0",
+            "1"
+        ],
+        "block_gift_redeem_message": [
+            "To reactivate your cash withdrawal feature, please go to Shop Photo section in the menu & click a clear photograph of your shop front from outside with the Dealer Board clearly visible in it",
+            "As per the Income Tax Rules, you have reached the withdrawal limit, and we are required to deduct TDS. Currently, you do not have sufficient funds available for this cash withdrawal.",
+            "Magic App is not active in your area."
+        ],
+        "disable_scan": [
+            "0",
+            "1"
+        ],
+        "disable_scan_message": [
+            "To reactivate your cash withdrawal feature, please go to Shop Photo section in the menu & click a clear photograph of your shop front from outside with the Dealer Board clearly visible in it",
+            "Magic App is not active in your area.",
+            "Blocked due to non-payment."
+        ],
+        "direct_manager_id": [
+            "74207",
+            "70912",
+            "70983"
+        ],
+        "remark": [
+            "test",
+            "reject",
+            "rejecting"
+        ],
+        "fcm_token": [
+            "FCM_TOKEN",
+            "di7XGycyTOOsO9fd56_ECR:APA91bE2UOM3lCYHcTU9muB1IHsO91EKLjBU0fZnwYa73Ox_cjaePBFtEhd0vr_vOzMB3x5HSYNQxfGCagVYl2BVy5xug8pkmMJ3vCDyYErKv_pItS2ls_A",
+            "drr9OrKpSI6cZA11DYa5GN:APA91bFWuwLNkAuoTK0tiiLE09IeUceGMrHzTOCKa_88Nm8AZrA3mKMM956MUvKvf3V1UOKgZFuep1w07tDyzPOISzsSujqlrH_dorwMQCAPjsVd0MuGUH8"
+        ]
+    },
+    "wallet_transaction": {}
+}
