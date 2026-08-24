@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: jgh_ai_analytics
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=${DB_HOST:-localhost}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_NAME=${DB_NAME:-jghMasterDB}
+      - DB_USER=${DB_USER:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-}
+      - MASTER_SECRET_KEY=${MASTER_SECRET_KEY:-}
+      - ENCRYPTED_DB_CONFIG=${ENCRYPTED_DB_CONFIG:-}
+      - ENABLE_LLM_FALLBACK=${ENABLE_LLM_FALLBACK:-0}
+      - LLM_MODEL=${LLM_MODEL:-qwen2.5-coder:7b}
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

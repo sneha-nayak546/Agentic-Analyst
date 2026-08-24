@@ -1,4 +1,263 @@
 {
-    "business_terminology": {},
-    "business_rules": []
+    "business_terminology": {
+        "bussiness admin": {
+            "table": "role",
+            "column": "id",
+            "value": 1,
+            "condition": "users.user_role = 1",
+            "description": "Users having the 'Bussiness Admin' role (role.id = 1)"
+        },
+        "retailer": {
+            "table": "role",
+            "column": "id",
+            "value": 2,
+            "condition": "users.user_role = 2",
+            "description": "Users having the 'Retailer' role (users.user_role = 2)"
+        },
+        "super admin": {
+            "table": "role",
+            "column": "id",
+            "value": 3,
+            "condition": "users.user_role = 3",
+            "description": "Users having the 'Super Admin' role (role.id = 3)"
+        },
+        "distributor": {
+            "table": "role",
+            "column": "id",
+            "value": 4,
+            "condition": "users.user_role = 4",
+            "description": "Users having the 'Distributor' role (role.id = 4)"
+        },
+        "wholesaler": {
+            "table": "role",
+            "column": "id",
+            "value": 5,
+            "condition": "users.user_role = 5",
+            "description": "Users having the 'Wholesaler' role (role.id = 5)"
+        },
+        "executive": {
+            "table": "role",
+            "column": "id",
+            "value": 6,
+            "condition": "users.user_role = 6",
+            "description": "Users having the 'Executive' role (role.id = 6)"
+        },
+        "accountant access": {
+            "table": "role",
+            "column": "id",
+            "value": 7,
+            "condition": "users.user_role = 7",
+            "description": "Users having the 'Accountant Access' role (role.id = 7)"
+        },
+        "distributor staff": {
+            "table": "role",
+            "column": "id",
+            "value": 8,
+            "condition": "users.user_role = 8",
+            "description": "Users having the 'Distributor Staff' role (role.id = 8)"
+        },
+        "chat support": {
+            "table": "role",
+            "column": "id",
+            "value": 9,
+            "condition": "users.user_role = 9",
+            "description": "Users having the 'Chat Support' role (role.id = 9)"
+        },
+        "mis user": {
+            "table": "role",
+            "column": "id",
+            "value": 12,
+            "condition": "users.user_role = 12",
+            "description": "Users having the 'MIS User' role (role.id = 12)"
+        },
+        "report admin": {
+            "table": "role",
+            "column": "id",
+            "value": 11,
+            "condition": "users.user_role = 11",
+            "description": "Users having the 'Report Admin' role (role.id = 11)"
+        },
+        "reports access": {
+            "table": "role",
+            "column": "id",
+            "value": 13,
+            "condition": "users.user_role = 13",
+            "description": "Users having the 'Reports Access' role (role.id = 13)"
+        },
+        "se report": {
+            "table": "role",
+            "column": "id",
+            "value": 14,
+            "condition": "users.user_role = 14",
+            "description": "Users having the 'SE report' role (role.id = 14)"
+        },
+        "0 transactions": {
+            "table": "wallet_transaction",
+            "column": "transaction_type",
+            "value": "0",
+            "condition": "wallet_transaction.transaction_type = '0'",
+            "description": "Wallet records with type '0'"
+        },
+        "1 transactions": {
+            "table": "wallet_transaction",
+            "column": "transaction_type",
+            "value": "1",
+            "condition": "wallet_transaction.transaction_type = '1'",
+            "description": "Wallet records with type '1'"
+        },
+        "0 withdrawals": {
+            "table": "withdrawal_request",
+            "column": "status",
+            "value": "0",
+            "condition": "withdrawal_request.status = '0'",
+            "description": "Withdrawal requests currently '0'"
+        },
+        "1 withdrawals": {
+            "table": "withdrawal_request",
+            "column": "status",
+            "value": "1",
+            "condition": "withdrawal_request.status = '1'",
+            "description": "Withdrawal requests currently '1'"
+        },
+        "2 withdrawals": {
+            "table": "withdrawal_request",
+            "column": "status",
+            "value": "2",
+            "condition": "withdrawal_request.status = '2'",
+            "description": "Withdrawal requests currently '2'"
+        },
+        "retailers": {
+            "table": "role",
+            "column": "id",
+            "value": 2,
+            "condition": "users.user_role = 2",
+            "description": "Users having the 'Retailer' role (users.user_role = 2)"
+        },
+        "monthly earnings": {
+            "table": "wallet_transaction",
+            "column": "transaction_type",
+            "condition": "wallet_transaction.transaction_type IN ('cash_point', 'referral_earning', 'topup', 'coupon_redeem') AND wallet_transaction.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01')",
+            "description": "Earnings breakdown across cash_point, referral_earning, topup, coupon_redeem for current month",
+            "select_expressions": [
+                "SUM(CASE WHEN wallet_transaction.transaction_type = 'cash_point' THEN wallet_transaction.amount ELSE 0 END) AS cash_point_earning",
+                "SUM(CASE WHEN wallet_transaction.transaction_type = 'referral_earning' THEN wallet_transaction.amount ELSE 0 END) AS referral_earning",
+                "SUM(CASE WHEN wallet_transaction.transaction_type = 'topup' THEN wallet_transaction.amount ELSE 0 END) AS topup_earning",
+                "SUM(CASE WHEN wallet_transaction.transaction_type = 'coupon_redeem' THEN wallet_transaction.amount ELSE 0 END) AS coupon_redeem_earning",
+                "SUM(wallet_transaction.amount) AS total_monthly_earning"
+            ]
+        },
+        "retailer earnings": {
+            "table": "wallet_transaction",
+            "column": "transaction_type",
+            "condition": "users.user_role = 2 AND wallet_transaction.transaction_type IN ('cash_point', 'referral_earning', 'topup', 'coupon_redeem') AND wallet_transaction.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01')",
+            "description": "Retailer earnings breakdown across cash_point, referral_earning, topup, coupon_redeem for current month",
+            "select_expressions": [
+                "SUM(CASE WHEN wallet_transaction.transaction_type = 'cash_point' THEN wallet_transaction.amount ELSE 0 END) AS cash_point_earning",
+                "SUM(CASE WHEN wallet_transaction.transaction_type = 'referral_earning' THEN wallet_transaction.amount ELSE 0 END) AS referral_earning",
+                "SUM(CASE WHEN wallet_transaction.transaction_type = 'topup' THEN wallet_transaction.amount ELSE 0 END) AS topup_earning",
+                "SUM(CASE WHEN wallet_transaction.transaction_type = 'coupon_redeem' THEN wallet_transaction.amount ELSE 0 END) AS coupon_redeem_earning",
+                "SUM(wallet_transaction.amount) AS total_monthly_earning"
+            ]
+        },
+        "redemption": {
+            "target_table": "wallet_transaction",
+            "column": "reference_type",
+            "value": "withdrawal",
+            "description": "Redemptions or redeemed amounts map strictly to wallet_transaction.reference_type = 'withdrawal'."
+        },
+        "redeem": {
+            "target_table": "wallet_transaction",
+            "column": "reference_type",
+            "value": "withdrawal",
+            "description": "Redemptions or redeemed amounts map strictly to wallet_transaction.reference_type = 'withdrawal'."
+        },
+        "earnings": {
+            "target_table": "wallet_transaction",
+            "column": "reference_type",
+            "values": [
+                "cash_point",
+                "topup",
+                "coupon_redeem"
+            ],
+            "description": "Earnings map strictly to wallet_transaction.reference_type IN ('cash_point', 'topup', 'coupon_redeem')."
+        },
+        "earned": {
+            "target_table": "wallet_transaction",
+            "column": "reference_type",
+            "values": [
+                "cash_point",
+                "topup",
+                "coupon_redeem"
+            ],
+            "description": "Earnings map strictly to wallet_transaction.reference_type IN ('cash_point', 'topup', 'coupon_redeem')."
+        },
+        "balance": {
+            "target_table": "wallet_transaction",
+            "calculation_rule": "DYNAMIC_LEDGER_SUM",
+            "sql_pattern": "SUM(wt.amount)",
+            "description": "Always calculate wallet balance dynamically by joining users and wallet_transaction on users.id = wallet_transaction.user_id and summing wt.amount grouped by user."
+        },
+        "wallet balance": {
+            "target_table": "wallet_transaction",
+            "calculation_rule": "DYNAMIC_LEDGER_SUM",
+            "sql_pattern": "SUM(wt.amount)",
+            "description": "Always calculate wallet balance dynamically by joining users and wallet_transaction on users.id = wallet_transaction.user_id and summing wt.amount grouped by user."
+        },
+        "sku_scanned_boxes": {
+            "target_table": "sku_qr_points_map",
+            "calculation_rule": "COUNT_OR_SUM_BOXES",
+            "wholesaler_join": "status_wholesaler_id = users.id AND wholesaler_scanned_at IS NOT NULL",
+            "retailer_join": "status_retailer_id = users.id AND retailer_scanned_at IS NOT NULL",
+            "description": "Calculates scanned boxes using `sku_code` join, mapping `uom` and `box_calculation_uom` across wholesaler and retailer scan timestamps."
+        },
+        "scanned_boxes_retailer": {
+            "target_table": "sku_inventories",
+            "condition": "retailer_scanned_at IS NOT NULL AND status_retailer_id IS NOT NULL",
+            "date_column": "retailer_scanned_at",
+            "description": "Retailer box scans joining sku_inventories and sku_qr_points_map on sku_code."
+        },
+        "scanned boxes retailer": {
+            "target_table": "sku_inventories",
+            "condition": "retailer_scanned_at IS NOT NULL AND status_retailer_id IS NOT NULL",
+            "date_column": "retailer_scanned_at",
+            "description": "Retailer box scans joining sku_inventories and sku_qr_points_map on sku_code."
+        },
+        "retailer box scans": {
+            "target_table": "sku_inventories",
+            "condition": "retailer_scanned_at IS NOT NULL AND status_retailer_id IS NOT NULL",
+            "date_column": "retailer_scanned_at",
+            "description": "Retailer box scans joining sku_inventories and sku_qr_points_map on sku_code."
+        },
+        "scanned_boxes_wholesaler": {
+            "target_table": "sku_inventories",
+            "condition": "wholesaler_scanned_at IS NOT NULL AND status_wholeseller_id IS NOT NULL",
+            "date_column": "wholesaler_scanned_at",
+            "description": "Wholesaler box scans joining sku_inventories and sku_qr_points_map on sku_code."
+        },
+        "scanned boxes wholesaler": {
+            "target_table": "sku_inventories",
+            "condition": "wholesaler_scanned_at IS NOT NULL AND status_wholeseller_id IS NOT NULL",
+            "date_column": "wholesaler_scanned_at",
+            "description": "Wholesaler box scans joining sku_inventories and sku_qr_points_map on sku_code."
+        },
+        "wholesaler box scans": {
+            "target_table": "sku_inventories",
+            "condition": "wholesaler_scanned_at IS NOT NULL AND status_wholeseller_id IS NOT NULL",
+            "date_column": "wholesaler_scanned_at",
+            "description": "Wholesaler box scans joining sku_inventories and sku_qr_points_map on sku_code."
+        }
+    },
+    "tables": {
+        "users": 17867,
+        "companies": 414,
+        "wallet_transaction": 5888219,
+        "role": 13,
+        "user_role": 13,
+        "sku_inventories": 7064890,
+        "mechanic_details": 25555,
+        "withdrawal_request": 45703,
+        "automatic_transactions": 54350,
+        "sku_qr_points_map": 0,
+        "state": 40
+    }
 }

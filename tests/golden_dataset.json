@@ -1,0 +1,127 @@
+[
+  {
+    "id": 1,
+    "question": "Teach me how user roles work",
+    "target_mode": "TUTOR_QA"
+  },
+  {
+    "id": 2,
+    "question": "Explain reference_type in wallet_transaction",
+    "target_mode": "TUTOR_QA"
+  },
+  {
+    "id": 3,
+    "question": "What is the difference between profile balance and ledger transactions?",
+    "target_mode": "TUTOR_QA"
+  },
+  {
+    "id": 4,
+    "question": "How do dual box scans work between wholesaler and mechanic?",
+    "target_mode": "TUTOR_QA"
+  },
+  {
+    "id": 5,
+    "question": "Teach me about Kolkata warehouse dispatches",
+    "target_mode": "TUTOR_QA"
+  },
+  {
+    "id": 6,
+    "question": "Generate ER diagram for users and wallet_transaction",
+    "target_mode": "ERD_GEN"
+  },
+  {
+    "id": 7,
+    "question": "Draw architecture diagram for sku_inventories and sku_qr_points_maps",
+    "target_mode": "ERD_GEN"
+  },
+  {
+    "id": 8,
+    "question": "Generate ER diagram for withdrawal_request and automatic_transactions",
+    "target_mode": "ERD_GEN"
+  },
+  {
+    "id": 9,
+    "question": "Draw schema diagram for users and companies",
+    "target_mode": "ERD_GEN"
+  },
+  {
+    "id": 10,
+    "question": "Generate ER diagram for sku_inventories and users",
+    "target_mode": "ERD_GEN"
+  },
+  {
+    "id": 11,
+    "question": "Build a dashboard for July activity",
+    "target_mode": "DASHBOARD_GEN"
+  },
+  {
+    "id": 12,
+    "question": "Create analytics panel for wallet transaction breakdown",
+    "target_mode": "DASHBOARD_GEN"
+  },
+  {
+    "id": 13,
+    "question": "Build dashboard for retailer scan volume",
+    "target_mode": "DASHBOARD_GEN"
+  },
+  {
+    "id": 14,
+    "question": "Create metrics panel for user growth",
+    "target_mode": "DASHBOARD_GEN"
+  },
+  {
+    "id": 15,
+    "question": "Build dashboard for monthly payout withdrawals",
+    "target_mode": "DASHBOARD_GEN"
+  },
+  {
+    "id": 16,
+    "question": "What happened this month in simple words?",
+    "target_mode": "BUSINESS_STORY"
+  },
+  {
+    "id": 17,
+    "question": "Executive summary of quarterly scan momentum",
+    "target_mode": "BUSINESS_STORY"
+  },
+  {
+    "id": 18,
+    "question": "Tell a story of July revenue trends",
+    "target_mode": "BUSINESS_STORY"
+  },
+  {
+    "id": 19,
+    "question": "Executive story of wholesaler performance",
+    "target_mode": "BUSINESS_STORY"
+  },
+  {
+    "id": 20,
+    "question": "What happened this month in wallet redemptions?",
+    "target_mode": "BUSINESS_STORY"
+  },
+  {
+    "id": 21,
+    "question": "Show top 10 retailers by earnings for July 2026",
+    "target_mode": "SQL_ANALYTICS"
+  },
+  {
+    "id": 22,
+    "question": "Show total retailer box scans for July 2026",
+    "target_mode": "SQL_ANALYTICS"
+  },
+  {
+    "id": 23,
+    "question": "Show top 5 wholesalers by box dispatches",
+    "target_mode": "SQL_ANALYTICS"
+  },
+  {
+    "id": 24,
+    "question": "Show total count of active registered users by role",
+    "target_mode": "SQL_ANALYTICS"
+  },
+  {
+    "id": 25,
+    "question": "Show top 10 wallet topups by amount",
+    "target_mode": "SQL_ANALYTICS"
+  }
+]

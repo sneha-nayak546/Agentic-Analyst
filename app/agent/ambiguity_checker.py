@@ -13,62 +13,80 @@ def load_db_enum_metadata() -> dict:
             pass
     return {}
 
-def check_ambiguity(question: str) -> Optional[Dict[str, Any]]:
+def check_ambiguity(question: str, active_context: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
     """
-    Checks if a user question is ambiguous, underspecified, or requires database value clarification.
-    Returns follow-up clarification details listing exact DB options if ambiguous, else None.
+    Checks if a user question is ambiguous or underspecified when no previous context exists.
+    Returns follow-up clarification details listing exact options if ambiguous, else None.
     """
     if not question or not question.strip():
         return None
 
     q_clean = question.strip().lower()
-    words = [w for w in q_clean.split() if len(w) > 2]
+    ctx = active_context or {}
 
-    # Database-Driven Ambiguity Check against discovered Enum & Distinct Values
-    metadata = load_db_enum_metadata()
-    enum_values = metadata.get("enum_values", {})
-    business_terms = metadata.get("business_terminology", {})
-    
-    # Collect all valid DB terms
-    all_db_terms = set()
-    for term in business_terms:
-        all_db_terms.add(term.lower())
-    for col, vals in enum_values.items():
-        for v in vals:
-            all_db_terms.add(str(v).lower())
-            
-    # Check for partial matches that might need clarification
-    for w in words:
-        if w in ["transaction", "transactions", "report", "reports", "user", "users", "show", "list", "get", "all"]:
-            continue
-            
-        if w not in all_db_terms:
-            # Check if it's a partial match for any DB term
-            partial_matches = [t for t in all_db_terms if w in t]
-            # Exclude very short matches
-            partial_matches = [t for t in partial_matches if len(t) > 3 and abs(len(t) - len(w)) < 10]
-            
-            if partial_matches and len(partial_matches) > 1:
-                # E.g., user said "scan" but DB has "scan_reward"
-                options = [f"Did you mean '{pm}'?" for pm in partial_matches[:4]]
+    # If the user prompt is a reset or meta command, it's not ambiguous
+    if any(k in q_clean for k in ["start a new analysis", "new query", "reset conversation", "ignore previous"]):
+        return None
+
+    # Check for Vague / Missing Entity queries like "Show August data.", "Show data for Jan", "Show July 2026 data"
+    # only when no entity or metric is present in the question AND none in active context
+    vague_data_patterns = [
+        r"\b(?:show|get|list|fetch|give\s+me)\s+(?:data|records|info|details|report)?\s*(?:for|in|of)?\s*(january|jan|february|feb|march|mar|april|apr|may|june|jun|july|jul|august|aug|september|sep|sept|october|oct|november|nov|december|dec)(?:\s+(20\d{2}))?\s*(?:data|records|info)?\b",
+        r"\b(?:show|get|list|fetch)\s+(january|jan|february|feb|march|mar|april|apr|may|june|jun|july|jul|august|aug|september|sep|sept|october|oct|november|nov|december|dec)(?:\s+(20\d{2}))?\s+data\b"
+    ]
+
+    has_entity_in_prompt = any(w in q_clean for w in [
+        "distributor", "distributors", "retailer", "retailers", "dealer", "dealers",
+        "wholesaler", "wholesalers", "mechanic", "mechanics", "company", "companies",
+        "earning", "earnings", "transaction", "transactions", "wallet", "withdrawal",
+        "sku", "inventory", "box", "boxes", "balance"
+    ])
+
+    if not has_entity_in_prompt and not ctx.get("entity") and not ctx.get("metric"):
+        for pat in vague_data_patterns:
+            m = re.search(pat, q_clean)
+            if m:
+                month_str = m.group(1).capitalize()
+                year_str = m.group(2) or "2026"
                 return {
                     "is_ambiguous": True,
-                    "clarification": f"I found multiple database values matching '{w}'. Please clarify:",
-                    "options": options
+                    "clarification": f"What specific business data would you like to see for {month_str} {year_str}?",
+                    "options": [
+                        f"{month_str} Distributors",
+                        f"{month_str} Retailers",
+                        f"Distributor Earnings for {month_str}",
+                        f"Wallet Transactions in {month_str}"
+                    ]
                 }
 
-    # Single-word vague inputs
-    if len(words) <= 2 and any(w in ["transaction", "transactions", "report", "reports", "user", "users"] for w in words):
-        return {
-            "is_ambiguous": True,
-            "clarification": f"Your prompt '{question.strip()}' is underspecified. Please clarify your request or select an option:",
-            "options": [
-                "Today's Transactions",
-                "Last 7 days Transactions",
-                "Last 30 days Transactions",
-                "Show Wallet Transactions",
-                "Show Withdrawal Requests"
-            ]
-        }
+    # Check for Ambiguous "one person" / "single person" without ID, name, or active context
+    if any(p in q_clean for p in ["who is the one person", "that single person", "the one person", "single person details", "that person details", "that person"]) and not ctx.get("entity") and not ctx.get("specific_id") and not ctx.get("metric"):
+        from app.agent.id_search import extract_id_from_prompt
+        if not extract_id_from_prompt(question):
+            return {
+                "is_ambiguous": True,
+                "clarification": "Which person's details would you like to see? You can specify a User ID, mobile number, or choose an option below:",
+                "options": [
+                    "User with highest wallet balance",
+                    "Top retailer by earnings for July 2026",
+                    "Show distributor ID 46965",
+                    "Show retailer ID 46556"
+                ]
+            }
+
+    # Single-word vague inputs like "data", "report", "users" without context
+    words = [w for w in q_clean.split() if len(w) > 2]
+    if len(words) <= 1 and not ctx.get("entity") and not ctx.get("region"):
+        if words and words[0] in ["data", "report", "transactions", "summary", "stats"]:
+            return {
+                "is_ambiguous": True,
+                "clarification": f"Your query '{question.strip()}' is underspecified. Please choose an area to analyze:",
+                "options": [
+                    "Show Karnataka Distributors",
+                    "Distributor Earnings for July 2026",
+                    "Retailers Performance",
+                    "Recent Wallet Transactions"
+                ]
+            }
 
     return None

@@ -1,40 +1,19 @@
 import os
 import time
 import pandas as pd
-from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
-from sqlalchemy.engine import URL
-
-load_dotenv()
-
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT", "3306")
-DB_NAME = os.getenv("DB_NAME")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
+from sqlalchemy import text
+from app.database.config import get_db_engine, get_db_credentials
+from app.utils.sql_cleaner import clean_sql
 
 _engine = None
 
 def get_engine():
     global _engine
     if _engine is None:
-        if not all([DB_HOST, DB_USER, DB_NAME]):
+        creds = get_db_credentials()
+        if not all([creds.get("host"), creds.get("user"), creds.get("name")]):
             return None
-        db_url = URL.create(
-            drivername="mysql+pymysql",
-            username=DB_USER,
-            password=DB_PASSWORD,
-            host=DB_HOST,
-            port=int(DB_PORT),
-            database=DB_NAME
-        )
-        _engine = create_engine(
-            db_url,
-            pool_size=10,
-            max_overflow=20,
-            pool_recycle=3600,
-            pool_pre_ping=True
-        )
+        _engine = get_db_engine()
     return _engine
 
 
@@ -43,6 +22,7 @@ def execute_read_query(sql: str, limit: int = 500) -> dict:
     Executes a read-only SQL query against the MySQL database using persistent connection pool.
     Returns a dictionary with columns, rows, execution time, and error status.
     """
+    sql = clean_sql(sql)
     start_time = time.time()
     engine = get_engine()
 
@@ -130,15 +110,18 @@ def execute_query(sql: str) -> pd.DataFrame:
 
 def get_execution_plan(sql: str) -> dict:
     """
-    Runs EXPLAIN FORMAT=JSON on the provided SQL query to estimate execution cost.
+    Runs EXPLAIN FORMAT=JSON on the provided SQL query to estimate execution cost
+    and enforce the EXPLAIN Cost Gate safety thresholds.
     """
+    sql = clean_sql(sql)
     engine = get_engine()
     if engine is None:
         return {"success": False, "error": "No database connection"}
     
+    max_rows = int(os.getenv("MAX_EXPLAIN_ROWS", "10000000"))
+    
     try:
         with engine.connect() as conn:
-            # Check if MySQL version supports EXPLAIN FORMAT=JSON
             explain_sql = f"EXPLAIN FORMAT=JSON {sql}"
             result = conn.execute(text(explain_sql))
             row = result.fetchone()
@@ -146,11 +129,32 @@ def get_execution_plan(sql: str) -> dict:
                 import json
                 try:
                     plan = json.loads(row[0])
-                    # Extract estimated cost if available (MySQL 5.7+)
                     cost = 0.0
-                    if "query_block" in plan and "cost_info" in plan["query_block"]:
-                        cost = float(plan["query_block"]["cost_info"].get("query_cost", 0.0))
-                    return {"success": True, "plan": plan, "cost": cost}
+                    total_rows = 0
+                    
+                    if "query_block" in plan:
+                        qb = plan["query_block"]
+                        if "cost_info" in qb:
+                            cost = float(qb["cost_info"].get("query_cost", 0.0))
+                        
+                        # Helper to estimate total rows from query_block tables
+                        if "table" in qb:
+                            total_rows += int(qb["table"].get("rows_examined_per_scan", 0) or qb["table"].get("rows_produced_per_join", 0) or 0)
+                        elif "nested_loop" in qb:
+                            for item in qb["nested_loop"]:
+                                if "table" in item:
+                                    total_rows += int(item["table"].get("rows_examined_per_scan", 0) or item["table"].get("rows_produced_per_join", 0) or 0)
+
+                    if max_rows > 0 and total_rows > max_rows:
+                        return {
+                            "success": False,
+                            "error": f"Query execution cost exceeds safety threshold ({total_rows:,} estimated rows > limit {max_rows:,}). Please narrow the date range or add specific filters.",
+                            "exceeds_cost_gate": True,
+                            "estimated_rows": total_rows,
+                            "cost": cost
+                        }
+
+                    return {"success": True, "plan": plan, "cost": cost, "estimated_rows": total_rows}
                 except json.JSONDecodeError:
                     return {"success": True, "plan": row[0], "cost": 0.0}
             return {"success": False, "error": "No execution plan returned"}

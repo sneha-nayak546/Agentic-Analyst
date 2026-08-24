@@ -1,16 +1,8 @@
 import os
 import json
 import pymysql
-from dotenv import load_dotenv
 from app.database.allowed_tables import TARGET_SCOPE_TABLES
-
-load_dotenv()
-
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = int(os.getenv("DB_PORT", "3306"))
-DB_NAME = os.getenv("DB_NAME")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
+from app.database.config import get_db_credentials
 
 
 def run_database_profiler() -> dict:
@@ -32,7 +24,14 @@ def run_database_profiler() -> dict:
         except Exception as e:
             print("[PROFILER WARNING] Failed to read business_metadata.json:", e)
 
-    if not DB_HOST or not DB_USER or not DB_NAME:
+    creds = get_db_credentials()
+    db_host = creds["host"]
+    db_port = int(creds["port"]) if creds["port"] else 3306
+    db_user = creds["user"]
+    db_password = creds["password"]
+    db_name = creds["name"]
+
+    if not db_host or not db_user or not db_name:
         print("[PROFILER NOTICE] Missing database credentials. Returning static metadata.")
         return existing_meta
 
@@ -49,14 +48,15 @@ def run_database_profiler() -> dict:
 
     try:
         conn = pymysql.connect(
-            host=DB_HOST,
-            port=DB_PORT,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            database=DB_NAME,
+            host=db_host,
+            port=db_port,
+            user=db_user,
+            password=db_password,
+            database=db_name,
             charset="utf8mb4",
             cursorclass=pymysql.cursors.DictCursor,
-            connect_timeout=5
+            connect_timeout=5,
+            ssl={}
         )
 
         with conn.cursor() as cursor:
@@ -70,7 +70,7 @@ def run_database_profiler() -> dict:
             # 1. Capture ALL rows for lookup/master tables
             lookup_table_candidates = []
             for tbl, info in schema_meta.items():
-                if info.get("category") == "lookup_master_table" or tbl.endswith("_role") or tbl.endswith("_status"):
+                if isinstance(info, dict) and (info.get("category") == "lookup_master_table" or tbl.endswith("_role") or tbl.endswith("_status")):
                     lookup_table_candidates.append(tbl)
             if not lookup_table_candidates:
                 lookup_table_candidates = ["user_role", "role"]

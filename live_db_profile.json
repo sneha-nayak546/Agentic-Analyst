@@ -1,0 +1,1841 @@
+{
+  "users": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "last_name",
+        "type": "VARCHAR(100) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "email",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "email_verified_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "password",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "two_factor_secret",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "two_factor_recovery_codes",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "remember_token",
+        "type": "VARCHAR(100) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "deleted_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "country_code",
+        "type": "VARCHAR(10) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "mobile_number",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "user_role",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "club",
+        "type": "VARCHAR(50) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "designation",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "dob",
+        "type": "DATE",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "city",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "state_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "address",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "pincode",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "anniversary_date",
+        "type": "DATE",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "lang_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "nat_state_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "account_holder_name",
+        "type": "VARCHAR(200) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "bank_name",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "account_no",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "ifsc_code",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "account_type",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "image_path",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "district",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "gender",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "profile_image",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "membership_id",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "wallet_balance",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "'0'"
+      },
+      {
+        "name": "bank_details_status",
+        "type": "TINYINT",
+        "nullable": true,
+        "default": "'0'"
+      },
+      {
+        "name": "adhaar",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "adhaar_image",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "adhaar_front_image",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "adhaar_back_image",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "pan_card",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "pan_card_image",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "passbook_image",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "upi",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "'pending'"
+      },
+      {
+        "name": "business_info_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "distributer_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "old_user_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "kyc_status",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "adhaar_details",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "business_pan",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "bonus_points",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "'0'"
+      },
+      {
+        "name": "isBlacklisted",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "scan_limit",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "'200'"
+      },
+      {
+        "name": "referral_code",
+        "type": "VARCHAR(6) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "device_id",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "last_login",
+        "type": "DATETIME",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "app_updated",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "block_withdrawal",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "block_withdrawal_message",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "shop_branding",
+        "type": "TINYINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "block_gift_redeem",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "block_gift_redeem_message",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_scan",
+        "type": "TINYINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_scan_message",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "direct_manager_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "employee_id",
+        "type": "VARCHAR(20) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "primary_distributor_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "remark",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "fcm_token",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      "distributer_id",
+      "employee_id",
+      "state_id",
+      "user_role",
+      "user_role_2"
+    ],
+    "samples": [
+      {
+        "id": 46516,
+        "name": "ASHOK SONI",
+        "last_name": null,
+        "email": "alok@simpel.ai",
+        "email_verified_at": null,
+        "password": null,
+        "two_factor_secret": null,
+        "two_factor_recovery_codes": null,
+        "remember_token": null,
+        "deleted_at": null,
+        "created_at": "2025-01-11T11:01:32",
+        "updated_at": "2025-01-12T06:06:09",
+        "country_code": null,
+        "mobile_number": 9651819580,
+        "user_role": null,
+        "club": null,
+        "designation": null,
+        "dob": null,
+        "city": null,
+        "state_id": 28,
+        "address": "LUCKNOW",
+        "pincode": 226005,
+        "anniversary_date": null,
+        "lang_id": null,
+        "nat_state_id": null,
+        "account_holder_name": "Manish Uniyal",
+        "bank_name": "ICICI bank",
+        "account_no": "016401528094",
+        "ifsc_code": "ICIC0000250",
+        "account_type": "Savings",
+        "image_path": null,
+        "district": null,
+        "gender": null,
+        "profile_image": null,
+        "membership_id": null,
+        "wallet_balance": 10,
+        "bank_details_status": 1,
+        "adhaar": null,
+        "adhaar_image": null,
+        "adhaar_front_image": null,
+        "adhaar_back_image": null,
+        "pan_card": "ALXPS3166R",
+        "pan_card_image": null,
+        "passbook_image": null,
+        "upi": null,
+        "status": "approved",
+        "business_info_id": 6,
+        "distributer_id": null,
+        "old_user_id": null,
+        "kyc_status": 0,
+        "adhaar_details": null,
+        "business_pan": "ALXPS3166R",
+        "bonus_points": 0,
+        "isBlacklisted": 0,
+        "scan_limit": 200,
+        "referral_code": "C0E5C5",
+        "device_id": null,
+        "last_login": null,
+        "app_updated": 0,
+        "block_withdrawal": 0,
+        "block_withdrawal_message": null,
+        "shop_branding": null,
+        "block_gift_redeem": 0,
+        "block_gift_redeem_message": null,
+        "disable_scan": 0,
+        "disable_scan_message": null,
+        "direct_manager_id": null,
+        "employee_id": null,
+        "primary_distributor_id": null,
+        "remark": null,
+        "fcm_token": null
+      },
+      {
+        "id": 46517,
+        "name": "PRAVEEN KUMAR",
+        "last_name": null,
+        "email": "praveenkumarytc@gmail.com",
+        "email_verified_at": null,
+        "password": null,
+        "two_factor_secret": null,
+        "two_factor_recovery_codes": null,
+        "remember_token": null,
+        "deleted_at": null,
+        "created_at": "2025-01-12T05:58:53",
+        "updated_at": "2025-01-12T06:05:33",
+        "country_code": null,
+        "mobile_number": 9415797565,
+        "user_role": null,
+        "club": null,
+        "designation": null,
+        "dob": null,
+        "city": null,
+        "state_id": 11,
+        "address": null,
+        "pincode": 226017,
+        "anniversary_date": null,
+        "lang_id": null,
+        "nat_state_id": null,
+        "account_holder_name": null,
+        "bank_name": null,
+        "account_no": null,
+        "ifsc_code": null,
+        "account_type": null,
+        "image_path": null,
+        "district": null,
+        "gender": null,
+        "profile_image": null,
+        "membership_id": null,
+        "wallet_balance": 0,
+        "bank_details_status": 0,
+        "adhaar": null,
+        "adhaar_image": null,
+        "adhaar_front_image": null,
+        "adhaar_back_image": null,
+        "pan_card": "HSJPK6559L",
+        "pan_card_image": null,
+        "passbook_image": null,
+        "upi": null,
+        "status": "approved",
+        "business_info_id": 6,
+        "distributer_id": null,
+        "old_user_id": null,
+        "kyc_status": 0,
+        "adhaar_details": null,
+        "business_pan": "HSJPK6559L",
+        "bonus_points": 0,
+        "isBlacklisted": 0,
+        "scan_limit": 200,
+        "referral_code": "F0799A",
+        "device_id": null,
+        "last_login": null,
+        "app_updated": 0,
+        "block_withdrawal": 0,
+        "block_withdrawal_message": null,
+        "shop_branding": null,
+        "block_gift_redeem": 0,
+        "block_gift_redeem_message": null,
+        "disable_scan": 0,
+        "disable_scan_message": null,
+        "direct_manager_id": null,
+        "employee_id": null,
+        "primary_distributor_id": null,
+        "remark": null,
+        "fcm_token": null
+      }
+    ]
+  },
+  "role": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(100)",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "is_editable",
+        "type": "TINYINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP"
+      },
+      {
+        "name": "updated_at",
+        "type": "DATETIME",
+        "nullable": false,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+      },
+      {
+        "name": "deleted_at",
+        "type": "DATETIME",
+        "nullable": true,
+        "default": "None"
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [],
+    "indexes": [],
+    "samples": [
+      {
+        "id": 1,
+        "name": "Bussiness Admin",
+        "is_editable": null,
+        "created_at": "2024-04-12T09:36:52",
+        "updated_at": "2024-05-21T16:07:19",
+        "deleted_at": null
+      },
+      {
+        "id": 2,
+        "name": "Retailer",
+        "is_editable": null,
+        "created_at": "2024-04-12T09:37:20",
+        "updated_at": "2025-01-07T10:00:32",
+        "deleted_at": null
+      }
+    ],
+    "all_rows": [
+      {
+        "id": 1,
+        "name": "Bussiness Admin",
+        "is_editable": null,
+        "created_at": "2024-04-12 09:36:52",
+        "updated_at": "2024-05-21 16:07:19",
+        "deleted_at": null
+      },
+      {
+        "id": 2,
+        "name": "Retailer",
+        "is_editable": null,
+        "created_at": "2024-04-12 09:37:20",
+        "updated_at": "2025-01-07 10:00:32",
+        "deleted_at": null
+      },
+      {
+        "id": 3,
+        "name": "Super Admin",
+        "is_editable": null,
+        "created_at": "2024-05-21 16:10:38",
+        "updated_at": "2025-01-07 10:00:47",
+        "deleted_at": null
+      },
+      {
+        "id": 4,
+        "name": "Distributor",
+        "is_editable": null,
+        "created_at": "2024-06-17 12:31:02",
+        "updated_at": "2025-03-06 10:00:15",
+        "deleted_at": null
+      },
+      {
+        "id": 5,
+        "name": "Wholesaler",
+        "is_editable": null,
+        "created_at": "2025-01-07 10:02:04",
+        "updated_at": "2025-03-06 10:00:06",
+        "deleted_at": null
+      },
+      {
+        "id": 6,
+        "name": "Executive",
+        "is_editable": null,
+        "created_at": "2025-03-07 06:27:24",
+        "updated_at": "2025-03-07 06:27:24",
+        "deleted_at": null
+      },
+      {
+        "id": 7,
+        "name": "Accountant Access",
+        "is_editable": 1,
+        "created_at": "2025-06-18 16:03:44",
+        "updated_at": "2025-06-18 16:03:44",
+        "deleted_at": null
+      },
+      {
+        "id": 8,
+        "name": "Distributor Staff",
+        "is_editable": null,
+        "created_at": "2025-07-10 05:03:51",
+        "updated_at": "2025-07-10 05:03:51",
+        "deleted_at": null
+      },
+      {
+        "id": 9,
+        "name": "Chat Support",
+        "is_editable": 1,
+        "created_at": "2025-07-11 16:09:09",
+        "updated_at": "2025-07-11 16:09:09",
+        "deleted_at": null
+      },
+      {
+        "id": 10,
+        "name": "MIS User",
+        "is_editable": 0,
+        "created_at": "2025-08-19 14:27:02",
+        "updated_at": "2025-09-10 11:43:16",
+        "deleted_at": null
+      },
+      {
+        "id": 11,
+        "name": "Report Admin",
+        "is_editable": 1,
+        "created_at": "2025-11-20 15:50:01",
+        "updated_at": "2026-03-25 15:52:59",
+        "deleted_at": null
+      },
+      {
+        "id": 12,
+        "name": "MIS User",
+        "is_editable": 1,
+        "created_at": "2025-11-27 11:33:28",
+        "updated_at": "2025-11-27 11:33:28",
+        "deleted_at": null
+      },
+      {
+        "id": 13,
+        "name": "Reports Access",
+        "is_editable": 1,
+        "created_at": "2026-06-04 13:13:10",
+        "updated_at": "2026-06-04 13:17:47",
+        "deleted_at": null
+      },
+      {
+        "id": 14,
+        "name": "SE report",
+        "is_editable": 1,
+        "created_at": "2026-08-05 13:20:41",
+        "updated_at": "2026-08-05 13:20:41",
+        "deleted_at": null
+      }
+    ]
+  },
+  "wallet_transaction": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "user_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "amount",
+        "type": "DECIMAL(10, 2)",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "transaction_type",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "reference_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "reference_type",
+        "type": "ENUM",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "status",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "remark",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      "created_at",
+      "user_id"
+    ],
+    "samples": [
+      {
+        "id": 336001,
+        "user_id": 47954,
+        "amount": "6.00",
+        "transaction_type": 1,
+        "reference_id": 204635,
+        "reference_type": "cash_point",
+        "status": 1,
+        "remark": "Successfull ZMJCDCZ##ASI001BRN2P#85 qr scan",
+        "created_at": "2025-02-06T12:47:26",
+        "updated_at": "2025-04-09T00:05:30"
+      },
+      {
+        "id": 336002,
+        "user_id": 48317,
+        "amount": "15.00",
+        "transaction_type": 1,
+        "reference_id": 204636,
+        "reference_type": "cash_point",
+        "status": 1,
+        "remark": "Successfull TEDWT##ACM001BRN#105 qr scan",
+        "created_at": "2025-02-06T12:50:12",
+        "updated_at": "2025-04-09T00:05:30"
+      }
+    ]
+  },
+  "companies": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "phone",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "email",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "sap_code",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "business_unit",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "jgh_company",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "image",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "business_info_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "customer_id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "monthly_percent_deactivate_qr_limit",
+        "type": "DECIMAL(8, 2)",
+        "nullable": false,
+        "default": "'20.00'"
+      },
+      {
+        "name": "additional_monthly_deactivate_qr_limit",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "additional_limit_valid_upto",
+        "type": "DATE",
+        "nullable": true,
+        "default": "None"
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      "companies_sap_code_unique"
+    ],
+    "samples": [
+      {
+        "id": 5842,
+        "name": "SRI SAIDATTA GARMENTS",
+        "phone": 8125644555,
+        "email": "desusrinivas1978@gmail.com",
+        "sap_code": "D01GNT0801",
+        "business_unit": null,
+        "jgh_company": null,
+        "image": null,
+        "created_at": "2025-01-30T11:30:58",
+        "updated_at": "2025-02-06T13:42:04",
+        "business_info_id": null,
+        "customer_id": 546,
+        "monthly_percent_deactivate_qr_limit": "15.00",
+        "additional_monthly_deactivate_qr_limit": 0,
+        "additional_limit_valid_upto": null
+      },
+      {
+        "id": 5845,
+        "name": "NARANG TRADERS",
+        "phone": 9815236212,
+        "email": "narangtraders@gmail.com",
+        "sap_code": "D19kHN0201",
+        "business_unit": null,
+        "jgh_company": "NARANG TRADERS",
+        "image": null,
+        "created_at": "2025-01-30T11:47:57",
+        "updated_at": "2025-11-11T09:36:21",
+        "business_info_id": null,
+        "customer_id": 466,
+        "monthly_percent_deactivate_qr_limit": "0.00",
+        "additional_monthly_deactivate_qr_limit": 210,
+        "additional_limit_valid_upto": "2026-09-30"
+      }
+    ]
+  },
+  "sku_inventories": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "mrp",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "sku_code",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "unit_price",
+        "type": "DECIMAL(10, 2)",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "sku_description",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "invoiced_quantity",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "batch_details",
+        "type": "JSON",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "outer_lpn_number",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "lpn_number",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "carton_no",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "lpn_code",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "packed_quantity",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "order_type",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "order_reference",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "product_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "uom",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "invoice_number",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "invoice_date",
+        "type": "DATE",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "warehouse",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "invoiced_by",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "order_date",
+        "type": "DATE",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "customer_info",
+        "type": "JSON",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "distributer_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+      },
+      {
+        "name": "is_callback",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "status_wholeseller_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "status_retailer_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "sources",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": false,
+        "default": "'tirupur'"
+      },
+      {
+        "name": "wholesaler_scanned_at",
+        "type": "DATETIME",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "retailer_scanned_at",
+        "type": "DATETIME",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "is_active",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "'1'"
+      },
+      {
+        "name": "is_offline",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "'0'"
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      "created_at",
+      "distributer_id",
+      "distributer_id_2",
+      "is_callback",
+      "lpn_number",
+      "outer_lpn_number",
+      "product_id",
+      "retailer_scanned_at",
+      "sku_code",
+      "sources",
+      "status_retailer_id",
+      "status_wholeseller_id",
+      "wholesaler_scanned_at"
+    ],
+    "samples": [
+      {
+        "id": 1,
+        "mrp": "0",
+        "sku_code": "ACM002BRN#85",
+        "unit_price": "80.00",
+        "sku_description": "ACM002BRN#85",
+        "invoiced_quantity": 1,
+        "batch_details": "[]",
+        "outer_lpn_number": null,
+        "lpn_number": "NMDHVGJ",
+        "carton_no": null,
+        "lpn_code": null,
+        "packed_quantity": 0,
+        "order_type": "Distributor",
+        "order_reference": "85",
+        "product_id": 270332,
+        "uom": null,
+        "invoice_number": "INV000000000058",
+        "invoice_date": "2024-12-27",
+        "warehouse": "JGH_1100",
+        "invoiced_by": "subuser2@stockone.com",
+        "order_date": "2024-12-27",
+        "customer_info": "\"{\\\"city\\\":null,\\\"name\\\":\\\"VISHNU JAGDISHPRASAD PAREEK\\\",\\\"state\\\":11,\\\"country\\\":\\\"India\\\",\\\"pincode\\\":null,\\\"email_id\\\":\\\"vishnupareek29aqq@gmail.com\\\",\\\"last_name\\\":null,\\\"pan_number\\\":null,\\\"tin_number\\\":\\\"29AAKCM8916G1ZZ\\\",\\\"customer_id\\\":2,\\\"phone_number\\\":\\\"9964724917\\\"}\"",
+        "distributer_id": 5878,
+        "created_at": "2025-01-23T12:47:43",
+        "updated_at": "2025-03-15T21:51:33",
+        "is_callback": 0,
+        "status_wholeseller_id": null,
+        "status_retailer_id": 55725,
+        "sources": "tirupur",
+        "wholesaler_scanned_at": null,
+        "retailer_scanned_at": "2025-03-15T21:51:33",
+        "is_active": 1,
+        "is_offline": 0
+      },
+      {
+        "id": 2,
+        "mrp": "0",
+        "sku_code": "ACM002BRN#100",
+        "unit_price": "80.00",
+        "sku_description": "ACM002BRN#100",
+        "invoiced_quantity": 1,
+        "batch_details": "[]",
+        "outer_lpn_number": null,
+        "lpn_number": "HPVFRGT",
+        "carton_no": null,
+        "lpn_code": null,
+        "packed_quantity": 0,
+        "order_type": "Distributor",
+        "order_reference": "100",
+        "product_id": 270314,
+        "uom": null,
+        "invoice_number": "INV000000000058",
+        "invoice_date": "2024-12-27",
+        "warehouse": "JGH_1100",
+        "invoiced_by": "subuser2@stockone.com",
+        "order_date": "2024-12-27",
+        "customer_info": "\"{\\\"city\\\":null,\\\"name\\\":\\\"VISHNU JAGDISHPRASAD PAREEK\\\",\\\"state\\\":11,\\\"country\\\":\\\"India\\\",\\\"pincode\\\":null,\\\"email_id\\\":\\\"vishnupareek29aqq@gmail.com\\\",\\\"last_name\\\":null,\\\"pan_number\\\":null,\\\"tin_number\\\":\\\"29AAKCM8916G1ZZ\\\",\\\"customer_id\\\":2,\\\"phone_number\\\":\\\"9964724917\\\"}\"",
+        "distributer_id": 5878,
+        "created_at": "2025-01-23T12:48:11",
+        "updated_at": "2025-03-02T20:12:10",
+        "is_callback": 0,
+        "status_wholeseller_id": null,
+        "status_retailer_id": 52114,
+        "sources": "tirupur",
+        "wholesaler_scanned_at": null,
+        "retailer_scanned_at": "2025-03-02T20:12:10",
+        "is_active": 1,
+        "is_offline": 0
+      }
+    ]
+  },
+  "mechanic_details": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "mechanic_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "mechanic_account_type",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "garage_id",
+        "type": "INTEGER",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "card_number",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "pan",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "gstin",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "aadhaar",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "longitude",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "latitude",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "firm_type",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "employee_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "region",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "area_office_name",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "shop_name",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "owner_name",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "distributor_code",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "distributor_main_branch_code",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "registration_date",
+        "type": "DATE",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "approval_date_pc",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "approval_date_apm",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "have_garage",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "shop_photo",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "actual_tier",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "working_tier",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "shop_address",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "registration_datetime",
+        "type": "DATETIME",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "branch_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "company_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "geo_tag",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "'0'"
+      },
+      {
+        "name": "gst_details",
+        "type": "TEXT COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      "mechanic_details_card_number_unique"
+    ],
+    "samples": [
+      {
+        "id": 39007,
+        "mechanic_id": 46799,
+        "mechanic_account_type": null,
+        "garage_id": null,
+        "card_number": null,
+        "pan": null,
+        "gstin": null,
+        "aadhaar": null,
+        "longitude": "77.6244171",
+        "latitude": "12.9088922",
+        "firm_type": null,
+        "created_at": "2025-01-22T18:16:04",
+        "updated_at": "2025-01-22T18:16:04",
+        "employee_id": null,
+        "region": null,
+        "area_office_name": null,
+        "shop_name": null,
+        "owner_name": null,
+        "distributor_code": null,
+        "distributor_main_branch_code": null,
+        "registration_date": null,
+        "approval_date_pc": null,
+        "approval_date_apm": null,
+        "have_garage": null,
+        "shop_photo": null,
+        "actual_tier": null,
+        "working_tier": null,
+        "shop_address": null,
+        "registration_datetime": null,
+        "branch_id": null,
+        "company_id": null,
+        "geo_tag": 0,
+        "gst_details": null
+      },
+      {
+        "id": 39008,
+        "mechanic_id": 46770,
+        "mechanic_account_type": null,
+        "garage_id": null,
+        "card_number": null,
+        "pan": null,
+        "gstin": null,
+        "aadhaar": null,
+        "longitude": "80.9281757",
+        "latitude": "26.8994209",
+        "firm_type": null,
+        "created_at": "2025-01-22T18:19:49",
+        "updated_at": "2025-01-22T18:19:49",
+        "employee_id": null,
+        "region": null,
+        "area_office_name": null,
+        "shop_name": "Dd",
+        "owner_name": null,
+        "distributor_code": null,
+        "distributor_main_branch_code": null,
+        "registration_date": null,
+        "approval_date_pc": null,
+        "approval_date_apm": null,
+        "have_garage": null,
+        "shop_photo": null,
+        "actual_tier": null,
+        "working_tier": null,
+        "shop_address": null,
+        "registration_datetime": null,
+        "branch_id": null,
+        "company_id": null,
+        "geo_tag": 1,
+        "gst_details": null
+      }
+    ]
+  },
+  "withdrawal_request": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "user_id",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "amount",
+        "type": "INTEGER",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "bank_transaction_id",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "delivery_proof",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "status",
+        "type": "TINYINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "automatic_transaction_id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "tds_amount",
+        "type": "DECIMAL(10, 2)",
+        "nullable": false,
+        "default": "'0.00'"
+      },
+      {
+        "name": "tds_deducted_amount",
+        "type": "DECIMAL(10, 2)",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "gift_order_id",
+        "type": "BIGINT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "withdraw_request_type",
+        "type": "VARCHAR(50) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      "created_at",
+      "status",
+      "user_id"
+    ],
+    "samples": [
+      {
+        "id": 1,
+        "user_id": 355,
+        "amount": 250,
+        "bank_transaction_id": "13141515",
+        "delivery_proof": null,
+        "status": 1,
+        "created_at": "2023-05-30T22:54:54",
+        "updated_at": "1970-01-01T07:01:25",
+        "automatic_transaction_id": 0,
+        "tds_amount": "0.00",
+        "tds_deducted_amount": null,
+        "gift_order_id": null,
+        "withdraw_request_type": null
+      },
+      {
+        "id": 3,
+        "user_id": 356,
+        "amount": 420,
+        "bank_transaction_id": "1213131",
+        "delivery_proof": null,
+        "status": 1,
+        "created_at": "2023-05-31T05:16:34",
+        "updated_at": "1970-01-01T07:01:25",
+        "automatic_transaction_id": 0,
+        "tds_amount": "0.00",
+        "tds_deducted_amount": null,
+        "gift_order_id": null,
+        "withdraw_request_type": null
+      }
+    ]
+  },
+  "automatic_transactions": {
+    "columns": [
+      {
+        "name": "id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "user_id",
+        "type": "BIGINT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "reference_id",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "transaction_id",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "transfer_type",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "res_code",
+        "type": "LONGTEXT",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "status",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "users_phone_number",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "users_account_number",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "amount",
+        "type": "DOUBLE",
+        "nullable": false,
+        "default": "None"
+      },
+      {
+        "name": "bank_reference_number",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "response_data",
+        "type": "LONGTEXT",
+        "nullable": true,
+        "default": "None"
+      },
+      {
+        "name": "transaction_source",
+        "type": "VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\"",
+        "nullable": true,
+        "default": "None"
+      }
+    ],
+    "primary_keys": [
+      "id"
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      "automatic_transactions_reference_id_unique",
+      "created_at",
+      "user_id",
+      "users_account_number",
+      "users_phone_number"
+    ],
+    "samples": [
+      {
+        "id": 76,
+        "user_id": 48395,
+        "reference_id": null,
+        "transaction_id": "0473D966C02D47299DF0038FB3BA948F",
+        "transfer_type": "IMPS",
+        "res_code": "S00000",
+        "status": "success",
+        "users_phone_number": "7666475814",
+        "users_account_number": "4745742560",
+        "created_at": "2025-02-08T05:24:22",
+        "updated_at": "2025-02-08T05:24:22",
+        "amount": 2.0,
+        "bank_reference_number": null,
+        "response_data": null,
+        "transaction_source": null
+      },
+      {
+        "id": 77,
+        "user_id": 48208,
+        "reference_id": null,
+        "transaction_id": "614BF07DA9C147D5983E38E1429D8461",
+        "transfer_type": "IMPS",
+        "res_code": "S00000",
+        "status": "success",
+        "users_phone_number": "9987325368",
+        "users_account_number": "4745742560",
+        "created_at": "2025-02-08T06:12:54",
+        "updated_at": "2025-02-08T06:12:54",
+        "amount": 2.0,
+        "bank_reference_number": null,
+        "response_data": null,
+        "transaction_source": null
+      }
+    ]
+  }
+}

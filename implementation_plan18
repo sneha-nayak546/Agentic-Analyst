@@ -1,0 +1,28 @@
+# Implementation Plan: Fix Table Mappings & Knowledge Graph
+
+## Background Context
+During testing, 4 out of the 5 newly added tables returned an error (e.g., `Table 'roles' is not allowed or does not exist`). 
+Upon analyzing the project, I found that the `BusinessKnowledgeGraph` in `app/knowledge/knowledge_graph.py` contains a hardcoded `aliases` dictionary that maps user keywords (like "roles") to the *old* requested table names (like `user_role` instead of the actual `role` table). 
+
+Because of this mismatch, when a user asks about "roles", the system looks for `user_role` in the extracted metadata, finds nothing, and sends an empty schema to the LLM. The LLM then hallucinates table names which fail our strict validation rules.
+
+## Proposed Changes
+
+### `app/knowledge/knowledge_graph.py`
+We need to update the `aliases` dictionary inside `resolve_business_query()` to precisely match the physical database tables that we successfully extracted:
+
+#### [MODIFY] [knowledge_graph.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/knowledge_graph.py)
+Update the target keys:
+- `"user_role"` → `"role"`
+- `"sku_inventory"` → `"sku_inventories"`
+- `"machine_details"` → `"mechanic_details"` (Also mapping the keyword "mechanic" here)
+- `"withdrawal"` → `"withdrawal_request"`
+- `"automatic_transaction_bank"` → `"automatic_transactions"`
+
+### Server Restart
+After making this code change, the FastAPI application caches the `BusinessKnowledgeGraph` via a singleton `_kg_instance`. I will restart the backend server so it reloads the updated mappings and newly generated schema metadata into memory.
+
+## Verification Plan
+1. Restart the `uvicorn` and `vite` servers.
+2. Re-run the batch testing script to confirm 100% success across all tables for standard business questions.
+3. Validate that the LLM receives the full schema and generates correctly validated SQL.

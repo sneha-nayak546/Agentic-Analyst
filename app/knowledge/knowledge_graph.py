@@ -19,6 +19,45 @@ MONTH_MAP = {
     "december": ("12-01", "01-01"), "dec": ("12-01", "01-01")
 }
 
+# Non-technical user term mappings to tables
+USER_FRIENDLY_TABLE_ALIASES = {
+    "users": [
+        "user", "users", "customer", "customers", "client", "clients",
+        "retailer", "retailers", "shop owner", "shop owners", "shopkeeper", "shopkeepers",
+        "dealer", "dealers", "wholesaler", "wholesalers",
+        "distributor", "distributors", "mechanic", "mechanics",
+        "member", "members", "account", "accounts", "registered user", "registered users",
+        "people", "person", "who", "everyone", "all users", "all retailers"
+    ],
+    "wallet_transaction": [
+        "wallet", "transaction", "transactions", "balance", "fund", "funds",
+        "point", "points", "cash point", "cash_point", "cashpoint",
+        "earning", "earnings", "earn", "earned", "how much earned",
+        "topup", "top up", "top-up", "recharge",
+        "coupon", "coupon_redeem", "coupon redeem", "redeem", "redemption",
+        "reward", "rewards", "cashback", "cash back",
+        "referral", "referral earning", "referral_earning", "referred",
+        "scan earning", "qr scan",
+        "withdrawal", "withdraw", "withdrawals", "payout", "payouts",
+        "credit", "debit", "money", "amount", "payment", "paid",
+        "how much", "total earned", "total amount"
+    ],
+    "sku_qr_points_map": [
+        "sku_qr_points_map", "qr_points_map", "box_scanning", "scanned_boxes",
+        "qr_points", "sku_points", "sku_scanned_boxes", "box scans", "box uom",
+        "box_calculation_uom", "gride_type", "wholesaler_scanned_at", "retailer_scanned_at",
+        "scanned_boxes_retailer", "scanned_boxes_wholesaler", "scanned boxes retailer",
+        "scanned boxes wholesaler", "retailer box scans", "wholesaler box scans"
+    ],
+    "sku_inventories": [
+        "sku", "inventory", "inventories", "product", "products", "item", "items", "carton", "lpn", "barcode",
+        "sku_inventories", "sku inventories", "wholesaler_scanned_at", "retailer_scanned_at",
+        "scanned_boxes_retailer", "scanned_boxes_wholesaler", "scanned boxes retailer",
+        "scanned boxes wholesaler", "retailer box scans", "wholesaler box scans",
+        "scan", "scans", "scanning", "scanned", "scanning report", "scan report", "box scan", "box scans"
+    ]
+}
+
 class BusinessKnowledgeGraph:
     def __init__(self):
         self.schema_meta = {}
@@ -82,6 +121,15 @@ class BusinessKnowledgeGraph:
                     for t in tables:
                         if t['table'] != ref_table:
                             self.add_edge(t['table'], ref_table, col_name, 'id', "inferred_fk")
+
+        # 3. Explicit Graph Edges for sku_inventories, sku_qr_points_map & Dual-Role Box Scanning
+        self.add_edge("sku_inventories", "sku_qr_points_map", "sku_code", "sku_code", "explicit_fk")
+        self.add_edge("sku_inventories", "users", "status_retailer_id", "id", "explicit_fk")
+        self.add_edge("sku_inventories", "users", "status_wholeseller_id", "id", "explicit_fk")
+        self.add_edge("sku_inventories", "users", "distributer_id", "id", "explicit_fk")
+        self.add_edge("sku_qr_points_map", "sku_inventories", "sku_code", "sku_code", "explicit_fk")
+        self.add_edge("sku_qr_points_map", "users", "status_wholesaler_id", "id", "explicit_fk")
+        self.add_edge("sku_qr_points_map", "users", "status_retailer_id", "id", "explicit_fk")
         
         # 3. Save Relationship Metadata
         os.makedirs("knowledge/graph", exist_ok=True)
@@ -131,7 +179,39 @@ class BusinessKnowledgeGraph:
         q_lower = question.lower()
         import datetime
         today = datetime.date.today()
-        
+
+        if "today" in q_lower:
+            start_date = today.strftime("%Y-%m-%d")
+            end_date = (today + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+            return "today", start_date, end_date
+
+        if "yesterday" in q_lower:
+            yesterday = today - datetime.timedelta(days=1)
+            start_date = yesterday.strftime("%Y-%m-%d")
+            end_date = today.strftime("%Y-%m-%d")
+            return "yesterday", start_date, end_date
+
+        if "this week" in q_lower or "current week" in q_lower:
+            start_date = (today - datetime.timedelta(days=today.weekday())).strftime("%Y-%m-%d")
+            end_date = (today + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+            return "this week", start_date, end_date
+
+        if "last week" in q_lower or "previous week" in q_lower:
+            start_of_this_week = today - datetime.timedelta(days=today.weekday())
+            start_date = (start_of_this_week - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
+            end_date = start_of_this_week.strftime("%Y-%m-%d")
+            return "last week", start_date, end_date
+
+        if "last 7 days" in q_lower or "past 7 days" in q_lower:
+            start_date = (today - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
+            end_date = (today + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+            return "last 7 days", start_date, end_date
+
+        if "last 30 days" in q_lower or "past 30 days" in q_lower:
+            start_date = (today - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
+            end_date = (today + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+            return "last 30 days", start_date, end_date
+
         if "this month" in q_lower or "current month" in q_lower:
             start_date = today.replace(day=1).strftime("%Y-%m-%d")
             next_month = today.replace(day=28) + datetime.timedelta(days=4)
@@ -158,17 +238,26 @@ class BusinessKnowledgeGraph:
         q_lower = question.lower()
         detected_tables = set()
         
-        # Aliases for target enterprise tables
+        # Aliases for target enterprise tables — includes non-technical user-friendly terms
         aliases = {
-            "users": ["user", "users", "customer", "customers", "client"],
-            "user_role": ["role", "roles", "user role"],
-            "wallet_transaction": ["wallet", "transaction", "transactions", "balance", "fund", "funds"],
-            "sku_inventory": ["sku", "inventory", "product", "products", "item", "items", "scan", "scanned"],
-            "companies": ["company", "companies", "business", "retailer", "retailers", "distributor", "manufacturer"],
-            "machine_details": ["machine", "machines", "device", "vending", "rvm"],
-            "withdrawal": ["withdrawal", "withdrawals", "payout", "payouts"],
-            "automatic_transaction_bank": ["automatic", "bank", "bank transaction"],
-            "automate": ["automate", "automation"]
+            "users": USER_FRIENDLY_TABLE_ALIASES["users"] + [
+                "retailer", "retailers", "wholesaler", "wholesalers",
+                "distributor", "distributors", "mechanic", "mechanics",
+                "shop owner", "shop owners", "shopkeeper", "dealer", "dealers"
+            ],
+            "wallet_transaction": USER_FRIENDLY_TABLE_ALIASES["wallet_transaction"] + [
+                "wallet", "transaction", "transactions", "cash point", "cash_point",
+                "earning", "earnings", "earn", "earned", "referral", "referral earning",
+                "topup", "top up", "coupon", "coupon_redeem", "coupon redeem",
+                "cashback", "cash back", "reward", "rewards", "payout", "payouts",
+                "withdrawal", "withdrawals", "credit", "debit", "payment"
+            ],
+            "sku_inventories": USER_FRIENDLY_TABLE_ALIASES["sku_inventories"] + ["sku", "inventory", "inventories", "product", "products", "item", "items", "carton", "lpn", "barcode", "scanned_boxes_retailer", "scanned_boxes_wholesaler", "scan", "scans", "scanning", "scanned", "scanning report", "scan report", "box scan", "box scans"],
+            "companies": ["company", "companies", "business unit", "brand", "manufacturer", "jgh company"],
+            "mechanic_details": ["mechanic details", "garage", "vending"],
+            "withdrawal_request": ["withdrawal request", "payout request", "tds", "neft"],
+            "automatic_transactions": ["automatic transfer", "bank transfer", "imps", "cashfree"],
+            "sku_qr_points_map": USER_FRIENDLY_TABLE_ALIASES["sku_qr_points_map"] + ["scanned_boxes", "qr points", "box calculation uom", "box scans", "sku qr points map", "scanned_boxes_retailer", "scanned_boxes_wholesaler"]
         }
         
         for tbl_name, tbl_aliases in aliases.items():
@@ -176,10 +265,14 @@ class BusinessKnowledgeGraph:
                 if re.search(rf"\b{alias}\b", q_lower):
                     if tbl_name in self.schema_meta:
                         detected_tables.add(tbl_name)
+                        if tbl_name == "role":
+                            detected_tables.add("users")
         
         # 1. Match terms via column names & enums
         for tbl_name, tbl_info in self.schema_meta.items():
-            for col_data in tbl_info.get("columns", {}).values():
+            cols = tbl_info.get("columns", {})
+            col_list = cols.values() if isinstance(cols, dict) else (cols if isinstance(cols, list) else [])
+            for col_data in col_list:
                 col_name = col_data.get("name", "")
                 
                 if col_name.lower() not in ["id", "name", "created_at", "updated_at", "status", "type"]:
@@ -190,6 +283,36 @@ class BusinessKnowledgeGraph:
                 for enum_val in col_data.get("enum_values", []):
                     if re.search(rf"\b{str(enum_val).lower()}\b", q_lower):
                         detected_tables.add(tbl_name)
+
+        # Disambiguation: if retailer/wholesaler/mechanic is asked, remove companies unless explicitly asked
+        if "users" in detected_tables and "companies" in detected_tables:
+            if not any(k in q_lower for k in ["company", "companies", "brand", "manufacturer", "sap_code", "business unit"]):
+                detected_tables.discard("companies")
+
+        # Explicit cross-linking for user wallet transaction queries
+        user_terms = ["user", "users", "retailer", "retailers", "dealer", "dealers", "distributor", "distributors", "wholesaler", "wholesalers", "mechanic", "mechanics", "shop owner", "customer", "customers", "name", "mobile", "phone"]
+        wallet_terms = ["wallet", "transaction", "transactions", "earning", "earnings", "cashback", "cash point", "balance", "sum", "paid", "topup", "credit", "debit"]
+        if any(w in q_lower for w in user_terms) and any(w in q_lower for w in wallet_terms):
+            detected_tables.add("users")
+            detected_tables.add("wallet_transaction")
+
+        # Match Business Terms from business_dictionary.json
+        b_terms = self.business_meta.get("business_terminology", {})
+        for term, term_info in b_terms.items():
+            term_space = term.replace("_", " ")
+            if re.search(rf"\b{re.escape(term_space)}\b", q_lower) or re.search(rf"\b{re.escape(term)}\b", q_lower):
+                target_tbl = term_info.get("target_table") or term_info.get("table")
+                if target_tbl and target_tbl in self.schema_meta:
+                    detected_tables.add(target_tbl)
+
+        # Strict Box Scanning Disambiguation:
+        # If question is asking about box scans ("scanned", "scanned boxes", "boxes scanned", "box scan", "box he have scanned", "scanned box"):
+        # Map strictly to sku_inventories (si) and sku_qr_points_map. DO NOT route to wallet_transaction.
+        box_scan_keywords = ["scanned", "scanned boxes", "boxes scanned", "box scan", "scanned box", "box scans", "boxes", "scan", "scanning"]
+        if any(re.search(rf"\b{re.escape(k)}\b", q_lower) for k in box_scan_keywords):
+            if not any(k in q_lower for k in ["wallet", "earnings", "earned", "cashback", "cash_point", "credit", "debit", "withdrawal"]):
+                detected_tables.discard("wallet_transaction")
+                detected_tables.add("sku_inventories")
 
         # 2. Date Filtering
         m_name, start_date, end_date = self.resolve_date_range(question)
@@ -261,8 +384,13 @@ class BusinessKnowledgeGraph:
                     pass
 
 _kg_instance = None
-def get_knowledge_graph() -> BusinessKnowledgeGraph:
+def get_knowledge_graph(reload: bool = False) -> BusinessKnowledgeGraph:
     global _kg_instance
-    if _kg_instance is None:
+    if _kg_instance is None or reload:
         _kg_instance = BusinessKnowledgeGraph()
+    return _kg_instance
+
+def reset_knowledge_graph():
+    global _kg_instance
+    _kg_instance = BusinessKnowledgeGraph()
     return _kg_instance

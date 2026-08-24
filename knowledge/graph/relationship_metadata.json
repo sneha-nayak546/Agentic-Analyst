@@ -1,1 +1,50 @@
-[]
+[
+    {
+        "from": "table:state",
+        "to": "table:zones",
+        "type": "explicit_fk",
+        "join_clause": "state.zone_id = zones.id"
+    },
+    {
+        "from": "table:sku_inventories",
+        "to": "table:sku_qr_points_map",
+        "type": "explicit_fk",
+        "join_clause": "sku_inventories.sku_code = sku_qr_points_map.sku_code"
+    },
+    {
+        "from": "table:sku_inventories",
+        "to": "table:users",
+        "type": "explicit_fk",
+        "join_clause": "sku_inventories.status_retailer_id = users.id"
+    },
+    {
+        "from": "table:sku_inventories",
+        "to": "table:users",
+        "type": "explicit_fk",
+        "join_clause": "sku_inventories.status_wholeseller_id = users.id"
+    },
+    {
+        "from": "table:sku_inventories",
+        "to": "table:users",
+        "type": "explicit_fk",
+        "join_clause": "sku_inventories.distributer_id = users.id"
+    },
+    {
+        "from": "table:sku_qr_points_map",
+        "to": "table:sku_inventories",
+        "type": "explicit_fk",
+        "join_clause": "sku_qr_points_map.sku_code = sku_inventories.sku_code"
+    },
+    {
+        "from": "table:sku_qr_points_map",
+        "to": "table:users",
+        "type": "explicit_fk",
+        "join_clause": "sku_qr_points_map.status_wholesaler_id = users.id"
+    },
+    {
+        "from": "table:sku_qr_points_map",
+        "to": "table:users",
+        "type": "explicit_fk",
+        "join_clause": "sku_qr_points_map.status_retailer_id = users.id"
+    }
+]

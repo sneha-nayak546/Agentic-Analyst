@@ -1,0 +1,1232 @@
+JGH Database: Table Connectivity & Relationships
+Catalog
+A full network density map showing how many tables connect to each table and detailing specific columns.
+This catalog documents every table in the database, counting the total active connections (both Inbound and
+Outbound) and listing the exact columns and target tables making up these connections. Connections are labeled as
+either (Explicit) for database constraints or (Logical) for implicit application relations.
+I academy_videos     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I account_deletion_requests     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I activate_qrs_requests     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I addresses     [Total Connections: 7 | Outbound: 1 | Inbound: 6]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table box_gift_orders (column address_id)   references this table's id (Logical)
+• Table gift_orders (column address_id)   references this table's id (Logical)
+• Table incentive_gift_orders (column address_id)   references this table's id (Logical)
+• Table sample_orders (column address_id)   references this table's id (Logical)
+• Table scheme_gift_orders (column address_id)   references this table's id (Logical)
+• Table winter_gift_orders (column address_id)   references this table's id (Logical)
+I adhaar_verifications     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I app_link_report     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 1 of 33
+I automatic_transactions     [Total Connections: 2 | Outbound: 1 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table withdrawal_request (column automatic_transaction_id)   references this table's id (Logical)
+I bank_accounts     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I bank_transactions     [Total Connections: 1 | Outbound: 0 | Inbound: 1]
+Inbound Connections (tables that reference this table):
+• Table withdrawal_request (column bank_transaction_id)   references this table's id (Logical)
+I beat_plan_retailers     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column beat_plan_id   connects to beat_plans.id (Explicit)
+• Column user_id   connects to users.id (Explicit)
+I beat_plans     [Total Connections: 6 | Outbound: 3 | Inbound: 3]
+Outbound Connections (what this table connects to):
+• Column district_id   connects to districts.id (Logical)
+• Column sales_executive_id   connects to users.id (Logical)
+• Column state_id   connects to state.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table beat_plan_retailers (column beat_plan_id)   references this table's id (Explicit)
+• Table scheduled_visits (column beat_plan_id)   references this table's id (Explicit)
+• Table visit_check_in_check_out (column beat_plan_id)   references this table's id (Logical)
+I billings     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column business_id   connects to business_information.id (Explicit)
+• Column package_id   connects to packages.id (Explicit)
+I blacklist_reports     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 2 of 33
+I blocked_locations     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column state_id   connects to state.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I blocked_reasons     [Total Connections: 2 | Outbound: 0 | Inbound: 2]
+Inbound Connections (tables that reference this table):
+• Table user_scan_permissions (column blocked_reason_id)   references this table's id (Logical)
+• Table user_withdrawal_block_histories (column blocked_reason_id)   references this table's id (Logical)
+I bonus_events     [Total Connections: 1 | Outbound: 0 | Inbound: 1]
+Inbound Connections (tables that reference this table):
+• Table bonus_transactions (column bonus_event_id)   references this table's id (Logical)
+I bonus_transactions     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column bonus_event_id   connects to bonus_events.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I box_gift_orders     [Total Connections: 4 | Outbound: 4 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column address_id   connects to addresses.id (Logical)
+• Column gift_card_id   connects to gift_cards.id (Logical)
+• Column order_id   connects to orders.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I branches     [Total Connections: 6 | Outbound: 1 | Inbound: 5]
+Outbound Connections (what this table connects to):
+• Column company_id   connects to companies.id (Explicit)
+Inbound Connections (tables that reference this table):
+• Table employees (column branch_id)   references this table's id (Explicit)
+• Table garages (column branch_id)   references this table's id (Logical)
+• Table inventory (column branch_id)   references this table's id (Logical)
+• Table mechanic_details (column branch_id)   references this table's id (Logical)
+• Table required_mechanic_details (column branch_id)   references this table's id (Logical)
+I brand_wise_limits     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column brand_id   connects to brands.id (Logical)
+• Column user_id   connects to users.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 3 of 33
+I branding_elements     [Total Connections: 2 | Outbound: 0 | Inbound: 2]
+Inbound Connections (tables that reference this table):
+• Table branding_requests (column branding_element_id)   references this table's id (Logical)
+• Table vendor_element_state_mappings (column branding_element_id)   references this table's id (Explicit)
+I branding_requests     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column branding_element_id   connects to branding_elements.id (Logical)
+• Column user_id   connects to users.id (Logical)
+• Column vendor_id   connects to vendors.id (Logical)
+I brands     [Total Connections: 7 | Outbound: 0 | Inbound: 7]
+Inbound Connections (tables that reference this table):
+• Table brand_wise_limits (column brand_id)   references this table's id (Logical)
+• Table category_sub_groups (column brand_id)   references this table's id (Logical)
+• Table event_orders (column brand_id)   references this table's id (Logical)
+• Table incentive_schemes (column brand_id)   references this table's id (Logical)
+• Table order_categories (column brand_id)   references this table's id (Logical)
+• Table products (column brand_id)   references this table's id (Logical)
+• Table scheme_orders (column brand_id)   references this table's id (Logical)
+I bulk_lpn_imports     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I bulk_reports     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column report_id   connects to reports.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I bulk_sku_mappings     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column state_ids   connects to state.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I business_information     [Total Connections: 13 | Outbound: 0 | Inbound: 13]
+Inbound Connections (tables that reference this table):
+• Table billings (column business_id)   references this table's id (Explicit)
+• Table companies (column business_info_id)   references this table's id (Logical)
+• Table connection_request (column business_info_id)   references this table's id (Logical)
+• Table dynamics (column business_info_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 4 of 33
+• Table ecatalogue (column business_info_id)   references this table's id (Logical)
+• Table garages (column business_info_id)   references this table's id (Logical)
+• Table gift_categories (column business_info_id)   references this table's id (Logical)
+• Table home_banner (column business_info_id)   references this table's id (Logical)
+• Table master_categories (column business_info_id)   references this table's id (Logical)
+• Table mybenefits (column business_info_id)   references this table's id (Logical)
+• Table notifications (column business_info_id)   references this table's id (Logical)
+• Table offers_and_promotions (column business_info_id)   references this table's id (Logical)
+• Table users (column business_info_id)   references this table's id (Logical)
+I campaign_logs     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column campaign_id   connects to campaigns.id (Logical)
+• Column scheme_id   connects to schemes.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I campaigns     [Total Connections: 3 | Outbound: 2 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column offer_id   connects to offer.id (Logical)
+• Column scheme_id   connects to schemes.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table campaign_logs (column campaign_id)   references this table's id (Logical)
+I cart_items     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column product_id   connects to products.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I category_sub_group_master_category_mapping     [Total Connections: 1 |
+Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column category_sub_group_id   connects to category_sub_groups.id (Logical)
+I category_sub_groups     [Total Connections: 4 | Outbound: 1 | Inbound: 3]
+Outbound Connections (what this table connects to):
+• Column brand_id   connects to brands.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table category_sub_group_master_category_mapping (column category_sub_group_id)   references this table's id (Logical)
+• Table offer_mapping (column category_sub_group_id)   references this table's id (Logical)
+• Table sku_products (column category_sub_group_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 5 of 33
+I claimed_offers     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column offer_condition_id   connects to offer_conditions.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I code_status     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I companies     [Total Connections: 9 | Outbound: 1 | Inbound: 8]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table branches (column company_id)   references this table's id (Explicit)
+• Table company_controls (column company_id)   references this table's id (Logical)
+• Table employees (column company_id)   references this table's id (Explicit)
+• Table garages (column company_id)   references this table's id (Logical)
+• Table inventory (column company_id)   references this table's id (Logical)
+• Table mechanic_details (column company_id)   references this table's id (Logical)
+• Table required_mechanic_details (column company_id)   references this table's id (Logical)
+• Table table_qr_pdfs (column company_id)   references this table's id (Logical)
+I company_controls     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column company_id   connects to companies.id (Logical)
+I conference_events     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column state_id   connects to state.id (Logical)
+I connection_request     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I contact_groups     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I contacts     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 6 of 33
+I coupon_plans     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I coupon_reasons     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I coupon_transactions     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column package_id   connects to packages.id (Logical)
+I coupons     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I credit_notes     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+• Column wallet_transaction_id   connects to wallet_transaction.id (Logical)
+I currency     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I dashboard_daily_data     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I deactivated_qr_wallet_transactions     [Total Connections: 1 | Outbound: 1 |
+Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I details_approvals     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I digio_kyc_details     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 7 of 33
+I distributor_pincode_mapping     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I distributor_point_deduction_approvals     [Total Connections: 0 | Outbound: 0 |
+Inbound: 0]
+No active inbound or outbound connections.
+I distributor_targets     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+I distributor_teams     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I distributor_wholesaler     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I district_population     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column district_id   connects to districts.id (Logical)
+• Column state_id   connects to state.id (Logical)
+• Column zone_id   connects to zones.id (Logical)
+I district_with_pha_values     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column district_id   connects to districts.id (Logical)
+• Column financial_year_id   connects to financial_years.id (Logical)
+• Column state_id   connects to state.id (Logical)
+I districts     [Total Connections: 9 | Outbound: 0 | Inbound: 9]
+Inbound Connections (tables that reference this table):
+• Table beat_plans (column district_id)   references this table's id (Logical)
+• Table district_population (column district_id)   references this table's id (Logical)
+• Table district_with_pha_values (column district_id)   references this table's id (Logical)
+• Table engagement_events (column district_ids)   references this table's id (Logical)
+• Table monthly_district_pha (column district_id)   references this table's id (Logical)
+• Table monthly_pincode_pha (column district_id)   references this table's id (Logical)
+• Table pincode_address_maps (column district_id)   references this table's id (Logical)
+• Table pincode_population (column district_id)   references this table's id (Logical)
+• Table pincode_with_pha_values (column district_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 8 of 33
+I dms_bulk_exports     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I dms_divisions     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I dms_gst_masters     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I dynamic_reports     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I dynamics     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+I ecatalogue     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I employees     [Total Connections: 5 | Outbound: 3 | Inbound: 2]
+Outbound Connections (what this table connects to):
+• Column branch_id   connects to branches.id (Explicit)
+• Column company_id   connects to companies.id (Explicit)
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table mechanic_details (column employee_id)   references this table's id (Logical)
+• Table users (column employee_id)   references this table's id (Logical)
+I engagement_event_conditions     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I engagement_event_reward_logs     [Total Connections: 1 | Outbound: 1 | Inbound:
+0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I engagement_events     [Total Connections: 4 | Outbound: 4 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column district_ids   connects to districts.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 9 of 33
+• Column retailer_ids   connects to users.id (Logical)
+• Column state_ids   connects to state.id (Logical)
+• Column zone_ids   connects to zones.id (Logical)
+I engagement_reward_masters     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I event_coupons     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column event_order_id   connects to event_orders.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I event_multiwin_allowed_users     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I event_orders     [Total Connections: 4 | Outbound: 3 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column brand_id   connects to brands.id (Logical)
+• Column order_id   connects to orders.id (Logical)
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table event_coupons (column event_order_id)   references this table's id (Logical)
+I event_prizes     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I executive_attendances     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I executive_distributor_mappings     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I executive_retailer_mappings     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column retailer_id   connects to users.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 10 of 33
+I executive_survey_answer_submissions     [Total Connections: 1 | Outbound: 1 |
+Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I executive_survey_forms     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I failed_jobs     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I failed_sku_inventories_callback     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I failed_skus_callback_csvs     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I feedback_forms     [Total Connections: 2 | Outbound: 1 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column state_ids   connects to state.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table feedback_submissions (column feedback_form_id)   references this table's id (Logical)
+I feedback_submissions     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column feedback_form_id   connects to feedback_forms.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I feedbacks     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Explicit)
+I financial_years     [Total Connections: 11 | Outbound: 0 | Inbound: 11]
+Inbound Connections (tables that reference this table):
+• Table distributor_targets (column financial_year_id)   references this table's id (Logical)
+• Table district_with_pha_values (column financial_year_id)   references this table's id (Logical)
+• Table onboarding_targets (column financial_year_id)   references this table's id (Logical)
+• Table pincode_with_pha_values (column financial_year_id)   references this table's id (Logical)
+• Table retailer_targets (column financial_year_id)   references this table's id (Logical)
+• Table s_e_quaterly_targets (column financial_year_id)   references this table's id (Logical)
+• Table s_e_targets (column financial_year_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 11 of 33
+• Table state_with_pha_values (column financial_year_id)   references this table's id (Logical)
+• Table tds_certificates (column financial_year_id)   references this table's id (Logical)
+• Table wholesaler_targets (column financial_year_id)   references this table's id (Logical)
+• Table wholesaler_winter_targets (column financial_year_id)   references this table's id (Logical)
+I garage_details     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I garages     [Total Connections: 4 | Outbound: 3 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column branch_id   connects to branches.id (Logical)
+• Column business_info_id   connects to business_information.id (Logical)
+• Column company_id   connects to companies.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table mechanic_details (column garage_id)   references this table's id (Logical)
+I geo_districts     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I geo_pincodes     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I geo_states     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column zone_id   connects to zones.id (Logical)
+I gift_cards     [Total Connections: 6 | Outbound: 2 | Inbound: 4]
+Outbound Connections (what this table connects to):
+• Column gift_category_id   connects to gift_categories.id (Explicit)
+• Column gift_product_id   connects to gift_products.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table box_gift_orders (column gift_card_id)   references this table's id (Logical)
+• Table gift_orders (column gift_card_id)   references this table's id (Explicit)
+• Table winter_gift_orders (column gift_card_id)   references this table's id (Logical)
+• Table wishlists (column gift_card_id)   references this table's id (Logical)
+I gift_categories     [Total Connections: 2 | Outbound: 1 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table gift_cards (column gift_category_id)   references this table's id (Explicit)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 12 of 33
+I gift_gamification     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I gift_inventories     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column gift_order_id   connects to gift_orders.id (Logical)
+• Column product_id   connects to products.id (Logical)
+• Column retailer_id   connects to users.id (Logical)
+I gift_order_timelines     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column gift_order_id   connects to gift_orders.id (Logical)
+I gift_orders     [Total Connections: 7 | Outbound: 4 | Inbound: 3]
+Outbound Connections (what this table connects to):
+• Column address_id   connects to addresses.id (Logical)
+• Column gift_card_id   connects to gift_cards.id (Explicit)
+• Column order_id   connects to orders.id (Logical)
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table gift_inventories (column gift_order_id)   references this table's id (Logical)
+• Table gift_order_timelines (column gift_order_id)   references this table's id (Logical)
+• Table withdrawal_request (column gift_order_id)   references this table's id (Logical)
+I gift_products     [Total Connections: 3 | Outbound: 0 | Inbound: 3]
+Inbound Connections (tables that reference this table):
+• Table gift_cards (column gift_product_id)   references this table's id (Logical)
+• Table scheme_gift_items (column gift_product_id)   references this table's id (Logical)
+• Table winter_gift_items (column gift_product_id)   references this table's id (Logical)
+I gift_scan_wallet_transactions     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I gift_sku_bulk_imports     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I greeting_templates     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column occasion_id   connects to occasions.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 13 of 33
+I group_management     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I home_banner     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+• Column scheme_id   connects to schemes.id (Logical)
+I incentive_gift_orders     [Total Connections: 4 | Outbound: 4 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column address_id   connects to addresses.id (Logical)
+• Column incentive_scheme_id   connects to incentive_schemes.id (Logical)
+• Column order_id   connects to orders.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I incentive_schemes     [Total Connections: 3 | Outbound: 2 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column brand_id   connects to brands.id (Logical)
+• Column state_ids   connects to state.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table incentive_gift_orders (column incentive_scheme_id)   references this table's id (Logical)
+I inventory     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column branch_id   connects to branches.id (Logical)
+• Column company_id   connects to companies.id (Logical)
+• Column product_id   connects to products.id (Logical)
+I inventory_values     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column product_id   connects to products.id (Logical)
+• Column state_id   connects to state.id (Logical)
+I kolkata_apis_csvs     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I language     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 14 of 33
+I manual_transactions     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column uploaded_by   connects to users.id (Explicit)
+• Column withdrawal_request_id   connects to withdrawal_request.id (Logical)
+I mapping_incentive_users     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I master_categories     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+I mechanic_account_types     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I mechanic_details     [Total Connections: 4 | Outbound: 4 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column branch_id   connects to branches.id (Logical)
+• Column company_id   connects to companies.id (Logical)
+• Column employee_id   connects to employees.id (Logical)
+• Column garage_id   connects to garages.id (Logical)
+I migrations     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I module     [Total Connections: 2 | Outbound: 0 | Inbound: 2]
+Inbound Connections (tables that reference this table):
+• Table permission (column module_id)   references this table's id (Logical)
+• Table role_permission_module (column module_id)   references this table's id (Logical)
+I module_maps     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column module_id   connects to packages_modules.id (Explicit)
+• Column package_id   connects to packages.id (Explicit)
+I mom_attachments     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 15 of 33
+I mom_messages     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I mom_thread_participants     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I mom_threads     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I monthly_averages     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I monthly_district_pha     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column district_id   connects to districts.id (Logical)
+• Column state_id   connects to state.id (Logical)
+• Column zone_id   connects to zones.id (Logical)
+I monthly_pincode_pha     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column district_id   connects to districts.id (Logical)
+• Column state_id   connects to state.id (Logical)
+• Column zone_id   connects to zones.id (Logical)
+I mybenefits     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+I mypoints     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_role   connects to role.id (Logical)
+• Column users_id   connects to users.id (Logical)
+I notification_events     [Total Connections: 1 | Outbound: 0 | Inbound: 1]
+Inbound Connections (tables that reference this table):
+• Table notifications (column notification_event_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 16 of 33
+I notification_logs     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column notification_id   connects to notifications.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I notifications     [Total Connections: 7 | Outbound: 5 | Inbound: 2]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+• Column notification_event_id   connects to notification_events.id (Logical)
+• Column order_id   connects to orders.id (Logical)
+• Column state_ids   connects to state.id (Logical)
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table notification_logs (column notification_id)   references this table's id (Logical)
+• Table read_notifications (column notification_id)   references this table's id (Logical)
+I occasions     [Total Connections: 1 | Outbound: 0 | Inbound: 1]
+Inbound Connections (tables that reference this table):
+• Table greeting_templates (column occasion_id)   references this table's id (Logical)
+I offer     [Total Connections: 5 | Outbound: 2 | Inbound: 3]
+Outbound Connections (what this table connects to):
+• Column state_ids   connects to state.id (Logical)
+• Column user_role   connects to role.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table campaigns (column offer_id)   references this table's id (Logical)
+• Table offer_conditions (column offer_id)   references this table's id (Logical)
+• Table offer_mapping (column offer_id)   references this table's id (Logical)
+I offer_conditions     [Total Connections: 2 | Outbound: 1 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column offer_id   connects to offer.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table claimed_offers (column offer_condition_id)   references this table's id (Logical)
+I offer_mapping     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column category_sub_group_id   connects to category_sub_groups.id (Logical)
+• Column offer_id   connects to offer.id (Logical)
+• Column product_id   connects to products.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 17 of 33
+I offers_and_promotions     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+I offline_sku_inventories     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I onboarding_targets     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+I order_bulk_mapping     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I order_categories     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column brand_id   connects to brands.id (Logical)
+I order_invoices     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column order_id   connects to orders.id (Explicit)
+• Column order_updated_by   connects to users.id (Explicit)
+I order_items     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column order_id   connects to orders.id (Logical)
+• Column product_id   connects to products.id (Logical)
+I orders     [Total Connections: 10 | Outbound: 1 | Inbound: 9]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table box_gift_orders (column order_id)   references this table's id (Logical)
+• Table event_orders (column order_id)   references this table's id (Logical)
+• Table gift_orders (column order_id)   references this table's id (Logical)
+• Table incentive_gift_orders (column order_id)   references this table's id (Logical)
+• Table notifications (column order_id)   references this table's id (Logical)
+• Table order_invoices (column order_id)   references this table's id (Explicit)
+• Table order_items (column order_id)   references this table's id (Logical)
+• Table scheme_gift_orders (column order_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 18 of 33
+• Table winter_gift_orders (column order_id)   references this table's id (Logical)
+I otp     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_role   connects to role.id (Logical)
+I packages     [Total Connections: 3 | Outbound: 0 | Inbound: 3]
+Inbound Connections (tables that reference this table):
+• Table billings (column package_id)   references this table's id (Explicit)
+• Table coupon_transactions (column package_id)   references this table's id (Logical)
+• Table module_maps (column package_id)   references this table's id (Explicit)
+I packages_modules     [Total Connections: 1 | Outbound: 0 | Inbound: 1]
+Inbound Connections (tables that reference this table):
+• Table module_maps (column module_id)   references this table's id (Explicit)
+I password_resets     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I payment_response_codes     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I per_target_scheme_coupons     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column per_target_scheme_id   connects to per_target_schemes.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I per_target_schemes     [Total Connections: 1 | Outbound: 0 | Inbound: 1]
+Inbound Connections (tables that reference this table):
+• Table per_target_scheme_coupons (column per_target_scheme_id)   references this table's id (Logical)
+I permission     [Total Connections: 2 | Outbound: 1 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column module_id   connects to module.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table role_permission_module (column permission_id)   references this table's id (Logical)
+I personal_access_tokens     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 19 of 33
+I pincode_address_maps     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column district_id   connects to districts.id (Logical)
+• Column state_id   connects to state.id (Logical)
+I pincode_boundaries     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I pincode_population     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column district_id   connects to districts.id (Logical)
+• Column state_id   connects to state.id (Logical)
+• Column zone_id   connects to zones.id (Logical)
+I pincode_with_pha_values     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column district_id   connects to districts.id (Logical)
+• Column financial_year_id   connects to financial_years.id (Logical)
+• Column state_id   connects to state.id (Logical)
+I points     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column users_id   connects to users.id (Logical)
+I products     [Total Connections: 10 | Outbound: 1 | Inbound: 9]
+Outbound Connections (what this table connects to):
+• Column brand_id   connects to brands.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table cart_items (column product_id)   references this table's id (Logical)
+• Table gift_inventories (column product_id)   references this table's id (Logical)
+• Table inventory (column product_id)   references this table's id (Logical)
+• Table inventory_values (column product_id)   references this table's id (Logical)
+• Table offer_mapping (column product_id)   references this table's id (Logical)
+• Table order_items (column product_id)   references this table's id (Logical)
+• Table sample_order_items (column product_id)   references this table's id (Logical)
+• Table sku_inventories (column product_id)   references this table's id (Logical)
+• Table table_qr_pdfs (column product_id)   references this table's id (Logical)
+I products_bulk_imports     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 20 of 33
+I purchase_targets     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I qr_universe     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I razorpay_transaction     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I read_notifications     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column notification_id   connects to notifications.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I redemption_requests     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Explicit)
+I referral_details     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+• Column user_role   connects to role.id (Logical)
+• Column wallet_transaction_id   connects to wallet_transaction.id (Logical)
+I referral_mappings     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I reports     [Total Connections: 1 | Outbound: 0 | Inbound: 1]
+Inbound Connections (tables that reference this table):
+• Table bulk_reports (column report_id)   references this table's id (Logical)
+I repository_documents     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I required_mechanic_details     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column branch_id   connects to branches.id (Logical)
+• Column company_id   connects to companies.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 21 of 33
+I retailer_bulk_requests     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I retailer_category_qualified     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column retailer_id   connects to users.id (Logical)
+I retailer_credit_notes     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I retailer_distributor_mappings     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column retailer_id   connects to users.id (Logical)
+I retailer_schemes_mapping     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column scheme_id   connects to schemes.id (Logical)
+• Column users_id   connects to users.id (Logical)
+I retailer_targets     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+• Column retailer_id   connects to users.id (Logical)
+I retailer_wholesaler_mappings     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column retailer_id   connects to users.id (Logical)
+I role     [Total Connections: 6 | Outbound: 0 | Inbound: 6]
+Inbound Connections (tables that reference this table):
+• Table mypoints (column user_role)   references this table's id (Logical)
+• Table offer (column user_role)   references this table's id (Logical)
+• Table otp (column user_role)   references this table's id (Logical)
+• Table referral_details (column user_role)   references this table's id (Logical)
+• Table role_permission_module (column role_id)   references this table's id (Logical)
+• Table users (column user_role)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 22 of 33
+I role_conversion_histories     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I role_permission_module     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column module_id   connects to module.id (Logical)
+• Column permission_id   connects to permission.id (Logical)
+• Column role_id   connects to role.id (Logical)
+I s_e_quaterly_targets     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+I s_e_targets     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+I sample_order_feedbacks     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column sample_order_id   connects to sample_orders.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I sample_order_items     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column product_id   connects to products.id (Logical)
+• Column sample_order_id   connects to sample_orders.id (Logical)
+I sample_order_timelines     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column sample_order_id   connects to sample_orders.id (Logical)
+I sample_orders     [Total Connections: 5 | Outbound: 2 | Inbound: 3]
+Outbound Connections (what this table connects to):
+• Column address_id   connects to addresses.id (Logical)
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table sample_order_feedbacks (column sample_order_id)   references this table's id (Logical)
+• Table sample_order_items (column sample_order_id)   references this table's id (Logical)
+• Table sample_order_timelines (column sample_order_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 23 of 33
+I scanned_qrcode_history     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column sku_inventories_id   connects to sku_inventories.id (Logical)
+• Column users_id   connects to users.id (Logical)
+I scheduled_visits     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column beat_plan_id   connects to beat_plans.id (Explicit)
+• Column retailer_id   connects to users.id (Explicit)
+• Column sales_executive_id   connects to users.id (Explicit)
+I scheme_gift_items     [Total Connections: 3 | Outbound: 2 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column gift_product_id   connects to gift_products.id (Logical)
+• Column scheme_id   connects to schemes.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table scheme_gift_orders (column scheme_gift_item_id)   references this table's id (Logical)
+I scheme_gift_orders     [Total Connections: 4 | Outbound: 4 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column address_id   connects to addresses.id (Logical)
+• Column order_id   connects to orders.id (Logical)
+• Column scheme_gift_item_id   connects to scheme_gift_items.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I scheme_orders     [Total Connections: 3 | Outbound: 3 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column brand_id   connects to brands.id (Logical)
+• Column scheme_id   connects to schemes.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I scheme_state_mapping     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column scheme_id   connects to schemes.id (Logical)
+• Column state_id   connects to state.id (Logical)
+I scheme_wallet_transactions     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column scheme_id   connects to schemes.id (Logical)
+• Column user_id   connects to users.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 24 of 33
+I schemes     [Total Connections: 11 | Outbound: 0 | Inbound: 11]
+Inbound Connections (tables that reference this table):
+• Table campaign_logs (column scheme_id)   references this table's id (Logical)
+• Table campaigns (column scheme_id)   references this table's id (Logical)
+• Table home_banner (column scheme_id)   references this table's id (Logical)
+• Table retailer_schemes_mapping (column scheme_id)   references this table's id (Logical)
+• Table scheme_gift_items (column scheme_id)   references this table's id (Logical)
+• Table scheme_orders (column scheme_id)   references this table's id (Logical)
+• Table scheme_state_mapping (column scheme_id)   references this table's id (Logical)
+• Table scheme_wallet_transactions (column scheme_id)   references this table's id (Logical)
+• Table spin_history (column scheme_id)   references this table's id (Logical)
+• Table weekly_scheme_groups (column scheme_id)   references this table's id (Logical)
+• Table weekly_scheme_prizes (column scheme_id)   references this table's id (Logical)
+I se_reports     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I se_task     [Total Connections: 3 | Outbound: 2 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column task_issue_id   connects to task_issue.id (Logical)
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table se_task_history (column se_task_id)   references this table's id (Logical)
+I se_task_history     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column se_task_id   connects to se_task.id (Logical)
+I sessions     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I shop_verification_images     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I sku_bulk_imports     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 25 of 33
+I sku_inventories     [Total Connections: 3 | Outbound: 2 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column distributer_id   connects to users.id (Logical)
+• Column product_id   connects to products.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table scanned_qrcode_history (column sku_inventories_id)   references this table's id (Logical)
+I sku_products     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column category_sub_group_id   connects to category_sub_groups.id (Logical)
+I sku_qr_points_maps     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I sources     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I spin_history     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column scheme_id   connects to schemes.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I state     [Total Connections: 26 | Outbound: 1 | Inbound: 25]
+Outbound Connections (what this table connects to):
+• Column zone_id   connects to zones.id (Explicit)
+Inbound Connections (tables that reference this table):
+• Table beat_plans (column state_id)   references this table's id (Logical)
+• Table blocked_locations (column state_id)   references this table's id (Logical)
+• Table bulk_sku_mappings (column state_ids)   references this table's id (Logical)
+• Table conference_events (column state_id)   references this table's id (Logical)
+• Table district_population (column state_id)   references this table's id (Logical)
+• Table district_with_pha_values (column state_id)   references this table's id (Logical)
+• Table engagement_events (column state_ids)   references this table's id (Logical)
+• Table feedback_forms (column state_ids)   references this table's id (Logical)
+• Table incentive_schemes (column state_ids)   references this table's id (Logical)
+• Table inventory_values (column state_id)   references this table's id (Logical)
+• Table monthly_district_pha (column state_id)   references this table's id (Logical)
+• Table monthly_pincode_pha (column state_id)   references this table's id (Logical)
+• Table notifications (column state_ids)   references this table's id (Logical)
+• Table offer (column state_ids)   references this table's id (Logical)
+• Table pincode_address_maps (column state_id)   references this table's id (Logical)
+• Table pincode_population (column state_id)   references this table's id (Logical)
+• Table pincode_with_pha_values (column state_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 26 of 33
+• Table scheme_state_mapping (column state_id)   references this table's id (Logical)
+• Table state_user_mapping (column state_id)   references this table's id (Logical)
+• Table state_with_pha_values (column state_id)   references this table's id (Logical)
+• Table survey_forms (column state_ids)   references this table's id (Logical)
+• Table users (column state_id)   references this table's id (Logical)
+• Table vendor_element_state_mappings (column state_id)   references this table's id (Explicit)
+• Table vendors (column state_id)   references this table's id (Logical)
+• Table weekly_schemes (column state_ids)   references this table's id (Logical)
+I state_user_mapping     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column state_id   connects to state.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I state_with_pha_values     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+• Column state_id   connects to state.id (Logical)
+I suppliers     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I survey_form_submissions     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column survey_form_id   connects to survey_forms.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I survey_forms     [Total Connections: 2 | Outbound: 1 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column state_ids   connects to state.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table survey_form_submissions (column survey_form_id)   references this table's id (Logical)
+I sync_tripur_data     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I table_qr_pdfs     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column company_id   connects to companies.id (Logical)
+• Column product_id   connects to products.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 27 of 33
+I task_issue     [Total Connections: 1 | Outbound: 0 | Inbound: 1]
+Inbound Connections (tables that reference this table):
+• Table se_task (column task_issue_id)   references this table's id (Logical)
+I tds_certificates     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I tripur_api_tokens     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I user_flags     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I user_geotag_photos     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I user_scan_permissions     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column blocked_reason_id   connects to blocked_reasons.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I user_withdrawal_block_histories     [Total Connections: 2 | Outbound: 2 | Inbound:
+0]
+Outbound Connections (what this table connects to):
+• Column blocked_reason_id   connects to blocked_reasons.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I users     [Total Connections: 104 | Outbound: 5 | Inbound: 99]
+Outbound Connections (what this table connects to):
+• Column business_info_id   connects to business_information.id (Logical)
+• Column distributer_id   connects to users.id (Logical)
+• Column employee_id   connects to employees.id (Logical)
+• Column state_id   connects to state.id (Logical)
+• Column user_role   connects to role.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table account_deletion_requests (column user_id)   references this table's id (Logical)
+• Table activate_qrs_requests (column user_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 28 of 33
+• Table addresses (column user_id)   references this table's id (Logical)
+• Table adhaar_verifications (column user_id)   references this table's id (Logical)
+• Table automatic_transactions (column user_id)   references this table's id (Logical)
+• Table bank_accounts (column user_id)   references this table's id (Logical)
+• Table beat_plan_retailers (column user_id)   references this table's id (Explicit)
+• Table beat_plans (column sales_executive_id)   references this table's id (Logical)
+• Table blacklist_reports (column user_id)   references this table's id (Logical)
+• Table blocked_locations (column user_id)   references this table's id (Logical)
+• Table bonus_transactions (column user_id)   references this table's id (Logical)
+• Table box_gift_orders (column user_id)   references this table's id (Logical)
+• Table brand_wise_limits (column user_id)   references this table's id (Logical)
+• Table branding_requests (column user_id)   references this table's id (Logical)
+• Table bulk_lpn_imports (column user_id)   references this table's id (Logical)
+• Table bulk_reports (column user_id)   references this table's id (Logical)
+• Table bulk_sku_mappings (column user_id)   references this table's id (Logical)
+• Table campaign_logs (column user_id)   references this table's id (Logical)
+• Table cart_items (column user_id)   references this table's id (Logical)
+• Table claimed_offers (column user_id)   references this table's id (Logical)
+• Table connection_request (column user_id)   references this table's id (Logical)
+• Table coupons (column user_id)   references this table's id (Logical)
+• Table credit_notes (column user_id)   references this table's id (Logical)
+• Table deactivated_qr_wallet_transactions (column user_id)   references this table's id (Logical)
+• Table details_approvals (column user_id)   references this table's id (Logical)
+• Table digio_kyc_details (column user_id)   references this table's id (Logical)
+• Table distributor_teams (column user_id)   references this table's id (Logical)
+• Table ecatalogue (column user_id)   references this table's id (Logical)
+• Table employees (column user_id)   references this table's id (Logical)
+• Table engagement_event_reward_logs (column user_id)   references this table's id (Logical)
+• Table engagement_events (column retailer_ids)   references this table's id (Logical)
+• Table event_coupons (column user_id)   references this table's id (Logical)
+• Table event_multiwin_allowed_users (column user_id)   references this table's id (Logical)
+• Table event_orders (column user_id)   references this table's id (Logical)
+• Table executive_attendances (column user_id)   references this table's id (Logical)
+• Table executive_retailer_mappings (column retailer_id)   references this table's id (Logical)
+• Table executive_survey_answer_submissions (column user_id)   references this table's id (Logical)
+• Table feedback_submissions (column user_id)   references this table's id (Logical)
+• Table feedbacks (column user_id)   references this table's id (Explicit)
+• Table gift_gamification (column user_id)   references this table's id (Logical)
+• Table gift_inventories (column retailer_id)   references this table's id (Logical)
+• Table gift_orders (column user_id)   references this table's id (Logical)
+• Table gift_scan_wallet_transactions (column user_id)   references this table's id (Logical)
+• Table group_management (column user_id)   references this table's id (Logical)
+• Table incentive_gift_orders (column user_id)   references this table's id (Logical)
+• Table manual_transactions (column uploaded_by)   references this table's id (Explicit)
+• Table mapping_incentive_users (column user_id)   references this table's id (Logical)
+• Table mom_thread_participants (column user_id)   references this table's id (Logical)
+• Table monthly_averages (column user_id)   references this table's id (Logical)
+• Table mypoints (column users_id)   references this table's id (Logical)
+• Table notification_logs (column user_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 29 of 33
+• Table notifications (column user_id)   references this table's id (Logical)
+• Table offline_sku_inventories (column user_id)   references this table's id (Logical)
+• Table order_invoices (column order_updated_by)   references this table's id (Explicit)
+• Table orders (column user_id)   references this table's id (Logical)
+• Table per_target_scheme_coupons (column user_id)   references this table's id (Logical)
+• Table points (column users_id)   references this table's id (Logical)
+• Table products_bulk_imports (column user_id)   references this table's id (Logical)
+• Table purchase_targets (column user_id)   references this table's id (Logical)
+• Table read_notifications (column user_id)   references this table's id (Logical)
+• Table redemption_requests (column user_id)   references this table's id (Explicit)
+• Table referral_details (column user_id)   references this table's id (Logical)
+• Table retailer_category_qualified (column retailer_id)   references this table's id (Logical)
+• Table retailer_credit_notes (column user_id)   references this table's id (Logical)
+• Table retailer_distributor_mappings (column retailer_id)   references this table's id (Logical)
+• Table retailer_schemes_mapping (column users_id)   references this table's id (Logical)
+• Table retailer_targets (column retailer_id)   references this table's id (Logical)
+• Table retailer_wholesaler_mappings (column retailer_id)   references this table's id (Logical)
+• Table role_conversion_histories (column user_id)   references this table's id (Logical)
+• Table sample_order_feedbacks (column user_id)   references this table's id (Logical)
+• Table sample_orders (column user_id)   references this table's id (Logical)
+• Table scanned_qrcode_history (column users_id)   references this table's id (Logical)
+• Table scheduled_visits (column retailer_id)   references this table's id (Explicit)
+• Table scheduled_visits (column sales_executive_id)   references this table's id (Explicit)
+• Table scheme_gift_orders (column user_id)   references this table's id (Logical)
+• Table scheme_orders (column user_id)   references this table's id (Logical)
+• Table scheme_wallet_transactions (column user_id)   references this table's id (Logical)
+• Table se_task (column user_id)   references this table's id (Logical)
+• Table sessions (column user_id)   references this table's id (Logical)
+• Table shop_verification_images (column user_id)   references this table's id (Logical)
+• Table sku_inventories (column distributer_id)   references this table's id (Logical)
+• Table spin_history (column user_id)   references this table's id (Logical)
+• Table state_user_mapping (column user_id)   references this table's id (Logical)
+• Table survey_form_submissions (column user_id)   references this table's id (Logical)
+• Table tds_certificates (column user_id)   references this table's id (Logical)
+• Table user_flags (column user_id)   references this table's id (Logical)
+• Table user_geotag_photos (column user_id)   references this table's id (Logical)
+• Table user_scan_permissions (column user_id)   references this table's id (Logical)
+• Table user_withdrawal_block_histories (column user_id)   references this table's id (Logical)
+• Table users (column distributer_id)   references this table's id (Logical)
+• Table video_responses (column user_id)   references this table's id (Logical)
+• Table visit_check_in_check_out (column user_id)   references this table's id (Logical)
+• Table visit_trackings (column user_id)   references this table's id (Logical)
+• Table wallet_transaction (column user_id)   references this table's id (Logical)
+• Table wholesale_wallet_transactions (column user_id)   references this table's id (Logical)
+• Table winter_gift_orders (column user_id)   references this table's id (Logical)
+• Table winter_scan_wallet_transactions (column user_id)   references this table's id (Logical)
+• Table wishlists (column user_id)   references this table's id (Logical)
+• Table withdrawal_request (column user_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 30 of 33
+I vendor_bank_accounts     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column vendor_id   connects to vendors.id (Explicit)
+I vendor_element_state_logs     [Total Connections: 0 | Outbound: 0 | Inbound: 0]
+No active inbound or outbound connections.
+I vendor_element_state_mappings     [Total Connections: 3 | Outbound: 3 | Inbound:
+0]
+Outbound Connections (what this table connects to):
+• Column branding_element_id   connects to branding_elements.id (Explicit)
+• Column state_id   connects to state.id (Explicit)
+• Column vendor_id   connects to vendors.id (Explicit)
+I vendors     [Total Connections: 4 | Outbound: 1 | Inbound: 3]
+Outbound Connections (what this table connects to):
+• Column state_id   connects to state.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table branding_requests (column vendor_id)   references this table's id (Logical)
+• Table vendor_bank_accounts (column vendor_id)   references this table's id (Explicit)
+• Table vendor_element_state_mappings (column vendor_id)   references this table's id (Explicit)
+I video_responses     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I visit_check_in_check_out     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column beat_plan_id   connects to beat_plans.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I visit_trackings     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I wallet_transaction     [Total Connections: 3 | Outbound: 1 | Inbound: 2]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table credit_notes (column wallet_transaction_id)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 31 of 33
+• Table referral_details (column wallet_transaction_id)   references this table's id (Logical)
+I weekly_scheme_groups     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column scheme_id   connects to schemes.id (Logical)
+I weekly_scheme_prizes     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column scheme_id   connects to schemes.id (Logical)
+I weekly_schemes     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column state_ids   connects to state.id (Logical)
+• Column zone_ids   connects to zones.id (Logical)
+I wholesale_wallet_transactions     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I wholesaler_targets     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+I wholesaler_winter_targets     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column financial_year_id   connects to financial_years.id (Logical)
+I winter_gift_items     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column gift_product_id   connects to gift_products.id (Logical)
+I winter_gift_order_timelines     [Total Connections: 1 | Outbound: 1 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column winter_gift_order_id   connects to winter_gift_orders.id (Logical)
+I winter_gift_orders     [Total Connections: 5 | Outbound: 4 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column address_id   connects to addresses.id (Logical)
+• Column gift_card_id   connects to gift_cards.id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 32 of 33
+• Column order_id   connects to orders.id (Logical)
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table winter_gift_order_timelines (column winter_gift_order_id)   references this table's id (Logical)
+I winter_scan_wallet_transactions     [Total Connections: 1 | Outbound: 1 | Inbound:
+0]
+Outbound Connections (what this table connects to):
+• Column user_id   connects to users.id (Logical)
+I wishlists     [Total Connections: 2 | Outbound: 2 | Inbound: 0]
+Outbound Connections (what this table connects to):
+• Column gift_card_id   connects to gift_cards.id (Logical)
+• Column user_id   connects to users.id (Logical)
+I withdrawal_request     [Total Connections: 5 | Outbound: 4 | Inbound: 1]
+Outbound Connections (what this table connects to):
+• Column automatic_transaction_id   connects to automatic_transactions.id (Logical)
+• Column bank_transaction_id   connects to bank_transactions.id (Logical)
+• Column gift_order_id   connects to gift_orders.id (Logical)
+• Column user_id   connects to users.id (Logical)
+Inbound Connections (tables that reference this table):
+• Table manual_transactions (column withdrawal_request_id)   references this table's id (Logical)
+I zones     [Total Connections: 8 | Outbound: 0 | Inbound: 8]
+Inbound Connections (tables that reference this table):
+• Table district_population (column zone_id)   references this table's id (Logical)
+• Table engagement_events (column zone_ids)   references this table's id (Logical)
+• Table geo_states (column zone_id)   references this table's id (Logical)
+• Table monthly_district_pha (column zone_id)   references this table's id (Logical)
+• Table monthly_pincode_pha (column zone_id)   references this table's id (Logical)
+• Table pincode_population (column zone_id)   references this table's id (Logical)
+• Table state (column zone_id)   references this table's id (Explicit)
+• Table weekly_schemes (column zone_ids)   references this table's id (Logical)
+JGH DATABASE RELATIONSHIP MAP
+TABLE CONNECTIVITY & CONNECTIONS CATALOG
+Confidential - For Internal Business Use Only
+Page 33 of 33

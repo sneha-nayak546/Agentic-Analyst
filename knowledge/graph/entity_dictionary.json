@@ -1,1 +1,99 @@
-{}
+{
+    "User": {
+        "table": "users",
+        "description": "Core identity table representing retailers, mechanics, distributors, admins"
+    },
+    "Role": {
+        "table": "role",
+        "description": "Lookup table specifying user access levels and roles"
+    },
+    "WalletTransaction": {
+        "table": "wallet_transaction",
+        "description": "Loyalty points ledger recording credits, debits, scans"
+    },
+    "Company": {
+        "table": "companies",
+        "description": "Registered business units, distributors, brand organizations"
+    },
+    "SkuInventory": {
+        "table": "sku_inventories",
+        "description": "Product SKU catalogue, batch details, barcode/LPN codes"
+    },
+    "Mechanic": {
+        "table": "mechanic_details",
+        "description": "Profile data for garage owners and mechanics including Aadhaar and bank details"
+    },
+    "Withdrawal": {
+        "table": "withdrawal_request",
+        "description": "Redemption and payout requests submitted by users"
+    },
+    "AutomaticTransaction": {
+        "table": "automatic_transactions",
+        "description": "Direct bank transfer logs and settlement transaction records"
+    },
+    "Bussiness Admin": {
+        "table": "users",
+        "filter": "users.user_role = 1",
+        "description": "Business entity: Bussiness Admin"
+    },
+    "Retailer": {
+        "table": "users",
+        "filter": "users.user_role = 2",
+        "description": "Business entity: Retailer"
+    },
+    "Super Admin": {
+        "table": "users",
+        "filter": "users.user_role = 3",
+        "description": "Business entity: Super Admin"
+    },
+    "Distributor": {
+        "table": "users",
+        "filter": "users.user_role = 4",
+        "description": "Business entity: Distributor"
+    },
+    "Wholesaler": {
+        "table": "users",
+        "filter": "users.user_role = 5",
+        "description": "Business entity: Wholesaler"
+    },
+    "Executive": {
+        "table": "users",
+        "filter": "users.user_role = 6",
+        "description": "Business entity: Executive"
+    },
+    "Accountant Access": {
+        "table": "users",
+        "filter": "users.user_role = 7",
+        "description": "Business entity: Accountant Access"
+    },
+    "Distributor Staff": {
+        "table": "users",
+        "filter": "users.user_role = 8",
+        "description": "Business entity: Distributor Staff"
+    },
+    "Chat Support": {
+        "table": "users",
+        "filter": "users.user_role = 9",
+        "description": "Business entity: Chat Support"
+    },
+    "Mis User": {
+        "table": "users",
+        "filter": "users.user_role = 12",
+        "description": "Business entity: MIS User"
+    },
+    "Report Admin": {
+        "table": "users",
+        "filter": "users.user_role = 11",
+        "description": "Business entity: Report Admin"
+    },
+    "Reports Access": {
+        "table": "users",
+        "filter": "users.user_role = 13",
+        "description": "Business entity: Reports Access"
+    },
+    "Se Report": {
+        "table": "users",
+        "filter": "users.user_role = 14",
+        "description": "Business entity: SE report"
+    }
+}

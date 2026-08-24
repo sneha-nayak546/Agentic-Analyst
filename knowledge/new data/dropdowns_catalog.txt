@@ -1,0 +1,1973 @@
+JGH Database: Table-Wise Dropdowns Catalog
+A consolidated mapping of enums and statuses, grouped by database table.
+This catalog groups every dropdown-like column (including enums, statuses, workflow tags, and category types) by
+its parent table. For each table, the total number of dropdown columns is stated, followed by detailed breakdowns of
+each column's SQL types, comments, stored options, and business logic behaviors.
+I Table: activate_qrs_requests   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint
+• What is it? 0:pending,1:completed. System categorical configuration field defining the 'status' setting for the
+'activate_qrs_requests' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'activate_qrs_requests' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1
+I Table: addresses   [Contains 1 Dropdown Column(s)]
+  Column: address_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'address_type' setting for the 'addresses' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'addresses'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'address_type' values.
+• Stored Values / Dropdown Options: Home, Work, Other
+I Table: app_link_report   [Contains 1 Dropdown Column(s)]
+  Column: source
+• SQL Type: int
+• What is it? 1:qr , 2:whatsaap,3: 3:marketing, 4: phonepe, 5:print_ad. System categorical configuration field defining
+the 'source' setting for the 'app_link_report' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'app_link_report' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'source' values.
+• Stored Values / Dropdown Options: 2, 15, 4
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 1 of 53
+I Table: automatic_transactions   [Contains 3 Dropdown Column(s)]
+  Column: status
+• SQL Type: varchar(255)
+• What is it? Payout API Transaction State
+• Where does it come from? (Trigger): Automatically populated via webhooks and API responses from the payment
+provider gateway (Cashfree/Razorpay).
+• What is its use / Business Value? Determines if payout funds successfully cleared or failed.
+• Individual Value Options Breakdown:
+  Value: success
+What is it? Funds successfully credited to the user's bank account.
+Where does it come from? Successful execution response webhook from the payment API.
+What is its use? Sets the corresponding withdrawal_request.status to approved/completed, marking the transaction as final.
+  Value: failed / faled
+What is it? Funds transfer rejected or failed (e.g. invalid account/IFSC, insufficient gateway balance). Note: 'faled' is a
+legacy vendor typo stored in the DB.
+Where does it come from? Failure callback payload from the bank payout gateway.
+What is its use? Flags the payout transaction for accountant review, indicating the funds were not deducted and require
+retrying.
+  Value: pending
+What is it? Payout is currently in transit at the bank.
+Where does it come from? Initial payout request confirmation payload from the provider API.
+What is its use? Locks the request to prevent duplicate payout API calls while waiting for the final bank status.
+  Value: rejected
+What is it? Payout blocked by the gateway's risk validation or fraud checks.
+Where does it come from? Gateway provider verification engine.
+What is its use? Requires manual compliance review by JGH admins.
+  Column: transaction_source
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'transaction_source' setting for the
+'automatic_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'automatic_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transaction_source' values.
+• Stored Values / Dropdown Options: cashfree
+  Column: transfer_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'transfer_type' setting for the 'automatic_transactions'
+records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 2 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'automatic_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transfer_type' values.
+• Stored Values / Dropdown Options: IMPS, failed, Manual, Manual_success
+I Table: bank_accounts   [Contains 1 Dropdown Column(s)]
+  Column: bank_account_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'bank_account_type' setting for the 'bank_accounts'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'bank_accounts' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'bank_account_type' values.
+• Stored Values / Dropdown Options: Savings, Current
+I Table: bank_transactions   [Contains 4 Dropdown Column(s)]
+  Column: moneyTransferStatus
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'moneyTransferStatus' setting for the
+'bank_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'bank_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'moneyTransferStatus' values.
+• Stored Values / Dropdown Options: SUCCESS, FAILURE
+  Column: transactionType
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'transactionType' setting for the 'bank_transactions'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'bank_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transactionType' values.
+• Stored Values / Dropdown Options: MAIN REVERSAL, MAIN
+  Column: transferType
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'transferType' setting for the 'bank_transactions'
+records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 3 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'bank_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transferType' values.
+• Stored Values / Dropdown Options: IMPS, NEFT
+  Column: type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'type' setting for the 'bank_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'bank_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+• Stored Values / Dropdown Options: CREDIT, DEBIT
+I Table: beat_plans   [Contains 2 Dropdown Column(s)]
+  Column: frequency
+• SQL Type: enum('daily','weekly','biweekly','monthly')
+• What is it? Number of times SE must visit the assigned retailers in a timespan. System categorical configuration field
+defining the 'frequency' setting for the 'beat_plans' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'beat_plans'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'frequency' values.
+• Stored Values / Dropdown Options: daily, weekly, biweekly, monthly
+  Column: status
+• SQL Type: tinyint
+• What is it? 1 for active, 0 for inactive. System categorical configuration field defining the 'status' setting for the
+'beat_plans' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'beat_plans'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: -
+I Table: blacklist_reports   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: int
+• What is it? 1 : blacklist, 2 :whitelist. System categorical configuration field defining the 'status' setting for the
+'blacklist_reports' records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 4 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'blacklist_reports' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1, 2
+I Table: bonus_transactions   [Contains 2 Dropdown Column(s)]
+  Column: reference_type
+• SQL Type: enum('gift_order','cash_point','coupon_redeem','incentive','credit_note')
+• What is it? Bonus Points Credit/Debit Source Category
+• Where does it come from? (Trigger): Logged during bonus point additions or gift order transactions.
+• What is its use / Business Value? Categorizes the source of the user's bonus point balances.
+• Individual Value Options Breakdown:
+  Value: gift_order
+What is it? Bonus points deducted to redeem a gift catalog item.
+Where does it come from? User redeems a gift in the app.
+What is its use? Deducts points from the bonus balance.
+  Value: cash_point
+What is it? Points credited from standard scanning activities.
+Where does it come from? Barcoded box scan rewards.
+What is its use? Increments the user's bonus point ledger.
+  Value: coupon_redeem
+What is it? Points credited from a redeemed scratch coupon code.
+Where does it come from? Manual coupon input in the app.
+What is its use? Credits coupon-based bonus points.
+  Value: incentive
+What is it? Bonus points credited from campaign performance.
+Where does it come from? Growth schemes and milestone targets.
+What is its use? Credits scheme-based bonus points.
+  Value: credit_note
+What is it? Bonus points adjusted via CN settlements.
+Where does it come from? Distributor credit note workflow.
+What is its use? Adjusts bonus points balances.
+  Column: type
+• SQL Type: enum('credit','debit')
+• What is it? Bonus Points Flow Polar Flag
+• Where does it come from? (Trigger): Created automatically on bonus points movements.
+• What is its use / Business Value? Determines whether bonus points are added or subtracted.
+• Individual Value Options Breakdown:
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 5 of 53
+  Value: credit
+What is it? Points added to the user's bonus points balance.
+Where does it come from? Campaign awards, scan bonuses, or coupon redemptions.
+What is its use? Increases active bonus balance.
+  Value: debit
+What is it? Points subtracted from the user's bonus points balance.
+Where does it come from? Gift catalog orders or points clawbacks.
+What is its use? Decreases active bonus balance.
+I Table: box_gift_orders   [Contains 2 Dropdown Column(s)]
+  Column: assigned_type
+• SQL Type: tinyint
+• What is it? 0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the
+'box_gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'box_gift_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'assigned_type' values.
+• Stored Values / Dropdown Options: 0
+  Column: status
+• SQL Type: enum('Pending','Processing','Delivered','Cancelled','Closed','CN adjusted')
+• What is it? System categorical configuration field defining the 'status' setting for the 'box_gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'box_gift_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: Pending, Processing, Delivered, Cancelled, Closed, CN adjusted
+I Table: branding_elements   [Contains 2 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint
+• What is it? 1=active, 0=inactive. System categorical configuration field defining the 'status' setting for the
+'branding_elements' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'branding_elements' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0, 1
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 6 of 53
+  Column: type
+• SQL Type: enum('printed','digital','other')
+• What is it? System categorical configuration field defining the 'type' setting for the 'branding_elements' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'branding_elements' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+• Stored Values / Dropdown Options: printed, digital, other
+I Table: branding_requests   [Contains 2 Dropdown Column(s)]
+  Column: payment_status
+• SQL Type: tinyint
+• What is it? 0 = Unpaid, 1 = Paid, 2 = On-Hold, 3 = Initiated. System categorical configuration field defining the
+'payment_status' setting for the 'branding_requests' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'branding_requests' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'payment_status' values.
+• Stored Values / Dropdown Options: 0
+  Column: status
+• SQL Type: tinyint
+• What is it? 0-> pending request; 1-> approved request ; 2-> survey completed ; 3-> estimate approvals ; 4 ->
+installation done ; 5-> rejected. System categorical configuration field defining the 'status' setting for the
+'branding_requests' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'branding_requests' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0, 5
+I Table: brands   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: enum('1','0')
+• What is it? System categorical configuration field defining the 'status' setting for the 'brands' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'brands'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1, 0
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 7 of 53
+I Table: bulk_reports   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint
+• What is it? 0:pending,1:started,2:completed,3:cancelled. System categorical configuration field defining the 'status'
+setting for the 'bulk_reports' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'bulk_reports' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 2, 3
+I Table: campaign_logs   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'status' setting for the 'campaign_logs' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'campaign_logs' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: failed, success, skipped, read
+I Table: cart_items   [Contains 1 Dropdown Column(s)]
+  Column: product_type
+• SQL Type: enum('core','winter')
+• What is it? System categorical configuration field defining the 'product_type' setting for the 'cart_items' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'cart_items'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'product_type' values.
+• Stored Values / Dropdown Options: core, winter
+I Table: category_sub_group_master_category_mapping   [Contains 2 Dropdown
+Column(s)]
+  Column: category_sub_group_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'category_sub_group_id' setting for the
+'category_sub_group_master_category_mapping' records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 8 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'category_sub_group_master_category_mapping' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_sub_group_id' values.
+• Stored Values / Dropdown Options: 1, 2, 3, 7, 5, 4, 6, 15, 24, 26 ... (and more)
+  Column: master_category_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'master_category_id' setting for the
+'category_sub_group_master_category_mapping' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'category_sub_group_master_category_mapping' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'master_category_id' values.
+• Stored Values / Dropdown Options: 440, 441, 442, 443, 444, 445, 446, 447, 448, 449 ... (and more)
+I Table: claimed_offers   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: enum('pending','completed','rejected')
+• What is it? System categorical configuration field defining the 'status' setting for the 'claimed_offers' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'claimed_offers' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: pending, completed, rejected
+I Table: conference_events   [Contains 5 Dropdown Column(s)]
+  Column: category_conversion_rate
+• SQL Type: json
+• What is it? System categorical configuration field defining the 'category_conversion_rate' setting for the
+'conference_events' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'conference_events' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_conversion_rate'
+values.
+• Stored Values / Dropdown Options: [{"category_id": 8, "category_name": "COMFY LADIES", "conversion_rate":
+"70"}, {"category_id": 9, "category_name": "COMFY Vest", "conversion_rate": "80"}, {"category_id": 10,
+"category_name": "COMFY TRUNKS & BRIEFS", "conversion_rate": "60"}, {"category_id": 11, "category_name":
+"COMFY GYM VEST", "conversion_rate": "50"}, {"category_id": 17, "category_name": "MCH/SPT BRIEFS & MT",
+"conversion_rate": "75"}, {"category_id": 18, "category_name": "MCH/SPT FINE & DERBY VEST", "conversion_rate":
+"70"}, {"category_id": 19, "category_name": "MCH/SPT LONG & FCD", "conversion_rate": "64"}, {"category_id": 20,
+"category_name": "MCH/SPT PARKA", "conversion_rate": "64"}, {"category_id": 21, "category_name": "SPORTO NEO
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 9 of 53
+SERIES", "conversion_rate": "50"}, {"category_id": 24, "category_name": "SPORTO GYM VEST", "conversion_rate":
+"34"}, {"category_id": 25, "category_name": "SPORTO MARVEL KIDS", "conversion_rate": "45"}], [{"category_id": 12,
+"category_name": "NEW COMFY ATHELIX POLO TEE", "conversion_rate": "35"}, {"category_id": 13, "category_name":
+"NEW- COMFY ATHELIX RN TEE", "conversion_rate": "35"}, {"category_id": 14, "category_name": "NEW- COMFY
+ATHELIX SHORTS", "conversion_rate": "35"}, {"category_id": 15, "category_name": "NEW- COMFY ATHELIX
+TRACKS", "conversion_rate": "35"}, {"category_id": 16, "category_name": "NEW- COMFY ATHELIX MEGA VEST",
+"conversion_rate": "35"}, {"category_id": 22, "category_name": "NEW- SPORTO NEO MODAL VEST",
+"conversion_rate": "50"}, {"category_id": 23, "category_name": "NEW- SPORTO NEO MODAL TRUNKS",
+"conversion_rate": "50"}, {"category_id": 26, "category_name": "NEW-COMFY CASUAL PRINT BERMUDAS",
+"conversion_rate": "30"}, {"category_id": 27, "category_name": "NEW-COMFY CASUAL PLAIN SHORTS",
+"conversion_rate": "30"}, {"category_id": 28, "category_name": "NEW-COMFY CASUAL RN TEE", "conversion_rate":
+"30"}, {"category_id": 29, "category_name": "NEW-COMFY CASUAL POLO TEE", "conversion_rate": "30"},
+{"category_id": 30, "category_name": "NEW-COMFY CASUAL TRACKS & JOGGERS", "conversion_rate": "30"}]
+  Column: order_type
+• SQL Type: enum('all','core','winter')
+• What is it? System categorical configuration field defining the 'order_type' setting for the 'conference_events' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'conference_events' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_type' values.
+• Stored Values / Dropdown Options: all, core, winter
+  Column: order_unit
+• SQL Type: enum('all','box','carton','pcs')
+• What is it? System categorical configuration field defining the 'order_unit' setting for the 'conference_events' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'conference_events' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_unit' values.
+• Stored Values / Dropdown Options: all, box, carton, pcs
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 1:active, 0:inactive. System categorical configuration field defining the 'status' setting for the
+'conference_events' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'conference_events' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0
+  Column: user_type
+• SQL Type: bigint unsigned
+• What is it? 5:Wholesaler, 2:Retailer,4:Distributer. System categorical configuration field defining the 'user_type' setting
+for the 'conference_events' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'conference_events' module.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 10 of 53
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_type' values.
+• Stored Values / Dropdown Options: 4
+I Table: coupon_transactions   [Contains 1 Dropdown Column(s)]
+  Column: type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'type' setting for the 'coupon_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'coupon_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+• Stored Values / Dropdown Options: credit
+I Table: coupons   [Contains 3 Dropdown Column(s)]
+  Column: business_type
+• SQL Type: tinyint
+• What is it? 1 = Retailer, 2 = Wholesaler, 3 = Distributor. System categorical configuration field defining the
+'business_type' setting for the 'coupons' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'coupons'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'business_type' values.
+• Stored Values / Dropdown Options: 2
+  Column: coupon_status
+• SQL Type: tinyint
+• What is it? 1 = Active, 2 = Redeemed, 3 = Expired , 4 = Cancelled. System categorical configuration field defining the
+'coupon_status' setting for the 'coupons' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'coupons'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'coupon_status' values.
+• Stored Values / Dropdown Options: 3
+  Column: coupon_type
+• SQL Type: tinyint
+• What is it? 1 = cash point, 2 = bonus point. System categorical configuration field defining the 'coupon_type' setting for
+the 'coupons' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'coupons'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'coupon_type' values.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 11 of 53
+• Stored Values / Dropdown Options: 1
+I Table: credit_notes   [Contains 1 Dropdown Column(s)]
+  Column: reference_type
+• SQL Type: enum('cash_wallet','deactivated_qr_wallet')
+• What is it? System categorical configuration field defining the 'reference_type' setting for the 'credit_notes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'credit_notes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'reference_type' values.
+• Stored Values / Dropdown Options: cash_wallet, deactivated_qr_wallet
+I Table: dashboard_daily_data   [Contains 1 Dropdown Column(s)]
+  Column: user_type
+• SQL Type: int
+• What is it? System categorical configuration field defining the 'user_type' setting for the 'dashboard_daily_data'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'dashboard_daily_data' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_type' values.
+• Stored Values / Dropdown Options: 2, 5, 4, 25
+I Table: deactivated_qr_wallet_transactions   [Contains 2 Dropdown Column(s)]
+  Column: reference_type
+• SQL Type: enum('sku_scan','topup','credit_note')
+• What is it? System categorical configuration field defining the 'reference_type' setting for the
+'deactivated_qr_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'deactivated_qr_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'reference_type' values.
+• Stored Values / Dropdown Options: sku_scan, topup, credit_note
+  Column: transaction_type
+• SQL Type: tinyint
+• What is it? 0:debit,1:credit. System categorical configuration field defining the 'transaction_type' setting for the
+'deactivated_qr_wallet_transactions' records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 12 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'deactivated_qr_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transaction_type' values.
+• Stored Values / Dropdown Options: 1, 0
+I Table: districts   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 1:active, 0:inactive. System categorical configuration field defining the 'status' setting for the 'districts'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'districts'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1, 0
+I Table: engagement_event_conditions   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: enum('active','inactive')
+• What is it? System categorical configuration field defining the 'status' setting for the 'engagement_event_conditions'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'engagement_event_conditions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: active, inactive
+I Table: engagement_events   [Contains 2 Dropdown Column(s)]
+  Column: recurrence_type
+• SQL Type: enum('none','daily','weekly','monthly','yearly')
+• What is it? System categorical configuration field defining the 'recurrence_type' setting for the 'engagement_events'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'engagement_events' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'recurrence_type' values.
+• Stored Values / Dropdown Options: none, daily, weekly, monthly, yearly
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 13 of 53
+  Column: status
+• SQL Type: enum('active','inactive','expired')
+• What is it? System categorical configuration field defining the 'status' setting for the 'engagement_events' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'engagement_events' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: active, inactive, expired
+I Table: engagement_reward_masters   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: enum('active','inactive')
+• What is it? System categorical configuration field defining the 'status' setting for the 'engagement_reward_masters'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'engagement_reward_masters' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: active, inactive
+I Table: event_orders   [Contains 3 Dropdown Column(s)]
+  Column: category_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'category_id' setting for the 'event_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'event_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_id' values.
+• Stored Values / Dropdown Options: 8, 9, 11, 10, 17, 18, 19, 20, 21, 24 ... (and more)
+  Column: order_status
+• SQL Type: varchar(255)
+• What is it? 0:pending, 1:approved, 2:rejected, 3:completed, 4:cancelled. System categorical configuration field
+defining the 'order_status' setting for the 'event_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'event_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_status' values.
+• Stored Values / Dropdown Options: 0
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 14 of 53
+  Column: order_type
+• SQL Type: enum('box','carton','pcs')
+• What is it? System categorical configuration field defining the 'order_type' setting for the 'event_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'event_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_type' values.
+• Stored Values / Dropdown Options: box, carton, pcs
+I Table: executive_survey_forms   [Contains 1 Dropdown Column(s)]
+  Column: answer_type
+• SQL Type: enum('numeric','text','image')
+• What is it? System categorical configuration field defining the 'answer_type' setting for the 'executive_survey_forms'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'executive_survey_forms' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'answer_type' values.
+• Stored Values / Dropdown Options: numeric, text, image
+I Table: failed_skus_callback_csvs   [Contains 1 Dropdown Column(s)]
+  Column: source
+• SQL Type: tinyint(1)
+• What is it? 1: kolkata, 2 : tirupur. System categorical configuration field defining the 'source' setting for the
+'failed_skus_callback_csvs' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'failed_skus_callback_csvs' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'source' values.
+• Stored Values / Dropdown Options: 1
+I Table: feedback_forms   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 1:Active, 0:Inactive. System categorical configuration field defining the 'status' setting for the
+'feedback_forms' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'feedback_forms' module.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 15 of 53
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: -
+I Table: gift_cards   [Contains 4 Dropdown Column(s)]
+  Column: gift_category_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'gift_category_id' setting for the 'gift_cards' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'gift_cards'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'gift_category_id' values.
+• Stored Values / Dropdown Options: 1, 12, 13, 14, 15, 16, 18
+  Column: gift_type
+• SQL Type: enum('points','box')
+• What is it? System categorical configuration field defining the 'gift_type' setting for the 'gift_cards' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'gift_cards'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'gift_type' values.
+• Stored Values / Dropdown Options: points, box
+  Column: points_applicability
+• SQL Type: enum('all','date_range')
+• What is it? System categorical configuration field defining the 'points_applicability' setting for the 'gift_cards' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'gift_cards'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'points_applicability' values.
+• Stored Values / Dropdown Options: all, date_range
+  Column: status
+• SQL Type: tinyint
+• What is it? System categorical configuration field defining the 'status' setting for the 'gift_cards' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'gift_cards'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0, 1
+I Table: gift_inventories   [Contains 2 Dropdown Column(s)]
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 16 of 53
+  Column: gift_order_type
+• SQL Type: enum('gift_orders','box_gift_orders','scheme_gift_orders','winter_gift_orders')
+• What is it? System categorical configuration field defining the 'gift_order_type' setting for the 'gift_inventories' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'gift_inventories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'gift_order_type' values.
+• Stored Values / Dropdown Options: gift_orders, box_gift_orders, scheme_gift_orders, winter_gift_orders
+  Column: status
+• SQL Type: tinyint
+• What is it? System categorical configuration field defining the 'status' setting for the 'gift_inventories' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'gift_inventories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0, 1, 2, 3
+I Table: gift_order_timelines   [Contains 1 Dropdown Column(s)]
+  Column: order_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'order_type' setting for the 'gift_order_timelines' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'gift_order_timelines' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_type' values.
+• Stored Values / Dropdown Options: gift_order, box_gift_order, scheme_gift_order, box_gift_orders, scheme_order,
+box_order
+I Table: gift_orders   [Contains 3 Dropdown Column(s)]
+  Column: assigned_type
+• SQL Type: tinyint
+• What is it? 0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the
+'gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'gift_orders'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'assigned_type' values.
+• Stored Values / Dropdown Options: 0
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 17 of 53
+  Column: point_type
+• SQL Type: enum('cash_point','bonus_point')
+• What is it? System categorical configuration field defining the 'point_type' setting for the 'gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'gift_orders'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'point_type' values.
+• Stored Values / Dropdown Options: cash_point, bonus_point
+  Column: status
+• SQL Type: text
+• What is it? Pending Processing Delivered Cancel Request Sent Cancellation not Possible Cancelled CN adjusted.
+System categorical configuration field defining the 'status' setting for the 'gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'gift_orders'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: Delivered, Pending, Cancelled, CN adjusted, Processing, Closed
+I Table: gift_products   [Contains 1 Dropdown Column(s)]
+  Column: gift_category_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'gift_category_id' setting for the 'gift_products' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'gift_products' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'gift_category_id' values.
+• Stored Values / Dropdown Options: 12, 13, 15, 18
+I Table: gift_scan_wallet_transactions   [Contains 2 Dropdown Column(s)]
+  Column: reference_type
+• SQL Type: enum('sku_scan','gift_order','topup','credit_note','incentive','cash_convert')
+• What is it? System categorical configuration field defining the 'reference_type' setting for the
+'gift_scan_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'gift_scan_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'reference_type' values.
+• Stored Values / Dropdown Options: sku_scan, gift_order, topup, credit_note, incentive, cash_convert
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 18 of 53
+  Column: transaction_type
+• SQL Type: tinyint
+• What is it? 0:debit,1:credit. System categorical configuration field defining the 'transaction_type' setting for the
+'gift_scan_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'gift_scan_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transaction_type' values.
+• Stored Values / Dropdown Options: 0, 1
+I Table: greeting_templates   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 1:active, 0:inactive. System categorical configuration field defining the 'status' setting for the
+'greeting_templates' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'greeting_templates' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1
+I Table: home_banner   [Contains 1 Dropdown Column(s)]
+  Column: redirect_to_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'redirect_to_type' setting for the 'home_banner' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'home_banner' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'redirect_to_type' values.
+• Stored Values / Dropdown Options: type_option, file_upload, redirect_link
+I Table: incentive_gift_orders   [Contains 3 Dropdown Column(s)]
+  Column: assigned_type
+• SQL Type: tinyint
+• What is it? 0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the
+'incentive_gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_gift_orders' module.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 19 of 53
+• What is its use / Business Value? Used to track and filter table rows based on their 'assigned_type' values.
+• Stored Values / Dropdown Options: -
+  Column: point_type
+• SQL Type: enum('cash_point','bonus_point')
+• What is it? System categorical configuration field defining the 'point_type' setting for the 'incentive_gift_orders'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_gift_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'point_type' values.
+• Stored Values / Dropdown Options: cash_point, bonus_point
+  Column: status
+• SQL Type: text
+• What is it? Pending Processing Delivered Cancel Request Sent Cancellation not Possible Cancelled CN adjusted.
+System categorical configuration field defining the 'status' setting for the 'incentive_gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_gift_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: -
+I Table: incentive_schemes   [Contains 9 Dropdown Column(s)]
+  Column: additional_monthly_bonus
+• SQL Type: enum('0','1')
+• What is it? active=1,inactive=0. System categorical configuration field defining the 'additional_monthly_bonus' setting
+for the 'incentive_schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'additional_monthly_bonus'
+values.
+• Stored Values / Dropdown Options: 0, 1
+  Column: category_id
+• SQL Type: json
+• What is it? System categorical configuration field defining the 'category_id' setting for the 'incentive_schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_id' values.
+• Stored Values / Dropdown Options: null
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 20 of 53
+  Column: incentive_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'incentive_type' setting for the 'incentive_schemes'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'incentive_type' values.
+• Stored Values / Dropdown Options: Growth Scheme for Retailer's Monthly Average between 5-24 Boxes, Growth
+scheme for Retailers who’s monthly average scan is equal to or more than 25 Units, June Growth Scheme, CHAMP,
+PRO, ELITE, SILVER, GOLD, DIAMOND
+  Column: min_scan_type
+• SQL Type: varchar(255)
+• What is it? percentage or fixed. System categorical configuration field defining the 'min_scan_type' setting for the
+'incentive_schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'min_scan_type' values.
+• Stored Values / Dropdown Options: fixed, percentage
+  Column: reward_type
+• SQL Type: enum('cash','bonus','cash_bonus','gift')
+• What is it? System categorical configuration field defining the 'reward_type' setting for the 'incentive_schemes'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'reward_type' values.
+• Stored Values / Dropdown Options: cash, bonus, cash_bonus, gift
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 0=inactive,1=active,2=expired. System categorical configuration field defining the 'status' setting for the
+'incentive_schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0, 1
+  Column: type
+• SQL Type: enum('customized_scheme','monthly','monthly_average')
+• What is it? System categorical configuration field defining the 'type' setting for the 'incentive_schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 21 of 53
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+• Stored Values / Dropdown Options: customized_scheme, monthly, monthly_average
+  Column: user_type
+• SQL Type: int
+• What is it? System categorical configuration field defining the 'user_type' setting for the 'incentive_schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_type' values.
+• Stored Values / Dropdown Options: 2
+  Column: value_type
+• SQL Type: enum('fixed','perScan','gift')
+• What is it? System categorical configuration field defining the 'value_type' setting for the 'incentive_schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'incentive_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'value_type' values.
+• Stored Values / Dropdown Options: fixed, perScan, gift
+I Table: inventory   [Contains 2 Dropdown Column(s)]
+  Column: print_status
+• SQL Type: int
+• What is it? unprint="0", print="1". System categorical configuration field defining the 'print_status' setting for the
+'inventory' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'inventory'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'print_status' values.
+• Stored Values / Dropdown Options: 0
+  Column: status
+• SQL Type: int
+• What is it? qrcode successfully used=1, qrcode not used=0. System categorical configuration field defining the 'status'
+setting for the 'inventory' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'inventory'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 22 of 53
+I Table: manual_transactions   [Contains 4 Dropdown Column(s)]
+  Column: transaction_source
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'transaction_source' setting for the
+'manual_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'manual_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transaction_source' values.
+• Stored Values / Dropdown Options: manual_upload
+  Column: transactionType
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'transactionType' setting for the 'manual_transactions'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'manual_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transactionType' values.
+• Stored Values / Dropdown Options: PAYOUT
+  Column: transferType
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'transferType' setting for the 'manual_transactions'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'manual_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transferType' values.
+• Stored Values / Dropdown Options: Manual
+  Column: type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'type' setting for the 'manual_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'manual_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+• Stored Values / Dropdown Options: withdrawal
+I Table: master_categories   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: enum('1','0')
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 23 of 53
+• What is it? draft ='0', public='1'. System categorical configuration field defining the 'status' setting for the
+'master_categories' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'master_categories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1, 0
+I Table: mechanic_account_types   [Contains 1 Dropdown Column(s)]
+  Column: type_name
+• SQL Type: text
+• What is it? System categorical configuration field defining the 'type_name' setting for the 'mechanic_account_types'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'mechanic_account_types' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type_name' values.
+• Stored Values / Dropdown Options: Mechanic
+I Table: mechanic_details   [Contains 2 Dropdown Column(s)]
+  Column: firm_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'firm_type' setting for the 'mechanic_details' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'mechanic_details' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'firm_type' values.
+• Stored Values / Dropdown Options: Sole Proprietorship, Partnership, Select Business Type, Private Limited
+Company (Pvt. Ltd.), Limited Liability Partnership (LLP), CORE, Limited Liability Partership (LLP)
+  Column: mechanic_account_type
+• SQL Type: text
+• What is it? System categorical configuration field defining the 'mechanic_account_type' setting for the
+'mechanic_details' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'mechanic_details' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'mechanic_account_type' values.
+• Stored Values / Dropdown Options: 0, 1
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 24 of 53
+I Table: mom_thread_participants   [Contains 1 Dropdown Column(s)]
+  Column: user_type
+• SQL Type: enum('SE','ASM','RSM','ZSM','Retailer','Distributor','Wholesaler')
+• What is it? System categorical configuration field defining the 'user_type' setting for the 'mom_thread_participants'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'mom_thread_participants' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_type' values.
+• Stored Values / Dropdown Options: SE, ASM, RSM, ZSM, Retailer, Distributor, Wholesaler
+I Table: mom_threads   [Contains 3 Dropdown Column(s)]
+  Column: entity_type
+• SQL Type: tinyint
+• What is it? System categorical configuration field defining the 'entity_type' setting for the 'mom_threads' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'mom_threads' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'entity_type' values.
+• Stored Values / Dropdown Options: 2, 5, 4, 0
+  Column: isVisitModule
+• SQL Type: enum('0','1')
+• What is it? System categorical configuration field defining the 'isVisitModule' setting for the 'mom_threads' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'mom_threads' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'isVisitModule' values.
+• Stored Values / Dropdown Options: 0, 1
+  Column: status
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'status' setting for the 'mom_threads' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'mom_threads' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: open
+I Table: mypoints   [Contains 3 Dropdown Column(s)]
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 25 of 53
+  Column: migration_status
+• SQL Type: tinyint(1)
+• What is it? System categorical configuration field defining the 'migration_status' setting for the 'mypoints' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'mypoints'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'migration_status' values.
+• Stored Values / Dropdown Options: 0
+  Column: point_type
+• SQL Type: tinyint
+• What is it? 1:success_scan, 2:return, 3:misused_reset. System categorical configuration field defining the 'point_type'
+setting for the 'mypoints' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'mypoints'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'point_type' values.
+• Stored Values / Dropdown Options: 1, 2
+  Column: user_role
+• SQL Type: int
+• What is it? 2=retailer , 4=distributor, 5=wholesaler. System categorical configuration field defining the 'user_role'
+setting for the 'mypoints' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'mypoints'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_role' values.
+• Stored Values / Dropdown Options: 2, 5, 4
+I Table: notification_events   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 1:Active 0:Inactive. System categorical configuration field defining the 'status' setting for the
+'notification_events' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'notification_events' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1
+I Table: notification_logs   [Contains 1 Dropdown Column(s)]
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 26 of 53
+  Column: status
+• SQL Type: enum('pending','success','failed','skipped')
+• What is it? System categorical configuration field defining the 'status' setting for the 'notification_logs' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'notification_logs' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: pending, success, failed, skipped
+I Table: notifications   [Contains 3 Dropdown Column(s)]
+  Column: notification_type
+• SQL Type: enum('General','Sticky','Alert')
+• What is it? System categorical configuration field defining the 'notification_type' setting for the 'notifications' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'notifications' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'notification_type' values.
+• Stored Values / Dropdown Options: General, Sticky, Alert
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 1: Read, 0: Not Read. System categorical configuration field defining the 'status' setting for the
+'notifications' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'notifications' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1, 0
+  Column: user_type
+• SQL Type: enum('All','Distributor','Retailer','Wholesaler','Executive','Vender')
+• What is it? System categorical configuration field defining the 'user_type' setting for the 'notifications' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'notifications' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_type' values.
+• Stored Values / Dropdown Options: All, Distributor, Retailer, Wholesaler, Executive, Vender
+I Table: offer   [Contains 1 Dropdown Column(s)]
+  Column: user_role
+• SQL Type: int unsigned
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 27 of 53
+• What is it? System categorical configuration field defining the 'user_role' setting for the 'offer' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'offer'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_role' values.
+• Stored Values / Dropdown Options: 5
+I Table: order_bulk_mapping   [Contains 1 Dropdown Column(s)]
+  Column: order_type
+• SQL Type: tinyint
+• What is it? 1 = Gift Orders, 2 = Box gift orders, 3= scheme gift order , 4 = Winter gift orders. System categorical
+configuration field defining the 'order_type' setting for the 'order_bulk_mapping' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'order_bulk_mapping' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_type' values.
+• Stored Values / Dropdown Options: 1, 2, 3
+I Table: order_categories   [Contains 3 Dropdown Column(s)]
+  Column: category_name
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'category_name' setting for the 'order_categories'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'order_categories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_name' values.
+• Stored Values / Dropdown Options: Colour Premium, Hot Coat, Kashmira, MAGMA, Parka, launch category,
+COMFY LADIES, COMFY Vest, COMFY TRUNKS & BRIEFS, COMFY GYM VEST ... (and more)
+  Column: category_type
+• SQL Type: enum('winter','core')
+• What is it? System categorical configuration field defining the 'category_type' setting for the 'order_categories'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'order_categories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_type' values.
+• Stored Values / Dropdown Options: winter, core
+  Column: status
+• SQL Type: tinyint
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 28 of 53
+• What is it? System categorical configuration field defining the 'status' setting for the 'order_categories' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'order_categories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0, 1
+I Table: orders   [Contains 3 Dropdown Column(s)]
+  Column: order_status
+• SQL Type: tinyint
+• What is it? 0:pending,1:approved,2:rejected,3:completed,4:cancelled,5: partially-fulfilled,6: fullfilled. System
+categorical configuration field defining the 'order_status' setting for the 'orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'orders'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_status' values.
+• Stored Values / Dropdown Options: 4, 0, 3
+  Column: order_type
+• SQL Type: enum('by_call','by_visit')
+• What is it? System categorical configuration field defining the 'order_type' setting for the 'orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'orders'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_type' values.
+• Stored Values / Dropdown Options: by_call, by_visit
+  Column: product_type
+• SQL Type: enum('core','winter')
+• What is it? System categorical configuration field defining the 'product_type' setting for the 'orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'orders'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'product_type' values.
+• Stored Values / Dropdown Options: core, winter
+I Table: otp   [Contains 1 Dropdown Column(s)]
+  Column: user_role
+• SQL Type: int
+• What is it? User role at time of verifying otp. System categorical configuration field defining the 'user_role' setting for
+the 'otp' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'otp' module.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 29 of 53
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_role' values.
+• Stored Values / Dropdown Options: 2, 5, 4
+I Table: packages   [Contains 1 Dropdown Column(s)]
+  Column: plan_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'plan_type' setting for the 'packages' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'packages'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'plan_type' values.
+• Stored Values / Dropdown Options: free, paid
+I Table: per_target_scheme_coupons   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: enum('pending','delivered','cancelled','cn_adjusted')
+• What is it? System categorical configuration field defining the 'status' setting for the 'per_target_scheme_coupons'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'per_target_scheme_coupons' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: pending, delivered, cancelled, cn_adjusted
+I Table: per_target_schemes   [Contains 1 Dropdown Column(s)]
+  Column: product_type
+• SQL Type: enum('all','core','winter')
+• What is it? System categorical configuration field defining the 'product_type' setting for the 'per_target_schemes'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'per_target_schemes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'product_type' values.
+• Stored Values / Dropdown Options: all, core, winter
+I Table: permission   [Contains 1 Dropdown Column(s)]
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 30 of 53
+  Column: status
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'status' setting for the 'permission' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'permission'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1
+I Table: products   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint
+• What is it? 1:active,0:inactive. System categorical configuration field defining the 'status' setting for the 'products'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'products'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: -
+I Table: purchase_targets   [Contains 1 Dropdown Column(s)]
+  Column: category_wise_target
+• SQL Type: json
+• What is it? System categorical configuration field defining the 'category_wise_target' setting for the 'purchase_targets'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'purchase_targets' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_wise_target' values.
+• Stored Values / Dropdown Options: {"8": 0, "9": 0, "10": 0, "11": 0, "12": 0, "13": 0, "14": 0, "15": 0, "16": 0, "17": 0,
+"18": 0, "19": 0, "20": 0, "21": 0, "22": 0, "23": 0, "24": 0, "25": 0, "26": 0, "27": 0, "28": 0, "29": 0, "30": 0}, {"8": 4, "9": 3,
+"10": 9, "11": 0, "12": 0, "13": 0, "14": 0, "15": 0, "16": 0, "17": 0, "18": 0, "19": 0, "20": 0, "21": 0, "22": 0, "23": 0, "24": 5,
+"25": 0, "26": 0, "27": 0, "28": 0, "29": 0, "30": 0}, {"8": 7, "9": 8, "10": 13, "11": 8, "12": 0, "13": 0, "14": 0, "15": 0, "16": 0,
+"17": 5, "18": 4, "19": 4, "20": 0, "21": 5, "22": 0, "23": 0, "24": 6, "25": 2, "26": 0, "27": 0, "28": 0, "29": 0, "30": 0}, {"8": 9,
+"9": 9, "10": 17, "11": 1, "12": 0, "13": 0, "14": 0, "15": 0, "16": 0, "17": 26, "18": 12, "19": 25, "20": 2, "21": 5, "22": 0, "23":
+0, "24": 4, "25": 4, "26": 0, "27": 0, "28": 0, "29": 0, "30": 0}, {"8": 0, "9": 8, "10": 11, "11": 0, "12": 0, "13": 0, "14": 0, "15": 0,
+"16": 0, "17": 35, "18": 24, "19": 56, "20": 1, "21": 0, "22": 0, "23": 0, "24": 51, "25": 0, "26": 0, "27": 0, "28": 0, "29": 0, "30":
+0}, {"8": 15, "9": 15, "10": 18, "11": 1, "12": 0, "13": 0, "14": 0, "15": 0, "16": 0, "17": 3, "18": 3, "19": 2, "20": 0, "21": 4, "22":
+0, "23": 0, "24": 3, "25": 2, "26": 0, "27": 0, "28": 0, "29": 0, "30": 0}, {"8": 6, "9": 5, "10": 16, "11": 2, "12": 0, "13": 0, "14": 0,
+"15": 0, "16": 0, "17": 35, "18": 30, "19": 31, "20": 2, "21": 1, "22": 0, "23": 0, "24": 12, "25": 8, "26": 0, "27": 0, "28": 0, "29":
+0, "30": 0}, {"8": 3, "9": 5, "10": 2, "11": 0, "12": 0, "13": 0, "14": 0, "15": 0, "16": 0, "17": 1, "18": 1, "19": 2, "20": 0, "21": 3,
+"22": 0, "23": 0, "24": 2, "25": 2, "26": 0, "27": 0, "28": 0, "29": 0, "30": 0}, {"8": 11, "9": 3, "10": 4, "11": 1, "12": 0, "13": 0,
+"14": 0, "15": 0, "16": 0, "17": 38, "18": 17, "19": 25, "20": 2, "21": 6, "22": 0, "23": 0, "24": 2, "25": 1, "26": 0, "27": 0, "28":
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 31 of 53
+0, "29": 0, "30": 0}, {"8": 17, "9": 18, "10": 16, "11": 0, "12": 0, "13": 0, "14": 0, "15": 0, "16": 0, "17": 33, "18": 37, "19": 51,
+"20": 2, "21": 24, "22": 0, "23": 0, "24": 25, "25": 21, "26": 0, "27": 0, "28": 0, "29": 0, "30": 0} ... (and more)
+I Table: referral_details   [Contains 2 Dropdown Column(s)]
+  Column: referral_type
+• SQL Type: varchar(50)
+• What is it? System categorical configuration field defining the 'referral_type' setting for the 'referral_details' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'referral_details' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'referral_type' values.
+• Stored Values / Dropdown Options: created_by_lead
+  Column: user_role
+• SQL Type: int unsigned
+• What is it? System categorical configuration field defining the 'user_role' setting for the 'referral_details' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'referral_details' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_role' values.
+• Stored Values / Dropdown Options: 2, 4, 6, 5
+I Table: repository_documents   [Contains 1 Dropdown Column(s)]
+  Column: app_type
+• SQL Type: enum('all','SE','Retailer','Distributor')
+• What is it? System categorical configuration field defining the 'app_type' setting for the 'repository_documents'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'repository_documents' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'app_type' values.
+• Stored Values / Dropdown Options: all, SE, Retailer, Distributor
+I Table: retailer_bulk_requests   [Contains 2 Dropdown Column(s)]
+  Column: report_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'report_type' setting for the 'retailer_bulk_requests'
+records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 32 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'retailer_bulk_requests' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'report_type' values.
+• Stored Values / Dropdown Options: qr_list_master_report, retailer_list, cash_redemption_report,
+retailer_scan_count_report, retailer_scan_report, retailer_scan_reports, retailer_scan_count,
+retailer_scan_master_report, scanned_distributor_list, retailer_consolidated_report ... (and more)
+  Column: status
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'status' setting for the 'retailer_bulk_requests' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'retailer_bulk_requests' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: completed, pending
+I Table: retailer_category_qualified   [Contains 1 Dropdown Column(s)]
+  Column: category_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'category_id' setting for the 'retailer_category_qualified'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'retailer_category_qualified' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_id' values.
+• Stored Values / Dropdown Options: 362, 369, 371, 464, 465, 467, 468, 469, 471, 470 ... (and more)
+I Table: retailer_credit_notes   [Contains 2 Dropdown Column(s)]
+  Column: business_type
+• SQL Type: varchar(255)
+• What is it? Wholesaler, Retailer. System categorical configuration field defining the 'business_type' setting for the
+'retailer_credit_notes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'retailer_credit_notes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'business_type' values.
+• Stored Values / Dropdown Options: wholesaler, retailer
+  Column: status
+• SQL Type: tinyint(1)
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 33 of 53
+• What is it? 1: Approved, 0: Not Approved. System categorical configuration field defining the 'status' setting for the
+'retailer_credit_notes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'retailer_credit_notes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1
+I Table: retailer_schemes_mapping   [Contains 1 Dropdown Column(s)]
+  Column: enrollment_status
+• SQL Type: tinyint
+• What is it? 0:pending, 1:active, 2:inactive. System categorical configuration field defining the 'enrollment_status'
+setting for the 'retailer_schemes_mapping' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'retailer_schemes_mapping' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'enrollment_status' values.
+• Stored Values / Dropdown Options: 1, 2
+I Table: role_conversion_histories   [Contains 2 Dropdown Column(s)]
+  Column: new_role
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'new_role' setting for the 'role_conversion_histories'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'role_conversion_histories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'new_role' values.
+• Stored Values / Dropdown Options: 2, 5
+  Column: old_role
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'old_role' setting for the 'role_conversion_histories'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'role_conversion_histories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'old_role' values.
+• Stored Values / Dropdown Options: 5, 2
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 34 of 53
+I Table: role_permission_module   [Contains 1 Dropdown Column(s)]
+  Column: role_id
+• SQL Type: int
+• What is it? System categorical configuration field defining the 'role_id' setting for the 'role_permission_module'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'role_permission_module' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'role_id' values.
+• Stored Values / Dropdown Options: 1, 3, 7, 9, 10, 11, 13, 14
+I Table: scanned_qrcode_history   [Contains 2 Dropdown Column(s)]
+  Column: status
+• SQL Type: int
+• What is it? System categorical configuration field defining the 'status' setting for the 'scanned_qrcode_history' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'scanned_qrcode_history' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 4, 13, 3, 14, 15, 9, 2, 5, 19, 20 ... (and more)
+  Column: type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'type' setting for the 'scanned_qrcode_history' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'scanned_qrcode_history' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+• Stored Values / Dropdown Options: bulk_scan, regular, manual
+I Table: scheme_gift_items   [Contains 1 Dropdown Column(s)]
+  Column: gift_category_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'gift_category_id' setting for the 'scheme_gift_items'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'scheme_gift_items' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'gift_category_id' values.
+• Stored Values / Dropdown Options: 12, 13, 15, 18
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 35 of 53
+I Table: scheme_gift_orders   [Contains 2 Dropdown Column(s)]
+  Column: assigned_type
+• SQL Type: tinyint
+• What is it? 0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the
+'scheme_gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'scheme_gift_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'assigned_type' values.
+• Stored Values / Dropdown Options: 0
+  Column: status
+• SQL Type: enum('Pending','Processing','Delivered','Cancelled','Closed','CN adjusted')
+• What is it? order status. System categorical configuration field defining the 'status' setting for the 'scheme_gift_orders'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'scheme_gift_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: Pending, Processing, Delivered, Cancelled, Closed, CN adjusted
+I Table: scheme_orders   [Contains 1 Dropdown Column(s)]
+  Column: order_status
+• SQL Type: tinyint
+• What is it? 0:Pending, 1:Approved, 2:Rejected, 3:Completed, 4:Cancelled. System categorical configuration field
+defining the 'order_status' setting for the 'scheme_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'scheme_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_status' values.
+• Stored Values / Dropdown Options: 0
+I Table: scheme_wallet_transactions   [Contains 2 Dropdown Column(s)]
+  Column: reference_type
+• SQL Type: enum('sku_scan','scheme_gift_order','incentive','cash_convert','credit_note','topup')
+• What is it? System categorical configuration field defining the 'reference_type' setting for the
+'scheme_wallet_transactions' records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 36 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'scheme_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'reference_type' values.
+• Stored Values / Dropdown Options: sku_scan, scheme_gift_order, incentive, cash_convert, credit_note, topup
+  Column: transaction_type
+• SQL Type: tinyint(1)
+• What is it? 0:debit,1:credit. System categorical configuration field defining the 'transaction_type' setting for the
+'scheme_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'scheme_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transaction_type' values.
+• Stored Values / Dropdown Options: 1, 0
+I Table: schemes   [Contains 4 Dropdown Column(s)]
+  Column: point_type
+• SQL Type: enum('box_value','cash_value')
+• What is it? System categorical configuration field defining the 'point_type' setting for the 'schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'schemes'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'point_type' values.
+• Stored Values / Dropdown Options: box_value, cash_value
+  Column: scan_type
+• SQL Type: tinyint
+• What is it? 1->cash_point scan, 2->gift_scan , 3->winter_scan,4->scheme_scan. System categorical configuration
+field defining the 'scan_type' setting for the 'schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'schemes'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'scan_type' values.
+• Stored Values / Dropdown Options: 4
+  Column: scheme_type
+• SQL Type: enum('autoEnroll','manualEnroll')
+• What is it? System categorical configuration field defining the 'scheme_type' setting for the 'schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'schemes'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'scheme_type' values.
+• Stored Values / Dropdown Options: autoEnroll, manualEnroll
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 37 of 53
+  Column: user_type
+• SQL Type: enum('retailer','wholesaler','both')
+• What is it? System categorical configuration field defining the 'user_type' setting for the 'schemes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'schemes'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_type' values.
+• Stored Values / Dropdown Options: retailer, wholesaler, both
+I Table: se_reports   [Contains 2 Dropdown Column(s)]
+  Column: report_name
+• SQL Type: enum('new_retailers','new_category')
+• What is it? System categorical configuration field defining the 'report_name' setting for the 'se_reports' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'se_reports'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'report_name' values.
+• Stored Values / Dropdown Options: new_retailers, new_category
+  Column: status
+• SQL Type: tinyint unsigned
+• What is it? O:pending,1:processing, 2:completed, 3:failed. System categorical configuration field defining the 'status'
+setting for the 'se_reports' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'se_reports'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 2
+I Table: se_task   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: varchar(255)
+• What is it? 1=pending,2=reschedule,3=completed,4=failed,5=cancelled. System categorical configuration field
+defining the 'status' setting for the 'se_task' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'se_task'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 4, 3
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 38 of 53
+I Table: se_task_history   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: varchar(255)
+• What is it? pending,reschedule,completed,failed,cancelled. System categorical configuration field defining the 'status'
+setting for the 'se_task_history' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'se_task_history' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1, 2, 3, 4
+I Table: shop_verification_images   [Contains 1 Dropdown Column(s)]
+  Column: user_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'user_type' setting for the 'shop_verification_images'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'shop_verification_images' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'user_type' values.
+• Stored Values / Dropdown Options: distributor, retailer, wholeseller
+I Table: sku_bulk_imports   [Contains 1 Dropdown Column(s)]
+  Column: Source
+• SQL Type: tinyint(1)
+• What is it? 1:kolkata, 0:Tirupur. System categorical configuration field defining the 'Source' setting for the
+'sku_bulk_imports' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sku_bulk_imports' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'Source' values.
+• Stored Values / Dropdown Options: 0, 1
+I Table: sku_inventories   [Contains 4 Dropdown Column(s)]
+  Column: order_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'order_type' setting for the 'sku_inventories' records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 39 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sku_inventories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'order_type' values.
+• Stored Values / Dropdown Options: Distributor
+  Column: sources
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'sources' setting for the 'sku_inventories' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sku_inventories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'sources' values.
+• Stored Values / Dropdown Options: tirupur, kolkata
+  Column: status_retailer_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'status_retailer_id' setting for the 'sku_inventories'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sku_inventories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status_retailer_id' values.
+• Stored Values / Dropdown Options: 57302, 75649, 53595, 60728, 51234, 66502, 78564, 60422, 54773, 50503 ...
+(and more)
+  Column: status_wholeseller_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'status_wholeseller_id' setting for the 'sku_inventories'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sku_inventories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status_wholeseller_id' values.
+• Stored Values / Dropdown Options: 50224, 51321, 48700
+I Table: sku_products   [Contains 2 Dropdown Column(s)]
+  Column: category_sub_group_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'category_sub_group_id' setting for the 'sku_products'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sku_products' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'category_sub_group_id' values.
+• Stored Values / Dropdown Options: 1, 2, 3, 7, 5, 44, 45, 46, 15, 47 ... (and more)
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 40 of 53
+  Column: season
+• SQL Type: enum('winter','summer','rainy','core')
+• What is it? System categorical configuration field defining the 'season' setting for the 'sku_products' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sku_products' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'season' values.
+• Stored Values / Dropdown Options: winter, summer, rainy, core
+I Table: sku_qr_points_maps   [Contains 1 Dropdown Column(s)]
+  Column: gride_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'gride_type' setting for the 'sku_qr_points_maps'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sku_qr_points_maps' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'gride_type' values.
+• Stored Values / Dropdown Options: FG_BIG, FG_SMALL
+I Table: state   [Contains 1 Dropdown Column(s)]
+  Column: jgh_magic_status
+• SQL Type: tinyint(1)
+• What is it? 1:Active, 0:Inactive. System categorical configuration field defining the 'jgh_magic_status' setting for the
+'state' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'state'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'jgh_magic_status' values.
+• Stored Values / Dropdown Options: 1, 0
+I Table: suppliers   [Contains 1 Dropdown Column(s)]
+  Column: type
+• SQL Type: tinyint
+• What is it? 1=Travel Agent, 2=Online Partner, 3=Agency. System categorical configuration field defining the 'type'
+setting for the 'suppliers' records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 41 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'suppliers'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+• Stored Values / Dropdown Options: -
+I Table: survey_forms   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 1:Active, 0:Inactive. System categorical configuration field defining the 'status' setting for the
+'survey_forms' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'survey_forms' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: -
+I Table: sync_tripur_data   [Contains 2 Dropdown Column(s)]
+  Column: source
+• SQL Type: varchar(20)
+• What is it? System categorical configuration field defining the 'source' setting for the 'sync_tripur_data' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sync_tripur_data' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'source' values.
+• Stored Values / Dropdown Options: tirupur, kolkata
+  Column: status
+• SQL Type: tinyint
+• What is it? 0=pending, 1=processing,2=qr_generated,3=qr_processing,4=processed. System categorical
+configuration field defining the 'status' setting for the 'sync_tripur_data' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'sync_tripur_data' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 4, 29, 1
+I Table: table_qr_pdfs   [Contains 1 Dropdown Column(s)]
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 42 of 53
+  Column: status
+• SQL Type: int
+• What is it? System categorical configuration field defining the 'status' setting for the 'table_qr_pdfs' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'table_qr_pdfs' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1
+I Table: tds_certificates   [Contains 1 Dropdown Column(s)]
+  Column: business_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'business_type' setting for the 'tds_certificates' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'tds_certificates' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'business_type' values.
+• Stored Values / Dropdown Options: Retailer, Wholesaler
+I Table: tripur_api_tokens   [Contains 1 Dropdown Column(s)]
+  Column: token_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'token_type' setting for the 'tripur_api_tokens' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'tripur_api_tokens' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'token_type' values.
+• Stored Values / Dropdown Options: Bearer
+I Table: user_geotag_photos   [Contains 1 Dropdown Column(s)]
+  Column: approval_status
+• SQL Type: tinyint(1)
+• What is it? 0: Pending, 1: Approved, 2: Rejected. System categorical configuration field defining the 'approval_status'
+setting for the 'user_geotag_photos' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'user_geotag_photos' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'approval_status' values.
+• Stored Values / Dropdown Options: 0, 1, 2
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 43 of 53
+I Table: user_scan_permissions   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? 1:Block, 0:Unblock. System categorical configuration field defining the 'status' setting for the
+'user_scan_permissions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'user_scan_permissions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1, 0
+I Table: user_withdrawal_block_histories   [Contains 2 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint
+• What is it? 0:unblock,1:blocked. System categorical configuration field defining the 'status' setting for the
+'user_withdrawal_block_histories' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'user_withdrawal_block_histories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1, 0
+  Column: withdrawal_type
+• SQL Type: enum('cash','gift_redeem')
+• What is it? System categorical configuration field defining the 'withdrawal_type' setting for the
+'user_withdrawal_block_histories' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'user_withdrawal_block_histories' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'withdrawal_type' values.
+• Stored Values / Dropdown Options: cash, gift_redeem
+I Table: users   [Contains 5 Dropdown Column(s)]
+  Column: account_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'account_type' setting for the 'users' records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 44 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'users'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'account_type' values.
+• Stored Values / Dropdown Options: Savings, Current
+  Column: bank_details_status
+• SQL Type: tinyint
+• What is it? 0=bank data not present,1= bank data present. System categorical configuration field defining the
+'bank_details_status' setting for the 'users' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'users'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'bank_details_status' values.
+• Stored Values / Dropdown Options: 1, 0
+  Column: kyc_status
+• SQL Type: int
+• What is it? User Identity & Document Verification State
+• Where does it come from? (Trigger): Set by automated KYC validation engines (Aadhaar/PAN API) or manual
+admin overrides.
+• What is its use / Business Value? Enforces tax compliance and identity verification.
+• Individual Value Options Breakdown:
+  Value: 0 (Unverified)
+What is it? KYC process has not been completed or started.
+Where does it come from? Default status for newly created accounts.
+What is its use? Blocks the user from requesting cash withdrawals to comply with tax guidelines.
+  Value: 1 (Verified)
+What is it? User's Aadhaar and PAN documents verified as authentic.
+Where does it come from? Digio verification callback or manual admin verification.
+What is its use? Enables the cash withdrawal feature in the user's mobile wallet.
+  Value: 2 (Rejected)
+What is it? Aadhaar/PAN verification failed due to document mismatches.
+Where does it come from? KYC API verification failure.
+What is its use? Restricts withdrawals and flags the account for document correction.
+  Column: status
+• SQL Type: varchar(255)
+• What is it? User Account Access Status
+• Where does it come from? (Trigger): Set manually by Business/Super Admins on the dashboard panel.
+• What is its use / Business Value? Enforces platform security and KYC validation checks.
+• Individual Value Options Breakdown:
+  Value: pending
+What is it? User profile is registered but has not been verified by an admin.
+Where does it come from? Automatically assigned during user self-onboarding in the mobile app.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 45 of 53
+What is its use? Allows the user to log in but restricts them from scanning QR codes or withdrawing cash until approved.
+  Value: approved
+What is it? User profile verified and authenticated.
+Where does it come from? Dashboard action by a Super Admin after reviewing user documents.
+What is its use? Unlocks full access to loyalty scans, target schemes, and points withdrawals.
+  Value: rejected
+What is it? User onboarding application failed validation (e.g. incorrect PAN, fake store name).
+Where does it come from? Dashboard rejection action by an Admin.
+What is its use? Suspends account features and prompts the user to re-upload clear profile information.
+  Column: user_role
+• SQL Type: int
+• What is it? System Access Level
+• Where does it come from? (Trigger): Set during registration or modified by Admins. Maps to role.id.
+• What is its use / Business Value? Controls menu visibility and points distribution structures.
+• Individual Value Options Breakdown:
+  Value: 1 (Business Admin)
+What is it? Company-level admin with dashboard access.
+Where does it come from? Admin panel creation.
+What is its use? Manages regional SKU mappings and scheme distributions.
+  Value: 2 (Retailer)
+What is it? Retailer outlet scanner account.
+Where does it come from? User registration selections.
+What is its use? Assigned retailer cash points for scanning SKUs.
+  Value: 4 (Distributor)
+What is it? Distributor supply chain account.
+Where does it come from? Distributor onboarding portal.
+What is its use? Authorized to manage billing and Credit Note settlements.
+  Value: 5 (Wholesaler)
+What is it? Wholesaler scanner account.
+Where does it come from? User registration selections.
+What is its use? Assigned wholesaler cash points for scanning SKUs.
+I Table: vendor_element_state_mappings   [Contains 1 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint
+• What is it? 1=active, 0=inactive. System categorical configuration field defining the 'status' setting for the
+'vendor_element_state_mappings' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'vendor_element_state_mappings' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 46 of 53
+• Stored Values / Dropdown Options: -
+I Table: vendors   [Contains 2 Dropdown Column(s)]
+  Column: gender
+• SQL Type: enum('male','female','other')
+• What is it? System categorical configuration field defining the 'gender' setting for the 'vendors' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'vendors'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'gender' values.
+• Stored Values / Dropdown Options: male, female, other
+  Column: status
+• SQL Type: tinyint
+• What is it? 1=active, 0=inactive. System categorical configuration field defining the 'status' setting for the 'vendors'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'vendors'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0, 1
+I Table: video_responses   [Contains 1 Dropdown Column(s)]
+  Column: response
+• SQL Type: enum('interested','se_visit','call_back')
+• What is it? System categorical configuration field defining the 'response' setting for the 'video_responses' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'video_responses' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'response' values.
+• Stored Values / Dropdown Options: interested, se_visit, call_back
+I Table: visit_check_in_check_out   [Contains 1 Dropdown Column(s)]
+  Column: visit_type
+• SQL Type: varchar(255)
+• What is it? System categorical configuration field defining the 'visit_type' setting for the 'visit_check_in_check_out'
+records.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 47 of 53
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'visit_check_in_check_out' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'visit_type' values.
+• Stored Values / Dropdown Options: ORDER RECEIVED, yes, 2, owner not present, Dinesh Kumar, visit complete,
+Non stop Collection, visit, Vipul Redaymead, aggarwal collection ... (and more)
+I Table: wallet_transaction   [Contains 3 Dropdown Column(s)]
+  Column: reference_type
+• SQL Type: enum('cash_point','withdrawal','topup','bonus_conversion','referral_earning','returned','coupon_redeem','cr
+edit_note','incentive','spin','target_scheme_coupon')
+• What is it? Wallet Points Credit/Debit Source Category
+• Where does it come from? (Trigger): Written by the ledger service whenever points are adjusted. Triggers include
+QR scans, payout approvals, or admin balance overrides.
+• What is its use / Business Value? Tracks the source of wallet balance adjustments (e.g. cash_point, withdrawal,
+topup, bonus_conversion, credit_note).
+• Individual Value Options Breakdown:
+  Value: cash_point
+What is it? QR Code Scan Reward: Retailer scanned a barcode box.
+Where does it come from? Successful QR scan validation.
+What is its use? Points credited to retailer wallet balance (linked to mypoints.id).
+  Value: withdrawal
+What is it? Cash Out Payout: User redeemed wallet points for bank account cash.
+Where does it come from? User submits withdrawal form in app.
+What is its use? Deducts cash amount from wallet balance (linked to withdrawal_request.id).
+  Value: topup
+What is it? Manual Adjustment: Admin manually adds/adjusts user points.
+Where does it come from? Admin panel point override forms.
+What is its use? Direct wallet credit (reference_id is NULL).
+  Value: bonus_conversion
+What is it? Cash-to-Bonus Conversion: Cash points converted into gift shop points.
+Where does it come from? User selects conversion in app profile.
+What is its use? Deducts cash balance and credits gift points (linked to bonus_transactions.id).
+  Value: referral_earning
+What is it? Referral Reward: Referrer earned points from a referred user.
+Where does it come from? Invite referral system logs.
+What is its use? Credits points to referrer wallet balance (reference_id is NULL).
+  Value: credit_note
+What is it? Credit Note Settlement: Payout adjusted directly with distributor.
+Where does it come from? Distributor billing settlement actions.
+What is its use? Deducts settled credit note value from wallet (linked to retailer_credit_notes.id).
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 48 of 53
+  Value: incentive
+What is it? Campaign Target Points: Awarded for hitting growth target schemes.
+Where does it come from? Weekly/monthly target checks.
+What is its use? Credits campaign scheme bonus to wallet (linked to incentive_schemes.id).
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? Wallet Points Ledger Transaction Status
+• Where does it come from? (Trigger): Logged by database triggers on QR scan completes or payout requests.
+• What is its use / Business Value? Represents the validation stage of the financial point entry.
+• Individual Value Options Breakdown:
+  Value: 0 (pending)
+What is it? Points entry initiated but awaiting system validation or admin approval.
+Where does it come from? Ledger initiation trigger.
+What is its use? Temporarily reserves the points, preventing balance inflation before verification completes.
+  Value: 1 (success)
+What is it? Points entry verified and completed.
+Where does it come from? Successful QR validation webhook or approved payout.
+What is its use? Increments or decrements the user's active wallet balance (wallet_balance) permanently.
+  Value: 2 (failed)
+What is it? Points entry rejected or cancelled.
+Where does it come from? QR validation rejection or payout request cancellation.
+What is its use? Invalidates the points transaction, preventing any balance changes.
+  Column: transaction_type
+• SQL Type: tinyint(1)
+• What is it? 0:Debit,1:Credit. System categorical configuration field defining the 'transaction_type' setting for the
+'wallet_transaction' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'wallet_transaction' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transaction_type' values.
+• Stored Values / Dropdown Options: 1, 0
+I Table: weekly_scheme_prizes   [Contains 1 Dropdown Column(s)]
+  Column: type
+• SQL Type: enum('cash','gift','bonus')
+• What is it? System categorical configuration field defining the 'type' setting for the 'weekly_scheme_prizes' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'weekly_scheme_prizes' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 49 of 53
+• Stored Values / Dropdown Options: cash, gift, bonus
+I Table: wholesale_wallet_transactions   [Contains 3 Dropdown Column(s)]
+  Column: reference_type
+• SQL Type: enum('sku_scan','credit_note','cash_withdrawal')
+• What is it? System categorical configuration field defining the 'reference_type' setting for the
+'wholesale_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'wholesale_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'reference_type' values.
+• Stored Values / Dropdown Options: sku_scan, credit_note, cash_withdrawal
+  Column: status
+• SQL Type: tinyint
+• What is it? 0:pending, 1:success, 2:failed. System categorical configuration field defining the 'status' setting for the
+'wholesale_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'wholesale_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 1
+  Column: transaction_type
+• SQL Type: tinyint(1)
+• What is it? 0:debit, 1:credit. System categorical configuration field defining the 'transaction_type' setting for the
+'wholesale_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'wholesale_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transaction_type' values.
+• Stored Values / Dropdown Options: 0, 1
+I Table: winter_gift_items   [Contains 2 Dropdown Column(s)]
+  Column: gift_category_id
+• SQL Type: bigint unsigned
+• What is it? System categorical configuration field defining the 'gift_category_id' setting for the 'winter_gift_items'
+records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'winter_gift_items' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'gift_category_id' values.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 50 of 53
+• Stored Values / Dropdown Options: 12, 14, 15, 18
+  Column: status
+• SQL Type: tinyint
+• What is it? 0:inactive,1:active. System categorical configuration field defining the 'status' setting for the
+'winter_gift_items' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'winter_gift_items' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: 0
+I Table: winter_gift_orders   [Contains 2 Dropdown Column(s)]
+  Column: assigned_type
+• SQL Type: tinyint
+• What is it? 0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the
+'winter_gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'winter_gift_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'assigned_type' values.
+• Stored Values / Dropdown Options: -
+  Column: status
+• SQL Type: enum('Pending','Processing','Delivered','Cancelled','Closed','CN adjusted')
+• What is it? System categorical configuration field defining the 'status' setting for the 'winter_gift_orders' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'winter_gift_orders' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'status' values.
+• Stored Values / Dropdown Options: Pending, Processing, Delivered, Cancelled, Closed, CN adjusted
+I Table: winter_scan_wallet_transactions   [Contains 2 Dropdown Column(s)]
+  Column: reference_type
+• SQL Type: enum('sku_scan','gift_order','cash_withdrawal','topup','credit_note')
+• What is it? System categorical configuration field defining the 'reference_type' setting for the
+'winter_scan_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'winter_scan_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'reference_type' values.
+• Stored Values / Dropdown Options: sku_scan, gift_order, cash_withdrawal, topup, credit_note
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 51 of 53
+  Column: transaction_type
+• SQL Type: tinyint
+• What is it? 0:debit,1:credit. System categorical configuration field defining the 'transaction_type' setting for the
+'winter_scan_wallet_transactions' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the
+'winter_scan_wallet_transactions' module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'transaction_type' values.
+• Stored Values / Dropdown Options: 0, 1
+I Table: wishlists   [Contains 1 Dropdown Column(s)]
+  Column: type
+• SQL Type: enum('gift_card','scheme_gift_card','winter_gift_card')
+• What is it? System categorical configuration field defining the 'type' setting for the 'wishlists' records.
+• Where does it come from? (Trigger): Set during record creation or updated during status updates in the 'wishlists'
+module.
+• What is its use / Business Value? Used to track and filter table rows based on their 'type' values.
+• Stored Values / Dropdown Options: gift_card, scheme_gift_card, winter_gift_card
+I Table: withdrawal_request   [Contains 2 Dropdown Column(s)]
+  Column: status
+• SQL Type: tinyint(1)
+• What is it? Cash Withdrawal Workflow State
+• Where does it come from? (Trigger): Initiated by the user and processed by dashboard administrators.
+• What is its use / Business Value? Controls the validation and release of cash payouts.
+• Individual Value Options Breakdown:
+  Value: 0 (pending)
+What is it? Withdrawal requested by the user and queued for accountant review.
+Where does it come from? User submits a payout form in the mobile wallet.
+What is its use? Appears on the dashboard payout queue for approval.
+  Value: 1 (approved)
+What is it? Withdrawal request authorized and bank transfer completed.
+Where does it come from? Accountant clicks 'Approve' on the dashboard, triggering the payout API.
+What is its use? Confirms the funds have been successfully routed to the bank.
+  Value: 2 (Reject)
+What is it? Withdrawal request refused.
+Where does it come from? Dashboard rejection action by an Admin (e.g. incorrect bank account details).
+What is its use? Reverses the points back to the user's active wallet balance and notifies them.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 52 of 53
+  Column: withdraw_request_type
+• SQL Type: varchar(50)
+• What is it? Requested Payout Routing Method
+• Where does it come from? (Trigger): Chosen by the user in the mobile wallet payout screen.
+• What is its use / Business Value? Directs how the payout API payload should be compiled.
+• Individual Value Options Breakdown:
+  Value: bank
+What is it? Transfer directly to the user's checking/savings bank account.
+Where does it come from? User inputs account number and IFSC code.
+What is its use? Routs transaction through bank API (IMPS/NEFT).
+  Value: upi
+What is it? Transfer to the user's UPI handle.
+Where does it come from? User inputs Virtual Payment Address (VPA).
+What is its use? Routs transaction through UPI payout endpoints.
+JGH DATABASE DROPDOWNS & STATUSES CATALOG
+TABLE-WISE ENUMS & CATEGORIES MANUAL
+Confidential - For Internal Business Use Only
+Page 53 of 53

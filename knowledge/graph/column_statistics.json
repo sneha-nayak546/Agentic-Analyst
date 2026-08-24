@@ -1,0 +1,1126 @@
+{
+    "users": {
+        "total_rows": 17867,
+        "columns": {
+            "id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "name": {
+                "non_null": 25,
+                "distinct": 24,
+                "nulls": 0
+            },
+            "last_name": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "email": {
+                "non_null": 25,
+                "distinct": 23,
+                "nulls": 0
+            },
+            "email_verified_at": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "password": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "two_factor_secret": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "two_factor_recovery_codes": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "remember_token": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "deleted_at": {
+                "non_null": 3,
+                "distinct": 3,
+                "nulls": 22
+            },
+            "created_at": {
+                "non_null": 25,
+                "distinct": 24,
+                "nulls": 0
+            },
+            "updated_at": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "country_code": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "mobile_number": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "user_role": {
+                "non_null": 4,
+                "distinct": 2,
+                "nulls": 21
+            },
+            "club": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "designation": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "dob": {
+                "non_null": 11,
+                "distinct": 11,
+                "nulls": 14
+            },
+            "city": {
+                "non_null": 2,
+                "distinct": 2,
+                "nulls": 23
+            },
+            "state_id": {
+                "non_null": 21,
+                "distinct": 12,
+                "nulls": 4
+            },
+            "address": {
+                "non_null": 8,
+                "distinct": 8,
+                "nulls": 17
+            },
+            "pincode": {
+                "non_null": 11,
+                "distinct": 11,
+                "nulls": 14
+            },
+            "anniversary_date": {
+                "non_null": 9,
+                "distinct": 9,
+                "nulls": 16
+            },
+            "lang_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "nat_state_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "account_holder_name": {
+                "non_null": 5,
+                "distinct": 5,
+                "nulls": 20
+            },
+            "bank_name": {
+                "non_null": 5,
+                "distinct": 5,
+                "nulls": 20
+            },
+            "account_no": {
+                "non_null": 5,
+                "distinct": 5,
+                "nulls": 20
+            },
+            "ifsc_code": {
+                "non_null": 5,
+                "distinct": 5,
+                "nulls": 20
+            },
+            "account_type": {
+                "non_null": 5,
+                "distinct": 2,
+                "nulls": 20
+            },
+            "image_path": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "district": {
+                "non_null": 2,
+                "distinct": 2,
+                "nulls": 23
+            },
+            "gender": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "profile_image": {
+                "non_null": 4,
+                "distinct": 4,
+                "nulls": 21
+            },
+            "membership_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "wallet_balance": {
+                "non_null": 25,
+                "distinct": 6,
+                "nulls": 0
+            },
+            "bank_details_status": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "adhaar": {
+                "non_null": 6,
+                "distinct": 6,
+                "nulls": 19
+            },
+            "adhaar_image": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "adhaar_front_image": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "adhaar_back_image": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "pan_card": {
+                "non_null": 25,
+                "distinct": 24,
+                "nulls": 0
+            },
+            "pan_card_image": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "passbook_image": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "upi": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "status": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "business_info_id": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "distributer_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "old_user_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "kyc_status": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "adhaar_details": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "business_pan": {
+                "non_null": 25,
+                "distinct": 24,
+                "nulls": 0
+            },
+            "bonus_points": {
+                "non_null": 25,
+                "distinct": 3,
+                "nulls": 0
+            },
+            "isBlacklisted": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "scan_limit": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "referral_code": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "device_id": {
+                "non_null": 2,
+                "distinct": 1,
+                "nulls": 23
+            },
+            "last_login": {
+                "non_null": 7,
+                "distinct": 7,
+                "nulls": 18
+            },
+            "app_updated": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "block_withdrawal": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "block_withdrawal_message": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "shop_branding": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "block_gift_redeem": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "block_gift_redeem_message": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "disable_scan": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "disable_scan_message": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "direct_manager_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "employee_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "primary_distributor_id": {
+                "non_null": 1,
+                "distinct": 1,
+                "nulls": 24
+            },
+            "remark": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "fcm_token": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            }
+        }
+    },
+    "companies": {
+        "total_rows": 414,
+        "columns": {
+            "id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "name": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "phone": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "email": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "sap_code": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "business_unit": {
+                "non_null": 21,
+                "distinct": 1,
+                "nulls": 4
+            },
+            "jgh_company": {
+                "non_null": 6,
+                "distinct": 6,
+                "nulls": 19
+            },
+            "image": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "created_at": {
+                "non_null": 25,
+                "distinct": 5,
+                "nulls": 0
+            },
+            "updated_at": {
+                "non_null": 25,
+                "distinct": 11,
+                "nulls": 0
+            },
+            "business_info_id": {
+                "non_null": 1,
+                "distinct": 1,
+                "nulls": 24
+            },
+            "customer_id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "monthly_percent_deactivate_qr_limit": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "additional_monthly_deactivate_qr_limit": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "additional_limit_valid_upto": {
+                "non_null": 1,
+                "distinct": 1,
+                "nulls": 24
+            }
+        }
+    },
+    "wallet_transaction": {
+        "total_rows": 5888219,
+        "columns": {
+            "id": {
+                "non_null": 500,
+                "distinct": 500,
+                "nulls": 0
+            },
+            "user_id": {
+                "non_null": 500,
+                "distinct": 72,
+                "nulls": 0
+            },
+            "amount": {
+                "non_null": 500,
+                "distinct": 20,
+                "nulls": 0
+            },
+            "transaction_type": {
+                "non_null": 500,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "reference_id": {
+                "non_null": 500,
+                "distinct": 500,
+                "nulls": 0
+            },
+            "reference_type": {
+                "non_null": 500,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "status": {
+                "non_null": 500,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "remark": {
+                "non_null": 500,
+                "distinct": 483,
+                "nulls": 0
+            },
+            "created_at": {
+                "non_null": 500,
+                "distinct": 224,
+                "nulls": 0
+            },
+            "updated_at": {
+                "non_null": 500,
+                "distinct": 224,
+                "nulls": 0
+            }
+        }
+    },
+    "role": {
+        "total_rows": 13,
+        "columns": {
+            "id": {
+                "non_null": 14,
+                "distinct": 14,
+                "nulls": 0
+            },
+            "name": {
+                "non_null": 14,
+                "distinct": 13,
+                "nulls": 0
+            },
+            "is_editable": {
+                "non_null": 7,
+                "distinct": 2,
+                "nulls": 7
+            },
+            "created_at": {
+                "non_null": 14,
+                "distinct": 14,
+                "nulls": 0
+            },
+            "updated_at": {
+                "non_null": 14,
+                "distinct": 14,
+                "nulls": 0
+            },
+            "deleted_at": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 14
+            }
+        }
+    },
+    "user_role": {
+        "total_rows": 13,
+        "columns": {
+            "id": {
+                "non_null": 14,
+                "distinct": 14,
+                "nulls": 0
+            },
+            "name": {
+                "non_null": 14,
+                "distinct": 13,
+                "nulls": 0
+            },
+            "is_editable": {
+                "non_null": 7,
+                "distinct": 2,
+                "nulls": 7
+            },
+            "created_at": {
+                "non_null": 14,
+                "distinct": 14,
+                "nulls": 0
+            },
+            "updated_at": {
+                "non_null": 14,
+                "distinct": 14,
+                "nulls": 0
+            },
+            "deleted_at": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 14
+            }
+        }
+    },
+    "sku_inventories": {
+        "total_rows": 7064890,
+        "columns": {
+            "id": {
+                "non_null": 500,
+                "distinct": 500,
+                "nulls": 0
+            },
+            "mrp": {
+                "non_null": 474,
+                "distinct": 1,
+                "nulls": 26
+            },
+            "sku_code": {
+                "non_null": 500,
+                "distinct": 202,
+                "nulls": 0
+            },
+            "unit_price": {
+                "non_null": 474,
+                "distinct": 55,
+                "nulls": 26
+            },
+            "sku_description": {
+                "non_null": 500,
+                "distinct": 125,
+                "nulls": 0
+            },
+            "invoiced_quantity": {
+                "non_null": 500,
+                "distinct": 4,
+                "nulls": 0
+            },
+            "batch_details": {
+                "non_null": 474,
+                "distinct": 1,
+                "nulls": 26
+            },
+            "outer_lpn_number": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 500
+            },
+            "lpn_number": {
+                "non_null": 500,
+                "distinct": 500,
+                "nulls": 0
+            },
+            "carton_no": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 500
+            },
+            "lpn_code": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 500
+            },
+            "packed_quantity": {
+                "non_null": 500,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "order_type": {
+                "non_null": 500,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "order_reference": {
+                "non_null": 485,
+                "distinct": 178,
+                "nulls": 15
+            },
+            "product_id": {
+                "non_null": 500,
+                "distinct": 197,
+                "nulls": 0
+            },
+            "uom": {
+                "non_null": 500,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "invoice_number": {
+                "non_null": 500,
+                "distinct": 179,
+                "nulls": 0
+            },
+            "invoice_date": {
+                "non_null": 479,
+                "distinct": 45,
+                "nulls": 21
+            },
+            "warehouse": {
+                "non_null": 485,
+                "distinct": 1,
+                "nulls": 15
+            },
+            "invoiced_by": {
+                "non_null": 474,
+                "distinct": 21,
+                "nulls": 26
+            },
+            "order_date": {
+                "non_null": 500,
+                "distinct": 44,
+                "nulls": 0
+            },
+            "customer_info": {
+                "non_null": 474,
+                "distinct": 87,
+                "nulls": 26
+            },
+            "distributer_id": {
+                "non_null": 500,
+                "distinct": 76,
+                "nulls": 0
+            },
+            "created_at": {
+                "non_null": 500,
+                "distinct": 447,
+                "nulls": 0
+            },
+            "updated_at": {
+                "non_null": 500,
+                "distinct": 275,
+                "nulls": 0
+            },
+            "is_callback": {
+                "non_null": 500,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "status_wholeseller_id": {
+                "non_null": 4,
+                "distinct": 3,
+                "nulls": 496
+            },
+            "status_retailer_id": {
+                "non_null": 500,
+                "distinct": 149,
+                "nulls": 0
+            },
+            "sources": {
+                "non_null": 500,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "wholesaler_scanned_at": {
+                "non_null": 4,
+                "distinct": 4,
+                "nulls": 496
+            },
+            "retailer_scanned_at": {
+                "non_null": 500,
+                "distinct": 275,
+                "nulls": 0
+            },
+            "is_active": {
+                "non_null": 500,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "is_offline": {
+                "non_null": 500,
+                "distinct": 1,
+                "nulls": 0
+            }
+        }
+    },
+    "mechanic_details": {
+        "total_rows": 25555,
+        "columns": {
+            "id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "mechanic_id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "mechanic_account_type": {
+                "non_null": 7,
+                "distinct": 1,
+                "nulls": 18
+            },
+            "garage_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "card_number": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "pan": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "gstin": {
+                "non_null": 4,
+                "distinct": 4,
+                "nulls": 21
+            },
+            "aadhaar": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "longitude": {
+                "non_null": 18,
+                "distinct": 18,
+                "nulls": 7
+            },
+            "latitude": {
+                "non_null": 18,
+                "distinct": 18,
+                "nulls": 7
+            },
+            "firm_type": {
+                "non_null": 19,
+                "distinct": 2,
+                "nulls": 6
+            },
+            "created_at": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "updated_at": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "employee_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "region": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "area_office_name": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "shop_name": {
+                "non_null": 17,
+                "distinct": 17,
+                "nulls": 8
+            },
+            "owner_name": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "distributor_code": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "distributor_main_branch_code": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "registration_date": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "approval_date_pc": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "approval_date_apm": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "have_garage": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "shop_photo": {
+                "non_null": 2,
+                "distinct": 2,
+                "nulls": 23
+            },
+            "actual_tier": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "working_tier": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "shop_address": {
+                "non_null": 3,
+                "distinct": 3,
+                "nulls": 22
+            },
+            "registration_datetime": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "branch_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "company_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "geo_tag": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "gst_details": {
+                "non_null": 18,
+                "distinct": 5,
+                "nulls": 7
+            }
+        }
+    },
+    "withdrawal_request": {
+        "total_rows": 45703,
+        "columns": {
+            "id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "user_id": {
+                "non_null": 25,
+                "distinct": 8,
+                "nulls": 0
+            },
+            "amount": {
+                "non_null": 25,
+                "distinct": 13,
+                "nulls": 0
+            },
+            "bank_transaction_id": {
+                "non_null": 22,
+                "distinct": 21,
+                "nulls": 3
+            },
+            "delivery_proof": {
+                "non_null": 1,
+                "distinct": 1,
+                "nulls": 24
+            },
+            "status": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "created_at": {
+                "non_null": 24,
+                "distinct": 24,
+                "nulls": 1
+            },
+            "updated_at": {
+                "non_null": 25,
+                "distinct": 24,
+                "nulls": 0
+            },
+            "automatic_transaction_id": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "tds_amount": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "tds_deducted_amount": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "gift_order_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "withdraw_request_type": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            }
+        }
+    },
+    "automatic_transactions": {
+        "total_rows": 54350,
+        "columns": {
+            "id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "user_id": {
+                "non_null": 25,
+                "distinct": 13,
+                "nulls": 0
+            },
+            "reference_id": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "transaction_id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "transfer_type": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "res_code": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "status": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "users_phone_number": {
+                "non_null": 25,
+                "distinct": 13,
+                "nulls": 0
+            },
+            "users_account_number": {
+                "non_null": 25,
+                "distinct": 12,
+                "nulls": 0
+            },
+            "created_at": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "updated_at": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "amount": {
+                "non_null": 25,
+                "distinct": 17,
+                "nulls": 0
+            },
+            "bank_reference_number": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "response_data": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "transaction_source": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            }
+        }
+    },
+    "sku_qr_points_map": {
+        "total_rows": 0,
+        "columns": {}
+    },
+    "state": {
+        "total_rows": 40,
+        "columns": {
+            "id": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "sname": {
+                "non_null": 25,
+                "distinct": 25,
+                "nulls": 0
+            },
+            "created_at": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "updated_at": {
+                "non_null": 12,
+                "distinct": 12,
+                "nulls": 13
+            },
+            "deleted_at": {
+                "non_null": 0,
+                "distinct": 0,
+                "nulls": 25
+            },
+            "jgh_magic_status": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "zone_id": {
+                "non_null": 19,
+                "distinct": 5,
+                "nulls": 6
+            },
+            "cash_withdrawal": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "gift_redeem": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "scan_for_gift": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            },
+            "winter_order": {
+                "non_null": 25,
+                "distinct": 2,
+                "nulls": 0
+            },
+            "is_offline": {
+                "non_null": 25,
+                "distinct": 1,
+                "nulls": 0
+            }
+        }
+    }
+}

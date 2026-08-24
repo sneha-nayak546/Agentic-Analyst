@@ -1,0 +1,32 @@
+{
+  "status": "success",
+  "sql": "SELECT name \nFROM companies \nORDER BY created_at DESC \nLIMIT 5;",
+  "rows": 5,
+  "data": [
+    {
+      "name": "MANGLA TRADERS"
+    },
+    {
+      "name": "simpel ff"
+    },
+    {
+      "name": "Simpel"
+    },
+    {
+      "name": "v_j"
+    },
+    {
+      "name": "PANKAJ GARMENTS & READYMADE"
+    }
+  ],
+  "benchmarks": {
+    "intent_detection_ms": 13.18,
+    "schema_lookup_ms": 13.18,
+    "prompt_build_ms": 0.12,
+    "llm_generation_ms": 9939.04,
+    "validation_ms": 14.39,
+    "execution_ms": 28.88,
+    "total_ms": 10355.45,
+    "prompt_tokens": 257
+  }
+}

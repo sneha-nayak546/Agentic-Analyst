@@ -1,0 +1,126 @@
+[
+  {
+    "question": "Show wallet transactions of January 2026",
+    "status": "success",
+    "sql": "SELECT wt.id, u.id AS user_id, u.name, wt.amount, wt.reference_type, wt.transaction_type, wt.status, wt.remark, wt.created_at FROM wallet_transaction AS wt JOIN users AS u ON u.id = wt.user_id WHERE wt.created_at >= '2026-01-01 00:00:00' AND wt.created_at < '2026-02-01 00:00:00' ORDER BY wt.created_at DESC LIMIT 500",
+    "row_count": 500,
+    "sample": [
+      {
+        "id": 4951650,
+        "user_id": 67783,
+        "name": "SIMRANJEET SINGH",
+        "amount": 2.5,
+        "reference_type": "cash_point",
+        "transaction_type": 1,
+        "status": 1,
+        "remark": "Successful NAYLDEE##ACM061BRN#XXL QR scan",
+        "created_at": "2026-01-31T23:43:02"
+      },
+      {
+        "id": 4951649,
+        "user_id": 68353,
+        "name": "Jaskawal Singh",
+        "amount": 7.5,
+        "reference_type": "cash_point",
+        "transaction_type": 1,
+        "status": 1,
+        "remark": "Successful NAYLDEE##ACM061BRN#XXL QR scan",
+        "created_at": "2026-01-31T23:43:02"
+      }
+    ],
+    "error": null
+  },
+  {
+    "question": "List 5 approved retailers",
+    "status": "success",
+    "sql": "SELECT u.id AS retailer_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND u.status = 'approved' ORDER BY u.id ASC LIMIT 500",
+    "row_count": 500,
+    "sample": [
+      {
+        "retailer_id": 46556,
+        "name": "Gulshan Bhimandas Panjwani",
+        "mobile_number": 9112829112,
+        "email": "Piyushpanjwani17@gmail.com",
+        "user_role": 2,
+        "city": "Nashik",
+        "district": "Nashik",
+        "address": null,
+        "wallet_balance": 1392,
+        "status": "approved",
+        "created_at": "2025-01-12T12:30:05"
+      },
+      {
+        "retailer_id": 46577,
+        "name": "JAIRAJ GYANCHAND KAURANI",
+        "mobile_number": 9422242153,
+        "email": "vardandresses9@gmail.com",
+        "user_role": 2,
+        "city": null,
+        "district": null,
+        "address": "VARDAN DRESSES \nMONDHA ROAD\nGEORAI DIST-BEED\nPIN-431127",
+        "wallet_balance": 0,
+        "status": "approved",
+        "created_at": "2025-01-14T06:45:11"
+      }
+    ],
+    "error": null
+  },
+  {
+    "question": "Show total withdrawal requests by status",
+    "status": "success",
+    "sql": "SELECT wr.id AS withdrawal_id, u.id AS user_id, u.name, u.mobile_number, wr.amount, wr.status, wr.tds_amount, wr.created_at FROM withdrawal_request AS wr JOIN users AS u ON wr.user_id = u.id ORDER BY wr.created_at DESC LIMIT 500",
+    "row_count": 500,
+    "sample": [
+      {
+        "withdrawal_id": 54768,
+        "user_id": 54724,
+        "name": "Shashi Kumar",
+        "mobile_number": 7018221899,
+        "amount": 655,
+        "status": 0,
+        "tds_amount": 0.0,
+        "created_at": "2026-08-24T14:45:52"
+      },
+      {
+        "withdrawal_id": 54767,
+        "user_id": 76938,
+        "name": "HARSHAD Gori",
+        "mobile_number": 9152720060,
+        "amount": 912,
+        "status": 1,
+        "tds_amount": 0.0,
+        "created_at": "2026-08-24T14:42:26"
+      }
+    ],
+    "error": null
+  },
+  {
+    "question": "List 5 automatic transactions with IMPS transfer type",
+    "status": "success",
+    "sql": "SELECT at.id, at.user_id, u.name, at.amount, at.transfer_type, at.status, at.bank_reference_number, at.created_at FROM automatic_transactions AS at JOIN users AS u ON at.user_id = u.id ORDER BY at.created_at DESC LIMIT 500",
+    "row_count": 500,
+    "sample": [
+      {
+        "id": 54716,
+        "user_id": 54724,
+        "name": "Shashi Kumar",
+        "amount": 655.0,
+        "transfer_type": "Manual",
+        "status": "pending",
+        "bank_reference_number": null,
+        "created_at": "2026-08-24T14:45:52"
+      },
+      {
+        "id": 54715,
+        "user_id": 76938,
+        "name": "HARSHAD Gori",
+        "amount": 912.0,
+        "transfer_type": "Manual",
+        "status": "success",
+        "bank_reference_number": "623614020457",
+        "created_at": "2026-08-24T14:42:26"
+      }
+    ],
+    "error": null
+  }
+]

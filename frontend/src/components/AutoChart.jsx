@@ -65,55 +65,63 @@ const AutoChart = ({ columns = [], data = [] }) => {
   const pieData = chartData.map(d => ({ name: d.name, value: d[numericCols[0]] }));
 
   return (
-    <div className="auto-chart-container">
-      <div className="chart-header">
-        <div className="chart-title">
-          <BarChart2 size={15} />
+    <div className="premium-card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+          <BarChart2 size={18} style={{ color: 'var(--primary)' }} />
           <span>Data Visualization</span>
         </div>
-        <div className="chart-type-tabs">
+        <div style={{ display: 'flex', gap: '0.25rem', background: 'var(--bg-surface-subtle)', padding: '0.25rem', borderRadius: 'var(--radius-md)' }}>
           {CHART_TYPES.map(({ id, label, Icon }) => (
             <button
               key={id}
-              className={`chart-tab ${chartType === id ? 'active' : ''}`}
               onClick={() => setChartType(id)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '0.4rem',
+                padding: '0.4rem 0.85rem', fontSize: '0.8125rem', fontWeight: 500,
+                border: 'none', borderRadius: 'var(--radius-sm)', cursor: 'pointer',
+                background: chartType === id ? 'var(--bg-surface)' : 'transparent',
+                color: chartType === id ? 'var(--text-primary)' : 'var(--text-muted)',
+                boxShadow: chartType === id ? 'var(--shadow-xs)' : 'none',
+                transition: 'all var(--transition-fast)'
+              }}
             >
-              <Icon size={13} />
+              <Icon size={14} />
               {label}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="chart-body">
+      <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-lg)', padding: '1.5rem', boxShadow: 'var(--shadow-sm)' }}>
         <ResponsiveContainer width="100%" height={300}>
           {chartType === 'bar' ? (
             <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#27272A" />
-              <XAxis dataKey="name" tick={{ fill: '#71717A', fontSize: 11 }} tickLine={false} axisLine={false} />
-              <YAxis tick={{ fill: '#71717A', fontSize: 11 }} tickLine={false} axisLine={false} />
-              <Tooltip content={<CustomTooltip />} />
-              {numericCols.length > 1 && <Legend wrapperStyle={{ fontSize: '12px', color: '#A1A1AA' }} />}
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
+              <XAxis dataKey="name" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} tickLine={false} axisLine={false} />
+              <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} tickLine={false} axisLine={false} />
+              <Tooltip content={<CustomTooltip />} cursor={{fill: 'var(--bg-hover)'}} />
+              {numericCols.length > 1 && <Legend wrapperStyle={{ fontSize: '12px', color: 'var(--text-secondary)' }} />}
               {numericCols.map((col, i) => (
-                <Bar key={col} dataKey={col} fill={CHART_COLORS[i % CHART_COLORS.length]} radius={[3, 3, 0, 0]} />
+                <Bar key={col} dataKey={col} fill={CHART_COLORS[i % CHART_COLORS.length]} radius={[4, 4, 0, 0]} />
               ))}
             </BarChart>
           ) : chartType === 'line' ? (
             <LineChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#27272A" />
-              <XAxis dataKey="name" tick={{ fill: '#71717A', fontSize: 11 }} tickLine={false} axisLine={false} />
-              <YAxis tick={{ fill: '#71717A', fontSize: 11 }} tickLine={false} axisLine={false} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
+              <XAxis dataKey="name" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} tickLine={false} axisLine={false} />
+              <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} tickLine={false} axisLine={false} />
               <Tooltip content={<CustomTooltip />} />
-              {numericCols.length > 1 && <Legend wrapperStyle={{ fontSize: '12px', color: '#A1A1AA' }} />}
+              {numericCols.length > 1 && <Legend wrapperStyle={{ fontSize: '12px', color: 'var(--text-secondary)' }} />}
               {numericCols.map((col, i) => (
                 <Line
                   key={col}
                   type="monotone"
                   dataKey={col}
                   stroke={CHART_COLORS[i % CHART_COLORS.length]}
-                  strokeWidth={2}
-                  dot={{ r: 3, fill: CHART_COLORS[i % CHART_COLORS.length] }}
-                  activeDot={{ r: 5 }}
+                  strokeWidth={3}
+                  dot={{ r: 4, fill: CHART_COLORS[i % CHART_COLORS.length], strokeWidth: 2, stroke: 'var(--bg-surface)' }}
+                  activeDot={{ r: 6 }}
                 />
               ))}
             </LineChart>
@@ -124,24 +132,26 @@ const AutoChart = ({ columns = [], data = [] }) => {
                 cx="50%"
                 cy="50%"
                 outerRadius={110}
-                innerRadius={50}
+                innerRadius={60}
                 dataKey="value"
                 label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                labelLine={{ stroke: '#52525B', strokeWidth: 1 }}
+                labelLine={{ stroke: 'var(--border-color)', strokeWidth: 1 }}
               >
                 {pieData.map((_, idx) => (
                   <Cell key={idx} fill={CHART_COLORS[idx % CHART_COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Legend wrapperStyle={{ fontSize: '12px', color: '#A1A1AA' }} />
+              <Legend wrapperStyle={{ fontSize: '12px', color: 'var(--text-secondary)' }} />
             </PieChart>
           )}
         </ResponsiveContainer>
       </div>
 
       {data.length > 20 && (
-        <div className="chart-note">Showing first 20 rows for visualization. Download the full report for complete data.</div>
+        <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '0.5rem' }}>
+          Showing first 20 rows for visualization. Download the full report for complete data.
+        </div>
       )}
     </div>
   );

@@ -1,0 +1,35 @@
+{
+  "domain_overview": "JGH Intelligence Engine manages supply chain tracking, mechanics & retailer loyalty rewards, wholesaler inventory dispatches, and financial ledger payouts.",
+  "user_roles": {
+    "1": "Admin - System administrator with overall platform oversight",
+    "2": "Retailer / Mechanic - End-user mechanics and retail shop owners earning points via QR box scans",
+    "3": "Distributor - Primary product distributors and stocking partners",
+    "4": "Sales Officer - Regional field sales representatives monitoring retailer signups",
+    "5": "Wholesaler - Regional stock wholesalers scanning boxes prior to retailer dispatch",
+    "6": "Super Admin - Top-tier corporate administration",
+    "7": "Area Manager - Regional sales and operations managers",
+    "8": "State Head - State-level operational leaders",
+    "10": "Warehouse Manager - Primary logistics and Kolkata inventory dispatch head",
+    "11": "Regional Manager - Multi-state division leads",
+    "13": "Accounts Head - Financial controller managing withdrawal approvals and bank payouts",
+    "14": "System Service - Automated background worker service account"
+  },
+  "financial_ledger": {
+    "table": "wallet_transaction",
+    "total_rows": 6525471,
+    "reference_types": {
+      "cash_point": "Points earned directly via physical QR code box scans by mechanics/retailers",
+      "topup": "Direct wallet top-up credits added via payment gateway or manual admin credit",
+      "withdrawal": "Funds debited from wallet upon user payout request approval",
+      "incentive": "Performance-based bonus incentives awarded for achieving quarterly scan targets",
+      "bonus_conversion": "Points converted from promotional rewards programs into wallet cash balance",
+      "referral_earning": "Bonus credits earned for onboarding new mechanics or retailers",
+      "credit_note": "Adjustments credited by accounting for returned or damaged inventory"
+    }
+  },
+  "inventory_tracking": {
+    "table": "sku_inventories",
+    "dual_scan_mechanics": "Each box scan updates status_retailer_id (Retailer scan) or status_wholeseller_id (Wholesaler scan). Both fields reference users.id.",
+    "points_mapping": "sku_inventories.sku_code links to sku_qr_points_maps.sku_code to calculate retailer_cash_points and wholeseller_cash_points."
+  }
+}

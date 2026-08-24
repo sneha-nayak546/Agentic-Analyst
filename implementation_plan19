@@ -1,0 +1,130 @@
+# Enterprise AI Data Analyst for JGH Database - Implementation & Verification Plan
+
+An Enterprise AI Data Analyst platform built for non-technical users to query the live JGH MySQL database in plain English, generating optimized SQL, executing on the live database, and producing downloadable CSV, Excel, and PDF reports.
+
+## System Architecture & Pipeline Overview
+
+```
+User Business Question (Plain English)
+  │
+  ▼
+[ 1. Business Intent & Entity Resolution ]
+  ├─ In-Memory Dynamic Knowledge Graph (Schema, Relationships, Business Dictionary)
+  ├─ Lookup Master Resolution (e.g. "Retailer" -> users.user_role = 2, "Wholesaler" -> users.user_role = 5)
+  └─ Shortest Path Join Graph (BFS between detected entities)
+  │
+  ▼
+[ 2. Deterministic Query Planning ]
+  ├─ Exact Target Tables & Columns (Explicit projection, NO SELECT *)
+  ├─ Exact JOIN clauses (e.g. users.id = wallet_transaction.user_id, users.user_role = role.id)
+  ├─ Date Range & Enum Filter Resolution
+  └─ LIMIT 500 default enforcement for safety
+  │
+  ▼
+[ 3. Local LLM SQL Generation (Qwen2.5-Coder 7B via Ollama) ]
+  ├─ Compressed execution plan prompt (Minimal tokens for sub-second generation)
+  └─ Multi-step reasoning with self-correction feedback loop
+  │
+  ▼
+[ 4. Multi-Layer SQL Validation ]
+  ├─ AST Syntax & Safety Validation (sqlglot - Strict SELECT only, zero mutations)
+  ├─ Target Table & Column Scope Validation (Only allowed business tables)
+  └─ Live MySQL EXPLAIN FORMAT=JSON Execution Plan Cost Verification
+  │
+  ▼
+[ 5. Live Database Execution (MySQL Single Source of Truth) ]
+  ├─ Connection pool with PyMySQL / SQLAlchemy
+  ├─ Strict read-only execution with millisecond timing
+  └─ Clean NaN/Decimal/DateTime JSON serialization
+  │
+  ▼
+[ 6. Natural Language Synthesis & Multi-Format Reporting ]
+  ├─ Instant Natural Language Summary (Transaction totals, record metrics)
+  ├─ Interactive Frontend Grid & AutoChart (Bar, Line, Area, Pie charts)
+  └─ Downloadable Reports: CSV, Excel (.xlsx), and PDF
+```
+
+---
+
+## Target Scope: 8 Business Tables
+
+| # | Table Name | Live Row Count | Primary Key | Key Business Columns & Role | Foreign Key / Join Path |
+|---|---|---|---|---|---|
+| 1 | `users` | 29,000 | `id` | `name`, `mobile_number`, `user_role`, `wallet_balance`, `bonus_points`, `status`, `kyc_status`, `account_type`, `pan_card`, `adhaar` | Central Entity (`user_role` -> `role.id`) |
+| 2 | `role` | 14 | `id` | `name` (Retailer=2, Wholesaler=5, Distributor=4, Executive=6, Super Admin=3, Bussiness Admin=1) | Lookup Master for `users.user_role` |
+| 3 | `wallet_transaction` | 6,494,976 | `id` | `user_id`, `amount`, `transaction_type` (1=Credit/Scan, 0=Debit/Withdrawal), `reference_type`, `status`, `created_at` | `user_id` -> `users.id` |
+| 4 | `companies` | 442 | `id` | `name`, `phone`, `email`, `sap_code`, `business_unit`, `jgh_company`, `customer_id` | `id` -> `mechanic_details.company_id` |
+| 5 | `sku_inventories` | 7,361,350 | `id` | `sku_code`, `sku_description`, `mrp`, `unit_price`, `invoiced_quantity`, `packed_quantity`, `carton_no`, `lpn_number`, `warehouse`, `distributer_id`, `status_wholeseller_id`, `status_retailer_id`, `created_at` | `distributer_id` -> `users.id` |
+| 6 | `mechanic_details` | 29,710 | `id` | `mechanic_id`, `shop_name`, `owner_name`, `company_id`, `card_number`, `distributor_code`, `region`, `area_office_name`, `aadhaar`, `pan` | `mechanic_id` -> `users.id`, `company_id` -> `companies.id` |
+| 7 | `withdrawal_request` | 53,733 | `id` | `user_id`, `amount`, `status` (0=Pending, 1=Approved, 2=Rejected), `automatic_transaction_id`, `tds_amount`, `withdraw_request_type`, `created_at` | `user_id` -> `users.id`, `automatic_transaction_id` -> `automatic_transactions.id` |
+| 8 | `automatic_transactions` | 53,653 | `id` | `user_id`, `amount`, `transfer_type` (IMPS, Manual), `status` (success, failed, pending, rejected), `transaction_id`, `bank_reference_number`, `users_phone_number` | `user_id` -> `users.id`, `id` <- `withdrawal_request.automatic_transaction_id` |
+
+> [!NOTE]
+> `automate` is not present in the live MySQL database as a distinct table (mapped under `automatic_transactions`). All other 8 tables are live and verified with exact row counts and column schemas.
+
+---
+
+## Enterprise Knowledge Layer Specifications
+
+The Knowledge Layer is built dynamically from the live database during startup and kept in memory:
+1. **Dynamic Schema Profiler (`db_profiler.py` / `metadata_extractor.py`)**:
+   - Queries `information_schema` and live table constraints for data types, primary keys, nullability, defaults, and indexes.
+   - Extracts all rows from lookup tables (`role`) to map business terms dynamically (e.g. mapping "retailers" to `user_role = 2`, "wholesalers" to `user_role = 5`).
+   - Profiles distinct ENUM values and status values directly from the database.
+2. **Dynamic Relationship & Join Graph (`relationship_builder.py` / `knowledge_graph.py`)**:
+   - Computes shortest join paths using Breadth-First Search (BFS) between any pair of tables.
+   - Eliminates hallucinated joins by using explicit join paths.
+3. **Query Planner (`query_planner.py`)**:
+   - Translates business questions into a structured plan (detected tables, schema details with datatypes, necessary joins, date filters).
+4. **AST Validator (`sql_ast_validator.py`)**:
+   - Enforces read-only SELECT queries with `sqlglot`.
+   - Prevents table or column hallucination by checking against the scoped schema.
+5. **Execution & Report Pipeline**:
+   - Executes SQL on the live MySQL database via connection pool.
+   - Streams/generates CSV, Excel (.xlsx), and PDF files.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> The database connection to live host `64.227.153.110:3306/jghMasterDB` has been verified and is active. Ollama service is running locally with `qwen2.5-coder:7b`.
+> Both backend (FastAPI on `http://localhost:8000`) and frontend (Vite React on `http://localhost:3000`) will be started concurrently.
+
+---
+
+## Proposed Changes / Enhancements
+
+### Backend & Agent Pipeline
+- **Ensure Scope Alignment**: Ensure all 8 target tables are strictly registered and profiled in `app/database/allowed_tables.py`, `app/database/metadata_extractor.py`, and `app/knowledge/db_profiler.py`.
+- **Dynamic Role & Terminology Mapping**: Ensure query planner and prompt builder map role names (e.g., Retailer, Wholesaler, Distributor) to `user_role` IDs from the live `role` table without hardcoded IDs.
+- **Fast Execution & Prompt Optimization**: Keep the execution plan compact to minimize prompt size and achieve fast generation times.
+- **Report Generation**: Verify CSV, Excel, and PDF report generators in `app/utils/report_generator.py` format dates, numbers, and currency properly.
+
+### Frontend
+- **End-to-End Verification**: Ensure the frontend on `http://localhost:3000` communicates seamlessly with `http://localhost:8000`.
+- **Verify UI Features**: Center chat, DataGrid, AutoChart, Schema Admin tab, History tab, and instant CSV/Excel/PDF downloads.
+
+---
+
+## Verification Plan
+
+### Automated Verification
+1. Run metadata profiler and knowledge builder dynamically against live DB:
+   `python -m app.database.metadata_extractor`
+2. Test SQL generation, validation, and live execution across multiple realistic business questions:
+   - "Show total wallet transactions for January 2026"
+   - "List all approved retailers in Lucknow"
+   - "Show total withdrawal requests by status"
+   - "Top 10 distributors by transaction volume"
+   - "List automatic transactions with IMPS transfer type"
+3. Test report generation endpoints:
+   - `POST /export/csv` -> Valid CSV stream
+   - `POST /export/excel` -> Valid .xlsx binary
+   - `POST /export/pdf` -> Valid PDF binary
+4. Health check endpoint: `GET /health` and `GET /schema`
+
+### Application Startup & URLs
+- Backend: `http://localhost:8000`
+- Frontend: `http://localhost:3000`
+- Swagger Docs: `http://localhost:8000/docs`

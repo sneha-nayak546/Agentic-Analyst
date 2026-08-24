@@ -1,14 +1,26 @@
 [
     {
-        "question": "Show first 10 users",
-        "sql": "SELECT id, name, email FROM users LIMIT 10;"
+        "intent": "List records",
+        "pattern": "SELECT {cols} FROM {table} LIMIT 500;"
     },
     {
-        "question": "Show wallet transactions",
-        "sql": "SELECT id, user_id, amount, transaction_type FROM wallet_transaction LIMIT 10;"
+        "intent": "Count total",
+        "pattern": "SELECT COUNT(*) as total FROM {table};"
     },
     {
-        "question": "Show companies",
-        "sql": "SELECT id, company_name FROM companies LIMIT 10;"
+        "intent": "Top K ordered",
+        "pattern": "SELECT {cols} FROM {table} ORDER BY {sort_col} DESC LIMIT 10;"
+    },
+    {
+        "intent": "User Transactions",
+        "pattern": "SELECT u.name, wt.amount, wt.transaction_type FROM wallet_transaction wt JOIN users u ON wt.user_id = u.id LIMIT 500;"
+    },
+    {
+        "intent": "Company Overview",
+        "pattern": "SELECT id, name, email, phone FROM companies LIMIT 500;"
+    },
+    {
+        "intent": "Withdrawals by Status",
+        "pattern": "SELECT id, user_id, amount, status FROM withdrawal_request WHERE status = '{status}' LIMIT 500;"
     }
 ]

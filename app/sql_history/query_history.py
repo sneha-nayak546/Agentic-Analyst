@@ -5,7 +5,9 @@ from typing import List, Dict
 
 HISTORY_FILE = "knowledge/sql_history/query_audit_history.json"
 
-def log_query_history(question: str, generated_sql: str, status: str, execution_time_ms: float, row_count: int, optimized_sql: str = None, affected_tables: List[str] = None, error: str = None, confidence_score: int = None, execution_plan: dict = None, explanation: str = None, thinking_steps: List[str] = None):
+def log_query_history(question: str, generated_sql: str, status: str, execution_time_ms: float, row_count: int, optimized_sql: str = None, affected_tables: List[str] = None, error: str = None, confidence_score: int = None, execution_plan: dict = None, explanation: str = None, thinking_steps: List[str] = None, is_private: bool = False):
+    if is_private:
+        return # Incognito Ephemeral Privacy Mode: Suppress disk logging
     os.makedirs(os.path.dirname(HISTORY_FILE), exist_ok=True)
     
     history_entry = {

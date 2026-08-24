@@ -1,0 +1,46 @@
+[
+  {
+    "question": "Show earnings of retailers for July 2026",
+    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem') AND u.user_role = 2 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name, u.mobile_number;"
+  },
+  {
+    "question": "Show redemption amount per user for January 2026",
+    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(ABS(wt.amount)) AS total_redemption FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type = 'withdrawal' AND wt.created_at >= '2026-01-01 00:00:00' AND wt.created_at < '2026-02-01 00:00:00' GROUP BY u.id, u.name, u.mobile_number;"
+  },
+  {
+    "question": "Show top 10 users with highest wallet balance",
+    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_balance FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id GROUP BY u.id, u.name, u.mobile_number ORDER BY total_balance DESC LIMIT 10;"
+  },
+  {
+    "question": "Show redemption amount per user",
+    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(ABS(wt.amount)) AS total_redemption FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type = 'withdrawal' GROUP BY u.id, u.name, u.mobile_number;"
+  },
+  {
+    "question": "How many box he have scanned in this month",
+    "sql": "SELECT si.sku_code, si.sku_description, si.uom, COUNT(si.id) AS scanned_boxes_count FROM sku_inventories si WHERE si.retailer_scanned_at IS NOT NULL AND si.status_retailer_id IS NOT NULL AND si.retailer_scanned_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY si.sku_code, si.sku_description, si.uom;"
+  },
+  {
+    "question": "Show earnings of retailers this month",
+    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem') AND u.user_role = 2 AND wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;"
+  },
+  {
+    "question": "i want this month balance details",
+    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_balance FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;"
+  },
+  {
+    "question": "show me balance details for retailers this month",
+    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_balance FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE u.user_role = 2 AND wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;"
+  },
+  {
+    "question": "Who all are retailers available in the users table, and for those retailers, how much are they earning in this month across cash_point, referral_earning, topup, coupon_redeem",
+    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(CASE WHEN wt.reference_type = 'cash_point' THEN wt.amount ELSE 0 END) AS cash_point_earning, SUM(CASE WHEN wt.reference_type = 'referral_earning' THEN wt.amount ELSE 0 END) AS referral_earning, SUM(CASE WHEN wt.reference_type = 'topup' THEN wt.amount ELSE 0 END) AS topup_earning, SUM(CASE WHEN wt.reference_type = 'coupon_redeem' THEN wt.amount ELSE 0 END) AS coupon_redeem_earning, SUM(wt.amount) AS total_monthly_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE u.user_role = 2 AND wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;"
+  },
+  {
+    "question": "Show wallet transactions for retailers in July 2026",
+    "sql": "SELECT u.id AS user_id, u.name, wt.amount, wt.reference_type, wt.created_at FROM wallet_transaction wt JOIN users u ON wt.user_id = u.id WHERE u.user_role = 2 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' ORDER BY wt.created_at DESC LIMIT 500;"
+  },
+  {
+    "question": "Show transactions from last 7 days for users",
+    "sql": "SELECT u.id AS user_id, u.name, wt.amount, wt.reference_type, wt.created_at FROM wallet_transaction wt JOIN users u ON wt.user_id = u.id WHERE wt.created_at >= NOW() - INTERVAL 7 DAY ORDER BY wt.created_at DESC LIMIT 500;"
+  }
+]

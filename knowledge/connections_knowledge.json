@@ -1,0 +1,5353 @@
+{
+  "academy_videos": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "account_deletion_requests": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "activate_qrs_requests": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "addresses": {
+    "total_connections": 7,
+    "outbound_count": 1,
+    "inbound_count": 6,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "box_gift_orders",
+        "source_column": "address_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_orders",
+        "source_column": "address_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "incentive_gift_orders",
+        "source_column": "address_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sample_orders",
+        "source_column": "address_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_gift_orders",
+        "source_column": "address_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "winter_gift_orders",
+        "source_column": "address_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "adhaar_verifications": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "app_link_report": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "automatic_transactions": {
+    "total_connections": 2,
+    "outbound_count": 1,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "withdrawal_request",
+        "source_column": "automatic_transaction_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "bank_accounts": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "bank_transactions": {
+    "total_connections": 1,
+    "outbound_count": 0,
+    "inbound_count": 1,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "withdrawal_request",
+        "source_column": "bank_transaction_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "beat_plan_retailers": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "beat_plan_id",
+        "target_table": "beat_plans",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "beat_plans": {
+    "total_connections": 6,
+    "outbound_count": 3,
+    "inbound_count": 3,
+    "outbound": [
+      {
+        "column": "district_id",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "sales_executive_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "beat_plan_retailers",
+        "source_column": "beat_plan_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "scheduled_visits",
+        "source_column": "beat_plan_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "visit_check_in_check_out",
+        "source_column": "beat_plan_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "billings": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "business_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "package_id",
+        "target_table": "packages",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "blacklist_reports": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "blocked_locations": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "blocked_reasons": {
+    "total_connections": 2,
+    "outbound_count": 0,
+    "inbound_count": 2,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "user_scan_permissions",
+        "source_column": "blocked_reason_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "user_withdrawal_block_histories",
+        "source_column": "blocked_reason_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "bonus_events": {
+    "total_connections": 1,
+    "outbound_count": 0,
+    "inbound_count": 1,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "bonus_transactions",
+        "source_column": "bonus_event_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "bonus_transactions": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "bonus_event_id",
+        "target_table": "bonus_events",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "box_gift_orders": {
+    "total_connections": 4,
+    "outbound_count": 4,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "address_id",
+        "target_table": "addresses",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "gift_card_id",
+        "target_table": "gift_cards",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "branches": {
+    "total_connections": 6,
+    "outbound_count": 1,
+    "inbound_count": 5,
+    "outbound": [
+      {
+        "column": "company_id",
+        "target_table": "companies",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "employees",
+        "source_column": "branch_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "garages",
+        "source_column": "branch_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "inventory",
+        "source_column": "branch_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "mechanic_details",
+        "source_column": "branch_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "required_mechanic_details",
+        "source_column": "branch_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "brand_wise_limits": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "brand_id",
+        "target_table": "brands",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "branding_elements": {
+    "total_connections": 2,
+    "outbound_count": 0,
+    "inbound_count": 2,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "branding_requests",
+        "source_column": "branding_element_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "vendor_element_state_mappings",
+        "source_column": "branding_element_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      }
+    ]
+  },
+  "branding_requests": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "branding_element_id",
+        "target_table": "branding_elements",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "vendor_id",
+        "target_table": "vendors",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "brands": {
+    "total_connections": 7,
+    "outbound_count": 0,
+    "inbound_count": 7,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "brand_wise_limits",
+        "source_column": "brand_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "category_sub_groups",
+        "source_column": "brand_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "event_orders",
+        "source_column": "brand_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "incentive_schemes",
+        "source_column": "brand_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "order_categories",
+        "source_column": "brand_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "products",
+        "source_column": "brand_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_orders",
+        "source_column": "brand_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "bulk_lpn_imports": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "bulk_reports": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "report_id",
+        "target_table": "reports",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "bulk_sku_mappings": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "state_ids",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "business_information": {
+    "total_connections": 13,
+    "outbound_count": 0,
+    "inbound_count": 13,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "billings",
+        "source_column": "business_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "companies",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "connection_request",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "dynamics",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "ecatalogue",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "garages",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_categories",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "home_banner",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "master_categories",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "mybenefits",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "notifications",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "offers_and_promotions",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "users",
+        "source_column": "business_info_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "campaign_logs": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "campaign_id",
+        "target_table": "campaigns",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "campaigns": {
+    "total_connections": 3,
+    "outbound_count": 2,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "offer_id",
+        "target_table": "offer",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "campaign_logs",
+        "source_column": "campaign_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "cart_items": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "category_sub_group_master_category_mapping": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "category_sub_group_id",
+        "target_table": "category_sub_groups",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "category_sub_groups": {
+    "total_connections": 4,
+    "outbound_count": 1,
+    "inbound_count": 3,
+    "outbound": [
+      {
+        "column": "brand_id",
+        "target_table": "brands",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "category_sub_group_master_category_mapping",
+        "source_column": "category_sub_group_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "offer_mapping",
+        "source_column": "category_sub_group_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sku_products",
+        "source_column": "category_sub_group_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "claimed_offers": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "offer_condition_id",
+        "target_table": "offer_conditions",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "code_status": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "companies": {
+    "total_connections": 9,
+    "outbound_count": 1,
+    "inbound_count": 8,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "branches",
+        "source_column": "company_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "company_controls",
+        "source_column": "company_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "employees",
+        "source_column": "company_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "garages",
+        "source_column": "company_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "inventory",
+        "source_column": "company_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "mechanic_details",
+        "source_column": "company_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "required_mechanic_details",
+        "source_column": "company_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "table_qr_pdfs",
+        "source_column": "company_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "company_controls": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "company_id",
+        "target_table": "companies",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "conference_events": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "connection_request": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "contact_groups": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "contacts": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "coupon_plans": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "coupon_reasons": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "coupon_transactions": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "package_id",
+        "target_table": "packages",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "coupons": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "credit_notes": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "wallet_transaction_id",
+        "target_table": "wallet_transaction",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "currency": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "dashboard_daily_data": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "deactivated_qr_wallet_transactions": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "details_approvals": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "digio_kyc_details": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "distributor_pincode_mapping": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "distributor_point_deduction_approvals": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "distributor_targets": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "distributor_teams": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "distributor_wholesaler": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "district_population": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "district_id",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "zone_id",
+        "target_table": "zones",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "district_with_pha_values": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "district_id",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "districts": {
+    "total_connections": 9,
+    "outbound_count": 0,
+    "inbound_count": 9,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "beat_plans",
+        "source_column": "district_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "district_population",
+        "source_column": "district_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "district_with_pha_values",
+        "source_column": "district_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "engagement_events",
+        "source_column": "district_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "monthly_district_pha",
+        "source_column": "district_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "monthly_pincode_pha",
+        "source_column": "district_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "pincode_address_maps",
+        "source_column": "district_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "pincode_population",
+        "source_column": "district_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "pincode_with_pha_values",
+        "source_column": "district_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "dms_bulk_exports": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "dms_divisions": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "dms_gst_masters": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "dynamic_reports": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "dynamics": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "ecatalogue": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "employees": {
+    "total_connections": 5,
+    "outbound_count": 3,
+    "inbound_count": 2,
+    "outbound": [
+      {
+        "column": "branch_id",
+        "target_table": "branches",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "company_id",
+        "target_table": "companies",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "mechanic_details",
+        "source_column": "employee_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "users",
+        "source_column": "employee_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "engagement_event_conditions": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "engagement_event_reward_logs": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "engagement_events": {
+    "total_connections": 4,
+    "outbound_count": 4,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "district_ids",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "retailer_ids",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_ids",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "zone_ids",
+        "target_table": "zones",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "engagement_reward_masters": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "event_coupons": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "event_order_id",
+        "target_table": "event_orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "event_multiwin_allowed_users": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "event_orders": {
+    "total_connections": 4,
+    "outbound_count": 3,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "brand_id",
+        "target_table": "brands",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "event_coupons",
+        "source_column": "event_order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "event_prizes": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "executive_attendances": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "executive_distributor_mappings": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "executive_retailer_mappings": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "retailer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "executive_survey_answer_submissions": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "executive_survey_forms": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "failed_jobs": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "failed_sku_inventories_callback": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "failed_skus_callback_csvs": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "feedback_forms": {
+    "total_connections": 2,
+    "outbound_count": 1,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "state_ids",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "feedback_submissions",
+        "source_column": "feedback_form_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "feedback_submissions": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "feedback_form_id",
+        "target_table": "feedback_forms",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "feedbacks": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "financial_years": {
+    "total_connections": 11,
+    "outbound_count": 0,
+    "inbound_count": 11,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "distributor_targets",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "district_with_pha_values",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "onboarding_targets",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "pincode_with_pha_values",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "retailer_targets",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "s_e_quaterly_targets",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "s_e_targets",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "state_with_pha_values",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "tds_certificates",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "wholesaler_targets",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "wholesaler_winter_targets",
+        "source_column": "financial_year_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "garage_details": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "garages": {
+    "total_connections": 4,
+    "outbound_count": 3,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "branch_id",
+        "target_table": "branches",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "company_id",
+        "target_table": "companies",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "mechanic_details",
+        "source_column": "garage_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "geo_districts": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "geo_pincodes": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "geo_states": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "zone_id",
+        "target_table": "zones",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "gift_cards": {
+    "total_connections": 6,
+    "outbound_count": 2,
+    "inbound_count": 4,
+    "outbound": [
+      {
+        "column": "gift_category_id",
+        "target_table": "gift_categories",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "gift_product_id",
+        "target_table": "gift_products",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "box_gift_orders",
+        "source_column": "gift_card_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_orders",
+        "source_column": "gift_card_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "winter_gift_orders",
+        "source_column": "gift_card_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "wishlists",
+        "source_column": "gift_card_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "gift_categories": {
+    "total_connections": 2,
+    "outbound_count": 1,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "gift_cards",
+        "source_column": "gift_category_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      }
+    ]
+  },
+  "gift_gamification": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "gift_inventories": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "gift_order_id",
+        "target_table": "gift_orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "retailer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "gift_order_timelines": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "gift_order_id",
+        "target_table": "gift_orders",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "gift_orders": {
+    "total_connections": 7,
+    "outbound_count": 4,
+    "inbound_count": 3,
+    "outbound": [
+      {
+        "column": "address_id",
+        "target_table": "addresses",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "gift_card_id",
+        "target_table": "gift_cards",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "gift_inventories",
+        "source_column": "gift_order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_order_timelines",
+        "source_column": "gift_order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "withdrawal_request",
+        "source_column": "gift_order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "gift_products": {
+    "total_connections": 3,
+    "outbound_count": 0,
+    "inbound_count": 3,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "gift_cards",
+        "source_column": "gift_product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_gift_items",
+        "source_column": "gift_product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "winter_gift_items",
+        "source_column": "gift_product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "gift_scan_wallet_transactions": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "gift_sku_bulk_imports": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "greeting_templates": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "occasion_id",
+        "target_table": "occasions",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "group_management": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "home_banner": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "incentive_gift_orders": {
+    "total_connections": 4,
+    "outbound_count": 4,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "address_id",
+        "target_table": "addresses",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "incentive_scheme_id",
+        "target_table": "incentive_schemes",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "incentive_schemes": {
+    "total_connections": 3,
+    "outbound_count": 2,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "brand_id",
+        "target_table": "brands",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_ids",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "incentive_gift_orders",
+        "source_column": "incentive_scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "inventory": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "branch_id",
+        "target_table": "branches",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "company_id",
+        "target_table": "companies",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "inventory_values": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "kolkata_apis_csvs": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "language": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "manual_transactions": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "uploaded_by",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "withdrawal_request_id",
+        "target_table": "withdrawal_request",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "mapping_incentive_users": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "master_categories": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "mechanic_account_types": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "mechanic_details": {
+    "total_connections": 4,
+    "outbound_count": 4,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "branch_id",
+        "target_table": "branches",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "company_id",
+        "target_table": "companies",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "employee_id",
+        "target_table": "employees",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "garage_id",
+        "target_table": "garages",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "migrations": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "module": {
+    "total_connections": 2,
+    "outbound_count": 0,
+    "inbound_count": 2,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "permission",
+        "source_column": "module_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "role_permission_module",
+        "source_column": "module_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "module_maps": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "module_id",
+        "target_table": "packages_modules",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "package_id",
+        "target_table": "packages",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "mom_attachments": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "mom_messages": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "mom_thread_participants": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "mom_threads": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "monthly_averages": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "monthly_district_pha": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "district_id",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "zone_id",
+        "target_table": "zones",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "monthly_pincode_pha": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "district_id",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "zone_id",
+        "target_table": "zones",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "mybenefits": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "mypoints": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_role",
+        "target_table": "role",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "users_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "notification_events": {
+    "total_connections": 1,
+    "outbound_count": 0,
+    "inbound_count": 1,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "notifications",
+        "source_column": "notification_event_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "notification_logs": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "notification_id",
+        "target_table": "notifications",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "notifications": {
+    "total_connections": 7,
+    "outbound_count": 5,
+    "inbound_count": 2,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "notification_event_id",
+        "target_table": "notification_events",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_ids",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "notification_logs",
+        "source_column": "notification_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "read_notifications",
+        "source_column": "notification_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "occasions": {
+    "total_connections": 1,
+    "outbound_count": 0,
+    "inbound_count": 1,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "greeting_templates",
+        "source_column": "occasion_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "offer": {
+    "total_connections": 5,
+    "outbound_count": 2,
+    "inbound_count": 3,
+    "outbound": [
+      {
+        "column": "state_ids",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_role",
+        "target_table": "role",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "campaigns",
+        "source_column": "offer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "offer_conditions",
+        "source_column": "offer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "offer_mapping",
+        "source_column": "offer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "offer_conditions": {
+    "total_connections": 2,
+    "outbound_count": 1,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "offer_id",
+        "target_table": "offer",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "claimed_offers",
+        "source_column": "offer_condition_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "offer_mapping": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "category_sub_group_id",
+        "target_table": "category_sub_groups",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "offer_id",
+        "target_table": "offer",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "offers_and_promotions": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "offline_sku_inventories": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "onboarding_targets": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "order_bulk_mapping": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "order_categories": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "brand_id",
+        "target_table": "brands",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "order_invoices": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "order_updated_by",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "order_items": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "orders": {
+    "total_connections": 10,
+    "outbound_count": 1,
+    "inbound_count": 9,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "box_gift_orders",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "event_orders",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_orders",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "incentive_gift_orders",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "notifications",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "order_invoices",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "order_items",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_gift_orders",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "winter_gift_orders",
+        "source_column": "order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "otp": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_role",
+        "target_table": "role",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "packages": {
+    "total_connections": 3,
+    "outbound_count": 0,
+    "inbound_count": 3,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "billings",
+        "source_column": "package_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "coupon_transactions",
+        "source_column": "package_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "module_maps",
+        "source_column": "package_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      }
+    ]
+  },
+  "packages_modules": {
+    "total_connections": 1,
+    "outbound_count": 0,
+    "inbound_count": 1,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "module_maps",
+        "source_column": "module_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      }
+    ]
+  },
+  "password_resets": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "payment_response_codes": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "per_target_scheme_coupons": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "per_target_scheme_id",
+        "target_table": "per_target_schemes",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "per_target_schemes": {
+    "total_connections": 1,
+    "outbound_count": 0,
+    "inbound_count": 1,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "per_target_scheme_coupons",
+        "source_column": "per_target_scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "permission": {
+    "total_connections": 2,
+    "outbound_count": 1,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "module_id",
+        "target_table": "module",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "role_permission_module",
+        "source_column": "permission_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "personal_access_tokens": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "pincode_address_maps": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "district_id",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "pincode_boundaries": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "pincode_population": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "district_id",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "zone_id",
+        "target_table": "zones",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "pincode_with_pha_values": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "district_id",
+        "target_table": "districts",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "points": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "users_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "products": {
+    "total_connections": 10,
+    "outbound_count": 1,
+    "inbound_count": 9,
+    "outbound": [
+      {
+        "column": "brand_id",
+        "target_table": "brands",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "cart_items",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_inventories",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "inventory",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "inventory_values",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "offer_mapping",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "order_items",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sample_order_items",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sku_inventories",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "table_qr_pdfs",
+        "source_column": "product_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "products_bulk_imports": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "purchase_targets": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "qr_universe": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "razorpay_transaction": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "read_notifications": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "notification_id",
+        "target_table": "notifications",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "redemption_requests": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "referral_details": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_role",
+        "target_table": "role",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "wallet_transaction_id",
+        "target_table": "wallet_transaction",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "referral_mappings": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "reports": {
+    "total_connections": 1,
+    "outbound_count": 0,
+    "inbound_count": 1,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "bulk_reports",
+        "source_column": "report_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "repository_documents": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "required_mechanic_details": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "branch_id",
+        "target_table": "branches",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "company_id",
+        "target_table": "companies",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "retailer_bulk_requests": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "retailer_category_qualified": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "retailer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "retailer_credit_notes": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "retailer_distributor_mappings": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "retailer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "retailer_schemes_mapping": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "users_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "retailer_targets": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "retailer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "retailer_wholesaler_mappings": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "retailer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "role": {
+    "total_connections": 6,
+    "outbound_count": 0,
+    "inbound_count": 6,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "mypoints",
+        "source_column": "user_role",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "offer",
+        "source_column": "user_role",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "otp",
+        "source_column": "user_role",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "referral_details",
+        "source_column": "user_role",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "role_permission_module",
+        "source_column": "role_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "users",
+        "source_column": "user_role",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "role_conversion_histories": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "role_permission_module": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "module_id",
+        "target_table": "module",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "permission_id",
+        "target_table": "permission",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "role_id",
+        "target_table": "role",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "s_e_quaterly_targets": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "s_e_targets": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "sample_order_feedbacks": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "sample_order_id",
+        "target_table": "sample_orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "sample_order_items": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "sample_order_id",
+        "target_table": "sample_orders",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "sample_order_timelines": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "sample_order_id",
+        "target_table": "sample_orders",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "sample_orders": {
+    "total_connections": 5,
+    "outbound_count": 2,
+    "inbound_count": 3,
+    "outbound": [
+      {
+        "column": "address_id",
+        "target_table": "addresses",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "sample_order_feedbacks",
+        "source_column": "sample_order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sample_order_items",
+        "source_column": "sample_order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sample_order_timelines",
+        "source_column": "sample_order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "scanned_qrcode_history": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "sku_inventories_id",
+        "target_table": "sku_inventories",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "users_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "scheduled_visits": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "beat_plan_id",
+        "target_table": "beat_plans",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "retailer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "sales_executive_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "scheme_gift_items": {
+    "total_connections": 3,
+    "outbound_count": 2,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "gift_product_id",
+        "target_table": "gift_products",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "scheme_gift_orders",
+        "source_column": "scheme_gift_item_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "scheme_gift_orders": {
+    "total_connections": 4,
+    "outbound_count": 4,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "address_id",
+        "target_table": "addresses",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "scheme_gift_item_id",
+        "target_table": "scheme_gift_items",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "scheme_orders": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "brand_id",
+        "target_table": "brands",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "scheme_state_mapping": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "scheme_wallet_transactions": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "schemes": {
+    "total_connections": 11,
+    "outbound_count": 0,
+    "inbound_count": 11,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "campaign_logs",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "campaigns",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "home_banner",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "retailer_schemes_mapping",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_gift_items",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_orders",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_state_mapping",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_wallet_transactions",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "spin_history",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "weekly_scheme_groups",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "weekly_scheme_prizes",
+        "source_column": "scheme_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "se_reports": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "se_task": {
+    "total_connections": 3,
+    "outbound_count": 2,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "task_issue_id",
+        "target_table": "task_issue",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "se_task_history",
+        "source_column": "se_task_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "se_task_history": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "se_task_id",
+        "target_table": "se_task",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "sessions": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "shop_verification_images": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "sku_bulk_imports": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "sku_inventories": {
+    "total_connections": 3,
+    "outbound_count": 2,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "distributer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "scanned_qrcode_history",
+        "source_column": "sku_inventories_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "sku_products": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "category_sub_group_id",
+        "target_table": "category_sub_groups",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "sku_qr_points_maps": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "sources": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "spin_history": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "state": {
+    "total_connections": 26,
+    "outbound_count": 1,
+    "inbound_count": 25,
+    "outbound": [
+      {
+        "column": "zone_id",
+        "target_table": "zones",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "beat_plans",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "blocked_locations",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "bulk_sku_mappings",
+        "source_column": "state_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "conference_events",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "district_population",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "district_with_pha_values",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "engagement_events",
+        "source_column": "state_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "feedback_forms",
+        "source_column": "state_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "incentive_schemes",
+        "source_column": "state_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "inventory_values",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "monthly_district_pha",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "monthly_pincode_pha",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "notifications",
+        "source_column": "state_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "offer",
+        "source_column": "state_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "pincode_address_maps",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "pincode_population",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "pincode_with_pha_values",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_state_mapping",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "state_user_mapping",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "state_with_pha_values",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "survey_forms",
+        "source_column": "state_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "users",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "vendor_element_state_mappings",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "vendors",
+        "source_column": "state_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "weekly_schemes",
+        "source_column": "state_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "state_user_mapping": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "state_with_pha_values": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "suppliers": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "survey_form_submissions": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "survey_form_id",
+        "target_table": "survey_forms",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "survey_forms": {
+    "total_connections": 2,
+    "outbound_count": 1,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "state_ids",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "survey_form_submissions",
+        "source_column": "survey_form_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "sync_tripur_data": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "table_qr_pdfs": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "company_id",
+        "target_table": "companies",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "product_id",
+        "target_table": "products",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "task_issue": {
+    "total_connections": 1,
+    "outbound_count": 0,
+    "inbound_count": 1,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "se_task",
+        "source_column": "task_issue_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "tds_certificates": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "tripur_api_tokens": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "user_flags": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "user_geotag_photos": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "user_scan_permissions": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "blocked_reason_id",
+        "target_table": "blocked_reasons",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "user_withdrawal_block_histories": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "blocked_reason_id",
+        "target_table": "blocked_reasons",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "users": {
+    "total_connections": 104,
+    "outbound_count": 5,
+    "inbound_count": 99,
+    "outbound": [
+      {
+        "column": "business_info_id",
+        "target_table": "business_information",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "distributer_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "employee_id",
+        "target_table": "employees",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_role",
+        "target_table": "role",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "account_deletion_requests",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "activate_qrs_requests",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "addresses",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "adhaar_verifications",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "automatic_transactions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "bank_accounts",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "beat_plan_retailers",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "beat_plans",
+        "source_column": "sales_executive_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "blacklist_reports",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "blocked_locations",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "bonus_transactions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "box_gift_orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "brand_wise_limits",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "branding_requests",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "bulk_lpn_imports",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "bulk_reports",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "bulk_sku_mappings",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "campaign_logs",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "cart_items",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "claimed_offers",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "connection_request",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "coupons",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "credit_notes",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "deactivated_qr_wallet_transactions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "details_approvals",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "digio_kyc_details",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "distributor_teams",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "ecatalogue",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "employees",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "engagement_event_reward_logs",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "engagement_events",
+        "source_column": "retailer_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "event_coupons",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "event_multiwin_allowed_users",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "event_orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "executive_attendances",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "executive_retailer_mappings",
+        "source_column": "retailer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "executive_survey_answer_submissions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "feedback_submissions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "feedbacks",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "gift_gamification",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_inventories",
+        "source_column": "retailer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "gift_scan_wallet_transactions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "group_management",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "incentive_gift_orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "manual_transactions",
+        "source_column": "uploaded_by",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "mapping_incentive_users",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "mom_thread_participants",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "monthly_averages",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "mypoints",
+        "source_column": "users_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "notification_logs",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "notifications",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "offline_sku_inventories",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "order_invoices",
+        "source_column": "order_updated_by",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "per_target_scheme_coupons",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "points",
+        "source_column": "users_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "products_bulk_imports",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "purchase_targets",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "read_notifications",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "redemption_requests",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "referral_details",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "retailer_category_qualified",
+        "source_column": "retailer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "retailer_credit_notes",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "retailer_distributor_mappings",
+        "source_column": "retailer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "retailer_schemes_mapping",
+        "source_column": "users_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "retailer_targets",
+        "source_column": "retailer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "retailer_wholesaler_mappings",
+        "source_column": "retailer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "role_conversion_histories",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sample_order_feedbacks",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sample_orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scanned_qrcode_history",
+        "source_column": "users_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheduled_visits",
+        "source_column": "retailer_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "scheduled_visits",
+        "source_column": "sales_executive_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "scheme_gift_orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "scheme_wallet_transactions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "se_task",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sessions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "shop_verification_images",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "sku_inventories",
+        "source_column": "distributer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "spin_history",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "state_user_mapping",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "survey_form_submissions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "tds_certificates",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "user_flags",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "user_geotag_photos",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "user_scan_permissions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "user_withdrawal_block_histories",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "users",
+        "source_column": "distributer_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "video_responses",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "visit_check_in_check_out",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "visit_trackings",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "wallet_transaction",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "wholesale_wallet_transactions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "winter_gift_orders",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "winter_scan_wallet_transactions",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "wishlists",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "withdrawal_request",
+        "source_column": "user_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "vendor_bank_accounts": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "vendor_id",
+        "target_table": "vendors",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "vendor_element_state_logs": {
+    "total_connections": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "outbound": [],
+    "inbound": []
+  },
+  "vendor_element_state_mappings": {
+    "total_connections": 3,
+    "outbound_count": 3,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "branding_element_id",
+        "target_table": "branding_elements",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "column": "vendor_id",
+        "target_table": "vendors",
+        "target_column": "id",
+        "type": "Explicit"
+      }
+    ],
+    "inbound": []
+  },
+  "vendors": {
+    "total_connections": 4,
+    "outbound_count": 1,
+    "inbound_count": 3,
+    "outbound": [
+      {
+        "column": "state_id",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "branding_requests",
+        "source_column": "vendor_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "vendor_bank_accounts",
+        "source_column": "vendor_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "vendor_element_state_mappings",
+        "source_column": "vendor_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      }
+    ]
+  },
+  "video_responses": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "visit_check_in_check_out": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "beat_plan_id",
+        "target_table": "beat_plans",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "visit_trackings": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "wallet_transaction": {
+    "total_connections": 3,
+    "outbound_count": 1,
+    "inbound_count": 2,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "credit_notes",
+        "source_column": "wallet_transaction_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "referral_details",
+        "source_column": "wallet_transaction_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "weekly_scheme_groups": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "weekly_scheme_prizes": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "scheme_id",
+        "target_table": "schemes",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "weekly_schemes": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "state_ids",
+        "target_table": "state",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "zone_ids",
+        "target_table": "zones",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "wholesale_wallet_transactions": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "wholesaler_targets": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "wholesaler_winter_targets": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "financial_year_id",
+        "target_table": "financial_years",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "winter_gift_items": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "gift_product_id",
+        "target_table": "gift_products",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "winter_gift_order_timelines": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "winter_gift_order_id",
+        "target_table": "winter_gift_orders",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "winter_gift_orders": {
+    "total_connections": 5,
+    "outbound_count": 4,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "address_id",
+        "target_table": "addresses",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "gift_card_id",
+        "target_table": "gift_cards",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "order_id",
+        "target_table": "orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "winter_gift_order_timelines",
+        "source_column": "winter_gift_order_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "winter_scan_wallet_transactions": {
+    "total_connections": 1,
+    "outbound_count": 1,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "wishlists": {
+    "total_connections": 2,
+    "outbound_count": 2,
+    "inbound_count": 0,
+    "outbound": [
+      {
+        "column": "gift_card_id",
+        "target_table": "gift_cards",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": []
+  },
+  "withdrawal_request": {
+    "total_connections": 5,
+    "outbound_count": 4,
+    "inbound_count": 1,
+    "outbound": [
+      {
+        "column": "automatic_transaction_id",
+        "target_table": "automatic_transactions",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "bank_transaction_id",
+        "target_table": "bank_transactions",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "gift_order_id",
+        "target_table": "gift_orders",
+        "target_column": "id",
+        "type": "Logical"
+      },
+      {
+        "column": "user_id",
+        "target_table": "users",
+        "target_column": "id",
+        "type": "Logical"
+      }
+    ],
+    "inbound": [
+      {
+        "source_table": "manual_transactions",
+        "source_column": "withdrawal_request_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  },
+  "zones": {
+    "total_connections": 8,
+    "outbound_count": 0,
+    "inbound_count": 8,
+    "outbound": [],
+    "inbound": [
+      {
+        "source_table": "district_population",
+        "source_column": "zone_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "engagement_events",
+        "source_column": "zone_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "geo_states",
+        "source_column": "zone_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "monthly_district_pha",
+        "source_column": "zone_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "monthly_pincode_pha",
+        "source_column": "zone_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "pincode_population",
+        "source_column": "zone_id",
+        "referenced_column": "id",
+        "type": "Logical"
+      },
+      {
+        "source_table": "state",
+        "source_column": "zone_id",
+        "referenced_column": "id",
+        "type": "Explicit"
+      },
+      {
+        "source_table": "weekly_schemes",
+        "source_column": "zone_ids",
+        "referenced_column": "id",
+        "type": "Logical"
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": "knowledge_v20260824_172352",
+  "activated_at": "2026-08-24T17:23:52.225692",
+  "drift_report": {
+    "status": "DRIFT_DETECTED",
+    "checked_at": "2026-08-24T17:23:52.225331",
+    "active_version": "knowledge_v20260824_171527",
+    "total_discrepancies": 1,
+    "discrepancies": [
+      {
+        "type": "TYPE_MODIFIED",
+        "table": "conference_events",
+        "column": "rate_of_coupon_generation",
+        "details": "Type mismatch on 'conference_events.rate_of_coupon_generation': baseline=int, live=bigint"
+      }
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+    "users_to_role": {
+        "from": "users.user_role",
+        "to": "role.id",
+        "type": "Many-to-One",
+        "description": "Each user is assigned a single role."
+    },
+    "users_to_wallet_transaction": {
+        "from": "wallet_transaction.user_id",
+        "to": "users.id",
+        "type": "Many-to-One",
+        "description": "Users have multiple wallet loyalty transactions."
+    },
+    "users_to_mechanic_details": {
+        "from": "mechanic_details.mechanic_id",
+        "to": "users.id",
+        "type": "One-to-One",
+        "description": "Mechanics have extended profile data in mechanic_details."
+    },
+    "users_to_withdrawal_request": {
+        "from": "withdrawal_request.user_id",
+        "to": "users.id",
+        "type": "Many-to-One",
+        "description": "Users submit multiple withdrawal requests."
+    },
+    "users_to_automatic_transactions": {
+        "from": "automatic_transactions.user_id",
+        "to": "users.id",
+        "type": "Many-to-One",
+        "description": "Bank transfer logs map directly to user accounts."
+    },
+    "companies_to_users": {
+        "from": "companies.customer_id",
+        "to": "users.id",
+        "type": "Many-to-One",
+        "description": "Companies map to user accounts."
+    },
+    "companies_to_mechanic_details": {
+        "from": "mechanic_details.company_id",
+        "to": "companies.id",
+        "type": "Many-to-One",
+        "description": "Mechanics belong to companies/garages."
+    },
+    "sku_to_users": {
+        "from": "sku_inventories.distributer_id",
+        "to": "users.id",
+        "type": "Many-to-One",
+        "description": "SKU product inventory is managed by distributors."
+    }
+}

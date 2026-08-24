@@ -85,7 +85,9 @@ def retrieve_schema(question: str, k: int = 1) -> str:
             info = schema[tbl]
             col_list = []
             enum_list = []
-            for col_data in info.get("columns", {}).values():
+            cols = info.get("columns", {})
+            cols_iterable = cols.values() if isinstance(cols, dict) else (cols if isinstance(cols, list) else [])
+            for col_data in cols_iterable:
                 col_name = col_data.get("name", "")
                 col_list.append(col_name)
                 if col_data.get("is_enum") and col_data.get("enum_values"):
@@ -108,6 +110,98 @@ def retrieve_schema(question: str, k: int = 1) -> str:
         
     return "\n\n".join(lines)
 
+import re
+
 @lru_cache(maxsize=128)
 def retrieve_sql_history(question: str, k: int = 2) -> str:
-    return ""
+    """
+    Retrieves the top k most relevant gold-standard question-to-SQL exemplars
+    from query_patterns.json using semantic vector embeddings and keyword boosts.
+    """
+    pattern_files = ["knowledge/patterns/query_patterns.json", "knowledge/graph/query_patterns.json"]
+    patterns = []
+    for p_path in pattern_files:
+        if os.path.exists(p_path):
+            try:
+                with open(p_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        patterns.extend(data)
+                    elif isinstance(data, dict) and "patterns" in data:
+                        patterns.extend(data["patterns"])
+            except Exception:
+                pass
+
+    if not patterns:
+        return ""
+
+    model = get_embedding_model()
+    
+    scored_exemplars = []
+    
+    if model:
+        try:
+            from sentence_transformers import util
+            q_emb = model.encode(question)
+            
+            for item in patterns:
+                ex_q = item.get("question") or item.get("intent", "")
+                ex_sql = item.get("sql") or item.get("pattern", "")
+                if not ex_q or not ex_sql:
+                    continue
+                    
+                ex_emb = model.encode(ex_q)
+                base_score = util.cos_sim(q_emb, ex_emb).item()
+                
+                boost = 0.0
+                q_lower = question.lower()
+                ex_q_lower = ex_q.lower()
+                
+                # Hybrid Boosts
+                if any(w in q_lower for w in ["retailer", "retailers"]) and any(w in ex_q_lower for w in ["retailer", "retailers"]):
+                    boost += 0.2
+                if any(w in q_lower for w in ["earning", "earnings"]) and any(w in ex_q_lower for w in ["earning", "earnings"]):
+                    boost += 0.2
+                if any(w in q_lower for w in ["month", "july"]) and any(w in ex_q_lower for w in ["month", "july"]):
+                    boost += 0.1
+                
+                final_score = base_score + boost
+                scored_exemplars.append((final_score, ex_q, ex_sql))
+        except Exception as e:
+            # Fallback if sentence transformers crashes
+            model = None
+            
+    # Fallback to word overlap if model failed or missing
+    if not model:
+        q_words = set(re.findall(r"\w+", question.lower()))
+        for item in patterns:
+            ex_q = item.get("question") or item.get("intent", "")
+            ex_sql = item.get("sql") or item.get("pattern", "")
+            if not ex_q or not ex_sql:
+                continue
+                
+            ex_words = set(re.findall(r"\w+", ex_q.lower()))
+            overlap = len(q_words.intersection(ex_words))
+            
+            boost = 0
+            if any(w in question.lower() for w in ["retailer", "retailers"]) and any(w in ex_q.lower() for w in ["retailer", "retailers"]):
+                boost += 2
+            if any(w in question.lower() for w in ["earning", "earnings"]) and any(w in ex_q.lower() for w in ["earning", "earnings"]):
+                boost += 2
+            if any(w in question.lower() for w in ["month", "july"]) and any(w in ex_q.lower() for w in ["month", "july"]):
+                boost += 1
+
+            score = overlap + boost
+            scored_exemplars.append((score, ex_q, ex_sql))
+
+    scored_exemplars.sort(key=lambda x: x[0], reverse=True)
+    top_matches = scored_exemplars[:k]
+
+    if not top_matches:
+        return ""
+
+    formatted_examples = []
+    for idx, (score, ex_q, ex_sql) in enumerate(top_matches, 1):
+        formatted_examples.append(f"Example {idx}:\nQuestion: {ex_q}\nSQL:\n{ex_sql}")
+
+    return "\n\n".join(formatted_examples)

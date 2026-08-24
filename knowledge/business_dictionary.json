@@ -1,0 +1,131 @@
+{
+  "_metadata": {
+    "title": "JGH Intelligence Engine - Business Terms & Metrics Dictionary Template",
+    "generated_at": "2026-08-12T11:07:47.466891",
+    "version": "0.1.0-draft",
+    "status": "READY_FOR_HUMAN_LABELING"
+  },
+  "user_role_mappings": {
+    "1": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=1",
+      "business_category": ""
+    },
+    "2": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=2",
+      "business_category": ""
+    },
+    "3": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=3",
+      "business_category": ""
+    },
+    "4": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=4",
+      "business_category": ""
+    },
+    "5": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=5",
+      "business_category": ""
+    },
+    "6": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=6",
+      "business_category": ""
+    },
+    "7": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=7",
+      "business_category": ""
+    },
+    "8": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=8",
+      "business_category": ""
+    },
+    "9": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=9",
+      "business_category": ""
+    },
+    "10": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=10",
+      "business_category": ""
+    },
+    "11": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=11",
+      "business_category": ""
+    },
+    "13": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=13",
+      "business_category": ""
+    },
+    "14": {
+      "label": "",
+      "description": "Placeholder mapping for user_role=14",
+      "business_category": ""
+    }
+  },
+  "reference_type_categorizations": {
+    "cash_point": {
+      "categorization": "Earnings",
+      "description": "Points earned via QR scan"
+    },
+    "withdrawal": {
+      "categorization": "Redemptions",
+      "description": "Cash payout withdrawal request"
+    },
+    "topup": {
+      "categorization": "Earnings",
+      "description": "Wallet balance topup credit"
+    },
+    "referral_earning": {
+      "categorization": "Earnings",
+      "description": "User referral reward earning"
+    },
+    "incentive": {
+      "categorization": "Earnings",
+      "description": "Mechanic or retailer incentive credit"
+    },
+    "bonus_conversion": {
+      "categorization": "Earnings",
+      "description": "Bonus point conversion to cash balance"
+    },
+    "credit_note": {
+      "categorization": "Earnings",
+      "description": "System credit note adjustment"
+    }
+  },
+  "core_metrics": {
+    "Balance": {
+      "definition": "Current net wallet cash balance across active users in rupees",
+      "sql_expression": "SUM(wallet_balance)",
+      "table": "users",
+      "column": "wallet_balance",
+      "unit": "INR",
+      "notes": "Placeholder definition for wallet balance metric"
+    },
+    "Retailer Box Scans": {
+      "definition": "Total count of SKU inventories scanned or ordered by retailers",
+      "sql_expression": "COUNT(CASE WHEN order_type IN ('Retailer', 'retailer') THEN 1 END)",
+      "table": "sku_inventories",
+      "column": "order_type",
+      "unit": "Scans",
+      "notes": "Placeholder definition for Retailer Box Scans metric"
+    },
+    "Wholesaler Box Scans": {
+      "definition": "Total count of SKU inventories scanned or ordered by wholesalers/distributors",
+      "sql_expression": "COUNT(CASE WHEN order_type IN ('Wholesaler', 'Distributor', 'Distributors') THEN 1 END)",
+      "table": "sku_inventories",
+      "column": "order_type",
+      "unit": "Scans",
+      "notes": "Placeholder definition for Wholesaler Box Scans metric"
+    }
+  }
+}

@@ -1,0 +1,3147 @@
+{
+  "activate_qrs_requests": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "0:pending,1:completed. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      }
+    }
+  },
+  "addresses": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "address_type": {
+        "name": "address_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'address_type' setting for the 'addresses' records.",
+        "business_value": "Used to track and filter table rows based on their 'address_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'addresses'",
+        "values": {},
+        "stored_options": [
+          "Home",
+          "Work",
+          "Other"
+        ]
+      }
+    }
+  },
+  "app_link_report": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "source": {
+        "name": "source",
+        "sql_type": "int",
+        "description": "1:qr , 2:whatsaap,3: 3:marketing, 4: phonepe, 5:print_ad. System categorical configuration field defining",
+        "business_value": "Used to track and filter table rows based on their 'source' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "2",
+          "15",
+          "4"
+        ]
+      }
+    }
+  },
+  "automatic_transactions": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "varchar(255)",
+        "description": "Payout API Transaction State",
+        "business_value": "Determines if payout funds successfully cleared or failed.",
+        "trigger": "(Trigger): Automatically populated via webhooks and API responses from the payment",
+        "values": {
+          "success": {
+            "description": "Funds successfully credited to the user's bank account.",
+            "source": "Successful execution response webhook from the payment API.",
+            "use": "Sets the corresponding withdrawal_request.status to approved/completed, marking the transaction as final."
+          },
+          "failed / faled": {
+            "description": "Funds transfer rejected or failed (e.g. invalid account/IFSC, insufficient gateway balance). Note: 'faled' is a",
+            "source": "Failure callback payload from the bank payout gateway.",
+            "use": "Flags the payout transaction for accountant review, indicating the funds were not deducted and require"
+          },
+          "pending": {
+            "description": "Payout is currently in transit at the bank.",
+            "source": "Initial payout request confirmation payload from the provider API.",
+            "use": "Locks the request to prevent duplicate payout API calls while waiting for the final bank status."
+          },
+          "rejected": {
+            "description": "Payout blocked by the gateway's risk validation or fraud checks.",
+            "source": "Gateway provider verification engine.",
+            "use": "Requires manual compliance review by JGH admins."
+          }
+        }
+      },
+      "transaction_source": {
+        "name": "transaction_source",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'transaction_source' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'transaction_source' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "cashfree"
+        ]
+      },
+      "transfer_type": {
+        "name": "transfer_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'transfer_type' setting for the 'automatic_transactions'",
+        "business_value": "Used to track and filter table rows based on their 'transfer_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "IMPS",
+          "failed",
+          "Manual",
+          "Manual_success"
+        ]
+      }
+    }
+  },
+  "bank_accounts": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "bank_account_type": {
+        "name": "bank_account_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'bank_account_type' setting for the 'bank_accounts'",
+        "business_value": "Used to track and filter table rows based on their 'bank_account_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Savings",
+          "Current"
+        ]
+      }
+    }
+  },
+  "bank_transactions": {
+    "dropdown_column_count": 4,
+    "columns": {
+      "moneyTransferStatus": {
+        "name": "moneyTransferStatus",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'moneyTransferStatus' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'moneyTransferStatus' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "SUCCESS",
+          "FAILURE"
+        ]
+      },
+      "transactionType": {
+        "name": "transactionType",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'transactionType' setting for the 'bank_transactions'",
+        "business_value": "Used to track and filter table rows based on their 'transactionType' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "MAIN REVERSAL",
+          "MAIN"
+        ]
+      },
+      "transferType": {
+        "name": "transferType",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'transferType' setting for the 'bank_transactions'",
+        "business_value": "Used to track and filter table rows based on their 'transferType' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "IMPS",
+          "NEFT"
+        ]
+      },
+      "type": {
+        "name": "type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'type' setting for the 'bank_transactions' records.",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "CREDIT",
+          "DEBIT"
+        ]
+      }
+    }
+  },
+  "beat_plans": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "frequency": {
+        "name": "frequency",
+        "sql_type": "enum('daily','weekly','biweekly','monthly')",
+        "description": "Number of times SE must visit the assigned retailers in a timespan. System categorical configuration field",
+        "business_value": "Used to track and filter table rows based on their 'frequency' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'beat_plans'",
+        "values": {},
+        "stored_options": [
+          "daily",
+          "weekly",
+          "biweekly",
+          "monthly"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "1 for active, 0 for inactive. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'beat_plans'",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      }
+    }
+  },
+  "blacklist_reports": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "int",
+        "description": "1 : blacklist, 2 :whitelist. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "2"
+        ]
+      }
+    }
+  },
+  "bonus_transactions": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "reference_type": {
+        "name": "reference_type",
+        "sql_type": "enum('gift_order','cash_point','coupon_redeem','incentive','credit_note')",
+        "description": "Bonus Points Credit/Debit Source Category",
+        "business_value": "Categorizes the source of the user's bonus point balances.",
+        "trigger": "(Trigger): Logged during bonus point additions or gift order transactions.",
+        "values": {
+          "gift_order": {
+            "description": "Bonus points deducted to redeem a gift catalog item.",
+            "source": "User redeems a gift in the app.",
+            "use": "Deducts points from the bonus balance."
+          },
+          "cash_point": {
+            "description": "Points credited from standard scanning activities.",
+            "source": "Barcoded box scan rewards.",
+            "use": "Increments the user's bonus point ledger."
+          },
+          "coupon_redeem": {
+            "description": "Points credited from a redeemed scratch coupon code.",
+            "source": "Manual coupon input in the app.",
+            "use": "Credits coupon-based bonus points."
+          },
+          "incentive": {
+            "description": "Bonus points credited from campaign performance.",
+            "source": "Growth schemes and milestone targets.",
+            "use": "Credits scheme-based bonus points."
+          },
+          "credit_note": {
+            "description": "Bonus points adjusted via CN settlements.",
+            "source": "Distributor credit note workflow.",
+            "use": "Adjusts bonus points balances."
+          }
+        }
+      },
+      "type": {
+        "name": "type",
+        "sql_type": "enum('credit','debit')",
+        "description": "Bonus Points Flow Polar Flag",
+        "business_value": "Determines whether bonus points are added or subtracted.",
+        "trigger": "(Trigger): Created automatically on bonus points movements.",
+        "values": {
+          "credit": {
+            "description": "Points added to the user's bonus points balance.",
+            "source": "Campaign awards, scan bonuses, or coupon redemptions.",
+            "use": "Increases active bonus balance."
+          },
+          "debit": {
+            "description": "Points subtracted from the user's bonus points balance.",
+            "source": "Gift catalog orders or points clawbacks.",
+            "use": "Decreases active bonus balance."
+          }
+        }
+      }
+    }
+  },
+  "box_gift_orders": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "assigned_type": {
+        "name": "assigned_type",
+        "sql_type": "tinyint",
+        "description": "0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'assigned_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "enum('Pending','Processing','Delivered','Cancelled','Closed','CN adjusted')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'box_gift_orders' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Pending",
+          "Processing",
+          "Delivered",
+          "Cancelled",
+          "Closed",
+          "CN adjusted"
+        ]
+      }
+    }
+  },
+  "branding_elements": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "1=active, 0=inactive. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      },
+      "type": {
+        "name": "type",
+        "sql_type": "enum('printed','digital','other')",
+        "description": "System categorical configuration field defining the 'type' setting for the 'branding_elements' records.",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "printed",
+          "digital",
+          "other"
+        ]
+      }
+    }
+  },
+  "branding_requests": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "payment_status": {
+        "name": "payment_status",
+        "sql_type": "tinyint",
+        "description": "0 = Unpaid, 1 = Paid, 2 = On-Hold, 3 = Initiated. System categorical configuration field defining the",
+        "business_value": "Used to track and filter table rows based on their 'payment_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "0-> pending request; 1-> approved request ; 2-> survey completed ; 3-> estimate approvals ; 4 ->",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "5"
+        ]
+      }
+    }
+  },
+  "brands": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "enum('1','0')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'brands' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'brands'",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      }
+    }
+  },
+  "bulk_reports": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "0:pending,1:started,2:completed,3:cancelled. System categorical configuration field defining the 'status'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "2",
+          "3"
+        ]
+      }
+    }
+  },
+  "campaign_logs": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'status' setting for the 'campaign_logs' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "failed",
+          "success",
+          "skipped",
+          "read"
+        ]
+      }
+    }
+  },
+  "cart_items": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "product_type": {
+        "name": "product_type",
+        "sql_type": "enum('core','winter')",
+        "description": "System categorical configuration field defining the 'product_type' setting for the 'cart_items' records.",
+        "business_value": "Used to track and filter table rows based on their 'product_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'cart_items'",
+        "values": {},
+        "stored_options": [
+          "core",
+          "winter"
+        ]
+      }
+    }
+  },
+  "category_sub_group_master_category_mapping": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "category_sub_group_id": {
+        "name": "category_sub_group_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'category_sub_group_id' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'category_sub_group_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "2",
+          "3",
+          "7",
+          "5",
+          "4",
+          "6",
+          "15",
+          "24",
+          "26 ... (and more)"
+        ]
+      },
+      "master_category_id": {
+        "name": "master_category_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'master_category_id' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'master_category_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "440",
+          "441",
+          "442",
+          "443",
+          "444",
+          "445",
+          "446",
+          "447",
+          "448",
+          "449 ... (and more)"
+        ]
+      }
+    }
+  },
+  "claimed_offers": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "enum('pending','completed','rejected')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'claimed_offers' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "pending",
+          "completed",
+          "rejected"
+        ]
+      }
+    }
+  },
+  "conference_events": {
+    "dropdown_column_count": 5,
+    "columns": {
+      "category_conversion_rate": {
+        "name": "category_conversion_rate",
+        "sql_type": "json",
+        "description": "System categorical configuration field defining the 'category_conversion_rate' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'category_conversion_rate'",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "[{\"category_id\": 8",
+          "\"category_name\": \"COMFY LADIES\"",
+          "\"conversion_rate\":"
+        ]
+      },
+      "order_type": {
+        "name": "order_type",
+        "sql_type": "enum('all','core','winter')",
+        "description": "System categorical configuration field defining the 'order_type' setting for the 'conference_events' records.",
+        "business_value": "Used to track and filter table rows based on their 'order_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "all",
+          "core",
+          "winter"
+        ]
+      },
+      "order_unit": {
+        "name": "order_unit",
+        "sql_type": "enum('all','box','carton','pcs')",
+        "description": "System categorical configuration field defining the 'order_unit' setting for the 'conference_events' records.",
+        "business_value": "Used to track and filter table rows based on their 'order_unit' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "all",
+          "box",
+          "carton",
+          "pcs"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1:active, 0:inactive. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      },
+      "user_type": {
+        "name": "user_type",
+        "sql_type": "bigint unsigned",
+        "description": "5:Wholesaler, 2:Retailer,4:Distributer. System categorical configuration field defining the 'user_type' setting",
+        "business_value": "Used to track and filter table rows based on their 'user_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "4"
+        ]
+      }
+    }
+  },
+  "coupon_transactions": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "type": {
+        "name": "type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'type' setting for the 'coupon_transactions' records.",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "credit"
+        ]
+      }
+    }
+  },
+  "coupons": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "business_type": {
+        "name": "business_type",
+        "sql_type": "tinyint",
+        "description": "1 = Retailer, 2 = Wholesaler, 3 = Distributor. System categorical configuration field defining the",
+        "business_value": "Used to track and filter table rows based on their 'business_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'coupons'",
+        "values": {},
+        "stored_options": [
+          "2"
+        ]
+      },
+      "coupon_status": {
+        "name": "coupon_status",
+        "sql_type": "tinyint",
+        "description": "1 = Active, 2 = Redeemed, 3 = Expired , 4 = Cancelled. System categorical configuration field defining the",
+        "business_value": "Used to track and filter table rows based on their 'coupon_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'coupons'",
+        "values": {},
+        "stored_options": [
+          "3"
+        ]
+      },
+      "coupon_type": {
+        "name": "coupon_type",
+        "sql_type": "tinyint",
+        "description": "1 = cash point, 2 = bonus point. System categorical configuration field defining the 'coupon_type' setting for",
+        "business_value": "Used to track and filter table rows based on their 'coupon_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'coupons'",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      }
+    }
+  },
+  "credit_notes": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "reference_type": {
+        "name": "reference_type",
+        "sql_type": "enum('cash_wallet','deactivated_qr_wallet')",
+        "description": "System categorical configuration field defining the 'reference_type' setting for the 'credit_notes' records.",
+        "business_value": "Used to track and filter table rows based on their 'reference_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "cash_wallet",
+          "deactivated_qr_wallet"
+        ]
+      }
+    }
+  },
+  "dashboard_daily_data": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "user_type": {
+        "name": "user_type",
+        "sql_type": "int",
+        "description": "System categorical configuration field defining the 'user_type' setting for the 'dashboard_daily_data'",
+        "business_value": "Used to track and filter table rows based on their 'user_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "2",
+          "5",
+          "4",
+          "25"
+        ]
+      }
+    }
+  },
+  "deactivated_qr_wallet_transactions": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "reference_type": {
+        "name": "reference_type",
+        "sql_type": "enum('sku_scan','topup','credit_note')",
+        "description": "System categorical configuration field defining the 'reference_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'reference_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "sku_scan",
+          "topup",
+          "credit_note"
+        ]
+      },
+      "transaction_type": {
+        "name": "transaction_type",
+        "sql_type": "tinyint",
+        "description": "0:debit,1:credit. System categorical configuration field defining the 'transaction_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'transaction_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      }
+    }
+  },
+  "districts": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1:active, 0:inactive. System categorical configuration field defining the 'status' setting for the 'districts'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'districts'",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      }
+    }
+  },
+  "engagement_event_conditions": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "enum('active','inactive')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'engagement_event_conditions'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "active",
+          "inactive"
+        ]
+      }
+    }
+  },
+  "engagement_events": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "recurrence_type": {
+        "name": "recurrence_type",
+        "sql_type": "enum('none','daily','weekly','monthly','yearly')",
+        "description": "System categorical configuration field defining the 'recurrence_type' setting for the 'engagement_events'",
+        "business_value": "Used to track and filter table rows based on their 'recurrence_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "none",
+          "daily",
+          "weekly",
+          "monthly",
+          "yearly"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "enum('active','inactive','expired')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'engagement_events' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "active",
+          "inactive",
+          "expired"
+        ]
+      }
+    }
+  },
+  "engagement_reward_masters": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "enum('active','inactive')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'engagement_reward_masters'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "active",
+          "inactive"
+        ]
+      }
+    }
+  },
+  "event_orders": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "category_id": {
+        "name": "category_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'category_id' setting for the 'event_orders' records.",
+        "business_value": "Used to track and filter table rows based on their 'category_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "8",
+          "9",
+          "11",
+          "10",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "24 ... (and more)"
+        ]
+      },
+      "order_status": {
+        "name": "order_status",
+        "sql_type": "varchar(255)",
+        "description": "0:pending, 1:approved, 2:rejected, 3:completed, 4:cancelled. System categorical configuration field",
+        "business_value": "Used to track and filter table rows based on their 'order_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      },
+      "order_type": {
+        "name": "order_type",
+        "sql_type": "enum('box','carton','pcs')",
+        "description": "System categorical configuration field defining the 'order_type' setting for the 'event_orders' records.",
+        "business_value": "Used to track and filter table rows based on their 'order_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "box",
+          "carton",
+          "pcs"
+        ]
+      }
+    }
+  },
+  "executive_survey_forms": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "answer_type": {
+        "name": "answer_type",
+        "sql_type": "enum('numeric','text','image')",
+        "description": "System categorical configuration field defining the 'answer_type' setting for the 'executive_survey_forms'",
+        "business_value": "Used to track and filter table rows based on their 'answer_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "numeric",
+          "text",
+          "image"
+        ]
+      }
+    }
+  },
+  "failed_skus_callback_csvs": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "source": {
+        "name": "source",
+        "sql_type": "tinyint(1)",
+        "description": "1: kolkata, 2 : tirupur. System categorical configuration field defining the 'source' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'source' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      }
+    }
+  },
+  "feedback_forms": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1:Active, 0:Inactive. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      }
+    }
+  },
+  "gift_cards": {
+    "dropdown_column_count": 4,
+    "columns": {
+      "gift_category_id": {
+        "name": "gift_category_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'gift_category_id' setting for the 'gift_cards' records.",
+        "business_value": "Used to track and filter table rows based on their 'gift_category_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'gift_cards'",
+        "values": {},
+        "stored_options": [
+          "1",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "18"
+        ]
+      },
+      "gift_type": {
+        "name": "gift_type",
+        "sql_type": "enum('points','box')",
+        "description": "System categorical configuration field defining the 'gift_type' setting for the 'gift_cards' records.",
+        "business_value": "Used to track and filter table rows based on their 'gift_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'gift_cards'",
+        "values": {},
+        "stored_options": [
+          "points",
+          "box"
+        ]
+      },
+      "points_applicability": {
+        "name": "points_applicability",
+        "sql_type": "enum('all','date_range')",
+        "description": "System categorical configuration field defining the 'points_applicability' setting for the 'gift_cards' records.",
+        "business_value": "Used to track and filter table rows based on their 'points_applicability' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'gift_cards'",
+        "values": {},
+        "stored_options": [
+          "all",
+          "date_range"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "System categorical configuration field defining the 'status' setting for the 'gift_cards' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'gift_cards'",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  },
+  "gift_inventories": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "gift_order_type": {
+        "name": "gift_order_type",
+        "sql_type": "enum('gift_orders','box_gift_orders','scheme_gift_orders','winter_gift_orders')",
+        "description": "System categorical configuration field defining the 'gift_order_type' setting for the 'gift_inventories' records.",
+        "business_value": "Used to track and filter table rows based on their 'gift_order_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "gift_orders",
+          "box_gift_orders",
+          "scheme_gift_orders",
+          "winter_gift_orders"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "System categorical configuration field defining the 'status' setting for the 'gift_inventories' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    }
+  },
+  "gift_order_timelines": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "order_type": {
+        "name": "order_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'order_type' setting for the 'gift_order_timelines' records.",
+        "business_value": "Used to track and filter table rows based on their 'order_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "gift_order",
+          "box_gift_order",
+          "scheme_gift_order",
+          "box_gift_orders",
+          "scheme_order"
+        ]
+      }
+    }
+  },
+  "gift_orders": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "assigned_type": {
+        "name": "assigned_type",
+        "sql_type": "tinyint",
+        "description": "0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'assigned_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'gift_orders'",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      },
+      "point_type": {
+        "name": "point_type",
+        "sql_type": "enum('cash_point','bonus_point')",
+        "description": "System categorical configuration field defining the 'point_type' setting for the 'gift_orders' records.",
+        "business_value": "Used to track and filter table rows based on their 'point_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'gift_orders'",
+        "values": {},
+        "stored_options": [
+          "cash_point",
+          "bonus_point"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "text",
+        "description": "Pending Processing Delivered Cancel Request Sent Cancellation not Possible Cancelled CN adjusted.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'gift_orders'",
+        "values": {},
+        "stored_options": [
+          "Delivered",
+          "Pending",
+          "Cancelled",
+          "CN adjusted",
+          "Processing",
+          "Closed"
+        ]
+      }
+    }
+  },
+  "gift_products": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "gift_category_id": {
+        "name": "gift_category_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'gift_category_id' setting for the 'gift_products' records.",
+        "business_value": "Used to track and filter table rows based on their 'gift_category_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "12",
+          "13",
+          "15",
+          "18"
+        ]
+      }
+    }
+  },
+  "gift_scan_wallet_transactions": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "reference_type": {
+        "name": "reference_type",
+        "sql_type": "enum('sku_scan','gift_order','topup','credit_note','incentive','cash_convert')",
+        "description": "System categorical configuration field defining the 'reference_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'reference_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "sku_scan",
+          "gift_order",
+          "topup",
+          "credit_note",
+          "incentive",
+          "cash_convert"
+        ]
+      },
+      "transaction_type": {
+        "name": "transaction_type",
+        "sql_type": "tinyint",
+        "description": "0:debit,1:credit. System categorical configuration field defining the 'transaction_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'transaction_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  },
+  "greeting_templates": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1:active, 0:inactive. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      }
+    }
+  },
+  "home_banner": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "redirect_to_type": {
+        "name": "redirect_to_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'redirect_to_type' setting for the 'home_banner' records.",
+        "business_value": "Used to track and filter table rows based on their 'redirect_to_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "type_option",
+          "file_upload",
+          "redirect_link"
+        ]
+      }
+    }
+  },
+  "incentive_gift_orders": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "assigned_type": {
+        "name": "assigned_type",
+        "sql_type": "tinyint",
+        "description": "0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'assigned_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      },
+      "point_type": {
+        "name": "point_type",
+        "sql_type": "enum('cash_point','bonus_point')",
+        "description": "System categorical configuration field defining the 'point_type' setting for the 'incentive_gift_orders'",
+        "business_value": "Used to track and filter table rows based on their 'point_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "cash_point",
+          "bonus_point"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "text",
+        "description": "Pending Processing Delivered Cancel Request Sent Cancellation not Possible Cancelled CN adjusted.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      }
+    }
+  },
+  "incentive_schemes": {
+    "dropdown_column_count": 9,
+    "columns": {
+      "additional_monthly_bonus": {
+        "name": "additional_monthly_bonus",
+        "sql_type": "enum('0','1')",
+        "description": "active=1,inactive=0. System categorical configuration field defining the 'additional_monthly_bonus' setting",
+        "business_value": "Used to track and filter table rows based on their 'additional_monthly_bonus'",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      },
+      "category_id": {
+        "name": "category_id",
+        "sql_type": "json",
+        "description": "System categorical configuration field defining the 'category_id' setting for the 'incentive_schemes' records.",
+        "business_value": "Used to track and filter table rows based on their 'category_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "null"
+        ]
+      },
+      "incentive_type": {
+        "name": "incentive_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'incentive_type' setting for the 'incentive_schemes'",
+        "business_value": "Used to track and filter table rows based on their 'incentive_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Growth Scheme for Retailer's Monthly Average between 5-24 Boxes",
+          "Growth"
+        ]
+      },
+      "min_scan_type": {
+        "name": "min_scan_type",
+        "sql_type": "varchar(255)",
+        "description": "percentage or fixed. System categorical configuration field defining the 'min_scan_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'min_scan_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "fixed",
+          "percentage"
+        ]
+      },
+      "reward_type": {
+        "name": "reward_type",
+        "sql_type": "enum('cash','bonus','cash_bonus','gift')",
+        "description": "System categorical configuration field defining the 'reward_type' setting for the 'incentive_schemes'",
+        "business_value": "Used to track and filter table rows based on their 'reward_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "cash",
+          "bonus",
+          "cash_bonus",
+          "gift"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "0=inactive,1=active,2=expired. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      },
+      "type": {
+        "name": "type",
+        "sql_type": "enum('customized_scheme','monthly','monthly_average')",
+        "description": "System categorical configuration field defining the 'type' setting for the 'incentive_schemes' records.",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "customized_scheme",
+          "monthly",
+          "monthly_average"
+        ]
+      },
+      "user_type": {
+        "name": "user_type",
+        "sql_type": "int",
+        "description": "System categorical configuration field defining the 'user_type' setting for the 'incentive_schemes' records.",
+        "business_value": "Used to track and filter table rows based on their 'user_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "2"
+        ]
+      },
+      "value_type": {
+        "name": "value_type",
+        "sql_type": "enum('fixed','perScan','gift')",
+        "description": "System categorical configuration field defining the 'value_type' setting for the 'incentive_schemes' records.",
+        "business_value": "Used to track and filter table rows based on their 'value_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "fixed",
+          "perScan",
+          "gift"
+        ]
+      }
+    }
+  },
+  "inventory": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "print_status": {
+        "name": "print_status",
+        "sql_type": "int",
+        "description": "unprint=\"0\", print=\"1\". System categorical configuration field defining the 'print_status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'print_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'inventory'",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "int",
+        "description": "qrcode successfully used=1, qrcode not used=0. System categorical configuration field defining the 'status'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'inventory'",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      }
+    }
+  },
+  "manual_transactions": {
+    "dropdown_column_count": 4,
+    "columns": {
+      "transaction_source": {
+        "name": "transaction_source",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'transaction_source' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'transaction_source' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "manual_upload"
+        ]
+      },
+      "transactionType": {
+        "name": "transactionType",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'transactionType' setting for the 'manual_transactions'",
+        "business_value": "Used to track and filter table rows based on their 'transactionType' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "PAYOUT"
+        ]
+      },
+      "transferType": {
+        "name": "transferType",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'transferType' setting for the 'manual_transactions'",
+        "business_value": "Used to track and filter table rows based on their 'transferType' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Manual"
+        ]
+      },
+      "type": {
+        "name": "type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'type' setting for the 'manual_transactions' records.",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "withdrawal"
+        ]
+      }
+    }
+  },
+  "master_categories": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "enum('1','0')",
+        "description": "draft ='0', public='1'. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      }
+    }
+  },
+  "mechanic_account_types": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "type_name": {
+        "name": "type_name",
+        "sql_type": "text",
+        "description": "System categorical configuration field defining the 'type_name' setting for the 'mechanic_account_types'",
+        "business_value": "Used to track and filter table rows based on their 'type_name' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Mechanic"
+        ]
+      }
+    }
+  },
+  "mechanic_details": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "firm_type": {
+        "name": "firm_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'firm_type' setting for the 'mechanic_details' records.",
+        "business_value": "Used to track and filter table rows based on their 'firm_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Sole Proprietorship",
+          "Partnership",
+          "Select Business Type",
+          "Private Limited"
+        ]
+      },
+      "mechanic_account_type": {
+        "name": "mechanic_account_type",
+        "sql_type": "text",
+        "description": "System categorical configuration field defining the 'mechanic_account_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'mechanic_account_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  },
+  "mom_thread_participants": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "user_type": {
+        "name": "user_type",
+        "sql_type": "enum('SE','ASM','RSM','ZSM','Retailer','Distributor','Wholesaler')",
+        "description": "System categorical configuration field defining the 'user_type' setting for the 'mom_thread_participants'",
+        "business_value": "Used to track and filter table rows based on their 'user_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "SE",
+          "ASM",
+          "RSM",
+          "ZSM",
+          "Retailer",
+          "Distributor",
+          "Wholesaler"
+        ]
+      }
+    }
+  },
+  "mom_threads": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "entity_type": {
+        "name": "entity_type",
+        "sql_type": "tinyint",
+        "description": "System categorical configuration field defining the 'entity_type' setting for the 'mom_threads' records.",
+        "business_value": "Used to track and filter table rows based on their 'entity_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "2",
+          "5",
+          "4",
+          "0"
+        ]
+      },
+      "isVisitModule": {
+        "name": "isVisitModule",
+        "sql_type": "enum('0','1')",
+        "description": "System categorical configuration field defining the 'isVisitModule' setting for the 'mom_threads' records.",
+        "business_value": "Used to track and filter table rows based on their 'isVisitModule' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'status' setting for the 'mom_threads' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "open"
+        ]
+      }
+    }
+  },
+  "mypoints": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "migration_status": {
+        "name": "migration_status",
+        "sql_type": "tinyint(1)",
+        "description": "System categorical configuration field defining the 'migration_status' setting for the 'mypoints' records.",
+        "business_value": "Used to track and filter table rows based on their 'migration_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'mypoints'",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      },
+      "point_type": {
+        "name": "point_type",
+        "sql_type": "tinyint",
+        "description": "1:success_scan, 2:return, 3:misused_reset. System categorical configuration field defining the 'point_type'",
+        "business_value": "Used to track and filter table rows based on their 'point_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'mypoints'",
+        "values": {},
+        "stored_options": [
+          "1",
+          "2"
+        ]
+      },
+      "user_role": {
+        "name": "user_role",
+        "sql_type": "int",
+        "description": "2=retailer , 4=distributor, 5=wholesaler. System categorical configuration field defining the 'user_role'",
+        "business_value": "Used to track and filter table rows based on their 'user_role' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'mypoints'",
+        "values": {},
+        "stored_options": [
+          "2",
+          "5",
+          "4"
+        ]
+      }
+    }
+  },
+  "notification_events": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1:Active 0:Inactive. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      }
+    }
+  },
+  "notification_logs": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "enum('pending','success','failed','skipped')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'notification_logs' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "pending",
+          "success",
+          "failed",
+          "skipped"
+        ]
+      }
+    }
+  },
+  "notifications": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "notification_type": {
+        "name": "notification_type",
+        "sql_type": "enum('General','Sticky','Alert')",
+        "description": "System categorical configuration field defining the 'notification_type' setting for the 'notifications' records.",
+        "business_value": "Used to track and filter table rows based on their 'notification_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "General",
+          "Sticky",
+          "Alert"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1: Read, 0: Not Read. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      },
+      "user_type": {
+        "name": "user_type",
+        "sql_type": "enum('All','Distributor','Retailer','Wholesaler','Executive','Vender')",
+        "description": "System categorical configuration field defining the 'user_type' setting for the 'notifications' records.",
+        "business_value": "Used to track and filter table rows based on their 'user_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "All",
+          "Distributor",
+          "Retailer",
+          "Wholesaler",
+          "Executive",
+          "Vender"
+        ]
+      }
+    }
+  },
+  "offer": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "user_role": {
+        "name": "user_role",
+        "sql_type": "int unsigned",
+        "description": "System categorical configuration field defining the 'user_role' setting for the 'offer' records.",
+        "business_value": "Used to track and filter table rows based on their 'user_role' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'offer'",
+        "values": {},
+        "stored_options": [
+          "5"
+        ]
+      }
+    }
+  },
+  "order_bulk_mapping": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "order_type": {
+        "name": "order_type",
+        "sql_type": "tinyint",
+        "description": "1 = Gift Orders, 2 = Box gift orders, 3= scheme gift order , 4 = Winter gift orders. System categorical",
+        "business_value": "Used to track and filter table rows based on their 'order_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    }
+  },
+  "order_categories": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "category_name": {
+        "name": "category_name",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'category_name' setting for the 'order_categories'",
+        "business_value": "Used to track and filter table rows based on their 'category_name' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Colour Premium",
+          "Hot Coat",
+          "Kashmira",
+          "MAGMA",
+          "Parka",
+          "launch category"
+        ]
+      },
+      "category_type": {
+        "name": "category_type",
+        "sql_type": "enum('winter','core')",
+        "description": "System categorical configuration field defining the 'category_type' setting for the 'order_categories'",
+        "business_value": "Used to track and filter table rows based on their 'category_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "winter",
+          "core"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "System categorical configuration field defining the 'status' setting for the 'order_categories' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  },
+  "orders": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "order_status": {
+        "name": "order_status",
+        "sql_type": "tinyint",
+        "description": "0:pending,1:approved,2:rejected,3:completed,4:cancelled,5: partially-fulfilled,6: fullfilled. System",
+        "business_value": "Used to track and filter table rows based on their 'order_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'orders'",
+        "values": {},
+        "stored_options": [
+          "4",
+          "0",
+          "3"
+        ]
+      },
+      "order_type": {
+        "name": "order_type",
+        "sql_type": "enum('by_call','by_visit')",
+        "description": "System categorical configuration field defining the 'order_type' setting for the 'orders' records.",
+        "business_value": "Used to track and filter table rows based on their 'order_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'orders'",
+        "values": {},
+        "stored_options": [
+          "by_call",
+          "by_visit"
+        ]
+      },
+      "product_type": {
+        "name": "product_type",
+        "sql_type": "enum('core','winter')",
+        "description": "System categorical configuration field defining the 'product_type' setting for the 'orders' records.",
+        "business_value": "Used to track and filter table rows based on their 'product_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'orders'",
+        "values": {},
+        "stored_options": [
+          "core",
+          "winter"
+        ]
+      }
+    }
+  },
+  "otp": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "user_role": {
+        "name": "user_role",
+        "sql_type": "int",
+        "description": "User role at time of verifying otp. System categorical configuration field defining the 'user_role' setting for",
+        "business_value": "Used to track and filter table rows based on their 'user_role' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'otp' module.",
+        "values": {},
+        "stored_options": [
+          "2",
+          "5",
+          "4"
+        ]
+      }
+    }
+  },
+  "packages": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "plan_type": {
+        "name": "plan_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'plan_type' setting for the 'packages' records.",
+        "business_value": "Used to track and filter table rows based on their 'plan_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'packages'",
+        "values": {},
+        "stored_options": [
+          "free",
+          "paid"
+        ]
+      }
+    }
+  },
+  "per_target_scheme_coupons": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "enum('pending','delivered','cancelled','cn_adjusted')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'per_target_scheme_coupons'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "pending",
+          "delivered",
+          "cancelled",
+          "cn_adjusted"
+        ]
+      }
+    }
+  },
+  "per_target_schemes": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "product_type": {
+        "name": "product_type",
+        "sql_type": "enum('all','core','winter')",
+        "description": "System categorical configuration field defining the 'product_type' setting for the 'per_target_schemes'",
+        "business_value": "Used to track and filter table rows based on their 'product_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "all",
+          "core",
+          "winter"
+        ]
+      }
+    }
+  },
+  "permission": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'status' setting for the 'permission' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'permission'",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      }
+    }
+  },
+  "products": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "1:active,0:inactive. System categorical configuration field defining the 'status' setting for the 'products'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'products'",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      }
+    }
+  },
+  "purchase_targets": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "category_wise_target": {
+        "name": "category_wise_target",
+        "sql_type": "json",
+        "description": "System categorical configuration field defining the 'category_wise_target' setting for the 'purchase_targets'",
+        "business_value": "Used to track and filter table rows based on their 'category_wise_target' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "{\"8\": 0",
+          "\"9\": 0",
+          "\"10\": 0",
+          "\"11\": 0",
+          "\"12\": 0",
+          "\"13\": 0",
+          "\"14\": 0",
+          "\"15\": 0",
+          "\"16\": 0",
+          "\"17\": 0"
+        ]
+      }
+    }
+  },
+  "referral_details": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "referral_type": {
+        "name": "referral_type",
+        "sql_type": "varchar(50)",
+        "description": "System categorical configuration field defining the 'referral_type' setting for the 'referral_details' records.",
+        "business_value": "Used to track and filter table rows based on their 'referral_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "created_by_lead"
+        ]
+      },
+      "user_role": {
+        "name": "user_role",
+        "sql_type": "int unsigned",
+        "description": "System categorical configuration field defining the 'user_role' setting for the 'referral_details' records.",
+        "business_value": "Used to track and filter table rows based on their 'user_role' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "2",
+          "4",
+          "6",
+          "5"
+        ]
+      }
+    }
+  },
+  "repository_documents": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "app_type": {
+        "name": "app_type",
+        "sql_type": "enum('all','SE','Retailer','Distributor')",
+        "description": "System categorical configuration field defining the 'app_type' setting for the 'repository_documents'",
+        "business_value": "Used to track and filter table rows based on their 'app_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "all",
+          "SE",
+          "Retailer",
+          "Distributor"
+        ]
+      }
+    }
+  },
+  "retailer_bulk_requests": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "report_type": {
+        "name": "report_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'report_type' setting for the 'retailer_bulk_requests'",
+        "business_value": "Used to track and filter table rows based on their 'report_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "qr_list_master_report",
+          "retailer_list",
+          "cash_redemption_report"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'status' setting for the 'retailer_bulk_requests' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "completed",
+          "pending"
+        ]
+      }
+    }
+  },
+  "retailer_category_qualified": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "category_id": {
+        "name": "category_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'category_id' setting for the 'retailer_category_qualified'",
+        "business_value": "Used to track and filter table rows based on their 'category_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "362",
+          "369",
+          "371",
+          "464",
+          "465",
+          "467",
+          "468",
+          "469",
+          "471",
+          "470 ... (and more)"
+        ]
+      }
+    }
+  },
+  "retailer_credit_notes": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "business_type": {
+        "name": "business_type",
+        "sql_type": "varchar(255)",
+        "description": "Wholesaler, Retailer. System categorical configuration field defining the 'business_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'business_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "wholesaler",
+          "retailer"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1: Approved, 0: Not Approved. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      }
+    }
+  },
+  "retailer_schemes_mapping": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "enrollment_status": {
+        "name": "enrollment_status",
+        "sql_type": "tinyint",
+        "description": "0:pending, 1:active, 2:inactive. System categorical configuration field defining the 'enrollment_status'",
+        "business_value": "Used to track and filter table rows based on their 'enrollment_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "2"
+        ]
+      }
+    }
+  },
+  "role_conversion_histories": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "new_role": {
+        "name": "new_role",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'new_role' setting for the 'role_conversion_histories'",
+        "business_value": "Used to track and filter table rows based on their 'new_role' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "2",
+          "5"
+        ]
+      },
+      "old_role": {
+        "name": "old_role",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'old_role' setting for the 'role_conversion_histories'",
+        "business_value": "Used to track and filter table rows based on their 'old_role' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "5",
+          "2"
+        ]
+      }
+    }
+  },
+  "role_permission_module": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "role_id": {
+        "name": "role_id",
+        "sql_type": "int",
+        "description": "System categorical configuration field defining the 'role_id' setting for the 'role_permission_module'",
+        "business_value": "Used to track and filter table rows based on their 'role_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "3",
+          "7",
+          "9",
+          "10",
+          "11",
+          "13",
+          "14"
+        ]
+      }
+    }
+  },
+  "scanned_qrcode_history": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "int",
+        "description": "System categorical configuration field defining the 'status' setting for the 'scanned_qrcode_history' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "4",
+          "13",
+          "3",
+          "14",
+          "15",
+          "9",
+          "2",
+          "5",
+          "19",
+          "20 ... (and more)"
+        ]
+      },
+      "type": {
+        "name": "type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'type' setting for the 'scanned_qrcode_history' records.",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "bulk_scan",
+          "regular",
+          "manual"
+        ]
+      }
+    }
+  },
+  "scheme_gift_items": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "gift_category_id": {
+        "name": "gift_category_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'gift_category_id' setting for the 'scheme_gift_items'",
+        "business_value": "Used to track and filter table rows based on their 'gift_category_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "12",
+          "13",
+          "15",
+          "18"
+        ]
+      }
+    }
+  },
+  "scheme_gift_orders": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "assigned_type": {
+        "name": "assigned_type",
+        "sql_type": "tinyint",
+        "description": "0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'assigned_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "enum('Pending','Processing','Delivered','Cancelled','Closed','CN adjusted')",
+        "description": "order status. System categorical configuration field defining the 'status' setting for the 'scheme_gift_orders'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Pending",
+          "Processing",
+          "Delivered",
+          "Cancelled",
+          "Closed",
+          "CN adjusted"
+        ]
+      }
+    }
+  },
+  "scheme_orders": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "order_status": {
+        "name": "order_status",
+        "sql_type": "tinyint",
+        "description": "0:Pending, 1:Approved, 2:Rejected, 3:Completed, 4:Cancelled. System categorical configuration field",
+        "business_value": "Used to track and filter table rows based on their 'order_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      }
+    }
+  },
+  "scheme_wallet_transactions": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "reference_type": {
+        "name": "reference_type",
+        "sql_type": "enum('sku_scan','scheme_gift_order','incentive','cash_convert','credit_note','topup')",
+        "description": "System categorical configuration field defining the 'reference_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'reference_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "sku_scan",
+          "scheme_gift_order",
+          "incentive",
+          "cash_convert",
+          "credit_note",
+          "topup"
+        ]
+      },
+      "transaction_type": {
+        "name": "transaction_type",
+        "sql_type": "tinyint(1)",
+        "description": "0:debit,1:credit. System categorical configuration field defining the 'transaction_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'transaction_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      }
+    }
+  },
+  "schemes": {
+    "dropdown_column_count": 4,
+    "columns": {
+      "point_type": {
+        "name": "point_type",
+        "sql_type": "enum('box_value','cash_value')",
+        "description": "System categorical configuration field defining the 'point_type' setting for the 'schemes' records.",
+        "business_value": "Used to track and filter table rows based on their 'point_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'schemes'",
+        "values": {},
+        "stored_options": [
+          "box_value",
+          "cash_value"
+        ]
+      },
+      "scan_type": {
+        "name": "scan_type",
+        "sql_type": "tinyint",
+        "description": "1->cash_point scan, 2->gift_scan , 3->winter_scan,4->scheme_scan. System categorical configuration",
+        "business_value": "Used to track and filter table rows based on their 'scan_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'schemes'",
+        "values": {},
+        "stored_options": [
+          "4"
+        ]
+      },
+      "scheme_type": {
+        "name": "scheme_type",
+        "sql_type": "enum('autoEnroll','manualEnroll')",
+        "description": "System categorical configuration field defining the 'scheme_type' setting for the 'schemes' records.",
+        "business_value": "Used to track and filter table rows based on their 'scheme_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'schemes'",
+        "values": {},
+        "stored_options": [
+          "autoEnroll",
+          "manualEnroll"
+        ]
+      },
+      "user_type": {
+        "name": "user_type",
+        "sql_type": "enum('retailer','wholesaler','both')",
+        "description": "System categorical configuration field defining the 'user_type' setting for the 'schemes' records.",
+        "business_value": "Used to track and filter table rows based on their 'user_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'schemes'",
+        "values": {},
+        "stored_options": [
+          "retailer",
+          "wholesaler",
+          "both"
+        ]
+      }
+    }
+  },
+  "se_reports": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "report_name": {
+        "name": "report_name",
+        "sql_type": "enum('new_retailers','new_category')",
+        "description": "System categorical configuration field defining the 'report_name' setting for the 'se_reports' records.",
+        "business_value": "Used to track and filter table rows based on their 'report_name' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'se_reports'",
+        "values": {},
+        "stored_options": [
+          "new_retailers",
+          "new_category"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint unsigned",
+        "description": "O:pending,1:processing, 2:completed, 3:failed. System categorical configuration field defining the 'status'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'se_reports'",
+        "values": {},
+        "stored_options": [
+          "2"
+        ]
+      }
+    }
+  },
+  "se_task": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "varchar(255)",
+        "description": "1=pending,2=reschedule,3=completed,4=failed,5=cancelled. System categorical configuration field",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'se_task'",
+        "values": {},
+        "stored_options": [
+          "4",
+          "3"
+        ]
+      }
+    }
+  },
+  "se_task_history": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "varchar(255)",
+        "description": "pending,reschedule,completed,failed,cancelled. System categorical configuration field defining the 'status'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      }
+    }
+  },
+  "shop_verification_images": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "user_type": {
+        "name": "user_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'user_type' setting for the 'shop_verification_images'",
+        "business_value": "Used to track and filter table rows based on their 'user_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "distributor",
+          "retailer",
+          "wholeseller"
+        ]
+      }
+    }
+  },
+  "sku_bulk_imports": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "Source": {
+        "name": "Source",
+        "sql_type": "tinyint(1)",
+        "description": "1:kolkata, 0:Tirupur. System categorical configuration field defining the 'Source' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'Source' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  },
+  "sku_inventories": {
+    "dropdown_column_count": 4,
+    "columns": {
+      "order_type": {
+        "name": "order_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'order_type' setting for the 'sku_inventories' records.",
+        "business_value": "Used to track and filter table rows based on their 'order_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Distributor"
+        ]
+      },
+      "sources": {
+        "name": "sources",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'sources' setting for the 'sku_inventories' records.",
+        "business_value": "Used to track and filter table rows based on their 'sources' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "tirupur",
+          "kolkata"
+        ]
+      },
+      "status_retailer_id": {
+        "name": "status_retailer_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'status_retailer_id' setting for the 'sku_inventories'",
+        "business_value": "Used to track and filter table rows based on their 'status_retailer_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "57302",
+          "75649",
+          "53595",
+          "60728",
+          "51234",
+          "66502",
+          "78564",
+          "60422",
+          "54773",
+          "50503 ..."
+        ]
+      },
+      "status_wholeseller_id": {
+        "name": "status_wholeseller_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'status_wholeseller_id' setting for the 'sku_inventories'",
+        "business_value": "Used to track and filter table rows based on their 'status_wholeseller_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "50224",
+          "51321",
+          "48700"
+        ]
+      }
+    }
+  },
+  "sku_products": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "category_sub_group_id": {
+        "name": "category_sub_group_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'category_sub_group_id' setting for the 'sku_products'",
+        "business_value": "Used to track and filter table rows based on their 'category_sub_group_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "2",
+          "3",
+          "7",
+          "5",
+          "44",
+          "45",
+          "46",
+          "15",
+          "47 ... (and more)"
+        ]
+      },
+      "season": {
+        "name": "season",
+        "sql_type": "enum('winter','summer','rainy','core')",
+        "description": "System categorical configuration field defining the 'season' setting for the 'sku_products' records.",
+        "business_value": "Used to track and filter table rows based on their 'season' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "winter",
+          "summer",
+          "rainy",
+          "core"
+        ]
+      }
+    }
+  },
+  "sku_qr_points_maps": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "gride_type": {
+        "name": "gride_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'gride_type' setting for the 'sku_qr_points_maps'",
+        "business_value": "Used to track and filter table rows based on their 'gride_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "FG_BIG",
+          "FG_SMALL"
+        ]
+      }
+    }
+  },
+  "state": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "jgh_magic_status": {
+        "name": "jgh_magic_status",
+        "sql_type": "tinyint(1)",
+        "description": "1:Active, 0:Inactive. System categorical configuration field defining the 'jgh_magic_status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'jgh_magic_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'state'",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      }
+    }
+  },
+  "suppliers": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "type": {
+        "name": "type",
+        "sql_type": "tinyint",
+        "description": "1=Travel Agent, 2=Online Partner, 3=Agency. System categorical configuration field defining the 'type'",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'suppliers'",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      }
+    }
+  },
+  "survey_forms": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1:Active, 0:Inactive. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      }
+    }
+  },
+  "sync_tripur_data": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "source": {
+        "name": "source",
+        "sql_type": "varchar(20)",
+        "description": "System categorical configuration field defining the 'source' setting for the 'sync_tripur_data' records.",
+        "business_value": "Used to track and filter table rows based on their 'source' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "tirupur",
+          "kolkata"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "0=pending, 1=processing,2=qr_generated,3=qr_processing,4=processed. System categorical",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "4",
+          "29",
+          "1"
+        ]
+      }
+    }
+  },
+  "table_qr_pdfs": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "int",
+        "description": "System categorical configuration field defining the 'status' setting for the 'table_qr_pdfs' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      }
+    }
+  },
+  "tds_certificates": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "business_type": {
+        "name": "business_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'business_type' setting for the 'tds_certificates' records.",
+        "business_value": "Used to track and filter table rows based on their 'business_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Retailer",
+          "Wholesaler"
+        ]
+      }
+    }
+  },
+  "tripur_api_tokens": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "token_type": {
+        "name": "token_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'token_type' setting for the 'tripur_api_tokens' records.",
+        "business_value": "Used to track and filter table rows based on their 'token_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Bearer"
+        ]
+      }
+    }
+  },
+  "user_geotag_photos": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "approval_status": {
+        "name": "approval_status",
+        "sql_type": "tinyint(1)",
+        "description": "0: Pending, 1: Approved, 2: Rejected. System categorical configuration field defining the 'approval_status'",
+        "business_value": "Used to track and filter table rows based on their 'approval_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1",
+          "2"
+        ]
+      }
+    }
+  },
+  "user_scan_permissions": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "1:Block, 0:Unblock. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      }
+    }
+  },
+  "user_withdrawal_block_histories": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "0:unblock,1:blocked. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      },
+      "withdrawal_type": {
+        "name": "withdrawal_type",
+        "sql_type": "enum('cash','gift_redeem')",
+        "description": "System categorical configuration field defining the 'withdrawal_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'withdrawal_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "cash",
+          "gift_redeem"
+        ]
+      }
+    }
+  },
+  "users": {
+    "dropdown_column_count": 5,
+    "columns": {
+      "account_type": {
+        "name": "account_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'account_type' setting for the 'users' records.",
+        "business_value": "Used to track and filter table rows based on their 'account_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'users'",
+        "values": {},
+        "stored_options": [
+          "Savings",
+          "Current"
+        ]
+      },
+      "bank_details_status": {
+        "name": "bank_details_status",
+        "sql_type": "tinyint",
+        "description": "0=bank data not present,1= bank data present. System categorical configuration field defining the",
+        "business_value": "Used to track and filter table rows based on their 'bank_details_status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'users'",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      },
+      "kyc_status": {
+        "name": "kyc_status",
+        "sql_type": "int",
+        "description": "User Identity & Document Verification State",
+        "business_value": "Enforces tax compliance and identity verification.",
+        "trigger": "(Trigger): Set by automated KYC validation engines (Aadhaar/PAN API) or manual",
+        "values": {
+          "0 (Unverified)": {
+            "description": "KYC process has not been completed or started.",
+            "source": "Default status for newly created accounts.",
+            "use": "Blocks the user from requesting cash withdrawals to comply with tax guidelines."
+          },
+          "1 (Verified)": {
+            "description": "User's Aadhaar and PAN documents verified as authentic.",
+            "source": "Digio verification callback or manual admin verification.",
+            "use": "Enables the cash withdrawal feature in the user's mobile wallet."
+          },
+          "2 (Rejected)": {
+            "description": "Aadhaar/PAN verification failed due to document mismatches.",
+            "source": "KYC API verification failure.",
+            "use": "Restricts withdrawals and flags the account for document correction."
+          }
+        }
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "varchar(255)",
+        "description": "User Account Access Status",
+        "business_value": "Enforces platform security and KYC validation checks.",
+        "trigger": "(Trigger): Set manually by Business/Super Admins on the dashboard panel.",
+        "values": {
+          "pending": {
+            "description": "User profile is registered but has not been verified by an admin.",
+            "source": "Automatically assigned during user self-onboarding in the mobile app.",
+            "use": "Allows the user to log in but restricts them from scanning QR codes or withdrawing cash until approved."
+          },
+          "approved": {
+            "description": "User profile verified and authenticated.",
+            "source": "Dashboard action by a Super Admin after reviewing user documents.",
+            "use": "Unlocks full access to loyalty scans, target schemes, and points withdrawals."
+          },
+          "rejected": {
+            "description": "User onboarding application failed validation (e.g. incorrect PAN, fake store name).",
+            "source": "Dashboard rejection action by an Admin.",
+            "use": "Suspends account features and prompts the user to re-upload clear profile information."
+          }
+        }
+      },
+      "user_role": {
+        "name": "user_role",
+        "sql_type": "int",
+        "description": "System Access Level",
+        "business_value": "Controls menu visibility and points distribution structures.",
+        "trigger": "(Trigger): Set during registration or modified by Admins. Maps to role.id.",
+        "values": {
+          "1 (Business Admin)": {
+            "description": "Company-level admin with dashboard access.",
+            "source": "Admin panel creation.",
+            "use": "Manages regional SKU mappings and scheme distributions."
+          },
+          "2 (Retailer)": {
+            "description": "Retailer outlet scanner account.",
+            "source": "User registration selections.",
+            "use": "Assigned retailer cash points for scanning SKUs."
+          },
+          "4 (Distributor)": {
+            "description": "Distributor supply chain account.",
+            "source": "Distributor onboarding portal.",
+            "use": "Authorized to manage billing and Credit Note settlements."
+          },
+          "5 (Wholesaler)": {
+            "description": "Wholesaler scanner account.",
+            "source": "User registration selections.",
+            "use": "Assigned wholesaler cash points for scanning SKUs."
+          }
+        }
+      }
+    }
+  },
+  "vendor_element_state_mappings": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "1=active, 0=inactive. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      }
+    }
+  },
+  "vendors": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "gender": {
+        "name": "gender",
+        "sql_type": "enum('male','female','other')",
+        "description": "System categorical configuration field defining the 'gender' setting for the 'vendors' records.",
+        "business_value": "Used to track and filter table rows based on their 'gender' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'vendors'",
+        "values": {},
+        "stored_options": [
+          "male",
+          "female",
+          "other"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "1=active, 0=inactive. System categorical configuration field defining the 'status' setting for the 'vendors'",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'vendors'",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  },
+  "video_responses": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "response": {
+        "name": "response",
+        "sql_type": "enum('interested','se_visit','call_back')",
+        "description": "System categorical configuration field defining the 'response' setting for the 'video_responses' records.",
+        "business_value": "Used to track and filter table rows based on their 'response' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "interested",
+          "se_visit",
+          "call_back"
+        ]
+      }
+    }
+  },
+  "visit_check_in_check_out": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "visit_type": {
+        "name": "visit_type",
+        "sql_type": "varchar(255)",
+        "description": "System categorical configuration field defining the 'visit_type' setting for the 'visit_check_in_check_out'",
+        "business_value": "Used to track and filter table rows based on their 'visit_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "ORDER RECEIVED",
+          "yes",
+          "2",
+          "owner not present",
+          "Dinesh Kumar",
+          "visit complete"
+        ]
+      }
+    }
+  },
+  "wallet_transaction": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "reference_type": {
+        "name": "reference_type",
+        "sql_type": "enum('cash_point','withdrawal','topup','bonus_conversion','referral_earning','returned','coupon_redeem','cr",
+        "description": "Wallet Points Credit/Debit Source Category",
+        "business_value": "Tracks the source of wallet balance adjustments (e.g. cash_point, withdrawal,",
+        "trigger": "(Trigger): Written by the ledger service whenever points are adjusted. Triggers include",
+        "values": {
+          "cash_point": {
+            "description": "QR Code Scan Reward: Retailer scanned a barcode box.",
+            "source": "Successful QR scan validation.",
+            "use": "Points credited to retailer wallet balance (linked to mypoints.id)."
+          },
+          "withdrawal": {
+            "description": "Cash Out Payout: User redeemed wallet points for bank account cash.",
+            "source": "User submits withdrawal form in app.",
+            "use": "Deducts cash amount from wallet balance (linked to withdrawal_request.id)."
+          },
+          "topup": {
+            "description": "Manual Adjustment: Admin manually adds/adjusts user points.",
+            "source": "Admin panel point override forms.",
+            "use": "Direct wallet credit (reference_id is NULL)."
+          },
+          "bonus_conversion": {
+            "description": "Cash-to-Bonus Conversion: Cash points converted into gift shop points.",
+            "source": "User selects conversion in app profile.",
+            "use": "Deducts cash balance and credits gift points (linked to bonus_transactions.id)."
+          },
+          "referral_earning": {
+            "description": "Referral Reward: Referrer earned points from a referred user.",
+            "source": "Invite referral system logs.",
+            "use": "Credits points to referrer wallet balance (reference_id is NULL)."
+          },
+          "credit_note": {
+            "description": "Credit Note Settlement: Payout adjusted directly with distributor.",
+            "source": "Distributor billing settlement actions.",
+            "use": "Deducts settled credit note value from wallet (linked to retailer_credit_notes.id)."
+          },
+          "incentive": {
+            "description": "Campaign Target Points: Awarded for hitting growth target schemes.",
+            "source": "Weekly/monthly target checks.",
+            "use": "Credits campaign scheme bonus to wallet (linked to incentive_schemes.id)."
+          }
+        }
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "Wallet Points Ledger Transaction Status",
+        "business_value": "Represents the validation stage of the financial point entry.",
+        "trigger": "(Trigger): Logged by database triggers on QR scan completes or payout requests.",
+        "values": {
+          "0 (pending)": {
+            "description": "Points entry initiated but awaiting system validation or admin approval.",
+            "source": "Ledger initiation trigger.",
+            "use": "Temporarily reserves the points, preventing balance inflation before verification completes."
+          },
+          "1 (success)": {
+            "description": "Points entry verified and completed.",
+            "source": "Successful QR validation webhook or approved payout.",
+            "use": "Increments or decrements the user's active wallet balance (wallet_balance) permanently."
+          },
+          "2 (failed)": {
+            "description": "Points entry rejected or cancelled.",
+            "source": "QR validation rejection or payout request cancellation.",
+            "use": "Invalidates the points transaction, preventing any balance changes."
+          }
+        }
+      },
+      "transaction_type": {
+        "name": "transaction_type",
+        "sql_type": "tinyint(1)",
+        "description": "0:Debit,1:Credit. System categorical configuration field defining the 'transaction_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'transaction_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1",
+          "0"
+        ]
+      }
+    }
+  },
+  "weekly_scheme_prizes": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "type": {
+        "name": "type",
+        "sql_type": "enum('cash','gift','bonus')",
+        "description": "System categorical configuration field defining the 'type' setting for the 'weekly_scheme_prizes' records.",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "cash",
+          "gift",
+          "bonus"
+        ]
+      }
+    }
+  },
+  "wholesale_wallet_transactions": {
+    "dropdown_column_count": 3,
+    "columns": {
+      "reference_type": {
+        "name": "reference_type",
+        "sql_type": "enum('sku_scan','credit_note','cash_withdrawal')",
+        "description": "System categorical configuration field defining the 'reference_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'reference_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "sku_scan",
+          "credit_note",
+          "cash_withdrawal"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "0:pending, 1:success, 2:failed. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "1"
+        ]
+      },
+      "transaction_type": {
+        "name": "transaction_type",
+        "sql_type": "tinyint(1)",
+        "description": "0:debit, 1:credit. System categorical configuration field defining the 'transaction_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'transaction_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  },
+  "winter_gift_items": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "gift_category_id": {
+        "name": "gift_category_id",
+        "sql_type": "bigint unsigned",
+        "description": "System categorical configuration field defining the 'gift_category_id' setting for the 'winter_gift_items'",
+        "business_value": "Used to track and filter table rows based on their 'gift_category_id' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "12",
+          "14",
+          "15",
+          "18"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint",
+        "description": "0:inactive,1:active. System categorical configuration field defining the 'status' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0"
+        ]
+      }
+    }
+  },
+  "winter_gift_orders": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "assigned_type": {
+        "name": "assigned_type",
+        "sql_type": "tinyint",
+        "description": "0-> distributor , 1->other. System categorical configuration field defining the 'assigned_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'assigned_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "-"
+        ]
+      },
+      "status": {
+        "name": "status",
+        "sql_type": "enum('Pending','Processing','Delivered','Cancelled','Closed','CN adjusted')",
+        "description": "System categorical configuration field defining the 'status' setting for the 'winter_gift_orders' records.",
+        "business_value": "Used to track and filter table rows based on their 'status' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "Pending",
+          "Processing",
+          "Delivered",
+          "Cancelled",
+          "Closed",
+          "CN adjusted"
+        ]
+      }
+    }
+  },
+  "winter_scan_wallet_transactions": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "reference_type": {
+        "name": "reference_type",
+        "sql_type": "enum('sku_scan','gift_order','cash_withdrawal','topup','credit_note')",
+        "description": "System categorical configuration field defining the 'reference_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'reference_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "sku_scan",
+          "gift_order",
+          "cash_withdrawal",
+          "topup",
+          "credit_note"
+        ]
+      },
+      "transaction_type": {
+        "name": "transaction_type",
+        "sql_type": "tinyint",
+        "description": "0:debit,1:credit. System categorical configuration field defining the 'transaction_type' setting for the",
+        "business_value": "Used to track and filter table rows based on their 'transaction_type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the",
+        "values": {},
+        "stored_options": [
+          "0",
+          "1"
+        ]
+      }
+    }
+  },
+  "wishlists": {
+    "dropdown_column_count": 1,
+    "columns": {
+      "type": {
+        "name": "type",
+        "sql_type": "enum('gift_card','scheme_gift_card','winter_gift_card')",
+        "description": "System categorical configuration field defining the 'type' setting for the 'wishlists' records.",
+        "business_value": "Used to track and filter table rows based on their 'type' values.",
+        "trigger": "(Trigger): Set during record creation or updated during status updates in the 'wishlists'",
+        "values": {},
+        "stored_options": [
+          "gift_card",
+          "scheme_gift_card",
+          "winter_gift_card"
+        ]
+      }
+    }
+  },
+  "withdrawal_request": {
+    "dropdown_column_count": 2,
+    "columns": {
+      "status": {
+        "name": "status",
+        "sql_type": "tinyint(1)",
+        "description": "Cash Withdrawal Workflow State",
+        "business_value": "Controls the validation and release of cash payouts.",
+        "trigger": "(Trigger): Initiated by the user and processed by dashboard administrators.",
+        "values": {
+          "0 (pending)": {
+            "description": "Withdrawal requested by the user and queued for accountant review.",
+            "source": "User submits a payout form in the mobile wallet.",
+            "use": "Appears on the dashboard payout queue for approval."
+          },
+          "1 (approved)": {
+            "description": "Withdrawal request authorized and bank transfer completed.",
+            "source": "Accountant clicks 'Approve' on the dashboard, triggering the payout API.",
+            "use": "Confirms the funds have been successfully routed to the bank."
+          },
+          "2 (Reject)": {
+            "description": "Withdrawal request refused.",
+            "source": "Dashboard rejection action by an Admin (e.g. incorrect bank account details).",
+            "use": "Reverses the points back to the user's active wallet balance and notifies them."
+          }
+        }
+      },
+      "withdraw_request_type": {
+        "name": "withdraw_request_type",
+        "sql_type": "varchar(50)",
+        "description": "Requested Payout Routing Method",
+        "business_value": "Directs how the payout API payload should be compiled.",
+        "trigger": "(Trigger): Chosen by the user in the mobile wallet payout screen.",
+        "values": {
+          "bank": {
+            "description": "Transfer directly to the user's checking/savings bank account.",
+            "source": "User inputs account number and IFSC code.",
+            "use": "Routs transaction through bank API (IMPS/NEFT)."
+          },
+          "upi": {
+            "description": "Transfer to the user's UPI handle.",
+            "source": "User inputs Virtual Payment Address (VPA).",
+            "use": "Routs transaction through UPI payout endpoints."
+          }
+        }
+      }
+    }
+  }
+}

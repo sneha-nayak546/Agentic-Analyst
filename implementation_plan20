@@ -1,0 +1,76 @@
+# Implementation Plan - AES-256 Encrypted Database Credentials & Centralized Security Module
+
+Secure all database credentials (`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`) using AES-256 symmetric encryption (Fernet). Replace plain-text `.env` credentials with encrypted ciphertext, separate the Master Secret Key from source control, centralize credential access in `app/database/config.py`, and enforce TLS/SSL wire encryption on MySQL database connections.
+
+## User Review Required
+
+> [!IMPORTANT]
+> - **Zero Plain-Text Credentials**: Plain-text credentials will be removed from `.env` and replaced with an encrypted payload string `ENCRYPTED_DB_CONFIG`.
+> - **Master Secret Key Separation**: The Master Secret Key will be stored in `.master.key` at the workspace root, which will be added to `.gitignore`. Alternatively, `MASTER_SECRET_KEY` can be set in OS environment variables.
+> - **Database Functionality & Safety**: Database tables, schemas, and data will remain completely untouched. The backend modules will connect seamlessly using the in-memory decrypted credentials.
+
+## Proposed Changes
+
+### Dependencies & Git Rules
+
+#### [MODIFY] [requirements.txt](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/requirements.txt)
+- Add `cryptography>=41.0.0` dependency.
+
+#### [MODIFY] [.gitignore](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/.gitignore)
+- Add `.master.key` to prevent accidental commits of the master encryption key.
+
+---
+
+### Centralized Security Module & Setup Script
+
+#### [NEW] [config.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/config.py)
+- Create central security and database configuration provider:
+  - `get_master_key()`: Loads key from `MASTER_SECRET_KEY` env var or `.master.key` file.
+  - `get_db_credentials()`: Decrypts `ENCRYPTED_DB_CONFIG` in memory using Fernet AES-256 and returns host, port, database name, user, and password dict.
+  - `get_db_url()`: Returns SQLAlchemy `URL` object built from decrypted credentials.
+  - `get_db_engine()`: Returns SQLAlchemy `Engine` configured with `connect_args={"ssl": {}}` for wire encryption.
+
+#### [NEW] [secure_credentials.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/secure_credentials.py)
+- Utility script to automate key generation and credential encryption:
+  - Generates `.master.key` if it doesn't exist.
+  - Reads plain-text `.env` credentials.
+  - Encrypts credentials into `ENCRYPTED_DB_CONFIG` payload using Fernet AES-256.
+  - Writes encrypted payload to `.env`.
+  - Performs instant connection test to verify decryption and database connection.
+
+---
+
+### Refactoring Backend Modules
+
+#### [MODIFY] [connection.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/connection.py)
+- Update `test_connection()` to fetch credentials via `get_db_credentials()` and `get_db_url()` from `app.database.config`.
+
+#### [MODIFY] [read_executor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/read_executor.py)
+- Refactor `get_engine()` to retrieve database URL and engine options via `get_db_engine()` from `app.database.config`.
+
+#### [MODIFY] [schema_extractor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/schema_extractor.py)
+- Update `extract_schema_summary()` to use `get_db_credentials()` from `app.database.config`.
+
+#### [MODIFY] [metadata_extractor.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/database/metadata_extractor.py)
+- Update `extract_table_metadata()` to use `get_db_credentials()` from `app.database.config`.
+
+#### [MODIFY] [db_profiler.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/db_profiler.py)
+- Update `profile_database()` to use `get_db_credentials()` from `app.database.config`.
+
+#### [MODIFY] [relationship_builder.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/app/knowledge/relationship_builder.py)
+- Update `build_relationship_graph()` to use `get_db_credentials()` from `app.database.config`.
+
+#### [MODIFY] Standalone Profiling Scripts
+- Update [inspect_live_db.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/inspect_live_db.py), [fast_profile.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/fast_profile.py), [enum_profile.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/enum_profile.py), and [profile_to_json.py](file:///c:/Users/nayak_o7hopi6/Desktop/Agent/profile_to_json.py) to source credentials securely from `app.database.config`.
+
+## Verification Plan
+
+### Automated Tests
+- Run `secure_credentials.py` to generate master key, encrypt `.env`, and perform automated connection test.
+- Run `python -m app.database.connection` to verify connection test succeeds with decrypted credentials.
+- Run `python -m app.database.read_executor` to verify read queries execute successfully.
+- Run `python test_agent_pipeline.py` or existing backend test scripts to verify full system compatibility.
+
+### Manual Verification
+- Inspect `.env` file to confirm no plain-text database credentials or passwords remain visible.
+- Verify `.master.key` is ignored in Git status.

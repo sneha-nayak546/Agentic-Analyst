@@ -1,0 +1,18 @@
+[
+    {
+        "rule": "Read Only",
+        "description": "Always generate SELECT statements only."
+    },
+    {
+        "rule": "Default Result Limit",
+        "description": "Limit queries to 500 rows unless computing an aggregate (COUNT, SUM, AVG)."
+    },
+    {
+        "rule": "Live Database Execution",
+        "description": "Always execute SQL against the real MySQL database. Never return cached metadata values."
+    },
+    {
+        "rule": "Table Scoping",
+        "description": "Only query from the 8 profiled enterprise business tables."
+    }
+]

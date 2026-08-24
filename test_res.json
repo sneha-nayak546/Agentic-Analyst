@@ -1,0 +1,143 @@
+{
+  "question": "I WANT TODAYS SCANNING REPORT",
+  "generated_sql": "SELECT si.id, si.sku_code, si.sku_description, si.uom, si.mrp, si.invoice_number, si.distributer_id, si.status_retailer_id, si.status_wholeseller_id, si.retailer_scanned_at, si.wholesaler_scanned_at, si.created_at FROM sku_inventories AS si WHERE (NOT si.retailer_scanned_at IS NULL OR NOT si.wholesaler_scanned_at IS NULL) AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) >= CURRENT_DATE AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) < CURRENT_DATE + INTERVAL '1' DAY ORDER BY si.id DESC LIMIT 500",
+  "optimized_sql": "SELECT si.id, si.sku_code, si.sku_description, si.uom, si.mrp, si.invoice_number, si.distributer_id, si.status_retailer_id, si.status_wholeseller_id, si.retailer_scanned_at, si.wholesaler_scanned_at, si.created_at FROM sku_inventories AS si WHERE (NOT si.retailer_scanned_at IS NULL OR NOT si.wholesaler_scanned_at IS NULL) AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) >= CURRENT_DATE AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) < CURRENT_DATE + INTERVAL '1' DAY ORDER BY si.id DESC LIMIT 500",
+  "validation": {
+    "status": "APPROVED",
+    "sql": "SELECT si.id, si.sku_code, si.sku_description, si.uom, si.mrp, si.invoice_number, si.distributer_id, si.status_retailer_id, si.status_wholeseller_id, si.retailer_scanned_at, si.wholesaler_scanned_at, si.created_at FROM sku_inventories AS si WHERE (NOT si.retailer_scanned_at IS NULL OR NOT si.wholesaler_scanned_at IS NULL) AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) >= CURRENT_DATE AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) < CURRENT_DATE + INTERVAL '1' DAY ORDER BY si.id DESC LIMIT 500"
+  },
+  "affected_tables": [
+    "sku_inventories"
+  ],
+  "thinking_steps": [
+    "Step 1: Extracting intent, entities, and context filters...",
+    "Entities Discovered: sku_inventories",
+    "Step 2: Execution Plan created for 1 tables.",
+    "Step 3: Generating Plan & SQL (Attempt 1)...",
+    "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+    "Step 5: Evaluating Execution Plan (Attempt 1)...",
+    "Step 7: Result Accuracy Validation \u2014 verifying result matches business intent...",
+    "Step 7 Result: VERIFIED_EMPTY \u2014 No filters to check",
+    "Step 7: Formatting query explanation from execution plan..."
+  ],
+  "reasoning": {
+    "question": "I WANT TODAYS SCANNING REPORT",
+    "detected_tables": [
+      "sku_inventories"
+    ],
+    "date_range": {
+      "start": "2026-08-20",
+      "end": "2026-08-21"
+    },
+    "detected_joins": []
+  },
+  "execution": {
+    "success": true,
+    "columns": [],
+    "data": [],
+    "row_count": 0
+  },
+  "summary": "No matching records found for query: *\"I WANT TODAYS SCANNING REPORT\"*.",
+  "explanation": "No structured plan generated.",
+  "confidence_score": 90,
+  "execution_plan": {
+    "success": true,
+    "plan": {
+      "query_block": {
+        "select_id": 1,
+        "cost_info": {
+          "query_cost": "854626.72"
+        },
+        "ordering_operation": {
+          "using_filesort": false,
+          "table": {
+            "table_name": "si",
+            "access_type": "index",
+            "possible_keys": [
+              "wholesaler_scanned_at",
+              "retailer_scanned_at"
+            ],
+            "key": "PRIMARY",
+            "used_key_parts": [
+              "id"
+            ],
+            "key_length": "8",
+            "rows_examined_per_scan": 500,
+            "rows_produced_per_join": 6994925,
+            "filtered": "99.00",
+            "backward_index_scan": true,
+            "cost_info": {
+              "read_cost": "155134.10",
+              "eval_cost": "699492.58",
+              "prefix_cost": "854626.72",
+              "data_read_per_join": "93G"
+            },
+            "used_columns": [
+              "id",
+              "mrp",
+              "sku_code",
+              "sku_description",
+              "uom",
+              "invoice_number",
+              "distributer_id",
+              "created_at",
+              "status_wholeseller_id",
+              "status_retailer_id",
+              "wholesaler_scanned_at",
+              "retailer_scanned_at"
+            ],
+            "attached_condition": "(((`jghMasterDB`.`si`.`retailer_scanned_at` is not null) or (`jghMasterDB`.`si`.`wholesaler_scanned_at` is not null)) and (coalesce(`jghMasterDB`.`si`.`retailer_scanned_at`,`jghMasterDB`.`si`.`wholesaler_scanned_at`) >= <cache>(curdate())) and (coalesce(`jghMasterDB`.`si`.`retailer_scanned_at`,`jghMasterDB`.`si`.`wholesaler_scanned_at`) < <cache>((curdate() + interval '1' day))))"
+          }
+        }
+      }
+    },
+    "cost": 854626.72,
+    "estimated_rows": 0
+  },
+  "context": {},
+  "status": "success",
+  "result_confidence": "VERIFIED_EMPTY",
+  "accuracy_message": "No matching records were found after verification. The query filters are correct but no data exists for this combination.",
+  "result_accuracy": {
+    "result_confidence": "VERIFIED_EMPTY",
+    "accuracy_message": "No matching records were found after verification. The query filters are correct but no data exists for this combination.",
+    "checks_performed": [],
+    "issues_found": [],
+    "probe_performed": false,
+    "probe_result": null
+  },
+  "debug_pipeline": {
+    "user_question": "I WANT TODAYS SCANNING REPORT",
+    "intent": "I WANT TODAYS SCANNING REPORT",
+    "entity": null,
+    "context": {},
+    "tables": [],
+    "rag": {
+      "tables": [],
+      "prompt_length_tokens": 582
+    },
+    "prompt": "You are an expert MySQL Data Analyst for JGH Enterprise.\nYour task is to write an optimized MySQL SELECT query to answer the user question using ONLY the provided schema and business rules.\n\nCURRENT USER QUESTION:\n\"I WANT TODAYS SCANNING REPORT\"\n\nCURRENT EXPLICIT FILTERS:\n- entity = sku_inventories\n- location/region = none\n- date/time = wt.created_at >= CURDATE() AND wt.created_at < CURDATE() + INTERVAL 1 DAY\n- metric = none\n\nRELEVANT SCHEMA:\nTABLE `sku_inventories` (SKU catalog, invoice tracking, box inventory, and retailer/wholesaler scanning timestamps.):\n  - id (BIGINT)\n  - mrp (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - sku_code (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - unit_price (DECIMAL(10, 2))\n  - sku_description (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - invoiced_quantity (INTEGER)\n  - batch_details (JSON)\n  - outer_lpn_number (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - lpn_number (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - carton_no (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - lpn_code (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - packed_quantity (INTEGER)\n  - order_type (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - order_reference (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - product_id (BIGINT)\n  - uom (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - invoice_number (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - invoice_date (DATE)\n  - warehouse (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - invoiced_by (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - order_date (DATE)\n  - customer_info (JSON)\n  - distributer_id (BIGINT)\n  - created_at (TIMESTAMP)\n  - updated_at (TIMESTAMP)\n  - is_callback (TINYINT)\n  - status_wholeseller_id (BIGINT)\n  - status_retailer_id (BIGINT)\n  - sources (VARCHAR(255) COLLATE \"utf8mb4_unicode_ci\")\n  - wholesaler_scanned_at (DATETIME)\n  - retailer_scanned_at (DATETIME)\n  - is_active (TINYINT)\n  - is_offline (TINYINT)\n\nRELEVANT BUSINESS RULES & MAPPINGS:\nAPPLICABLE BUSINESS RULES:\n- [sku_inventories] Scanned boxes / Box scans: filter `sku_inventories.retailer_scanned_at IS NOT NULL` for retailers, or `sku_inventories.wholesaler_scanned_at IS NOT NULL` for wholesalers.\n- [sku_inventories] Do NOT route physical box scan questions to wallet_transaction.\n- [sku_inventories] Join with `sku_qr_points_map` ON `sku_inventories.sku_code = sku_qr_points_map.sku_code`.\n\nAPPLICABLE TERM TRANSLATIONS:\n- \"retailer box scans\" \u2192 `si.retailer_scanned_at IS NOT NULL`\n- \"wholesaler box scans\" \u2192 `si.wholesaler_scanned_at IS NOT NULL`\n- \"box inventory / skus\" \u2192 `table `sku_inventories` si`\n\nRELEVANT EXAMPLES:\nExample 1:\nQuestion: i want this month balance details\nSQL:\nSELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_balance FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;\n\nExample 2:\nQuestion: Show earnings of retailers for July 2026\nSQL:\nSELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem') AND u.user_role = 2 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name, u.mobile_number;\n\nCRITICAL RULES:\n1. Write ONLY a valid MySQL SELECT query inside a ```sql ``` code block.\n2. Do NOT hallucinate table or column names not listed in RELEVANT SCHEMA.\n3. Do NOT add location/region or date filters unless explicitly listed in CURRENT EXPLICIT FILTERS.\n4. Output only the query.",
+    "model": "Deterministic Synthesizer (High Confidence)",
+    "sql": "SELECT si.id, si.sku_code, si.sku_description, si.uom, si.mrp, si.invoice_number, si.distributer_id, si.status_retailer_id, si.status_wholeseller_id, si.retailer_scanned_at, si.wholesaler_scanned_at, si.created_at FROM sku_inventories AS si WHERE (NOT si.retailer_scanned_at IS NULL OR NOT si.wholesaler_scanned_at IS NULL) AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) >= CURRENT_DATE AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) < CURRENT_DATE + INTERVAL '1' DAY ORDER BY si.id DESC LIMIT 500",
+    "validation": {
+      "status": "APPROVED",
+      "sql": "SELECT si.id, si.sku_code, si.sku_description, si.uom, si.mrp, si.invoice_number, si.distributer_id, si.status_retailer_id, si.status_wholeseller_id, si.retailer_scanned_at, si.wholesaler_scanned_at, si.created_at FROM sku_inventories AS si WHERE (NOT si.retailer_scanned_at IS NULL OR NOT si.wholesaler_scanned_at IS NULL) AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) >= CURRENT_DATE AND COALESCE(si.retailer_scanned_at, si.wholesaler_scanned_at) < CURRENT_DATE + INTERVAL '1' DAY ORDER BY si.id DESC LIMIT 500"
+    },
+    "execution": {
+      "success": true,
+      "row_count": 0,
+      "columns": []
+    },
+    "response": "No matching records found for query: *\"I WANT TODAYS SCANNING REPORT\"*."
+  },
+  "benchmarks": {
+    "intent_detection_ms": 6.93,
+    "schema_lookup_ms": 6.93,
+    "prompt_build_ms": 1.82,
+    "llm_generation_ms": 0.02,
+    "validation_ms": 1.89,
+    "execution_ms": 0.0,
+    "total_ms": 246.38,
+    "prompt_tokens": 904
+  }
+}

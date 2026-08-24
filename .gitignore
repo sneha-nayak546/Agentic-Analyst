@@ -1,0 +1,15 @@
+# Environment variables (DB credentials)
+.env
+.master.key
+*.key
+
+# Virtual Environment
+venv/
+
+# Cache & Build
+__pycache__/
+*.pyc
+reports/
+logs/
+node_modules/
+dist/

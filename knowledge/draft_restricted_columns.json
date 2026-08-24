@@ -1,0 +1,159 @@
+{
+  "generated_at": "2026-08-12T11:00:07.700823",
+  "total_restricted_columns": 16,
+  "security_keywords": [
+    "password",
+    "hash",
+    "token",
+    "secret",
+    "auth",
+    "reset",
+    "key"
+  ],
+  "restricted_columns": [
+    {
+      "table_name": "campaign_logs",
+      "column_name": "device_token",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "company_controls",
+      "column_name": "key",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "key"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "connection_request",
+      "column_name": "auth_code",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "auth"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "employees",
+      "column_name": "password",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "password"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "notification_logs",
+      "column_name": "device_token",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "notifications",
+      "column_name": "device_token",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "password_resets",
+      "column_name": "token",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "personal_access_tokens",
+      "column_name": "tokenable_type",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "personal_access_tokens",
+      "column_name": "tokenable_id",
+      "data_type": "bigint",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "personal_access_tokens",
+      "column_name": "token",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "tripur_api_tokens",
+      "column_name": "access_token",
+      "data_type": "text",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "tripur_api_tokens",
+      "column_name": "token_type",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "users",
+      "column_name": "password",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "password"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "users",
+      "column_name": "two_factor_secret",
+      "data_type": "text",
+      "matched_keywords": [
+        "secret"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "users",
+      "column_name": "remember_token",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    },
+    {
+      "table_name": "users",
+      "column_name": "fcm_token",
+      "data_type": "varchar",
+      "matched_keywords": [
+        "token"
+      ],
+      "recommendation": "RESTRICT_FROM_PROMPTS_AND_EXCLUDE_FROM_LLM_OUTPUT"
+    }
+  ]
+}

@@ -2,15 +2,7 @@ import os
 import json
 import pymysql
 from typing import Dict, Any, List
-from dotenv import load_dotenv
-
-load_dotenv()
-
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = int(os.getenv("DB_PORT", "3306"))
-DB_NAME = os.getenv("DB_NAME")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
+from app.database.config import get_db_credentials
 
 from app.database.allowed_tables import TARGET_SCOPE_TABLES
 
@@ -38,20 +30,28 @@ def extract_db_schema() -> Dict[str, Any]:
     """
     schema_data = {}
 
-    if not DB_HOST or not DB_USER or not DB_NAME:
-        print("[SCHEMA EXTRACTOR WARNING] Missing DB credentials in .env. Returning empty schema.")
+    creds = get_db_credentials()
+    db_host = creds["host"]
+    db_port = int(creds["port"]) if creds["port"] else 3306
+    db_user = creds["user"]
+    db_password = creds["password"]
+    db_name = creds["name"]
+
+    if not db_host or not db_user or not db_name:
+        print("[SCHEMA EXTRACTOR WARNING] Missing DB credentials in encrypted config. Returning empty schema.")
         return schema_data
 
     try:
         connection = pymysql.connect(
-            host=DB_HOST,
-            port=DB_PORT,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            database=DB_NAME,
+            host=db_host,
+            port=db_port,
+            user=db_user,
+            password=db_password,
+            database=db_name,
             charset="utf8mb4",
             cursorclass=pymysql.cursors.DictCursor,
-            connect_timeout=5
+            connect_timeout=5,
+            ssl={}
         )
 
         with connection.cursor() as cursor:
@@ -63,7 +63,7 @@ def extract_db_schema() -> Dict[str, Any]:
                 WHERE TABLE_SCHEMA = %s AND TABLE_NAME IN ({format_strings})
                 ORDER BY TABLE_NAME, ORDINAL_POSITION;
             """
-            cursor.execute(query_columns, [DB_NAME] + TARGET_SCOPE_TABLES)
+            cursor.execute(query_columns, [db_name] + TARGET_SCOPE_TABLES)
             columns_raw = cursor.fetchall()
 
             for col in columns_raw:
@@ -103,7 +103,7 @@ def extract_db_schema() -> Dict[str, Any]:
                   AND REFERENCED_TABLE_NAME IS NOT NULL
                   AND TABLE_NAME IN ({format_strings});
             """
-            cursor.execute(query_fks, [DB_NAME] + TARGET_SCOPE_TABLES)
+            cursor.execute(query_fks, [db_name] + TARGET_SCOPE_TABLES)
             fks_raw = cursor.fetchall()
 
             for fk in fks_raw:
@@ -122,7 +122,7 @@ def extract_db_schema() -> Dict[str, Any]:
                 WHERE TABLE_SCHEMA = %s AND TABLE_NAME IN ({format_strings})
                 ORDER BY TABLE_NAME, INDEX_NAME, SEQ_IN_INDEX;
             """
-            cursor.execute(query_indexes, [DB_NAME] + TARGET_SCOPE_TABLES)
+            cursor.execute(query_indexes, [db_name] + TARGET_SCOPE_TABLES)
             indexes_raw = cursor.fetchall()
 
             for idx in indexes_raw:

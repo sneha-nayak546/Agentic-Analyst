@@ -1,0 +1,9 @@
+[
+  {
+    "timestamp": "2026-08-12 12:51:31",
+    "prompt": "Show user bitcoin balance",
+    "reason": "Unmapped metric 'bitcoin' referenced in prompt.",
+    "mode": "CLARIFICATION",
+    "meta": {}
+  }
+]

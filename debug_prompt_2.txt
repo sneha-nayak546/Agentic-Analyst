@@ -1,0 +1,136 @@
+You are an expert MySQL Data Analyst for JGH Enterprise.
+Your task is to write an optimized MySQL SELECT query to answer the user question using ONLY the provided schema and business rules.
+
+CURRENT USER QUESTION:
+"Generate a table of retailers linked to distributor 5997, and include a column for their individual total earnings for the current month."
+
+CURRENT EXPLICIT FILTERS:
+- entity = retailer (user_role = 2)
+- location/region = none
+- date/time = wt.created_at >= '2026-08-01 00:00:00' AND wt.created_at < '2026-09-01 00:00:00'
+- metric = earnings
+
+RELEVANT SCHEMA:
+TABLE `role`:
+  - id (INTEGER)
+  - name (VARCHAR(100))
+  - is_editable (TINYINT)
+  - created_at (DATETIME)
+  - updated_at (DATETIME)
+
+TABLE `users` (Core user accounts (distributors role=4, retailers role=2, mechanics role=3, wholesalers role=5).):
+  - id (BIGINT)
+  - name (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - last_name (VARCHAR(100) COLLATE "utf8mb4_unicode_ci")
+  - email (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - created_at (TIMESTAMP)
+  - updated_at (TIMESTAMP)
+  - country_code (VARCHAR(10) COLLATE "utf8mb4_unicode_ci")
+  - mobile_number (BIGINT)
+  - user_role (INTEGER)
+  - club (VARCHAR(50) COLLATE "utf8mb4_unicode_ci")
+  - designation (TEXT COLLATE "utf8mb4_unicode_ci")
+  - dob (DATE)
+  - city (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - state_id (INTEGER)
+  - address (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - pincode (INTEGER)
+  - anniversary_date (DATE)
+  - lang_id (INTEGER)
+  - nat_state_id (INTEGER)
+  - account_holder_name (VARCHAR(200) COLLATE "utf8mb4_unicode_ci")
+  - bank_name (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - account_no (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - ifsc_code (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - account_type (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - image_path (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - district (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - gender (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - profile_image (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - membership_id (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - wallet_balance (BIGINT)
+  - bank_details_status (TINYINT)
+  - adhaar (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - adhaar_image (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - adhaar_front_image (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - adhaar_back_image (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - pan_card (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - pan_card_image (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - passbook_image (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - upi (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - status (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - business_info_id (BIGINT)
+  - distributer_id (BIGINT)
+  - old_user_id (INTEGER)
+  - kyc_status (INTEGER)
+  - adhaar_details (TEXT COLLATE "utf8mb4_unicode_ci")
+  - business_pan (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - bonus_points (BIGINT)
+  - isBlacklisted (TINYINT)
+  - scan_limit (INTEGER)
+  - referral_code (VARCHAR(6) COLLATE "utf8mb4_unicode_ci")
+  - last_login (DATETIME)
+  - app_updated (TINYINT)
+  - block_withdrawal (TINYINT)
+  - block_withdrawal_message (TEXT COLLATE "utf8mb4_unicode_ci")
+  - shop_branding (TINYINT)
+  - block_gift_redeem (TINYINT)
+  - block_gift_redeem_message (TEXT COLLATE "utf8mb4_unicode_ci")
+  - disable_scan (TINYINT)
+  - disable_scan_message (TEXT COLLATE "utf8mb4_unicode_ci")
+  - direct_manager_id (BIGINT)
+  - employee_id (VARCHAR(20) COLLATE "utf8mb4_unicode_ci")
+  - primary_distributor_id (BIGINT)
+  - remark (TEXT COLLATE "utf8mb4_unicode_ci")
+
+TABLE `wallet_transaction` (Ledger of credits/earnings (cash_point, referral, topup, coupon_redeem) and debits (withdrawal).):
+  - id (BIGINT)
+  - user_id (INTEGER)
+  - amount (DECIMAL(10, 2))
+  - transaction_type (TINYINT) [ENUM: '1', '0', 'cash_point', 'referral_earning', 'topup', 'coupon_redeem']
+  - reference_id (INTEGER)
+  - reference_type (ENUM) [ENUM: 'cash_point', 'withdrawal', 'referral_earning', 'topup', 'coupon_redeem']
+  - status (TINYINT)
+  - remark (VARCHAR(255) COLLATE "utf8mb4_unicode_ci")
+  - created_at (TIMESTAMP)
+  - updated_at (TIMESTAMP)
+
+RELEVANT JOINS:
+- users.id = wallet_transaction.user_id
+
+RELEVANT BUSINESS RULES & MAPPINGS:
+APPLICABLE BUSINESS RULES:
+- [users] User roles: 1=Business Admin, 2=Retailer ('shop owner'/'dealer'), 3=Super Admin / Mechanic, 4=Distributor, 5=Wholesaler, 6=Executive.
+- [users] Status: 'approved' (active) or 'pending'.
+- [users] Geographic queries: filter u.district, u.city, u.address, or u.state_id ONLY if explicitly mentioned.
+- [wallet_transaction] Earnings / Money made / Revenue: SUM(wt.amount) WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning').
+- [wallet_transaction] Wallet balance / Net balance: SUM(wt.amount) across all transactions.
+- [wallet_transaction] Reference types: 'cash_point'=QR scan earning, 'referral_earning'=Referral bonus, 'topup'=Recharge, 'coupon_redeem'=Coupon, 'withdrawal'=Cash out.
+- [wallet_transaction] Positive amount = credit (earning); negative amount = debit (withdrawal).
+
+APPLICABLE TERM TRANSLATIONS:
+- "retailers / dealers / shop owners" → `users.user_role = 2`
+- "distributors" → `users.user_role = 4`
+- "wholesalers" → `users.user_role = 5`
+- "active / approved" → `users.status = 'approved'`
+- "earnings / earned / revenue" → `SUM(wt.amount) with reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning')`
+- "balance / current balance" → `SUM(wt.amount)`
+- "cashback / qr point" → `wt.reference_type = 'cash_point'`
+- "referral" → `wt.reference_type = 'referral_earning'`
+
+RELEVANT EXAMPLES:
+Example 1:
+Question: Who all are retailers available in the users table, and for those retailers, how much are they earning in this month across cash_point, referral_earning, topup, coupon_redeem
+SQL:
+SELECT u.id AS user_id, u.name, u.mobile_number, SUM(CASE WHEN wt.reference_type = 'cash_point' THEN wt.amount ELSE 0 END) AS cash_point_earning, SUM(CASE WHEN wt.reference_type = 'referral_earning' THEN wt.amount ELSE 0 END) AS referral_earning, SUM(CASE WHEN wt.reference_type = 'topup' THEN wt.amount ELSE 0 END) AS topup_earning, SUM(CASE WHEN wt.reference_type = 'coupon_redeem' THEN wt.amount ELSE 0 END) AS coupon_redeem_earning, SUM(wt.amount) AS total_monthly_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE u.user_role = 2 AND wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;
+
+Example 2:
+Question: Show earnings of retailers for July 2026
+SQL:
+SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem') AND u.user_role = 2 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name, u.mobile_number;
+
+CRITICAL RULES:
+1. Write ONLY a valid MySQL SELECT query inside a ```sql ``` code block.
+2. Do NOT hallucinate table or column names not listed in RELEVANT SCHEMA.
+3. Do NOT add location/region or date filters unless explicitly listed in CURRENT EXPLICIT FILTERS.
+4. Output only the query.

@@ -1,142 +1,295 @@
-.sidebar-header {
-  margin-bottom: 24px;
+/* ============================================================
+   Sidebar.css  –  Executive Copilot Midnight Navy & Gold Theme
+   ============================================================ */
+
+.app-sidebar-container {
+  height: 100vh;
+  background: var(--bg-app); /* Match deep space app background */
+  color: var(--text-primary);
+  border-right: none; /* No hard borders in modern AI apps */
+  display: flex;
+  flex-direction: column;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 30;
+  overflow: hidden;
+  flex-shrink: 0;
+  /* Very subtle separation via gradient line instead of border */
+  box-shadow: 1px 0 0 rgba(124, 92, 255, 0.05);
 }
 
-.logo-container {
+.app-sidebar-container.expanded {
+  width: 260px;
+}
+
+.app-sidebar-container.collapsed {
+  width: 76px;
+}
+
+/* ── Header & Logo ── */
+.sidebar-brand-header {
+  padding: 1.25rem 1.15rem 1rem;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px;
+  justify-content: space-between;
+  min-height: 70px;
 }
 
-.logo-icon {
-  background: rgba(79, 124, 255, 0.1);
-  padding: 8px;
-  border-radius: var(--radius-md);
+.brand-emblem-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+.brand-crest-logo {
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-primary);
+  flex-shrink: 0;
 }
 
-.logo-text {
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: -0.01em;
+.brand-sparkle {
+  color: var(--primary);
 }
 
-.new-chat-btn {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  border-radius: var(--radius-md);
-  padding: 10px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-  width: 100%;
-  margin-bottom: 24px;
-  font-family: var(--font-sans);
-}
-
-.new-chat-btn:hover {
-  background: var(--bg-hover);
-  border-color: var(--border-hover);
-}
-
-.sidebar-nav {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.nav-section {
-  margin-bottom: 24px;
+.brand-text-block {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.nav-title {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-tertiary);
-  font-weight: 600;
-  padding: 0 8px;
-  margin-bottom: 8px;
+.brand-title {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  line-height: 1.2;
 }
 
-.nav-item {
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  border-radius: var(--radius-sm);
-  padding: 8px;
-  font-size: 14px;
-  cursor: pointer;
+.sidebar-collapse-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
   display: flex;
   align-items: center;
-  gap: 12px;
-  transition: all 0.2s ease;
-  width: 100%;
-  text-align: left;
-  font-family: var(--font-sans);
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
-
-.nav-item:hover {
+.sidebar-collapse-btn:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
 }
 
-.nav-item.active {
-  background: var(--bg-active);
-  color: var(--text-primary);
+/* Action wrap removed */
+
+/* ── Navigation Links ── */
+.sidebar-nav-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
+.sidebar-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.nav-group-header {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem 0.35rem;
+}
+
+.nav-group-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.nav-group-subtitle {
+  font-size: 0.65rem;
+  color: var(--primary);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  margin-top: 0.15rem;
+}
+
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.app-sidebar-container.collapsed .sidebar-nav-link {
+  justify-content: center;
+  padding: 0.75rem;
+}
+
+.nav-icon {
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+  color: var(--text-muted);
+}
+
+.sidebar-nav-link:hover {
+  background: var(--bg-hover);
+  color: var(--primary);
+}
+.sidebar-nav-link:hover .nav-icon {
+  color: var(--primary);
+}
+
+.sidebar-nav-link.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.sidebar-nav-link.active .nav-icon {
+  color: var(--primary);
+}
+
+.sidebar-nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 4px;
+  background: var(--primary);
+  border-radius: 0 4px 4px 0;
+}
+
+.nav-link-badge {
+  margin-left: auto;
+  background: var(--primary);
+  color: #FFF;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-full);
+}
+
+/* ── Footer / User Profile ── */
 .sidebar-footer {
-  margin-top: auto;
-  padding-top: 16px;
+  padding: 1rem;
   border-top: 1px solid var(--border-color);
 }
 
-.connection-status {
-  background: var(--bg-card);
-  border-radius: var(--radius-md);
-  padding: 12px;
-  margin-top: 12px;
-}
-
-.status-row {
+.user-profile-card {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
+  gap: 0.75rem;
+  padding: 0.65rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.user-profile-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--primary);
+}
+.app-sidebar-container.collapsed .user-profile-card {
+  justify-content: center;
+  padding: 0.65rem 0;
 }
 
-.db-name {
-  font-size: 13px;
-  font-weight: 500;
+.user-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.user-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.user-role {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.sidebar-user-avatar-wrap {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.sidebar-user-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-online-dot {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 1.5px solid #0B192C;
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   flex: 1;
 }
 
-.status-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+.sidebar-user-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
 }
 
-.status-indicator.online {
-  background-color: #10b981;
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+.sidebar-user-email {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.badge-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  color: #10b981;
+.user-card-chevron {
+  color: #64748B;
+  flex-shrink: 0;
 }
