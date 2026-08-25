@@ -43,6 +43,7 @@ class QueryPlanner:
         kg = get_knowledge_graph()
 
         plan = {
+            "original_question": q_lower,
             "intent": "unknown",
             "entities": [],
             "primary_entity": None,
@@ -117,8 +118,10 @@ class QueryPlanner:
         # Role filter
         if plan["primary_entity"] == "retailer":
             plan["filters"].append({"column": "users.user_role", "operator": "=", "value": 2})
+            plan["role_id"] = 2
         elif plan["primary_entity"] == "distributor":
             plan["filters"].append({"column": "users.user_role", "operator": "=", "value": 4})
+            plan["role_id"] = 4
 
         # Metric Resolution
         is_earnings = False

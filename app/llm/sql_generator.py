@@ -68,7 +68,7 @@ def _synthesize_sql_from_plan(plan: Dict[str, Any]) -> Optional[str]:
         injected_time_filter = time_filter
 
     # Intent detection
-    q_text = intent
+    q_text = plan.get("original_question", intent)
     is_user_earnings = is_earnings or any(w in q_text for w in ["earning", "earnings", "earned", "revenue", "sales", "how much"]) or "with earnings" in q_text
     is_total_earnings = any(w in q_text for w in ["total earnings", "sum of earnings", "earnings of all"])
     is_balance = (any(w in q_text for w in ["wallet balance", "total balance", "current balance", "highest balance", "balance", "balances"]) or (limit == 1 and any(w in q_text for w in ["top 1 person", "top person", "highest person", "the top one", "top 1", "that top 1", "top one person", "single person"]))) and not is_user_earnings

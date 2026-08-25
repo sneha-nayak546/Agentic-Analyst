@@ -41,7 +41,7 @@ class RelationshipResolver:
                 mapped_tables.add("withdrawal_request")
             elif e_clean in ["sku", "inventory", "sku_inventories"]:
                 mapped_tables.add("sku_inventories")
-            else:
+            elif e_clean not in ["role", "status", "date", "time"]:
                 mapped_tables.add(e_clean)
 
         structured_plan["verified_tables"] = list(mapped_tables)
@@ -70,8 +70,8 @@ class RelationshipResolver:
         
         # Check if requested relationships are missing
         if len(mapped_tables) > 1 and not verified_joins:
-            structured_plan["relationship_error"] = f"Could not verify a business relationship between {list(mapped_tables)}."
-            structured_plan["confidence"] = 0
+            structured_plan["relationship_warning"] = f"Could not verify a business relationship between {list(mapped_tables)}. Relying on LLM fallback."
+            # Do not drop confidence to 0 so we don't hard block, let the LLM try to resolve it.
 
         return structured_plan
 

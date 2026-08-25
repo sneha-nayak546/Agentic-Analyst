@@ -21,7 +21,15 @@ def build_sql_prompt(execution_plan_json: str, context: Optional[Dict[str, Any]]
 
     ctx = context or {}
     intent = plan.get("intent", "")
+    original_question = plan.get("original_question", intent)
     tables = plan.get("tables", ["users"])
+    
+    # Broaden schema context if confidence is low or relationships couldn't be verified
+    confidence = plan.get("confidence", 100)
+    if confidence < 70 or plan.get("relationship_warning"):
+        from app.knowledge.table_schemas import TABLE_SUMMARIES
+        tables = list(TABLE_SUMMARIES.keys())
+
     if not tables:
         tables = ["users"]
 
@@ -111,7 +119,7 @@ def build_sql_prompt(execution_plan_json: str, context: Optional[Dict[str, Any]]
     sections = [
         "You are an expert MySQL Data Analyst for JGH Enterprise.",
         "Your task is to write an optimized MySQL SELECT query to answer the user question using ONLY the provided schema and business rules.\n",
-        f"CURRENT USER QUESTION:\n\"{intent}\"\n",
+        f"CURRENT USER QUESTION:\n\"{original_question}\"\n",
         f"CURRENT EXPLICIT FILTERS:\n{filters_str}\n",
         f"STRUCTURAL REQUIREMENTS:\n{struct_str}\n"
     ]

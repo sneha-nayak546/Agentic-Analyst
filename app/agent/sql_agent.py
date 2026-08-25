@@ -13,7 +13,7 @@ from app.validator.e2e_accuracy_validator import e2e_accuracy_validator
 from app.retriever.retriever import retrieve_schema, retrieve_sql_history
 from app.database.read_executor import execute_read_query, get_execution_plan
 from app.agent.ambiguity_checker import check_ambiguity
-from app.agent.nlp_intent_parser import nlp_intent_parser
+from app.agent.query_planner import create_plan
 from app.knowledge.relationship_resolver import relationship_resolver
 from app.agent.response_generator import response_generator
 
@@ -108,8 +108,8 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
     t0_retrieval = time.time()
     thinking_steps.append("Step 1: Extracting intent, entities, and context filters via NLP...")
     
-    # NEW PIPELINE: 1. Full NLP parsing
-    execution_plan = nlp_intent_parser.parse_intent(q_clean, ctx)
+    # USE DETERMINISTIC PLANNER
+    execution_plan = create_plan(q_clean, ctx)
     
     # NEW PIPELINE: 2. Relationship Verification
     execution_plan = relationship_resolver.resolve_relationships(execution_plan)
@@ -123,29 +123,13 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
             "thinking_steps": thinking_steps + ["Missing information detected."],
         }
         
-    if execution_plan.get("relationship_error"):
-        return {
-            "question": q_clean,
-            "status": "blocked",
-            "summary": "Relationship Verification Failed: " + execution_plan["relationship_error"],
-            "validation": {"status": "BLOCKED", "reason": execution_plan["relationship_error"]},
-            "generated_sql": "",
-            "execution": {"success": False, "row_count": 0, "columns": [], "error": execution_plan["relationship_error"]},
-            "result_confidence": "SUSPICIOUS_RESULT",
-            "thinking_steps": thinking_steps + ["Relationship could not be verified."]
-        }
+    if execution_plan.get("relationship_warning"):
+        thinking_steps.append("Warning: " + execution_plan["relationship_warning"])
     
-    
-    # Confidence Gate
+    # Confidence Gate - Bypassed for LLM fallback
     confidence = execution_plan.get("confidence", 100)
     if confidence < 70:
-        return {
-            "question": q_clean,
-            "status": "ambiguous",
-            "clarification": "I am not completely confident I understood the business requirement. " + " ".join(execution_plan.get("missing_information", [])),
-            "options": [],
-            "thinking_steps": thinking_steps + ["Blocked by low confidence gate."],
-        }
+        thinking_steps.append("Low confidence plan detected, heavily relying on LLM fallback.")
         
     schema_ms = round((time.time() - t0_retrieval) * 1000, 2)
     intent_ms = round(schema_ms / 2, 2)

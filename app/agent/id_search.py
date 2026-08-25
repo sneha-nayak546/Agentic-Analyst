@@ -17,6 +17,10 @@ INVALID_ID_CHARS = set("@!#$%^&*~+=/\\?<>{}[]|")
 ROLE_MAP = {
     "distributor": 4,
     "distributors": 4,
+    "destributor": 4,
+    "destributors": 4,
+    "distributer": 4,
+    "distributers": 4,
     "retailer": 2,
     "retailers": 2,
     "wholesaler": 5,
@@ -64,7 +68,7 @@ def extract_id_from_prompt(prompt: str, skip_intent_check: bool = False) -> Opti
     # BUT: If the query also contains an explicit entity+ID+number pattern, it IS an ID lookup
     # regardless of how the sentence starts (e.g. "What are the earnings for user ID 65848").
     HAS_EXPLICIT_ID = bool(re.search(
-        r"\b(?:distributor|retailers?|wholesalers?|mechanics?|customers?|users?|account)\s+"
+        r"\b(?:distributors?|destributors?|distributers?|retailers?|wholesalers?|mechanics?|customers?|users?|account)\s+"
         r"(?:id|#|number|code)\s*[:=\s#]?\s*[0-9]{3,}\b",
         p_clean, re.IGNORECASE
     )) or bool(re.search(
@@ -103,7 +107,7 @@ def extract_id_from_prompt(prompt: str, skip_intent_check: bool = False) -> Opti
 
     # Pattern 1: Explicit ID keyword: "distributor ID 5842", "distributor ID 10245", "retailer ID RET1025", "user ID: 46965", "ID #12345"
     m1 = re.search(
-        r"\b(distributor|retailers?|wholesalers?|mechanics?|customers?|users?|account|company|transactions?)\s+(?:id|#|number|code)\s*[:=\s]?\s*([0-9a-zA-Z@!#$%^&*_\-]+)\b",
+        r"\b(distributors?|destributors?|distributers?|retailers?|wholesalers?|mechanics?|customers?|users?|account|company|transactions?)\s+(?:id|#|number|code)\s*[:=\s]?\s*([0-9a-zA-Z@!#$%^&*_\-]+)\b",
         p_clean,
         re.IGNORECASE
     )
@@ -111,6 +115,8 @@ def extract_id_from_prompt(prompt: str, skip_intent_check: bool = False) -> Opti
         ent = m1.group(1).lower().rstrip('s')
         if ent == 'customer':
             ent = 'retailer'
+        if ent in ('destributor', 'distributer'):
+            ent = 'distributor'
         raw_id = m1.group(2).strip()
         if is_plausible_id(raw_id):
             return {
@@ -130,7 +136,7 @@ def extract_id_from_prompt(prompt: str, skip_intent_check: bool = False) -> Opti
         raw_id = m2.group(1).strip()
         if is_plausible_id(raw_id):
             ent = "user"
-            if "distributor" in p_lower:
+            if any(w in p_lower for w in ["distributor", "destributor", "distributer"]):
                 ent = "distributor"
             elif "retailer" in p_lower:
                 ent = "retailer"
@@ -146,7 +152,7 @@ def extract_id_from_prompt(prompt: str, skip_intent_check: bool = False) -> Opti
     # Pattern 3: Direct Entity + Numeric / Alphanumeric ID (WITHOUT explicit 'id' word):
     # e.g. "distributor 5842", "distributor 46965", "retailer 46556", "show customer 46578", "find user 47017"
     m3 = re.search(
-        r"\b(?:find|show|give\s+details\s+for|give\s+me\s+details\s+of|i\s+want\s+details\s+of)?\s*(distributor|retailer|wholesaler|customer|user|mechanic|company)\s+([0-9]+[a-zA-Z0-9_\-]*|[a-zA-Z]+[0-9]+[a-zA-Z0-9_\-]*|#[0-9]+)\b",
+        r"\b(?:find|show|give\s+details\s+for|give\s+me\s+details\s+of|i\s+want\s+details\s+of)?\s*(distributor|destributor|distributer|retailer|wholesaler|customer|user|mechanic|company)\s+([0-9]+[a-zA-Z0-9_\-]*|[a-zA-Z]+[0-9]+[a-zA-Z0-9_\-]*|#[0-9]+)\b",
         p_clean,
         re.IGNORECASE
     )
@@ -154,6 +160,8 @@ def extract_id_from_prompt(prompt: str, skip_intent_check: bool = False) -> Opti
         ent = m3.group(1).lower()
         if ent == 'customer':
             ent = 'retailer'
+        if ent in ('destributor', 'distributer', 'destributors', 'distributers'):
+            ent = 'distributor'
         raw_id = m3.group(2).strip().lstrip('#')
         if is_plausible_id(raw_id):
             return {
