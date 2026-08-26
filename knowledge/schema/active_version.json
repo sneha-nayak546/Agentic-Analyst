@@ -1,10 +1,10 @@
 {
-  "version": "knowledge_v20260824_175437",
-  "activated_at": "2026-08-24T17:54:37.397764",
+  "version": "knowledge_v20260826_154449",
+  "activated_at": "2026-08-26T15:44:49.894285",
   "drift_report": {
     "status": "DRIFT_DETECTED",
-    "checked_at": "2026-08-24T17:54:37.397253",
-    "active_version": "knowledge_v20260824_173615",
+    "checked_at": "2026-08-26T15:44:49.882668",
+    "active_version": "knowledge_v20260826_131205",
     "total_discrepancies": 1,
     "discrepancies": [
       {

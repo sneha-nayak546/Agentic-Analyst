@@ -14,8 +14,6 @@ def _get_schema_metadata():
             return json.load(f)
     return {}
 
-from app.database.allowed_tables import TARGET_SCOPE_TABLES
-
 def validate_sql(query: str, allowed_tables: list = None, plan: dict = None) -> bool:
     """
     Validates a SQL query by parsing it into an AST using sqlglot.
@@ -26,14 +24,19 @@ def validate_sql(query: str, allowed_tables: list = None, plan: dict = None) -> 
     if not query or not isinstance(query, str) or not query.strip():
         raise SQLValidationError("LLM generated an empty query. Triggering self-correction retry...")
 
+    schema = _get_schema_metadata()
     if allowed_tables is None:
-        allowed_tables = TARGET_SCOPE_TABLES
+        allowed_tables = list(schema.keys())
 
     try:
         # Parse query, assuming MySQL dialect
         parsed = sqlglot.parse(query, read="mysql")
         if not parsed or not parsed[0]:
             raise SQLValidationError("LLM generated an empty query. Triggering self-correction retry...")
+            
+        # Prevent multiple statements (SQL Injection risk)
+        if len(parsed) > 1:
+            raise SQLValidationError("Multiple SQL statements are not allowed for security reasons.")
             
         ast = parsed[0]
         
@@ -44,8 +47,13 @@ def validate_sql(query: str, allowed_tables: list = None, plan: dict = None) -> 
             
         # 1b. Temporal Validation: Ensure queries with time constraints include a valid timestamp filter
         if plan:
-            tc = plan.get("time_constraint", {})
-            has_time = tc.get("has_time_filter") or (plan.get("time_filter") and plan.get("time_filter") != "None")
+            has_time = False
+            if hasattr(plan, 'business_requirement'):
+                has_time = bool(plan.business_requirement.date_period or plan.business_requirement.relative_dates)
+            else:
+                tc = plan.get("time_constraint", {})
+                has_time = tc.get("has_time_filter") or (plan.get("time_filter") and plan.get("time_filter") != "None")
+                
             if has_time:
                 sql_upper = query.upper()
                 valid_date_cols = ["CREATED_AT", "RETAILER_SCANNED_AT", "WHOLESALER_SCANNED_AT", "INVOICE_DATE", "ORDER_DATE", "UPDATED_AT"]

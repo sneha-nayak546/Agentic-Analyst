@@ -13,7 +13,7 @@ from app.validator.e2e_accuracy_validator import e2e_accuracy_validator
 from app.retriever.retriever import retrieve_schema, retrieve_sql_history
 from app.database.read_executor import execute_read_query, get_execution_plan
 from app.agent.ambiguity_checker import check_ambiguity
-from app.agent.query_planner import create_plan
+from app.agent.nlp_understanding import nlp_agent
 from app.knowledge.relationship_resolver import relationship_resolver
 from app.agent.response_generator import response_generator
 
@@ -108,28 +108,19 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
     t0_retrieval = time.time()
     thinking_steps.append("Step 1: Extracting intent, entities, and context filters via NLP...")
     
-    # USE DETERMINISTIC PLANNER
-    execution_plan = create_plan(q_clean, ctx)
+    req = nlp_agent.parse_question(q_clean, ctx)
     
     # NEW PIPELINE: 2. Relationship Verification
-    execution_plan = relationship_resolver.resolve_relationships(execution_plan)
+    execution_plan = relationship_resolver.resolve(req)
     
-    if execution_plan.get("missing_information") and not execution_plan.get("missing_information")[0].startswith("Failed to parse"):
+    if execution_plan.missing_information and not execution_plan.missing_information[0].startswith("Failed to parse"):
         return {
             "question": q_clean,
             "status": "ambiguous",
-            "clarification": "I need more information: " + ", ".join(execution_plan["missing_information"]),
+            "clarification": "I need more information: " + ", ".join(execution_plan.missing_information),
             "options": [],
             "thinking_steps": thinking_steps + ["Missing information detected."],
         }
-        
-    if execution_plan.get("relationship_warning"):
-        thinking_steps.append("Warning: " + execution_plan["relationship_warning"])
-    
-    # Confidence Gate - Bypassed for LLM fallback
-    confidence = execution_plan.get("confidence", 100)
-    if confidence < 70:
-        thinking_steps.append("Low confidence plan detected, heavily relying on LLM fallback.")
         
     schema_ms = round((time.time() - t0_retrieval) * 1000, 2)
     intent_ms = round(schema_ms / 2, 2)
@@ -139,7 +130,7 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
     t0_prompt = time.time()
     from app.prompt.prompt_builder import build_sql_prompt
     from app.utils.summary_generator import generate_natural_summary
-    prompt_base = build_sql_prompt(json.dumps(execution_plan, indent=2), context=ctx)
+    prompt_base = build_sql_prompt(execution_plan, context=ctx)
     prompt_ms = round((time.time() - t0_prompt) * 1000, 2)
 
     # 5. Generation & Self-Correction Loop
@@ -207,9 +198,9 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
             validated_sql = validation["sql"]
             # 6. Verify Execution Plan (EXPLAIN)
             thinking_steps.append(f"Step 5: Evaluating Execution Plan (Attempt {attempt})...")
-            plan = get_execution_plan(validated_sql)
-            if not plan["success"]:
-                error_feedback = plan.get("error", "Invalid query execution plan")
+            explain_plan = get_execution_plan(validated_sql)
+            if not explain_plan["success"]:
+                error_feedback = explain_plan.get("error", "Invalid query execution plan")
                 validation["status"] = "BLOCKED"
                 validation["reason"] = f"Execution Plan Error: {error_feedback}"
                 continue
@@ -231,8 +222,6 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
             else:
                 execution = {"success": True, "columns": [], "data": [], "row_count": 0}
                 exec_ms = 0.0
-
-            execution_plan = plan
 
             # 7. Strict E2E Accuracy Validation (post-execution semantic check INSIDE retry loop)
             result_accuracy = {}
@@ -292,20 +281,26 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
             error_feedback = validation["reason"]
             print(f"[RETRY {attempt}] Validation Failed: {error_feedback}")
 
+    if validation.get("status") != "APPROVED":
+        execution["success"] = False
+        execution["error"] = validation.get("reason", "Validation failed after max retries")
+    elif not execution.get("success") and not execution.get("error"):
+        execution["error"] = validation.get("reason", "Execution blocked")
+
     summary_text = response_generator.generate_response(execution_plan, execution)
 
     debug_pipeline = {
         "user_question": q_clean,
-        "intent": execution_plan.get("intent", q_clean),
-        "entity": execution_plan.get("primary_entity"),
+        "intent": execution_plan.business_requirement.intent if execution_plan.business_requirement else q_clean,
+        "entity": execution_plan.business_requirement.intent if execution_plan.business_requirement else None,
         "context": ctx,
-        "tables": execution_plan.get("tables", []),
+        "tables": execution_plan.relevant_tables,
         "rag": {
-            "tables": execution_plan.get("tables", []),
+            "tables": execution_plan.relevant_tables,
             "prompt_length_tokens": len(prompt_base.split()) * 4 // 3
         },
         "prompt": prompt_base,
-        "model": "Deterministic Synthesizer (High Confidence)" if (execution_plan.get("confidence_score", 90) >= 85) else "Qwen2.5-Coder (via RAG)",
+        "model": "LLM Model (Qwen2.5-Coder / Ollama)",
         "sql": validated_sql or sql,
         "validation": validation,
         "execution": {
@@ -324,7 +319,7 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
             "optimized_sql": sql,
             "validation": validation,
             "thinking_steps": thinking_steps,
-            "reasoning": execution_plan,
+            "reasoning": execution_plan.model_dump() if hasattr(execution_plan, "model_dump") else execution_plan,
             "execution": {"success": False, "columns": [], "data": [], "error": validation["reason"]},
             "status": "blocked",
             "context": ctx,
@@ -341,8 +336,8 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
             }
         }
 
-    affected_tables = execution_plan.get("verified_tables", [])
-    confidence = execution_plan.get("confidence", 100)
+    affected_tables = execution_plan.relevant_tables
+    confidence = 100
     thinking_steps.append("Step 7: Formatting query explanation from execution plan...")
 
     total_ms = round((time.time() - t_start) * 1000, 2)
@@ -355,12 +350,12 @@ def run_agent(question: str, history_context: str = "", context: Optional[Dict[s
         "validation": validation,
         "affected_tables": affected_tables,
         "thinking_steps": thinking_steps,
-        "reasoning": execution_plan,
+        "reasoning": execution_plan.model_dump() if hasattr(execution_plan, "model_dump") else execution_plan,
         "execution": execution,
         "summary": summary_text,
         "explanation": plan_text,
         "confidence_score": confidence,
-        "execution_plan": execution_plan,
+        "execution_plan": execution_plan.model_dump() if hasattr(execution_plan, "model_dump") else execution_plan,
         "context": ctx,
         "status": "success",
         # Result Accuracy Validation fields

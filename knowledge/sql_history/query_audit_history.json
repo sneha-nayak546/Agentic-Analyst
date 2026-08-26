@@ -1,5 +1,357 @@
 [
   {
+    "timestamp": "2026-08-26 15:48:00",
+    "question": "give me retailers available in kerala",
+    "generated_sql": "",
+    "optimized_sql": "",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "Query failed."
+  },
+  {
+    "timestamp": "2026-08-26 15:47:29",
+    "question": "i want this month retailers scanning report",
+    "generated_sql": "SELECT u.name AS retailer_name, COUNT(*) AS scan_count FROM sku_inventories AS si JOIN users AS u ON si.status_retailer_id = u.id WHERE si.retailer_scanned_at BETWEEN '2026-08-01' AND '2026-09-01' AND u.user_role = 2 GROUP BY u.id, u.name ORDER BY scan_count DESC",
+    "optimized_sql": "SELECT u.name AS retailer_name, COUNT(*) AS scan_count FROM sku_inventories AS si JOIN users AS u ON si.status_retailer_id = u.id WHERE si.retailer_scanned_at BETWEEN '2026-08-01' AND '2026-09-01' AND u.user_role = 2 GROUP BY u.id, u.name ORDER BY scan_count DESC",
+    "status": "success",
+    "execution_time_ms": 8726.41,
+    "row_count": 500,
+    "affected_tables": [
+      "sku_inventories",
+      "users"
+    ],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: SUSPICIOUS_RESULT",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-26 14:54:22",
+    "question": "can you generate performace sheet for delhi retailors earnings last month",
+    "generated_sql": "SELECT u.name AS retailers, SUM(e.earnings) AS earnings FROM users AS u JOIN earnings AS e ON u.id = e.user_id WHERE u.user_role = 2 AND u.region = 'delhi' AND e.date BETWEEN '2023-04-01' AND '2023-04-30' GROUP BY u.name",
+    "optimized_sql": "SELECT u.name AS retailers, SUM(e.earnings) AS earnings FROM users AS u JOIN earnings AS e ON u.id = e.user_id WHERE u.user_role = 2 AND u.region = 'delhi' AND e.date BETWEEN '2023-04-01' AND '2023-04-30' GROUP BY u.name",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "Error executing query: Temporal query plan requires a timestamp filter in WHERE clause."
+  },
+  {
+    "timestamp": "2026-08-26 14:48:54",
+    "question": "give me retailers available in kerala",
+    "generated_sql": "SELECT id, name, address FROM users WHERE users.user_role = 2 AND state_id = 'kerala' AND users.status = 'approved' LIMIT 100",
+    "optimized_sql": "SELECT id, name, address FROM users WHERE users.user_role = 2 AND state_id = 'kerala' AND users.status = 'approved' LIMIT 100",
+    "status": "success",
+    "execution_time_ms": 26.95,
+    "row_count": 0,
+    "affected_tables": [
+      "users"
+    ],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: VERIFIED_EMPTY",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-26 13:20:53",
+    "question": "give me retailers available in kerala",
+    "generated_sql": "SELECT id, name, address FROM users WHERE users.user_role = 2 AND state_id = 'kerala' AND users.status = 'approved' LIMIT 100",
+    "optimized_sql": "SELECT id, name, address FROM users WHERE users.user_role = 2 AND state_id = 'kerala' AND users.status = 'approved' LIMIT 100",
+    "status": "success",
+    "execution_time_ms": 87.66,
+    "row_count": 0,
+    "affected_tables": [
+      "users"
+    ],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: VERIFIED_EMPTY",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-26 09:55:26",
+    "question": "i want scanning report of this month",
+    "generated_sql": "SELECT COUNT(*) AS total FROM users WHERE users.user_role = 4 AND users.status = 'approved'",
+    "optimized_sql": "SELECT COUNT(*) AS total FROM users WHERE users.user_role = 4 AND users.status = 'approved'",
+    "status": "success",
+    "execution_time_ms": 23.94,
+    "row_count": 1,
+    "affected_tables": [],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 457.08,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: VERIFIED_RESULT",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-25 16:48:31",
+    "question": "Generate a table of retailers linked to distributor 5997",
+    "generated_sql": "SELECT id, name, last_name, email, created_at, updated_at, country_code, mobile_number, user_role, club, designation, dob, city, state_id, address, pincode, anniversary_date, lang_id, nat_state_id, account_holder_name, bank_name, account_no, ifsc_code, account_type, image_path, district, gender, profile_image, membership_id, wallet_balance, bank_details_status, adhaar, adhaar_image, adhaar_front_image, adhaar_back_image, pan_card, pan_card_image, passbook_image, upi, status, business_info_id, distributer_id, old_user_id, kyc_status, adhaar_details, business_pan, bonus_points, isBlacklisted, scan_limit, referral_code, last_login, app_updated, block_withdrawal, block_withdrawal_message, shop_branding, block_gift_redeem, block_gift_redeem_message, disable_scan, disable_scan_message, direct_manager_id, employee_id, primary_distributor_id, remark FROM users WHERE users.user_role = 2 AND distributer_id = 5997 LIMIT 100",
+    "optimized_sql": "SELECT id, name, last_name, email, created_at, updated_at, country_code, mobile_number, user_role, club, designation, dob, city, state_id, address, pincode, anniversary_date, lang_id, nat_state_id, account_holder_name, bank_name, account_no, ifsc_code, account_type, image_path, district, gender, profile_image, membership_id, wallet_balance, bank_details_status, adhaar, adhaar_image, adhaar_front_image, adhaar_back_image, pan_card, pan_card_image, passbook_image, upi, status, business_info_id, distributer_id, old_user_id, kyc_status, adhaar_details, business_pan, bonus_points, isBlacklisted, scan_limit, referral_code, last_login, app_updated, block_withdrawal, block_withdrawal_message, shop_branding, block_gift_redeem, block_gift_redeem_message, disable_scan, disable_scan_message, direct_manager_id, employee_id, primary_distributor_id, remark FROM users WHERE users.user_role = 2 AND distributer_id = 5997 LIMIT 100",
+    "status": "success",
+    "execution_time_ms": 35.92,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 1.07,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: SUSPICIOUS_RESULT",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-25 16:40:04",
+    "question": "Generate a table of retailers linked to distributor 5997",
+    "generated_sql": "SELECT id, name, last_name, email, created_at, updated_at, country_code, mobile_number, user_role, club, designation, dob, city, state_id, address, pincode, anniversary_date, lang_id, nat_state_id, account_holder_name, bank_name, account_no, ifsc_code, account_type, image_path, district, gender, profile_image, membership_id, wallet_balance, bank_details_status, adhaar, adhaar_image, adhaar_front_image, adhaar_back_image, pan_card, pan_card_image, passbook_image, upi, status, business_info_id, distributer_id, old_user_id, kyc_status, adhaar_details, business_pan, bonus_points, isBlacklisted, scan_limit, referral_code, last_login, app_updated, block_withdrawal, block_withdrawal_message, shop_branding, block_gift_redeem, block_gift_redeem_message, disable_scan, disable_scan_message, direct_manager_id, employee_id, primary_distributor_id, remark FROM users WHERE users.user_role = 2 AND distributer_id = 5997 LIMIT 100",
+    "optimized_sql": "SELECT id, name, last_name, email, created_at, updated_at, country_code, mobile_number, user_role, club, designation, dob, city, state_id, address, pincode, anniversary_date, lang_id, nat_state_id, account_holder_name, bank_name, account_no, ifsc_code, account_type, image_path, district, gender, profile_image, membership_id, wallet_balance, bank_details_status, adhaar, adhaar_image, adhaar_front_image, adhaar_back_image, pan_card, pan_card_image, passbook_image, upi, status, business_info_id, distributer_id, old_user_id, kyc_status, adhaar_details, business_pan, bonus_points, isBlacklisted, scan_limit, referral_code, last_login, app_updated, block_withdrawal, block_withdrawal_message, shop_branding, block_gift_redeem, block_gift_redeem_message, disable_scan, disable_scan_message, direct_manager_id, employee_id, primary_distributor_id, remark FROM users WHERE users.user_role = 2 AND distributer_id = 5997 LIMIT 100",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "Error executing query: Strict E2E Validation Failed (ID/IDENTIFIER): Requested specific ID '{'value': '5997', 'type': 'distributor_id'}' is missing from the query filters."
+  },
+  {
+    "timestamp": "2026-08-25 16:34:09",
+    "question": "Show top 10 users with highest wallet balance",
+    "generated_sql": "SELECT id, name, last_name, email, wallet_balance FROM users WHERE users.user_role IN (2, 4, 5) AND users.status = 'approved' ORDER BY users.wallet_balance DESC LIMIT 10",
+    "optimized_sql": "SELECT id, name, last_name, email, wallet_balance FROM users WHERE users.user_role IN (2, 4, 5) AND users.status = 'approved' ORDER BY users.wallet_balance DESC LIMIT 10",
+    "status": "success",
+    "execution_time_ms": 212.46,
+    "row_count": 10,
+    "affected_tables": [],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 9571.32,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: VERIFIED_RESULT",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-25 16:19:18",
+    "question": "Generate a table of retailers linked to distributor 5997",
+    "generated_sql": "",
+    "optimized_sql": "",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "Error executing query: LLM generated an empty query. Triggering self-correction retry..."
+  },
+  {
+    "timestamp": "2026-08-25 14:45:42",
+    "question": "Generate a table of retailers linked to distributor 5997",
+    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.distributer_id = 5997 AND u.user_role = 2 LIMIT 500",
+    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.distributer_id = 5997 AND u.user_role = 2 LIMIT 500",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "Error executing query: Unknown Error"
+  },
+  {
+    "timestamp": "2026-08-25 14:44:26",
+    "question": "Generate a table of retailers linked to distributor 5997, and include a column for their individual total earnings for the current month.",
+    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.distributer_id = 5997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.distributer_id = 5997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "status": "success",
+    "execution_time_ms": 37.28,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 64.99,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: VERIFIED_EMPTY",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-25 14:41:33",
+    "question": "5997 under this distributor how many retailers are available and give me those retailers in this month earnings",
+    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.distributer_id = 5997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.distributer_id = 5997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "status": "success",
+    "execution_time_ms": 36.07,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 65.1,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: VERIFIED_EMPTY",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-25 13:31:27",
+    "question": "58997 under this distributor how many retailers are available and give me those retailers in this month earnings",
+    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.distributer_id = 58997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.distributer_id = 58997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "status": "success",
+    "execution_time_ms": 71.27,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 65.07,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: VERIFIED_EMPTY",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-25 13:21:49",
+    "question": "58997 under this distributor how many retailers are available and give me those retailers in this month earnings",
+    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.distributer_id = 58997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.distributer_id = 58997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "status": "success",
+    "execution_time_ms": 23.42,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": 100,
+    "explanation": "No structured plan generated.",
+    "execution_plan_cost": 65.04,
+    "thinking_steps": [
+      "Step 1: Extracting intent, entities, and context filters via NLP...",
+      "Step 3: Generating Plan & SQL (Attempt 1)...",
+      "Step 4: SQL Validation \u2014 safety, schema & join checks (Attempt 1)...",
+      "Step 5: Evaluating Execution Plan (Attempt 1)...",
+      "Step 6: Executing query against database (Attempt 1)...",
+      "Step 7: E2E Strict Accuracy Validation \u2014 verifying all 10 dimensions...",
+      "Step 7 Result: VERIFIED_EMPTY",
+      "Step 7: Formatting query explanation from execution plan..."
+    ],
+    "error": null
+  },
+  {
+    "timestamp": "2026-08-25 13:21:03",
+    "question": "58997 under this distributor how many retailers are available and give me those retailers in this month earnings",
+    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.linked_user_id = 58997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.linked_user_id = 58997 AND u.user_role = 2 AND wt.created_at >= '2026-08-01' AND wt.created_at < '2026-09-01' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "Error executing query: Unknown Error"
+  },
+  {
+    "timestamp": "2026-08-25 13:04:59",
+    "question": "58997 under this distributor how many retailers are available and give me those retailers in this month earnings",
+    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.linked_user_id = 58997 AND u.user_role = 2 GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, COALESCE(SUM(wt.amount), 0) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.linked_user_id = 58997 AND u.user_role = 2 GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status",
+    "status": "error",
+    "execution_time_ms": 0,
+    "row_count": 0,
+    "affected_tables": [],
+    "confidence_score": null,
+    "explanation": null,
+    "execution_plan_cost": 0.0,
+    "thinking_steps": [],
+    "error": "Error executing query: Unknown Error"
+  },
+  {
     "timestamp": "2026-08-24 18:12:52",
     "question": "58997 under this distributor how many retailers are available and give me those retailers in this month earnings",
     "generated_sql": "SELECT u.id AS retailer_id, u.name, u.mobile_number, u.city, u.district, u.status, SUM(wt.amount) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'redeem_coupon', 'incentive', 'bonus_conversion', 'referral_earning') AND u.user_role = 2 GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status ORDER BY total_earnings DESC LIMIT 500",
@@ -4832,389 +5184,6 @@
     "explanation": null,
     "execution_plan_cost": 0.0,
     "thinking_steps": [],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 16:04:12",
-    "question": "Show distributor ID 46965",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 46965 AND u.user_role = 4 LIMIT 1;",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 46965 AND u.user_role = 4 LIMIT 1;",
-    "status": "success",
-    "execution_time_ms": 5,
-    "row_count": 1,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": null,
-    "explanation": null,
-    "execution_plan_cost": 0.0,
-    "thinking_steps": [],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 16:00:55",
-    "question": "Give me details of ID 47019",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 47019 LIMIT 1;",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 47019 LIMIT 1;",
-    "status": "success",
-    "execution_time_ms": 5,
-    "row_count": 1,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": null,
-    "explanation": null,
-    "execution_plan_cost": 0.0,
-    "thinking_steps": [],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 16:00:53",
-    "question": "Find distributor 47017",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 47017 AND u.user_role = 4 LIMIT 1;",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 47017 AND u.user_role = 4 LIMIT 1;",
-    "status": "success",
-    "execution_time_ms": 5,
-    "row_count": 1,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": null,
-    "explanation": null,
-    "execution_plan_cost": 0.0,
-    "thinking_steps": [],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 16:00:51",
-    "question": "Show customer 46578",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 46578 AND u.user_role = 2 LIMIT 1;",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 46578 AND u.user_role = 2 LIMIT 1;",
-    "status": "success",
-    "execution_time_ms": 5,
-    "row_count": 1,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": null,
-    "explanation": null,
-    "execution_plan_cost": 0.0,
-    "thinking_steps": [],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 16:00:49",
-    "question": "Give details for retailer ID 46556",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 46556 AND u.user_role = 2 LIMIT 1;",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 46556 AND u.user_role = 2 LIMIT 1;",
-    "status": "success",
-    "execution_time_ms": 5,
-    "row_count": 1,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": null,
-    "explanation": null,
-    "execution_plan_cost": 0.0,
-    "thinking_steps": [],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 16:00:47",
-    "question": "Show distributor ID 46965",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 46965 AND u.user_role = 4 LIMIT 1;",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users u WHERE u.id = 46965 AND u.user_role = 4 LIMIT 1;",
-    "status": "success",
-    "execution_time_ms": 5,
-    "row_count": 1,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": null,
-    "explanation": null,
-    "execution_plan_cost": 0.0,
-    "thinking_steps": [],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:58:31",
-    "question": "hii",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 80.39,
-    "row_count": 500,
-    "affected_tables": [],
-    "confidence_score": 90,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 20779.43,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Step 2: Execution Plan created for 0 tables.",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:58",
-    "question": "What about retailers?",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Kerala' OR u.city = 'Kerala' OR u.address LIKE '%Kerala%' OR u.state_id = 32) AND u.created_at >= '2026-08-01 00:00:00' AND u.created_at < '2026-09-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Kerala' OR u.city = 'Kerala' OR u.address LIKE '%Kerala%' OR u.state_id = 32) AND u.created_at >= '2026-08-01 00:00:00' AND u.created_at < '2026-09-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 321.71,
-    "row_count": 0,
-    "affected_tables": [
-      "users",
-      "role"
-    ],
-    "confidence_score": 90,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 2353.26,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Entities Discovered: users, role",
-      "Step 2: Execution Plan created for 2 tables.",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:56",
-    "question": "What about retailers?",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 361.43,
-    "row_count": 1,
-    "affected_tables": [
-      "users",
-      "role"
-    ],
-    "confidence_score": 90,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 2376.99,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Entities Discovered: users, role",
-      "Step 2: Execution Plan created for 2 tables.",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:53",
-    "question": "Show Kerala distributors for August.",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 4 AND (u.district = 'Kerala' OR u.city = 'Kerala' OR u.address LIKE '%Kerala%' OR u.state_id = 32) AND u.created_at >= '2026-08-01 00:00:00' AND u.created_at < '2026-09-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 4 AND (u.district = 'Kerala' OR u.city = 'Kerala' OR u.address LIKE '%Kerala%' OR u.state_id = 32) AND u.created_at >= '2026-08-01 00:00:00' AND u.created_at < '2026-09-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 37.57,
-    "row_count": 0,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": 100,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 429.73,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Entities Discovered: users",
-      "Step 2: Execution Plan created for 1 tables.",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:51",
-    "question": "Show Karnataka distributors for July.",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 4 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 4 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 36.34,
-    "row_count": 0,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": 100,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 429.73,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Entities Discovered: users",
-      "Step 2: Execution Plan created for 1 tables.",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:47",
-    "question": "What about Kerala?",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Kerala' OR u.city = 'Kerala' OR u.address LIKE '%Kerala%' OR u.state_id = 32) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Kerala' OR u.city = 'Kerala' OR u.address LIKE '%Kerala%' OR u.state_id = 32) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 659.07,
-    "row_count": 0,
-    "affected_tables": [],
-    "confidence_score": 90,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 2391.37,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Step 2: Execution Plan created for 2 tables.",
-      "Joins Discovered: JOIN wallet_transaction ON users.id = wallet_transaction.user_id",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:44",
-    "question": "Only active ones.",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND (u.status = 1 OR u.status = 'active') AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND (u.status = 1 OR u.status = 'active') AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 796.65,
-    "row_count": 0,
-    "affected_tables": [],
-    "confidence_score": 90,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 2558.2,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Step 2: Execution Plan created for 2 tables.",
-      "Joins Discovered: JOIN wallet_transaction ON users.id = wallet_transaction.user_id",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:41",
-    "question": "Compare with June.",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, SUM(CASE WHEN wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' THEN wt.amount ELSE 0 END) AS earnings_july_2026, SUM(CASE WHEN wt.created_at >= '2026-06-01 00:00:00' AND wt.created_at < '2026-07-01 00:00:00' THEN wt.amount ELSE 0 END) AS earnings_june_2026, (SUM(CASE WHEN wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' THEN wt.amount ELSE 0 END) - SUM(CASE WHEN wt.created_at >= '2026-06-01 00:00:00' AND wt.created_at < '2026-07-01 00:00:00' THEN wt.amount ELSE 0 END)) AS net_growth FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem', 'referral_earning') AND u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) GROUP BY u.id, u.name, u.mobile_number, u.city, u.district ORDER BY earnings_july_2026 DESC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, SUM(CASE WHEN wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' THEN wt.amount ELSE 0 END) AS earnings_july_2026, SUM(CASE WHEN wt.created_at >= '2026-06-01 00:00:00' AND wt.created_at < '2026-07-01 00:00:00' THEN wt.amount ELSE 0 END) AS earnings_june_2026, (SUM(CASE WHEN wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' THEN wt.amount ELSE 0 END) - SUM(CASE WHEN wt.created_at >= '2026-06-01 00:00:00' AND wt.created_at < '2026-07-01 00:00:00' THEN wt.amount ELSE 0 END)) AS net_growth FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem', 'referral_earning') AND u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) GROUP BY u.id, u.name, u.mobile_number, u.city, u.district ORDER BY earnings_july_2026 DESC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 3529.61,
-    "row_count": 500,
-    "affected_tables": [],
-    "confidence_score": 90,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 333647.79,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Step 2: Execution Plan created for 2 tables.",
-      "Joins Discovered: JOIN wallet_transaction ON users.id = wallet_transaction.user_id",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:35",
-    "question": "Show their earnings.",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, SUM(wt.amount) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem', 'referral_earning') AND u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status ORDER BY total_earnings DESC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.city, u.district, u.status, SUM(wt.amount) AS total_earnings FROM users AS u JOIN wallet_transaction AS wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem', 'referral_earning') AND u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name, u.mobile_number, u.city, u.district, u.status ORDER BY total_earnings DESC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 2788.59,
-    "row_count": 313,
-    "affected_tables": [
-      "wallet_transaction"
-    ],
-    "confidence_score": 90,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 346934.91,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Entities Discovered: wallet_transaction",
-      "Step 2: Execution Plan created for 2 tables.",
-      "Joins Discovered: JOIN wallet_transaction ON users.id = wallet_transaction.user_id",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:30",
-    "question": "What about retailers?",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 2 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 598.83,
-    "row_count": 1,
-    "affected_tables": [
-      "users",
-      "role"
-    ],
-    "confidence_score": 90,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 2491.26,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Entities Discovered: users, role",
-      "Step 2: Execution Plan created for 2 tables.",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
-    "error": null
-  },
-  {
-    "timestamp": "2026-08-17 15:57:27",
-    "question": "Show Karnataka distributors for July 2026.",
-    "generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 4 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "optimized_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.user_role, u.city, u.district, u.address, u.wallet_balance, u.status, u.created_at FROM users AS u WHERE u.user_role = 4 AND (u.district = 'Karnataka' OR u.city = 'Karnataka' OR u.address LIKE '%Karnataka%' OR u.state_id = 29) AND u.created_at >= '2026-07-01 00:00:00' AND u.created_at < '2026-08-01 00:00:00' ORDER BY u.id ASC LIMIT 500",
-    "status": "success",
-    "execution_time_ms": 35.86,
-    "row_count": 0,
-    "affected_tables": [
-      "users"
-    ],
-    "confidence_score": 100,
-    "explanation": "No structured plan generated.",
-    "execution_plan_cost": 459.23,
-    "thinking_steps": [
-      "Step 1: Extracting intent, entities, and context filters...",
-      "Entities Discovered: users",
-      "Step 2: Execution Plan created for 1 tables.",
-      "Step 3: Generating Plan & SQL (Attempt 1)...",
-      "Step 4: AST Validating SQL (Attempt 1)...",
-      "Step 5: Evaluating Execution Plan (Attempt 1)...",
-      "Step 6: Executing query against database (Attempt 1)...",
-      "Step 7: Formatting query explanation from execution plan..."
-    ],
     "error": null
   }
 ]

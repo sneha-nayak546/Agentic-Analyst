@@ -1,11 +1,5 @@
 [
     {
-        "from": "table:state",
-        "to": "table:zones",
-        "type": "explicit_fk",
-        "join_clause": "state.zone_id = zones.id"
-    },
-    {
         "from": "table:sku_inventories",
         "to": "table:sku_qr_points_map",
         "type": "explicit_fk",

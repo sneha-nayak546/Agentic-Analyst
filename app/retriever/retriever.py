@@ -14,7 +14,7 @@ def get_embedding_model():
             from sentence_transformers import SentenceTransformer
             _model = SentenceTransformer("all-MiniLM-L6-v2")
         except ImportError:
-            return None
+            _model = None
     return _model
 
 def get_chroma_collection():
@@ -46,37 +46,45 @@ def get_schema_metadata():
     return _schema_meta
 
 @lru_cache(maxsize=256)
-def retrieve_schema(question: str, k: int = 1) -> str:
+def retrieve_schema(question: str, k: int = 5) -> str:
     """
-    Hybrid semantic retrieval:
-    1. Resolve intent via Knowledge Graph (graph + metadata)
-    2. Retrieve additional context via ChromaDB Vector Search (top K=1 to minimize context)
-    3. Merge into COMPRESSED LLM context.
+    Hierarchical Semantic RAG Retrieval:
+    Level 1: Semantic Vector Search on table descriptions to identify candidate tables.
+    Level 2: Extract full columns & enum definitions only for top K candidates.
+    Level 3: Extract relevant Foreign Key relationships for candidate tables.
     """
-    from app.knowledge.knowledge_graph import get_knowledge_graph
-    kg = get_knowledge_graph()
+    detected_tables = set()
     
-    # 1. Graph Resolution
-    resolution = kg.resolve_business_query(question)
-    detected_tables = set(resolution["detected_tables"])
-    
-    # 2. Vector Search (fallback only if no tables found or just top 1)
-    if len(detected_tables) == 0:
-        collection = get_chroma_collection()
-        model = get_embedding_model()
-        
-        if collection and model:
-            try:
-                emb = model.encode(question).tolist()
-                res = collection.query(query_embeddings=[emb], n_results=k)
-                if res and res["metadatas"] and res["metadatas"][0]:
-                    for meta in res["metadatas"][0]:
-                        if "table_name" in meta:
-                            detected_tables.add(meta["table_name"])
-            except Exception as e:
-                pass
+    # Try NLP Knowledge Graph first for explicit exact matches
+    try:
+        from app.knowledge.knowledge_graph import get_knowledge_graph
+        kg = get_knowledge_graph()
+        resolution = kg.resolve_business_query(question)
+        if resolution and resolution.get("detected_tables"):
+            detected_tables.update(resolution["detected_tables"])
+    except:
+        pass
 
-    # 3. Assemble COMPACT Context
+    # Level 1: Vector Search for Candidate Tables
+    collection = get_chroma_collection()
+    model = get_embedding_model()
+    
+    if collection and model:
+        try:
+            emb = model.encode(question).tolist()
+            res = collection.query(query_embeddings=[emb], n_results=k)
+            if res and res.get("metadatas") and res["metadatas"][0]:
+                for meta in res["metadatas"][0]:
+                    if "table_name" in meta:
+                        detected_tables.add(meta["table_name"])
+        except Exception as e:
+            print(f"[RAG WARNING] ChromaDB query failed: {e}")
+
+    # Fallback to defaults if nothing found
+    if not detected_tables:
+        detected_tables = {"users", "wallet_transaction", "role"}
+
+    # Level 2 & 3: Assemble COMPACT Context (Only for Candidate Tables)
     lines = []
     schema = get_schema_metadata()
     
@@ -85,26 +93,33 @@ def retrieve_schema(question: str, k: int = 1) -> str:
             info = schema[tbl]
             col_list = []
             enum_list = []
+            fk_list = []
+            
             cols = info.get("columns", {})
             cols_iterable = cols.values() if isinstance(cols, dict) else (cols if isinstance(cols, list) else [])
             for col_data in cols_iterable:
                 col_name = col_data.get("name", "")
-                col_list.append(col_name)
+                c_type = col_data.get("datatype", "")
+                col_list.append(f"{col_name} ({c_type})")
+                
                 if col_data.get("is_enum") and col_data.get("enum_values"):
-                    enum_list.append(f"{col_name}({','.join(col_data['enum_values'])})")
+                    enum_list.append(f"{col_name} IN ({','.join(col_data['enum_values'])})")
+                    
+                if col_data.get("foreign_key"):
+                    fk_tbl = col_data["foreign_key"].get("table")
+                    fk_col = col_data["foreign_key"].get("column")
+                    if fk_tbl in detected_tables: # Only show relationships to other retrieved tables
+                        fk_list.append(f"JOIN {fk_tbl} ON {tbl}.{col_name} = {fk_tbl}.{fk_col}")
             
             tbl_def = f"Table `{tbl}`:\n  Columns: {', '.join(col_list)}"
+            if info.get("comment"):
+                tbl_def += f"\n  Desc: {info['comment']}"
             if enum_list:
                 tbl_def += f"\n  Enums: {'; '.join(enum_list)}"
+            if fk_list:
+                tbl_def += f"\n  Relationships: {'; '.join(fk_list)}"
             lines.append(tbl_def)
         
-    # Include Graph logic
-    if resolution["detected_joins"]:
-        lines.append("Joins:\n" + "\n".join([f"- {j}" for j in resolution["detected_joins"]]))
-        
-    if resolution["date_range"]:
-        lines.append(f"Date Filter: {resolution['date_range']['start']} to {resolution['date_range']['end']}")
-
     if not lines:
         return "No schema context found."
         

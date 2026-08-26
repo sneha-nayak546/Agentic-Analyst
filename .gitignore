@@ -13,3 +13,4 @@ reports/
 logs/
 node_modules/
 dist/
+.gcp_credentials.json

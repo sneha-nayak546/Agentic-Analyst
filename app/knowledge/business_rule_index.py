@@ -36,6 +36,12 @@ TABLE_BUSINESS_RULES: Dict[str, List[str]] = {
     ],
     "automatic_transactions": [
         "Bank automated transfer logs with bank_reference_number and transfer_type."
+    ],
+    "retailer_distributor_mappings": [
+        "Tracks relationships between retailers and distributors.",
+        "Join with `users` ON `users.id = retailer_distributor_mappings.retailer_id` for retailers.",
+        "Join with `users` ON `users.id = retailer_distributor_mappings.distributor_id` for distributors.",
+        "When computing 'retailer earning under a distributor', join `wallet_transaction` with `retailer_distributor_mappings` ON `wallet_transaction.user_id = retailer_distributor_mappings.retailer_id`."
     ]
 }
 
