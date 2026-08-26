@@ -58,19 +58,16 @@ class IntentRouter:
         # Guard: If query is asking for data/numbers/entities/metrics or follow-up references, keep as SQL
         is_data_query = bool(re.search(
             r"\b(top\s*\d+|highest|lowest|sum|count|total\s+amount|how\s+many|show\s+me\s+top|list\s+all|"
-            r"earning|earnings|earned|revenue|sales|balance|wallet|withdraw|withdrawal|withdrawals|payout|"
-            r"distributor|distributors|retailer|retailers|wholesaler|wholesalers|mechanic|mechanics|"
-            r"company|companies|inventory|sku|transaction|transactions|box|boxes|"
-            r"their|them|these|those|which\s+one|who\s+has|who\s+earned|how\s+much|approved|pending|status|\bid\b|\b\d{4,6}\b)\b",
+            r"earning|earnings|earned|revenue|sales|their|them|these|those|which\s+one|who\s+has|who\s+earned|how\s+much|\b\d{4,6}\b)\b",
             p_lower
         ))
         
         tutor_patterns = [
-            r"\bteach me\b", r"\bexplain\s+to\s+me\b", r"\bexplain\s+how\b", r"\bexplain\s+about\b",
-            r"\bhow does\s+\w+\s+work\b", r"\bhow do\s+\w+\s+work\b", r"\btell me about\s+(?:the\s+)?(?:system|database|schema|architecture|table|roles)\b",
-            r"\bhow are roles\b", r"\bexplain the schema\b", r"\bwhat do roles mean\b", r"\bhow do roles work\b",
+            r"\bteach me\b", r"\bexplain\b", r"\bhow does\s+.*?\s+work\b", r"\bhow do\s+.*?\s+work\b",
+            r"\btell me about\s+(?:the\s+)?(?:system|database|schema|architecture|table|roles)\b",
+            r"\btell me about\b", r"\bhow are roles\b", r"\bexplain the schema\b", r"\bwhat do roles mean\b", r"\bhow do roles work\b",
             r"\bexplain difference between\b", r"\bwhat is the difference\b", r"\bmeaning of\b",
-            r"\bguide on\b", r"\boverview of the database\b", r"\bwhat does\s+\w+\s+mean\b",
+            r"\bguide on\b", r"\boverview of the database\b", r"\bwhat does\s+.*?\s+mean\b",
             r"^(?:what is|what are)\s+(?:a\s+|an\s+|the\s+)?(?:role|user_role|distributor|retailer|wholesaler|mechanic|tds|wallet_balance|sku_inventories|database|schema)[\s?]*$"
         ]
         if any(re.search(pat, p_lower) for pat in tutor_patterns) and not is_data_query:

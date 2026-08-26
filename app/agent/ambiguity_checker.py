@@ -60,19 +60,6 @@ def check_ambiguity(question: str, active_context: Optional[Dict[str, Any]] = No
                 }
 
     # Check for Ambiguous "one person" / "single person" without ID, name, or active context
-    if any(p in q_clean for p in ["who is the one person", "that single person", "the one person", "single person details", "that person details", "that person"]) and not ctx.get("entity") and not ctx.get("specific_id") and not ctx.get("metric"):
-        from app.agent.id_search import extract_id_from_prompt
-        if not extract_id_from_prompt(question):
-            return {
-                "is_ambiguous": True,
-                "clarification": "Which person's details would you like to see? You can specify a User ID, mobile number, or choose an option below:",
-                "options": [
-                    "User with highest wallet balance",
-                    "Top retailer by earnings for July 2026",
-                    "Show distributor ID 46965",
-                    "Show retailer ID 46556"
-                ]
-            }
 
     # Single-word vague inputs like "data", "report", "users" without context
     words = [w for w in q_clean.split() if len(w) > 2]

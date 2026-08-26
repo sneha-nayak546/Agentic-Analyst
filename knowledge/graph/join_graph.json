@@ -1,10 +1,4 @@
 {
-    "state": [
-        "zones"
-    ],
-    "zones": [
-        "state"
-    ],
     "sku_inventories": [
         "sku_qr_points_map",
         "users",
