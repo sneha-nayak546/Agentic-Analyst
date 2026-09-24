@@ -39,20 +39,6 @@
   --error-bg: rgba(239, 68, 68, 0.1);
   --private: #8B5CF6;
   --private-bg: rgba(139, 92, 246, 0.1);
-
-  /* ── Agent JGH Gold Brand Identity ── */
-  --accent-gold-50: #FFFBEB;
-  --accent-gold-100: #FEF3C7;
-  --accent-gold-200: #FDE68A;
-  --accent-gold-300: #FCD34D;
-  --accent-gold-400: #FBBF24;
-  --accent-gold-500: #F59E0B;
-  --accent-gold-600: #D97706;
-  --accent-gold-700: #B45309;
-  --accent-gold-800: #92400E;
-  --accent-gold-900: #78350F;
-  --brand-navy-900: #030C1E;
-  --brand-navy-800: #0A142D;
 }
 
 .light-mode {

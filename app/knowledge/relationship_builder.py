@@ -1,133 +1,66 @@
 import os
 import json
-from typing import List, Dict, Any, Set, Optional
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, text
+from sqlalchemy.engine import URL
 
-EXPLICIT_FK = "EXPLICIT_FK"
-VERIFIED_UNIQUE_KEY = "VERIFIED_UNIQUE_KEY"
-LOGICAL_INFERRED = "LOGICAL_INFERRED"
+from app.database.allowed_tables import is_allowed_table, TARGET_SCOPE_TABLES
 
-# Static core JGH relationship graph fallback
+# Static relationship graph fallback for 8 target scope tables
+# Static relationship graph fallback for 9 target scope tables
 STATIC_RELATIONSHIP_GRAPH = [
-    {"from_table": "users", "from_column": "user_role", "to_table": "role", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "users", "from_column": "state_id", "to_table": "state", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "wallet_transaction", "from_column": "user_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "withdrawal_request", "from_column": "user_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "withdrawal_request", "from_column": "automatic_transaction_id", "to_table": "automatic_transactions", "to_column": "id", "type": "Many-to-One", "origin": LOGICAL_INFERRED},
-    {"from_table": "automatic_transactions", "from_column": "user_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "sku_inventories", "from_column": "distributer_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "sku_inventories", "from_column": "status_retailer_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "sku_inventories", "from_column": "status_wholeseller_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "sku_inventories", "from_column": "sku_code", "to_table": "qr_point_map", "to_column": "sku_code", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "sku_inventories", "from_column": "sku_code", "to_table": "sku_qr_points_map", "to_column": "sku_code", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "retailer_distributor_mappings", "from_column": "distributor_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": LOGICAL_INFERRED},
-    {"from_table": "retailer_distributor_mappings", "from_column": "retailer_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": LOGICAL_INFERRED},
-    {"from_table": "mechanic_details", "from_column": "mechanic_id", "to_table": "users", "to_column": "id", "type": "One-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "mechanic_details", "from_column": "company_id", "to_table": "companies", "to_column": "id", "type": "Many-to-One", "origin": EXPLICIT_FK},
-    {"from_table": "companies", "from_column": "customer_id", "to_table": "users", "to_column": "id", "type": "Many-to-One", "origin": LOGICAL_INFERRED}
+    {"from_table": "users", "from_column": "user_role", "to_table": "role", "to_column": "id"},
+    {"from_table": "wallet_transaction", "from_column": "user_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "withdrawal_request", "from_column": "user_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "withdrawal_request", "from_column": "automatic_transaction_id", "to_table": "automatic_transactions", "to_column": "id"},
+    {"from_table": "automatic_transactions", "from_column": "user_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "sku_inventories", "from_column": "distributer_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "sku_inventories", "from_column": "status_retailer_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "sku_inventories", "from_column": "status_wholeseller_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "sku_inventories", "from_column": "sku_code", "to_table": "sku_qr_points_map", "to_column": "sku_code"},
+    {"from_table": "sku_qr_points_map", "from_column": "status_wholesaler_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "sku_qr_points_map", "from_column": "status_retailer_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "mechanic_details", "from_column": "mechanic_id", "to_table": "users", "to_column": "id"},
+    {"from_table": "mechanic_details", "from_column": "company_id", "to_table": "companies", "to_column": "id"},
+    {"from_table": "companies", "from_column": "customer_id", "to_table": "users", "to_column": "id"}
 ]
 
-_cached_relationship_graph: Optional[List[Dict[str, Any]]] = None
-
-def get_relationship_graph() -> List[Dict[str, Any]]:
-    """
-    Returns the complete relationship graph across all discoverable ~256 tables.
-    Integrates explicit database foreign keys and complete catalog connections.
-    """
-    global _cached_relationship_graph
-    if _cached_relationship_graph is not None:
-        return _cached_relationship_graph
-
-    relationships = []
-    seen = set()
-
-    def _add_rel(f_tbl, f_col, t_tbl, t_col, origin=EXPLICIT_FK, r_type="Many-to-One"):
-        key = (f_tbl.lower(), f_col.lower(), t_tbl.lower(), t_col.lower())
-        if key not in seen:
-            seen.add(key)
-            relationships.append({
-                "from_table": f_tbl.lower(),
-                "from_column": f_col.lower(),
-                "to_table": t_tbl.lower(),
-                "to_column": t_col.lower(),
-                "type": r_type,
-                "origin": origin
-            })
-
-    # 1. Ingest connections_knowledge.json (Complete Table Connectivity Catalog for ~238 tables)
-    conn_file = "knowledge/connections_knowledge.json"
-    if os.path.exists(conn_file):
+def get_relationship_graph() -> list:
+    rel_path = "knowledge/relationships/relationships.json"
+    if os.path.exists(rel_path):
         try:
-            with open(conn_file, "r", encoding="utf-8") as f:
-                conn_data = json.load(f)
-            for src_tbl, info in conn_data.items():
-                for ob in info.get("outbound", []):
-                    t_tbl = ob.get("target_table")
-                    s_col = ob.get("column")
-                    t_col = ob.get("target_column")
-                    rel_t = ob.get("type")
-                    orig = EXPLICIT_FK if rel_t == "Explicit" else (VERIFIED_UNIQUE_KEY if rel_t == "UniqueKey" else LOGICAL_INFERRED)
-                    if t_tbl and s_col and t_col:
-                        _add_rel(src_tbl, s_col, t_tbl, t_col, origin=orig)
+            with open(rel_path, "r", encoding="utf-8") as f:
+                rels = json.load(f)
+                filtered = [
+                    r for r in rels
+                    if is_allowed_table(r.get("from_table")) and is_allowed_table(r.get("to_table"))
+                ]
+                if filtered:
+                    # Guarantee user_role relationship is present
+                    has_role_rel = any(r.get("from_column") == "user_role" for r in filtered)
+                    if not has_role_rel:
+                        filtered.append({"from_table": "users", "from_column": "user_role", "to_table": "user_role", "to_column": "id"})
+                    return filtered
         except Exception:
             pass
+    return STATIC_RELATIONSHIP_GRAPH
 
-    # 2. Ingest schema_metadata.json foreign keys
-    schema_file = "knowledge/schema/schema_metadata.json"
-    if os.path.exists(schema_file):
-        try:
-            with open(schema_file, "r", encoding="utf-8") as f:
-                schema_data = json.load(f)
-            for tbl, t_info in schema_data.items():
-                for fk in t_info.get("foreign_keys", []):
-                    ref_tbl = fk.get("referred_table")
-                    src_cols = fk.get("constrained_columns", [])
-                    ref_cols = fk.get("referred_columns", [])
-                    if ref_tbl and src_cols and ref_cols:
-                        _add_rel(tbl, src_cols[0], ref_tbl, ref_cols[0], origin=EXPLICIT_FK)
-        except Exception:
-            pass
 
-    # 3. Always guarantee core domain relationships are present
-    for s_rel in STATIC_RELATIONSHIP_GRAPH:
-        _add_rel(
-            s_rel["from_table"],
-            s_rel["from_column"],
-            s_rel["to_table"],
-            s_rel["to_column"],
-            origin=s_rel.get("origin", EXPLICIT_FK),
-            r_type=s_rel.get("type", "Many-to-One")
-        )
-
-    _cached_relationship_graph = relationships
-    return _cached_relationship_graph
-
-def get_relationship_prompt_text(tables: Optional[Set[str]] = None) -> str:
-    """Returns formatted join strings for a given subset of tables, prioritizing EXPLICIT_FK over LOGICAL_INFERRED."""
+def get_relationship_prompt_text(tables: set = None) -> str:
     rels = get_relationship_graph()
-    explicit_lines = []
-    inferred_lines = []
+    lines = []
     seen = set()
-    tbls_lower = {t.lower() for t in tables} if tables else None
-
     for r in rels:
         f_tbl, f_col = r["from_table"], r["from_column"]
         t_tbl, t_col = r["to_table"], r["to_column"]
-        if tbls_lower:
-            if f_tbl not in tbls_lower and t_tbl not in tbls_lower:
+        if tables:
+            if f_tbl not in tables and t_tbl not in tables:
                 continue
-        origin = r.get("origin", EXPLICIT_FK)
-        origin_tag = f"[{origin}]"
-        rel_str = f"{f_tbl}.{f_col} = {t_tbl}.{t_col} {origin_tag}"
+        rel_str = f"{f_tbl}.{f_col} = {t_tbl}.{t_col}"
         if rel_str not in seen:
             seen.add(rel_str)
-            if origin == EXPLICIT_FK:
-                explicit_lines.append(rel_str)
-            else:
-                inferred_lines.append(rel_str)
-
-    all_lines = explicit_lines + inferred_lines
-    return "\n".join(all_lines) if all_lines else f"sku_inventories.sku_code = qr_point_map.sku_code [{EXPLICIT_FK}]\nwallet_transaction.user_id = users.id [{EXPLICIT_FK}]"
-
+            lines.append(rel_str)
+    return "\n".join(lines) if lines else "users.user_role = user_role.id\nwallet_transaction.user_id = users.id"
 
 
 if __name__ == "__main__":

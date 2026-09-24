@@ -14,16 +14,15 @@ import {
 import DataGrid from './DataGrid';
 import AutoChart from './AutoChart';
 import StepProgressLoader from './StepProgressLoader';
-import Spotlight from './Spotlight';
 import './CenterChat.css';
 
 const STARTER_PROMPTS = [
-  { icon: TrendingUp, title: 'July vs June Comparison', desc: 'Two-month comparative earnings', query: 'Compare total wallet transactions between July and June 2026' },
-  { icon: Users, title: 'Distributor 5997 Network', desc: 'Cross-table distributor-retailer linkage', query: 'Generate a table of retailers linked to distributor 5997' },
-  { icon: ShieldCheck, title: 'Verified Mechanics', desc: 'Multi-filter role and KYC query', query: 'Show active mechanics in Bengaluru with KYC verified' },
-  { icon: Sparkles, title: 'Top Retailer Earners', desc: 'Ranked monthly performance', query: 'Show top 10 retailers by earnings for July 2026' },
-  { icon: Layers, title: 'Wholesaler Dispatches', desc: 'Supply chain inventory movement', query: 'Show top 5 wholesalers by box dispatches' },
-  { icon: ArrowUpRight, title: 'Multi-Part Analysis', desc: 'Atomic dual-city decomposition', query: 'Show count of retailers in Bengaluru and list all retailers in Mysuru' }
+  { icon: TrendingUp, title: 'Earnings', desc: 'Revenue & transaction insights', query: 'Compare Karnataka and Kerala distributor earnings' },
+  { icon: Users, title: 'Distributors', desc: 'User growth and activity', query: 'List top 10 distributors' },
+  { icon: ArrowUpRight, title: 'Withdrawals', desc: 'Pending & approved requests', query: 'Show pending withdrawal requests' },
+  { icon: Layers, title: 'Inventory', desc: 'Stock and supply metrics', query: 'Show inventory levels' },
+  { icon: BarChart3, title: 'Performance', desc: 'Overall business growth', query: 'What was the percentage change in approved payouts?' },
+  { icon: FileSpreadsheet, title: 'Payouts', desc: 'Financial disbursements', query: 'Show approved payouts for August' }
 ];
 
 /* ── User Message Bubble with Edit ── */
@@ -91,36 +90,59 @@ const UserBubble = ({ content, onEdit }) => {
   );
 };
 
-/* ── Individual AI Response Card (Compliant with Sections 12-15) ── */
+/* ── Individual AI Response Card ── */
 const AiResponseCard = ({ message, userQuery, onActionClick, onBookmark, isBookmarked }) => {
-  const [isSqlExpanded, setIsSqlExpanded] = useState(false);
-  const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
-  const [showChart, setShowChart] = useState(false);
+  const [activeTab, setActiveTab] = useState(() => {
+    const q = (userQuery || '').toLowerCase();
+    return (q.includes('table') || q.includes('list') || q.includes('grid')) ? 'table' : 'overview';
+  });
   const [copied, setCopied] = useState(false);
-  const [sqlCopied, setSqlCopied] = useState(false);
-  const [exportLoading, setExportLoading] = useState(null);
+  const [showExport, setShowExport] = useState(false);
 
   const rawData = message?.data || {};
-  const results = rawData.results || rawData.result?.rows || [];
-  const columns = rawData.columns || rawData.result?.columns || Object.keys(results[0] || {});
-  const sqlQuery = (typeof rawData.sql === 'object' ? rawData.sql?.query : rawData.sql) || rawData.sql_query || '';
-  const answerText = rawData.direct_answer || rawData.answer?.direct_answer || rawData.answer?.text || rawData.summary || message?.content || '';
-  const explanationText = rawData.explanation || rawData.answer?.explanation || rawData.analysis?.summary || '';
-  const keyFindings = rawData.analysis?.key_findings || [];
-  const status = rawData.status || 'VERIFIED';
-  const isVerified = status === 'VERIFIED';
-  const isError = message?.error || status === 'error' || status === 'blocked';
+  const results = rawData.results || [];
+  const summary = rawData.summary || message?.content || '';
+  const sqlQuery = rawData.sql_query || rawData.sql || '';
+  const columns = rawData.columns || Object.keys(results[0] || {});
+  const isError = message?.error;
 
-  const intent = rawData.intent || {};
-  const executionPlan = rawData.execution_plan || {};
-  const verification = rawData.verification || {};
-  const performance = rawData.performance || rawData.latency_ms || {};
+  // Build KPI cards from results
+  const kpiCards = useMemo(() => {
+    if (!results.length) return [];
+    const row = results[0];
+    const cards = [];
 
-  const requestedCount = rawData.result?.requested_count ?? intent.limit ?? null;
-  const returnedCount = rawData.result?.returned_count ?? results.length;
-  const additionalRecordsAvailable = rawData.result?.additional_records_available ?? verification.additional_records_available ?? false;
+    if (row.percentage_change !== undefined || row.july_2026_payouts !== undefined) {
+      const v1 = Number(row.july_2026_payouts ?? row.july_2026_earnings ?? 0);
+      const v2 = Number(row.august_2026_payouts ?? row.august_2026_earnings ?? 0);
+      const diff = v2 - v1;
+      const pct = row.percentage_change ?? (v1 > 0 ? +((v2 - v1) / v1 * 100).toFixed(2) : 0);
+      cards.push(
+        { label: 'July 2026', value: `₹${v1.toLocaleString()}`, trend: null, color: '#10B981' },
+        { label: 'August 2026', value: `₹${v2.toLocaleString()}`, trend: null, color: '#2563EB' },
+        { label: 'Net Change', value: `${diff < 0 ? '-' : '+'}₹${Math.abs(diff).toLocaleString()}`, trend: diff < 0 ? 'down' : 'up', color: diff < 0 ? '#EF4444' : '#10B981' },
+        { label: '% Change', value: `${pct > 0 ? '+' : ''}${pct}%`, trend: pct < 0 ? 'down' : 'up', color: pct < 0 ? '#EF4444' : '#10B981' }
+      );
+    } else if (row.state_name !== undefined && results.length >= 2) {
+      results.slice(0, 2).forEach(r => {
+        cards.push({ label: r.state_name, value: `₹${Number(r.total_earnings || 0).toLocaleString()}`, sub: `${r.total_users || 0} distributors`, trend: null, color: '#2563EB' });
+        cards.push({ label: `${r.state_name} Avg/Dist`, value: `₹${Number(r.avg_earnings_per_user || 0).toLocaleString()}`, trend: null, color: '#8B5CF6' });
+      });
+    } else if (results.length === 1) {
+      const r = results[0];
+      if (r.total_earnings !== undefined) cards.push({ label: 'Total Earnings', value: `₹${Number(r.total_earnings).toLocaleString()}`, trend: null, color: '#10B981' });
+      if (r.name) cards.push({ label: 'Name', value: r.name, trend: null, color: '#2563EB' });
+      if (r.city) cards.push({ label: 'Location', value: r.city, trend: null, color: '#8B5CF6' });
+      if (r.user_id || r.id) cards.push({ label: 'User ID', value: String(r.user_id || r.id), trend: null, color: '#D97706' });
+    } else if (results.length > 1) {
+      const total = results.reduce((s, r) => s + Number(r.total_earnings || r.amount || 0), 0);
+      if (total > 0) cards.push({ label: 'Total Value', value: `₹${total.toLocaleString()}`, trend: null, color: '#10B981' });
+      cards.push({ label: 'Records', value: `${results.length}`, trend: null, color: '#2563EB' });
+    }
+    return cards;
+  }, [results]);
 
-  // Chart data for numeric comparison
+  // Chart data
   const chartData = useMemo(() => {
     if (!results.length) return [];
     if (results[0].state_name) return results.map(r => ({ name: r.state_name, value: Number(r.total_earnings || 0) }));
@@ -138,71 +160,37 @@ const AiResponseCard = ({ message, userQuery, onActionClick, onBookmark, isBookm
   }, [results]);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(answerText).then(() => {
+    navigator.clipboard.writeText(summary).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   };
 
-  const handleCopySql = () => {
-    navigator.clipboard.writeText(sqlQuery).then(() => {
-      setSqlCopied(true);
-      setTimeout(() => setSqlCopied(false), 2000);
-    });
-  };
-
   const handleExport = async (format) => {
-    setExportLoading(format);
-    const filename = `jgh_report_${Date.now()}`;
-    const payload = {
-      title: `Analysis: ${userQuery || 'JGH Enterprise Analytics'}`,
-      filename,
-      question: userQuery || rawData.question || '',
-      answer: answerText,
-      explanation: explanationText,
-      sql: sqlQuery,
-      verification_status: status,
-      details: {
-        entity: intent.entity || 'N/A',
-        metric: intent.metric || 'N/A',
-        period: intent.period?.start ? `${intent.period.start} to ${intent.period.end}` : (intent.period_label || 'All time'),
-        tables: (executionPlan.tables || []).join(', '),
-        requested_count: requestedCount ?? results.length,
-        returned_count: returnedCount
-      },
-      performance: performance,
-      data: results.length > 0 ? results : [{ Status: 'Verified Analytics' }],
-      columns: columns.length > 0 ? columns : Object.keys(results[0] || {}),
-    };
-
+    setShowExport(false);
+    const data = results.length > 0 ? results : [{ Status: 'Verified Analytics' }];
+    const filename = `jgh_export_${Date.now()}`;
     try {
-      const res = await fetch(`/api/export/${format}`, {
+      const res = await fetch(`/export/${format}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ data, columns: columns.length > 0 ? columns : Object.keys(data[0]), filename })
       });
       if (!res.ok) throw new Error();
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = `${filename}.${format === 'excel' ? 'xlsx' : format}`;
-      a.click();
+      a.href = url; a.download = `${filename}.${format === 'excel' ? 'xlsx' : format}`; a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
       if (format === 'csv') {
         const header = columns.join(',');
-        const rows = results.map(r => columns.map(c => JSON.stringify(r[c] ?? '')).join(','));
+        const rows = data.map(r => columns.map(c => JSON.stringify(r[c] ?? '')).join(','));
         const blob = new Blob([[header, ...rows].join('\n')], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${filename}.csv`;
-        a.click();
+        const a = document.createElement('a'); a.href = url; a.download = `${filename}.csv`; a.click();
         URL.revokeObjectURL(url);
       }
-    } finally {
-      setExportLoading(null);
     }
   };
 
@@ -213,24 +201,11 @@ const AiResponseCard = ({ message, userQuery, onActionClick, onBookmark, isBookm
           <Bot size={18} />
         </div>
         <div className="bubble-content-col">
-          <div className="ai-assistant-card">
-            <div className="ai-meta-strip">
-              <span className="ai-status-badge error">
-                <ShieldCheck size={13} /> {status.toUpperCase()}
-              </span>
-            </div>
-            <div className="ai-conversational-answer" style={{ color: 'var(--error, #EF4444)' }}>
-              {answerText || rawData.message || 'The query could not be executed.'}
-            </div>
-          </div>
+          <div className="error-text">{summary || 'Something went wrong. Please try again.'}</div>
         </div>
       </div>
     );
   }
-
-  const periodLabel = intent.period?.month && intent.period?.year
-    ? `${intent.period.month}/${intent.period.year}`
-    : (intent.period_label || '');
 
   return (
     <div className="chat-ai-bubble">
@@ -238,92 +213,36 @@ const AiResponseCard = ({ message, userQuery, onActionClick, onBookmark, isBookm
         <Sparkles size={16} />
       </div>
       <div className="bubble-content-col">
-        <div className="ai-assistant-card">
-          {/* 1. Header Metadata Strip */}
-          <div className="ai-meta-strip">
-            <div className="ai-meta-badges">
-              <span className={`ai-status-badge ${isVerified ? '' : 'error'}`}>
-                <ShieldCheck size={13} /> {isVerified ? 'VERIFIED DATA' : status}
-              </span>
-              {intent.entity && (
-                <span className="ai-tag-pill">
-                  {intent.entity.toUpperCase()}
-                </span>
-              )}
-              {intent.metric && (
-                <span className="ai-tag-pill">
-                  {intent.metric.toUpperCase()}
-                </span>
-              )}
-              {periodLabel && (
-                <span className="ai-tag-pill">
-                  {periodLabel}
-                </span>
-              )}
-            </div>
-            <div className="ai-latency-pill">
-              ⚡ {performance.total_ms || rawData.execution_time || 0} ms
-            </div>
-          </div>
-
-          {/* 2. Primary Conversational Answer */}
-          <div className="ai-conversational-answer">
-            <ReactMarkdown
-              components={{
-                p: ({ children }) => <p style={{ margin: '0 0 0.65rem 0', lineHeight: 1.7, fontSize: '0.96rem', color: 'var(--text-primary)' }}>{children}</p>,
-                strong: ({ children }) => <strong style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{children}</strong>,
-                ol: ({ children }) => <ol style={{ margin: '0.4rem 0 0.75rem 1.25rem', padding: 0 }}>{children}</ol>,
-                ul: ({ children }) => <ul style={{ margin: '0.4rem 0 0.75rem 1.25rem', padding: 0 }}>{children}</ul>,
-                li: ({ children }) => <li style={{ marginBottom: '0.3rem', lineHeight: 1.6 }}>{children}</li>,
-                code: ({ children }) => <code style={{ background: 'var(--bg-surface-subtle)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.85em', fontFamily: 'monospace' }}>{children}</code>,
-              }}
-            >
-              {answerText}
-            </ReactMarkdown>
-
-            {/* Key Findings List if available and not redundant */}
-            {keyFindings.length > 0 && !answerText.includes(keyFindings[0]) && (
-              <div className="ai-key-findings" style={{ marginTop: '0.6rem' }}>
-                <ul>
-                  {keyFindings.map((finding, idx) => (
-                    <li key={idx}>{finding}</li>
+        <div className="bubble-card">
+          {/* Tab Panels */}
+          {activeTab === 'overview' && (
+            <div className="bubble-overview-panel">
+              {/* KPI Cards Row */}
+              {kpiCards.length > 0 && (
+                <div className="bubble-kpi-row">
+                  {kpiCards.slice(0, 4).map((kpi, i) => (
+                    <div key={i} className="kpi-card">
+                      <span className="kpi-card-label">{kpi.label}</span>
+                      <span className="kpi-card-value" style={{ color: kpi.color }}>{kpi.value}</span>
+                      {kpi.sub && <span className="kpi-card-sub">{kpi.sub}</span>}
+                      {kpi.trend === 'down' && <span className="kpi-trend down">▼ Decrease</span>}
+                      {kpi.trend === 'up' && <span className="kpi-trend up">▲ Increase</span>}
+                    </div>
                   ))}
-                </ul>
-              </div>
-            )}
-          </div>
+                </div>
+              )}
 
-          {/* 3. Verified Results Data Table (Rendered when records exist) */}
-          {results.length > 0 && (
-            <div className="ai-table-section">
-              <div className="ai-table-header">
-                <span className="ai-table-title">
-                  <Table2 size={14} color="var(--primary)" />
-                  Verified Results ({returnedCount} {returnedCount === 1 ? 'record' : 'records'}
-                  {requestedCount && requestedCount > returnedCount ? ` • requested top ${requestedCount}` : ''})
-                </span>
-                {chartData.length >= 2 && (
-                  <button
-                    className="btn-ghost btn-sm"
-                    onClick={() => setShowChart(!showChart)}
-                    style={{ fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem', padding: '0.2rem 0.5rem', cursor: 'pointer' }}
-                  >
-                    <BarChart3 size={13} />
-                    {showChart ? 'Show Table' : 'Show Chart'}
-                  </button>
-                )}
-              </div>
-
-              {showChart && chartData.length >= 2 ? (
-                <div style={{ background: 'var(--bg-surface-subtle)', borderRadius: '12px', padding: '1rem', border: '1px solid var(--border-color)' }}>
-                  <ResponsiveContainer width="100%" height={200}>
+              {/* Inline Chart (if enough data) */}
+              {chartData.length >= 2 && (
+                <div className="bubble-inline-chart">
+                  <ResponsiveContainer width="100%" height={180}>
                     <BarChart data={chartData} margin={{ top: 15, right: 10, left: -15, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
                       <XAxis dataKey="name" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} />
                       <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false}
                         tickFormatter={v => v >= 100000 ? `₹${(v / 100000).toFixed(0)}L` : `₹${v}`} />
                       <Tooltip
-                        contentStyle={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-primary)', fontSize: '0.78rem' }}
+                        contentStyle={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-primary)', fontSize: '0.78rem', boxShadow: 'var(--shadow-md)' }}
                         formatter={v => [`₹${Number(v).toLocaleString()}`, 'Amount']}
                       />
                       <Bar dataKey="value" radius={[6, 6, 0, 0]} barSize={36}>
@@ -334,208 +253,127 @@ const AiResponseCard = ({ message, userQuery, onActionClick, onBookmark, isBookm
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
-              ) : (
-                <DataGrid columns={columns} data={results} />
               )}
-            </div>
-          )}
 
-          {/* 4. Calculated Business Explanation Card */}
-          {explanationText && (
-            <div className="ai-explanation-card">
-              <div className="ai-explanation-header">
-                <HelpCircle size={14} color="#059669" />
-                <span>Calculated Business Explanation</span>
-              </div>
-              <p className="ai-explanation-body">
-                {explanationText}
-              </p>
-            </div>
-          )}
-
-          {/* 5. Collapsible [View SQL] (Closed by default) */}
-          {sqlQuery && (
-            <div className="ai-accordion-card">
-              <button
-                className="ai-accordion-btn"
-                onClick={() => setIsSqlExpanded(!isSqlExpanded)}
-                aria-expanded={isSqlExpanded}
-              >
-                <div className="ai-accordion-btn-left">
-                  <Code2 size={14} color="var(--primary)" />
-                  <span>{isSqlExpanded ? 'Hide SQL Query' : 'View SQL Query'}</span>
-                </div>
-                <div className="ai-accordion-btn-right">
-                  <span className="badge-micro success">AST Validated ✓</span>
-                  <span className="badge-micro success">Semantic Validated ✓</span>
-                  <span className="badge-micro">Read-Only ✓</span>
-                  <ChevronDown size={14} className={`ai-accordion-chevron ${isSqlExpanded ? 'expanded' : ''}`} />
-                </div>
-              </button>
-
-              {isSqlExpanded && (
-                <div className="ai-accordion-body">
-                  <div className="ai-sql-meta">
-                    <span>
-                      <strong>Model:</strong> {rawData.sql?.model || 'qwen/qwen3.8-27b'} &nbsp;•&nbsp;
-                      <strong>Provider:</strong> {rawData.sql?.provider || 'Groq'}
-                    </span>
-                    <button
-                      className="btn-ghost btn-sm"
-                      onClick={handleCopySql}
-                      style={{ fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem', padding: '0.2rem 0.5rem', cursor: 'pointer' }}
-                    >
-                      {sqlCopied ? <Check size={12} color="#10B981" /> : <Copy size={12} />}
-                      {sqlCopied ? 'Copied' : 'Copy SQL'}
-                    </button>
-                  </div>
-                  <pre className="ai-sql-pre">
-                    <code>{sqlQuery}</code>
-                  </pre>
-                  <div style={{ marginTop: '0.5rem', fontSize: '0.72rem', color: 'var(--text-muted)', display: 'flex', gap: '1rem' }}>
-                    <span>SQL Gen: {performance.sql_generation_ms || performance.sql_gen_ms || 45} ms</span>
-                    <span>DB Exec: {performance.db_execution_ms || rawData.execution_time || 18} ms</span>
-                  </div>
+              {/* Text Summary */}
+              {summary && (
+                <div className="bubble-summary-text">
+                  {chartData.length > 0 || kpiCards.length > 0 ? (
+                    <div className="summary-label">What this means</div>
+                  ) : null}
+                  <ReactMarkdown
+                    components={{
+                      p: ({ children }) => <p style={{ margin: '0 0 0.75rem 0', lineHeight: 1.7, fontSize: '0.9375rem', color: 'var(--text-primary)' }}>{children}</p>,
+                      strong: ({ children }) => <strong style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{children}</strong>,
+                      h1: ({ children }) => <h3 style={{ fontSize: '1.125rem', fontWeight: 600, margin: '1rem 0 0.5rem', color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>{children}</h3>,
+                      h2: ({ children }) => <h4 style={{ fontSize: '1rem', fontWeight: 600, margin: '0.75rem 0 0.5rem', color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>{children}</h4>,
+                      h3: ({ children }) => <h5 style={{ fontSize: '0.9375rem', fontWeight: 600, margin: '0.75rem 0 0.5rem', color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>{children}</h5>,
+                      ul: ({ children }) => <ul style={{ margin: '0.3rem 0', paddingLeft: '1.25rem' }}>{children}</ul>,
+                      li: ({ children }) => <li style={{ marginBottom: '0.2rem', lineHeight: 1.55 }}>{children}</li>,
+                      code: ({ children }) => <code style={{ background: 'var(--bg-surface-subtle)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.85em', fontFamily: 'monospace' }}>{children}</code>,
+                    }}
+                  >{summary}</ReactMarkdown>
                 </div>
               )}
             </div>
           )}
 
-          {/* 6. Collapsible [Details] (Closed by default) */}
-          <div className="ai-accordion-card">
-            <button
-              className="ai-accordion-btn"
-              onClick={() => setIsDetailsExpanded(!isDetailsExpanded)}
-              aria-expanded={isDetailsExpanded}
-            >
-              <div className="ai-accordion-btn-left">
-                <SlidersHorizontal size={14} color="var(--text-secondary)" />
-                <span>{isDetailsExpanded ? 'Hide Query Details' : 'Query Details & Grounding'}</span>
+          {activeTab === 'chart' && chartData.length >= 2 && (
+            <div className="bubble-tab-panel">
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={chartData} margin={{ top: 15, right: 10, left: -15, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
+                  <XAxis dataKey="name" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 10 }} axisLine={false} tickLine={false}
+                    tickFormatter={v => v >= 100000 ? `₹${(v / 100000).toFixed(0)}L` : `₹${v}`} />
+                  <Tooltip
+                    contentStyle={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-primary)', fontSize: '0.78rem', boxShadow: 'var(--shadow-md)' }}
+                    formatter={v => [`₹${Number(v).toLocaleString()}`, 'Amount']}
+                  />
+                  <Bar dataKey="value" radius={[6, 6, 0, 0]} barSize={44}>
+                    {chartData.map((_, i) => (
+                      <Cell key={i} fill={['#1677FF', '#10B981', '#8B5CF6', '#F59E0B'][i % 4]} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+
+          {activeTab === 'table' && results.length > 0 && (
+            <div className="bubble-tab-panel">
+              <DataGrid columns={columns} data={results} />
+            </div>
+          )}
+
+          {activeTab === 'sql' && sqlQuery && (
+            <div className="bubble-tab-panel">
+              <pre className="bubble-sql-block"><code>{sqlQuery}</code></pre>
+            </div>
+          )}
+
+          {/* Tab Bar at the Bottom */}
+          {(results.length > 0 || sqlQuery) && (
+            <div className="bubble-tabs-wrap">
+              <div className="bubble-tabs-bar">
+                <button className={`bubble-tab ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+                  ✨ Executive Brief
+                </button>
+                {results.length > 0 && (
+                  <button className={`bubble-tab ${activeTab === 'table' ? 'active' : ''}`} onClick={() => setActiveTab('table')}>
+                    📊 Data {results.length > 0 && <span className="tab-count">{results.length}</span>}
+                  </button>
+                )}
+                {chartData.length >= 2 && (
+                  <button className={`bubble-tab ${activeTab === 'chart' ? 'active' : ''}`} onClick={() => setActiveTab('chart')}>
+                    📈 Chart
+                  </button>
+                )}
+                {sqlQuery && (
+                  <button className={`bubble-tab ${activeTab === 'sql' ? 'active' : ''}`} onClick={() => setActiveTab('sql')}>
+                    Code <Code2 size={13} style={{marginLeft: '4px'}}/>
+                  </button>
+                )}
               </div>
-              <div className="ai-accordion-btn-right">
-                <span className="badge-micro">{intent.entity || 'Entity: Grounded'}</span>
-                <span className="badge-micro success">{status}</span>
-                <ChevronDown size={14} className={`ai-accordion-chevron ${isDetailsExpanded ? 'expanded' : ''}`} />
-              </div>
+            </div>
+          )}
+
+        {/* Action Buttons Row */}
+        <div className="bubble-actions-row">
+          <button className="bubble-action-btn" onClick={handleCopy} title="Copy response">
+            {copied ? <Check size={13} /> : <Copy size={13} />}
+            <span>{copied ? 'Copied' : 'Copy'}</span>
+          </button>
+
+          <div style={{ position: 'relative' }}>
+            <button className="bubble-action-btn" onClick={() => setShowExport(!showExport)} title="Export data">
+              <Download size={13} />
+              <span>Export</span>
+              <ChevronDown size={11} />
             </button>
-
-            {isDetailsExpanded && (
-              <div className="ai-accordion-body">
-                <div className="ai-details-grid">
-                  <div className="ai-detail-item">
-                    <span className="ai-detail-label">Original Question</span>
-                    <span className="ai-detail-val">{userQuery || rawData.question || 'N/A'}</span>
-                  </div>
-                  <div className="ai-detail-item">
-                    <span className="ai-detail-label">Interpreted Intent</span>
-                    <span className="ai-detail-val">
-                      Entity: <strong>{intent.entity || 'N/A'}</strong> • Metric: <strong>{intent.metric || 'N/A'}</strong><br/>
-                      Period: <strong>{intent.period?.start ? `${intent.period.start} to ${intent.period.end}` : (intent.period_label || 'All time')}</strong>
-                    </span>
-                  </div>
-                  <div className="ai-detail-item">
-                    <span className="ai-detail-label">Execution Plan Grounding</span>
-                    <span className="ai-detail-val">
-                      Tables: <code>{(executionPlan.tables || []).join(', ') || 'users, wallet_transaction'}</code><br/>
-                      Join: <code>{executionPlan.join || 'users.id = wallet_transaction.user_id'}</code>
-                    </span>
-                  </div>
-                  <div className="ai-detail-item">
-                    <span className="ai-detail-label">Record Count Semantics</span>
-                    <span className="ai-detail-val">
-                      Requested: <strong>{requestedCount ?? 'None (all)'}</strong> • Returned: <strong>{returnedCount}</strong><br/>
-                      Additional Records: <strong>{additionalRecordsAvailable ? 'Available' : 'None in Database'}</strong>
-                    </span>
-                  </div>
-                  <div className="ai-detail-item">
-                    <span className="ai-detail-label">Verification Checklist (Section 17)</span>
-                    <span className="ai-detail-val" style={{ color: '#10B981', fontSize: '0.76rem', lineHeight: 1.4 }}>
-                      ✓ Question Understood<br/>
-                      ✓ Schema Grounded ({executionPlan.tables ? executionPlan.tables.length : 2} tables)<br/>
-                      ✓ SQL Semantically Correct<br/>
-                      ✓ DB Result Verified<br/>
-                      ✓ Final Answer Grounded
-                    </span>
-                  </div>
-                  <div className="ai-detail-item">
-                    <span className="ai-detail-label">Total Execution Time</span>
-                    <span className="ai-detail-val" style={{ fontWeight: 700, color: 'var(--primary)' }}>
-                      {performance.total_ms || rawData.execution_time || 0} ms
-                    </span>
-                  </div>
-
-                  {/* Latency Pipeline Flow */}
-                  <div className="ai-latency-flow">
-                    <span className="ai-detail-label">End-to-End Latency Breakdown</span>
-                    <div className="latency-steps">
-                      <span>NLP: <span className="latency-step-chip">{performance.intent_ms || performance.nlp_ms || 0}ms</span></span>
-                      <span>→</span>
-                      <span>Schema: <span className="latency-step-chip">{performance.schema_ms || 0}ms</span></span>
-                      <span>→</span>
-                      <span>SQL Gen: <span className="latency-step-chip">{performance.sql_generation_ms || performance.sql_gen_ms || 0}ms</span></span>
-                      <span>→</span>
-                      <span>Validation: <span className="latency-step-chip">{performance.sql_validation_ms || performance.validation_ms || 0}ms</span></span>
-                      <span>→</span>
-                      <span>DB Exec: <span className="latency-step-chip">{performance.db_execution_ms || rawData.execution_time || 0}ms</span></span>
-                      <span>→</span>
-                      <span>Answer: <span className="latency-step-chip">{performance.answer_generation_ms || performance.answer_ms || 0}ms</span></span>
-                    </div>
-                  </div>
-                </div>
+            {showExport && (
+              <div className="bubble-export-menu">
+                <button onClick={() => handleExport('csv')}><FileText size={12} color="#0284C7" /> CSV</button>
+                <button onClick={() => handleExport('excel')}><FileSpreadsheet size={12} color="#10B981" /> Excel</button>
+                <button onClick={() => handleExport('pdf')}><FileText size={12} color="#EF4444" /> PDF</button>
               </div>
             )}
           </div>
 
-          {/* 7. Action Bar & Download Report Buttons (Section 15) */}
-          <div className="ai-action-bar">
-            <div className="ai-download-group">
-              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>
-                Download Report:
-              </span>
-              <button
-                className="ai-btn-download pdf"
-                onClick={() => handleExport('pdf')}
-                disabled={exportLoading !== null}
-                title="Download verified PDF summary report"
-              >
-                <FileText size={13} color="#EF4444" />
-                <span>{exportLoading === 'pdf' ? 'Exporting...' : 'PDF'}</span>
-              </button>
-              <button
-                className="ai-btn-download csv"
-                onClick={() => handleExport('csv')}
-                disabled={exportLoading !== null}
-                title="Download CSV of verified rows"
-              >
-                <FileText size={13} color="#0284C7" />
-                <span>{exportLoading === 'csv' ? 'Exporting...' : 'CSV'}</span>
-              </button>
-              <button
-                className="ai-btn-download excel"
-                onClick={() => handleExport('excel')}
-                disabled={exportLoading !== null}
-                title="Download Excel spreadsheet with details"
-              >
-                <FileSpreadsheet size={13} color="#10B981" />
-                <span>{exportLoading === 'excel' ? 'Exporting...' : 'Excel'}</span>
-              </button>
-            </div>
+          <button
+            className={`bubble-action-btn ${isBookmarked ? 'bookmarked' : ''}`}
+            onClick={() => onBookmark(userQuery, sqlQuery)}
+            title="Save query"
+          >
+            <Bookmark size={13} />
+            <span>{isBookmarked ? 'Saved' : 'Save'}</span>
+          </button>
 
-            <div className="ai-utility-actions">
-              <button className="ai-btn-download" onClick={handleCopy} title="Copy answer text">
-                {copied ? <Check size={13} color="#10B981" /> : <Copy size={13} />}
-                <span>{copied ? 'Copied' : 'Copy'}</span>
-              </button>
-              <button
-                className={`ai-btn-download ${isBookmarked ? 'bookmarked' : ''}`}
-                onClick={() => onBookmark(userQuery, sqlQuery)}
-                title="Save this query"
-              >
-                <Bookmark size={13} color={isBookmarked ? 'var(--primary)' : 'currentColor'} />
-                <span>{isBookmarked ? 'Saved' : 'Save'}</span>
-              </button>
-            </div>
+          <div className="bubble-meta">
+            <CheckCircle2 size={12} color="#10B981" />
+            <span>Verified SQL · {rawData.execution_time ? `${rawData.execution_time} ms` : ''} · {results.length} rows</span>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -611,24 +449,6 @@ const CenterChat = ({
 
   return (
     <div className="chat-container">
-      {/* ── Aceternity Spotlight Background Beam (Landing State) ── */}
-      {!hasMessages && !isProcessing && (
-        <div className="chat-spotlight-wrapper" aria-hidden="true">
-          <Spotlight
-            className="chat-spotlight-gold"
-            fill="#F59E0B"
-            fillOpacity={0.16}
-            filterId="chat-spotlight-gold"
-          />
-          <Spotlight
-            className="chat-spotlight-blue"
-            fill="#1677FF"
-            fillOpacity={0.08}
-            filterId="chat-spotlight-blue"
-          />
-        </div>
-      )}
-
       {/* ── Scrollable Chat Area ── */}
       <div className="chat-scroll-area" ref={scrollRef}>
           <div className="chat-workspace-grid">

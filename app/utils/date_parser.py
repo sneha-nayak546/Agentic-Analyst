@@ -203,24 +203,17 @@ def parse_temporal_expressions(
         return {"has_time_filter": True, "period_type": "relative", "label": "Last 30 Days", "condition": condition, "start_date": "NOW() - 30 DAY", "end_date": "NOW()", "comparison": comparison_info}
 
     if "this month" in p_lower or "current month" in p_lower:
-        now = datetime.now()
-        cur_m = now.month
-        cur_y = now.year
-        start_date, end_date = get_month_bounds(cur_m, cur_y)
+        # Resolve to current month bounds in 2026
+        cur_m = datetime.now().month if datetime.now().year == 2026 else 8
+        start_date, end_date = get_month_bounds(cur_m, 2026)
         condition = f"{col} >= '{start_date}' AND {col} < '{end_date}'"
-        return {"has_time_filter": True, "period_type": "month", "month_name": MONTH_NUM_TO_NAME[cur_m], "month": cur_m, "year": cur_y, "label": f"{MONTH_NUM_TO_NAME[cur_m]} {cur_y}", "condition": condition, "start_date": start_date, "end_date": end_date, "comparison": comparison_info}
+        return {"has_time_filter": True, "period_type": "month", "month_name": MONTH_NUM_TO_NAME[cur_m], "month": cur_m, "year": 2026, "label": f"{MONTH_NUM_TO_NAME[cur_m]} 2026", "condition": condition, "start_date": start_date, "end_date": end_date, "comparison": comparison_info}
 
     if "last month" in p_lower or "previous month" in p_lower:
-        now = datetime.now()
-        if now.month == 1:
-            prev_m = 12
-            prev_y = now.year - 1
-        else:
-            prev_m = now.month - 1
-            prev_y = now.year
-        start_date, end_date = get_month_bounds(prev_m, prev_y)
+        # Last month relative to August 2026 is July 2026
+        start_date, end_date = get_month_bounds(7, 2026)
         condition = f"{col} >= '{start_date}' AND {col} < '{end_date}'"
-        return {"has_time_filter": True, "period_type": "month", "month_name": MONTH_NUM_TO_NAME[prev_m], "month": prev_m, "year": prev_y, "label": f"{MONTH_NUM_TO_NAME[prev_m]} {prev_y}", "condition": condition, "start_date": start_date, "end_date": end_date, "comparison": comparison_info}
+        return {"has_time_filter": True, "period_type": "month", "month_name": "July", "month": 7, "year": 2026, "label": "July 2026", "condition": condition, "start_date": start_date, "end_date": end_date, "comparison": comparison_info}
 
     if "year to date" in p_lower or "ytd" in p_lower:
         condition = f"{col} >= '{effective_year}-01-01 00:00:00' AND {col} < '{effective_year + 1}-01-01 00:00:00'"

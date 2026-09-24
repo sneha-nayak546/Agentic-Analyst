@@ -1,9 +1,6 @@
 import os
 import json
-import logging
 from functools import lru_cache
-
-logger = logging.getLogger(__name__)
 
 _model = None
 _client = None
@@ -11,8 +8,14 @@ _collection = None
 _schema_meta = None
 
 def get_embedding_model():
-    # Return None to use lightning-fast local lexical retrieval without heavy PyTorch overhead
-    return None
+    global _model
+    if _model is None:
+        try:
+            from sentence_transformers import SentenceTransformer
+            _model = SentenceTransformer("all-MiniLM-L6-v2")
+        except ImportError:
+            return None
+    return _model
 
 def get_chroma_collection():
     global _client, _collection
@@ -43,127 +46,69 @@ def get_schema_metadata():
     return _schema_meta
 
 @lru_cache(maxsize=256)
-def retrieve_schema(question: str, k: int = 5) -> str:
+def retrieve_schema(question: str, k: int = 1) -> str:
     """
-    Hierarchical Semantic RAG Retrieval:
-    Level 1: Semantic Vector Search on table descriptions to identify candidate tables.
-    Level 2: Extract full columns & enum definitions only for top K candidates.
-    Level 3: Extract relevant Foreign Key relationships for candidate tables.
+    Hybrid semantic retrieval:
+    1. Resolve intent via Knowledge Graph (graph + metadata)
+    2. Retrieve additional context via ChromaDB Vector Search (top K=1 to minimize context)
+    3. Merge into COMPRESSED LLM context.
     """
-    detected_tables = set()
+    from app.knowledge.knowledge_graph import get_knowledge_graph
+    kg = get_knowledge_graph()
     
-    # Try NLP Knowledge Graph first for explicit exact matches
-    try:
-        from app.knowledge.knowledge_graph import get_knowledge_graph
-        kg = get_knowledge_graph()
-        resolution = kg.resolve_business_query(question)
-        if resolution and resolution.get("detected_tables"):
-            detected_tables.update(resolution["detected_tables"])
-    except:
-        pass
+    # 1. Graph Resolution
+    resolution = kg.resolve_business_query(question)
+    detected_tables = set(resolution["detected_tables"])
+    
+    # 2. Vector Search (fallback only if no tables found or just top 1)
+    if len(detected_tables) == 0:
+        collection = get_chroma_collection()
+        model = get_embedding_model()
+        
+        if collection and model:
+            try:
+                emb = model.encode(question).tolist()
+                res = collection.query(query_embeddings=[emb], n_results=k)
+                if res and res["metadatas"] and res["metadatas"][0]:
+                    for meta in res["metadatas"][0]:
+                        if "table_name" in meta:
+                            detected_tables.add(meta["table_name"])
+            except Exception as e:
+                pass
 
-    # Level 1: Semantic Vector Search on table descriptions to identify candidate tables across all 238 tables
-    collection = get_chroma_collection()
-    if collection:
-        try:
-            res = collection.query(query_texts=[question], n_results=k)
-            if res and res.get("metadatas") and res["metadatas"][0]:
-                for meta in res["metadatas"][0]:
-                    if "table_name" in meta:
-                        detected_tables.add(meta["table_name"])
-        except Exception as e:
-            logger.warning(f"[RAG WARNING] ChromaDB query failed: {e}")
-
-    # Lexical Concept Mapping across all known tables
-    q_lower = question.lower()
+    # 3. Assemble COMPACT Context
+    lines = []
     schema = get_schema_metadata()
+    
+    for tbl in detected_tables:
+        if tbl in schema:
+            info = schema[tbl]
+            col_list = []
+            enum_list = []
+            cols = info.get("columns", {})
+            cols_iterable = cols.values() if isinstance(cols, dict) else (cols if isinstance(cols, list) else [])
+            for col_data in cols_iterable:
+                col_name = col_data.get("name", "")
+                col_list.append(col_name)
+                if col_data.get("is_enum") and col_data.get("enum_values"):
+                    enum_list.append(f"{col_name}({','.join(col_data['enum_values'])})")
+            
+            tbl_def = f"Table `{tbl}`:\n  Columns: {', '.join(col_list)}"
+            if enum_list:
+                tbl_def += f"\n  Enums: {'; '.join(enum_list)}"
+            lines.append(tbl_def)
+        
+    # Include Graph logic
+    if resolution["detected_joins"]:
+        lines.append("Joins:\n" + "\n".join([f"- {j}" for j in resolution["detected_joins"]]))
+        
+    if resolution["date_range"]:
+        lines.append(f"Date Filter: {resolution['date_range']['start']} to {resolution['date_range']['end']}")
 
-    # Direct entity and keyword table linking using Business Semantic Metadata
-    try:
-        from app.knowledge.semantic_metadata import BUSINESS_SEMANTIC_METADATA
-        for tbl_name, t_meta in BUSINESS_SEMANTIC_METADATA.items():
-            # Check table description and synonyms
-            if any(syn in q_lower for syn in [tbl_name, tbl_name.replace("_", " "), t_meta.get("entity_type", "")]):
-                detected_tables.add(tbl_name)
-            # Check column-level synonyms
-            for c_name, c_info in t_meta.get("columns", {}).items():
-                synonyms = c_info.get("synonyms", [])
-                if any(re.search(rf"\b{re.escape(syn)}\b", q_lower) for syn in synonyms):
-                    detected_tables.add(tbl_name)
-    except Exception as e:
-        logger.warning(f"[RAG WARNING] Semantic metadata retrieval failed: {e}")
-
-    # Fallback / Comprehensive Concept Mapping across all known tables
-    TABLE_KEYWORDS = {
-        "users": ["user", "users", "retailer", "retailers", "distributor", "distributors", "wholesaler", "wholesalers", "mechanic", "mechanics", "state", "states", "city", "bengaluru", "mysuru", "karnataka", "maharashtra", "kerala", "pune", "mumbai"],
-        "retailer_distributor_mappings": ["their retailers", "linked retailers", "linked to distributor", "retailers linked", "distributor retailer", "distributor mappings", "distributor's retailers", "retailers associated", "retailer under distributor", "retailers under"],
-        "wallet_transaction": ["wallet", "transaction", "transactions", "earning", "earnings", "topup", "topups", "balance", "credit", "debit", "cash point"],
-        "withdrawal_request": ["withdrawal", "withdrawals", "payout", "payouts", "approved ones", "pending ones", "rejected ones"],
-        "sku_inventories": ["sku", "inventory", "inventories", "stock", "box", "boxes", "scan", "scans", "box scan", "box scans", "scanned box", "scanned boxes", "category", "categories", "dispatches", "uom"],
-        "qr_point_map": ["qr_point_map", "box_calulation_um", "qr", "points", "box scan", "box scans", "scanned boxes", "boxes scanned", "scanned box", "boxes", "scan", "scanning"],
-        "state": ["state", "states", "karnataka", "maharashtra", "tamil nadu", "kerala", "gujarat"],
-        "companies": ["company", "companies", "client", "clients"],
-        "role": ["role", "roles", "user role", "permissions"]
-    }
-
-    for tbl, kws in TABLE_KEYWORDS.items():
-        if any(re.search(rf"\b{re.escape(kw)}\b", q_lower) for kw in kws):
-            detected_tables.add(tbl)
-
-    # Disambiguation: Box scans vs Wallet Transactions
-    # If question asks about box scans and does NOT mention wallet/earnings/cashback/withdrawal, discard wallet_transaction
-    has_box_scan = any(re.search(rf"\b{re.escape(kw)}\b", q_lower) for kw in ["box scan", "box scans", "scanned box", "scanned boxes", "boxes scanned", "scanned", "scan", "boxes", "box"])
-    has_wallet_terms = any(re.search(rf"\b{re.escape(kw)}\b", q_lower) for kw in ["wallet", "earning", "earnings", "cash", "transaction", "balance", "credit", "debit", "withdrawal"])
-    if has_box_scan and not has_wallet_terms:
-        detected_tables.discard("wallet_transaction")
-        detected_tables.add("sku_inventories")
-        detected_tables.add("qr_point_map")
-
-    # If still no tables detected, attempt schema expansion across all table and column names
-    if not detected_tables:
-        q_words = set(re.findall(r"\w+", q_lower))
-        for tbl, tbl_meta in schema.items():
-            tbl_clean = tbl.lower().replace("_", " ")
-            if any(w in tbl_clean for w in q_words if len(w) > 3):
-                detected_tables.add(tbl)
-            else:
-                cols = tbl_meta.get("columns", {})
-                col_names = [c.get("name", "").lower() for c in (cols.values() if isinstance(cols, dict) else cols)]
-                if any(w in col_names for w in q_words if len(w) > 3):
-                    detected_tables.add(tbl)
-
-    # Connectivity expansion: If sku_inventories is detected, always include qr_point_map and users
-    if "sku_inventories" in detected_tables:
-        detected_tables.add("qr_point_map")
-        detected_tables.add("users")
-        if any(w in q_lower for w in ["state", "states", "region"]):
-            detected_tables.add("state")
-        if any(w in q_lower for w in ["retailer", "retailers", "under distributor", "distributor"]):
-            detected_tables.add("retailer_distributor_mappings")
-
-    # If wallet_transaction is detected, include users
-    if "wallet_transaction" in detected_tables:
-        detected_tables.add("users")
-
-    # If withdrawal_request is detected, include users and wallet_transaction
-    if "withdrawal_request" in detected_tables:
-        detected_tables.add("users")
-        detected_tables.add("wallet_transaction")
-
-    # Filter candidate tables strictly against actual discovered schema
-    if schema:
-        detected_tables = {t for t in detected_tables if t in schema}
-
-    # Safe Handling: If STILL nothing found after expansion, fallback to users table
-    if not detected_tables:
-        detected_tables.add("users")
-
-    # Cap to top 15 candidate tables
-    candidate_list = sorted(list(detected_tables))[:15]
-
-    from app.knowledge.table_schemas import get_selective_schema_context
-    return get_selective_schema_context(candidate_list)
-
+    if not lines:
+        return "No schema context found."
+        
+    return "\n\n".join(lines)
 
 import re
 

@@ -1,7 +1,8 @@
-# Environment variables (DB credentials)
+# Environment variables & Credentials
 .env
 .master.key
 *.key
+.gcp_credentials.json
 
 # Virtual Environment
 venv/
@@ -14,4 +15,4 @@ logs/
 *.log
 node_modules/
 dist/
-.gcp_credentials.json
+

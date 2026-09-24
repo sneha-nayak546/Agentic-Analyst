@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Sparkles, LayoutDashboard, Database, 
-  History, Bookmark, FileText, Award,
+  History, Bookmark, FileText, 
   Settings, Activity, Users,
   ChevronLeft, ChevronRight, Plus
 } from 'lucide-react';
@@ -19,7 +19,6 @@ const Sidebar = ({
 
   const intelligenceNav = [
     { id: 'new_query', label: 'New Query', icon: Sparkles, isAction: true },
-    { id: 'benchmark', label: 'Benchmark', icon: Award, badge: '100%' },
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'reports', label: 'Reports', icon: FileText },
     { id: 'schema', label: 'Database', icon: Database },

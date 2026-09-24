@@ -81,7 +81,6 @@ const Header = ({
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <h1 className="header-title">
           {activeTab === 'chat' ? 'AI Command Center' : 
-           activeTab === 'benchmark' ? 'Accuracy & Generalization Benchmark' :
            activeTab === 'dashboard' ? 'Business Overview' :
            activeTab === 'reports' ? 'Reports & Exports' :
            activeTab === 'schema' ? 'Database Architecture' :
@@ -100,26 +99,6 @@ const Header = ({
 
       {/* ── Right Status & Controls ── */}
       <div className="header-actions">
-        {/* Model Status Pill */}
-        <div
-          className="status-pill"
-          title="Active Model: Qwen2.5-Coder 7B Instruct GGUF running 100% locally via Ollama"
-          style={{ background: 'rgba(22, 119, 255, 0.12)', borderColor: 'rgba(22, 119, 255, 0.3)', color: '#60A5FA' }}
-        >
-          <Sparkles size={13} style={{ marginRight: '5px' }} />
-          <span>qwen2.5-coder:7b</span>
-        </div>
-
-        {/* Benchmark 100% Verified Pill */}
-        <div
-          className="status-pill"
-          title="100/100 Passed across 10 generalization categories"
-          style={{ background: 'rgba(16, 185, 129, 0.12)', borderColor: 'rgba(16, 185, 129, 0.35)', color: '#10B981' }}
-        >
-          <ShieldCheck size={13} style={{ marginRight: '5px' }} />
-          <span>100/100 Passed (100%)</span>
-        </div>
-
         {/* System Operational Badge */}
         <div
           onClick={checkHealth}

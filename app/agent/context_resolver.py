@@ -56,35 +56,6 @@ class ContextResolver:
                 return True
         return False
 
-    def classify_context(self, prompt: str, previous_context: Optional[Dict[str, Any]] = None) -> str:
-        """
-        Classifies turn into:
-          NEW_QUERY, FOLLOW_UP, REFINEMENT, CORRECTION, MULTI_PART, CLARIFICATION
-        """
-        p_lower = prompt.lower().strip()
-        if self.is_reset_command(prompt):
-            return "NEW_QUERY"
-
-        from app.agent.query_decomposer import decompose_query
-        parts = decompose_query(prompt)
-        if len(parts) > 1:
-            return "MULTI_PART"
-
-        # Check for correction
-        if any(re.search(pat, p_lower) for pat in [r"\b(?:no\b|sorry\b|actually\b|i meant\b|not that\b|change to\b)"]):
-            return "CORRECTION"
-
-        if not previous_context:
-            return "NEW_QUERY"
-
-        # Check for follow-up or refinement
-        if self.is_explicit_follow_up(prompt, previous_context=previous_context):
-            if any(re.search(pat, p_lower) for pat in [r"\bonly\b", r"\bfilter by\b", r"\bjust the\b", r"\blimit to\b"]):
-                return "REFINEMENT"
-            return "FOLLOW_UP"
-
-        return "NEW_QUERY"
-
     def is_explicit_follow_up(self, prompt: str, previous_context: Optional[Dict[str, Any]] = None) -> bool:
         """
         Determines whether the prompt is a contextual follow-up to previous conversation:
@@ -96,10 +67,6 @@ class ContextResolver:
 
         # Check explicit follow-up regex patterns
         if any(re.search(pat, p_lower) for pat in FOLLOW_UP_PATTERNS):
-            return True
-
-        # Check elliptical phrases like "what about", "now filter by", "limit to"
-        if re.search(r"^(?:what\s+about|how\s+about|now\s+filter|filter\s+by|limit\s+to|show\s+only|only\s+in|and\s+their|and\s+for)\b", p_lower):
             return True
 
         if not previous_context:
@@ -344,20 +311,22 @@ class ContextResolver:
         period = ctx.get("period")
         comparison = ctx.get("comparison_label")
         limit = ctx.get("limit")
-        specific_id = ctx.get("specific_id") or ctx.get("distributor_id")
+        specific_id = ctx.get("specific_id")
 
-        if specific_id and entity == "retailer":
-            clauses.append(f"retailers linked to distributor {specific_id}")
-        elif specific_id:
+        if limit:
+            clauses.append(f"Top {limit}")
+        if status:
+            clauses.append(f"{status}")
+
+        if specific_id:
             clauses.append(f"ID {specific_id}")
 
-        if not (specific_id and entity == "retailer"):
-            if region and entity:
-                clauses.append(f"{region} {entity}s")
-            elif entity:
-                clauses.append(f"{entity}s")
-            elif region:
-                clauses.append(f"data in {region}")
+        if region and entity:
+            clauses.append(f"{region} {entity}s")
+        elif entity:
+            clauses.append(f"{entity}s")
+        elif region:
+            clauses.append(f"data in {region}")
 
         if metric:
             clauses.append(f"with {metric}")

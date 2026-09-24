@@ -11,12 +11,11 @@ import AdminPanel from './components/AdminPanel';
 import ArchitectureView from './components/ArchitectureView';
 import Settings from './components/Settings';
 import ToastContainer from './components/ToastContainer';
-import BenchmarkPage from './components/BenchmarkPage';
 import Login from './components/Login';
 import './index.css';
 
 export function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState('chat');
   const [messages, setMessages] = useState([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -214,16 +213,6 @@ export function App() {
               savedQueries={savedQueries}
               onBookmarkQuery={handleBookmarkQuery}
               isQueryBookmarked={(q) => savedQueries.some(s => s.question === q)}
-              onToast={addToast}
-            />
-          )}
-
-          {activeTab === 'benchmark' && (
-            <BenchmarkPage
-              onRunQuery={(q) => {
-                setActiveTab('chat');
-                handleSendMessage(q);
-              }}
               onToast={addToast}
             />
           )}

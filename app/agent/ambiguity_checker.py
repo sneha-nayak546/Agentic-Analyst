@@ -35,43 +35,14 @@ def check_ambiguity(question: str, active_context: Optional[Dict[str, Any]] = No
         r"\b(?:show|get|list|fetch)\s+(january|jan|february|feb|march|mar|april|apr|may|june|jun|july|jul|august|aug|september|sep|sept|october|oct|november|nov|december|dec)(?:\s+(20\d{2}))?\s+data\b"
     ]
 
-    # Section 4: Bare metric queries without breakdown or entity (e.g. "Show earnings", "earnings")
-    bare_earnings_match = bool(re.match(r"^(?:show\s+|get\s+|fetch\s+|display\s+)?(?:the\s+)?earnings\s*[?.!]*$", q_clean))
-    if bare_earnings_match and not ctx.get("entity") and not ctx.get("period"):
-        return {
-            "is_ambiguous": True,
-            "clarification": "Do you want total earnings, earnings by retailer, or earnings by month?",
-            "options": [
-                "Total earnings",
-                "Earnings by retailer",
-                "Earnings by month"
-            ]
-        }
-
-    # If query targets an explicit entity ID, it is a specific lookup, not ambiguous
-    if re.search(r"\b(?:id\s*=?\s*\d+|#\d+|\b\d{3,}\b)", q_clean):
-        return None
-
     has_entity_in_prompt = any(w in q_clean for w in [
-        "user", "users", "distributor", "distributors", "retailer", "retailers", "dealer", "dealers",
+        "distributor", "distributors", "retailer", "retailers", "dealer", "dealers",
         "wholesaler", "wholesalers", "mechanic", "mechanics", "company", "companies",
         "earning", "earnings", "transaction", "transactions", "wallet", "withdrawal",
-        "sku", "inventory", "box", "boxes", "balance", "profile", "customer", "account"
+        "sku", "inventory", "box", "boxes", "balance"
     ])
 
     if not has_entity_in_prompt and not ctx.get("entity") and not ctx.get("metric"):
-        if re.search(r"\b(?:show|give|get|display)\s+(?:me\s+)?(?:the\s+)?data\b", q_clean) or any(w in q_clean for w in ["what happened", "show metrics", "give me the details", "show info", "show data", "get data", "details", "show me data"]):
-            return {
-                "is_ambiguous": True,
-                "clarification": f"Your query '{question.strip()}' does not specify which entity or metric you want to view. Please choose an area to analyze:",
-                "options": [
-                    "Retailers Performance",
-                    "Distributors Overview",
-                    "Wallet Transactions",
-                    "SKU Inventories"
-                ]
-            }
-
         for pat in vague_data_patterns:
             m = re.search(pat, q_clean)
             if m:
@@ -89,6 +60,19 @@ def check_ambiguity(question: str, active_context: Optional[Dict[str, Any]] = No
                 }
 
     # Check for Ambiguous "one person" / "single person" without ID, name, or active context
+    if any(p in q_clean for p in ["who is the one person", "that single person", "the one person", "single person details", "that person details", "that person"]) and not ctx.get("entity") and not ctx.get("specific_id") and not ctx.get("metric"):
+        from app.agent.id_search import extract_id_from_prompt
+        if not extract_id_from_prompt(question):
+            return {
+                "is_ambiguous": True,
+                "clarification": "Which person's details would you like to see? You can specify a User ID, mobile number, or choose an option below:",
+                "options": [
+                    "User with highest wallet balance",
+                    "Top retailer by earnings for July 2026",
+                    "Show distributor ID 46965",
+                    "Show retailer ID 46556"
+                ]
+            }
 
     # Single-word vague inputs like "data", "report", "users" without context
     words = [w for w in q_clean.split() if len(w) > 2]
