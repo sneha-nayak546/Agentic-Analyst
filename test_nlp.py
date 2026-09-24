@@ -7,8 +7,11 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from app.agent.nlp_understanding import nlp_agent
+from app.llm.llm_config import OLLAMA_TIMEOUT
 
-def run_query(query, timeout=30):
+def run_query(query, timeout=None):
+    if timeout is None:
+        timeout = OLLAMA_TIMEOUT
     start = time.time()
     def _run():
         return nlp_agent.parse_question(query)
@@ -33,7 +36,7 @@ def main():
     for name, q in queries.items():
         print(f"--- Running {name} Test ---")
         print(f"Query: {q}")
-        success, duration, result = run_query(q, 30)
+        success, duration, result = run_query(q)
         
         if not success:
             print(f"Result: FAIL ({result}) after {duration:.2f}s")

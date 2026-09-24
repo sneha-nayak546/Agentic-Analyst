@@ -1,67 +1,35 @@
 [
     {
-        "from_table": "users",
-        "from_column": "user_role",
-        "to_table": "role",
-        "to_column": "id",
-        "type": "Many-to-One",
-        "origin": "lookup_role_mapping"
-    },
-    {
-        "from_table": "companies",
-        "from_column": "customer_id",
-        "to_table": "users",
-        "to_column": "id",
-        "type": "Many-to-One",
-        "origin": "logical_entity_mapping"
-    },
-    {
-        "from_table": "wallet_transaction",
+        "from_table": "account_deletion_requests",
         "from_column": "user_id",
         "to_table": "users",
         "to_column": "id",
         "type": "Many-to-One",
-        "origin": "logical_entity_mapping"
+        "origin": "LOGICAL_INFERRED"
     },
     {
-        "from_table": "sku_inventories",
-        "from_column": "distributer_id",
-        "to_table": "users",
-        "to_column": "id",
-        "type": "Many-to-One",
-        "origin": "logical_entity_mapping"
-    },
-    {
-        "from_table": "mechanic_details",
-        "from_column": "mechanic_id",
-        "to_table": "users",
-        "to_column": "id",
-        "type": "Many-to-One",
-        "origin": "logical_entity_mapping"
-    },
-    {
-        "from_table": "mechanic_details",
-        "from_column": "company_id",
-        "to_table": "companies",
-        "to_column": "id",
-        "type": "Many-to-One",
-        "origin": "organization_mapping"
-    },
-    {
-        "from_table": "withdrawal_request",
+        "from_table": "activate_qrs_requests",
         "from_column": "user_id",
         "to_table": "users",
         "to_column": "id",
         "type": "Many-to-One",
-        "origin": "logical_entity_mapping"
+        "origin": "LOGICAL_INFERRED"
     },
     {
-        "from_table": "withdrawal_request",
-        "from_column": "automatic_transaction_id",
-        "to_table": "automatic_transactions",
+        "from_table": "addresses",
+        "from_column": "user_id",
+        "to_table": "users",
         "to_column": "id",
         "type": "Many-to-One",
-        "origin": "payout_transaction_mapping"
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "adhaar_verifications",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
     },
     {
         "from_table": "automatic_transactions",
@@ -69,6 +37,2326 @@
         "to_table": "users",
         "to_column": "id",
         "type": "Many-to-One",
-        "origin": "logical_entity_mapping"
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "bank_accounts",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "beat_plan_retailers",
+        "from_column": "beat_plan_id",
+        "to_table": "beat_plans",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "beat_plan_retailers",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "beat_plans",
+        "from_column": "district_id",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "beat_plans",
+        "from_column": "sales_executive_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "beat_plans",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "billings",
+        "from_column": "business_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "billings",
+        "from_column": "package_id",
+        "to_table": "packages",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "blacklist_reports",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "blocked_locations",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "blocked_locations",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "bonus_transactions",
+        "from_column": "bonus_event_id",
+        "to_table": "bonus_events",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "bonus_transactions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "box_gift_orders",
+        "from_column": "address_id",
+        "to_table": "addresses",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "box_gift_orders",
+        "from_column": "gift_card_id",
+        "to_table": "gift_cards",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "box_gift_orders",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "box_gift_orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "branches",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "brand_wise_limits",
+        "from_column": "brand_id",
+        "to_table": "brands",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "brand_wise_limits",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "branding_requests",
+        "from_column": "branding_element_id",
+        "to_table": "branding_elements",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "branding_requests",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "branding_requests",
+        "from_column": "vendor_id",
+        "to_table": "vendors",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "bulk_lpn_imports",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "bulk_reports",
+        "from_column": "report_id",
+        "to_table": "reports",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "bulk_reports",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "bulk_sku_mappings",
+        "from_column": "state_ids",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "bulk_sku_mappings",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "campaign_logs",
+        "from_column": "campaign_id",
+        "to_table": "campaigns",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "campaign_logs",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "campaign_logs",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "campaigns",
+        "from_column": "offer_id",
+        "to_table": "offer",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "campaigns",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "cart_items",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "cart_items",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "category_sub_group_master_category_mapping",
+        "from_column": "category_sub_group_id",
+        "to_table": "category_sub_groups",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "category_sub_groups",
+        "from_column": "brand_id",
+        "to_table": "brands",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "claimed_offers",
+        "from_column": "offer_condition_id",
+        "to_table": "offer_conditions",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "claimed_offers",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "companies",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "company_controls",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "conference_events",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "connection_request",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "connection_request",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "coupon_transactions",
+        "from_column": "package_id",
+        "to_table": "packages",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "coupons",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "credit_notes",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "credit_notes",
+        "from_column": "wallet_transaction_id",
+        "to_table": "wallet_transaction",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "deactivated_qr_wallet_transactions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "details_approvals",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "digio_kyc_details",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "distributor_targets",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "distributor_teams",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "district_population",
+        "from_column": "district_id",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "district_population",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "district_population",
+        "from_column": "zone_id",
+        "to_table": "zones",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "district_with_pha_values",
+        "from_column": "district_id",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "district_with_pha_values",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "district_with_pha_values",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "dynamics",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "ecatalogue",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "ecatalogue",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "employees",
+        "from_column": "branch_id",
+        "to_table": "branches",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "employees",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "employees",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "engagement_event_reward_logs",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "engagement_events",
+        "from_column": "district_ids",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "engagement_events",
+        "from_column": "retailer_ids",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "engagement_events",
+        "from_column": "state_ids",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "engagement_events",
+        "from_column": "zone_ids",
+        "to_table": "zones",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "event_coupons",
+        "from_column": "event_order_id",
+        "to_table": "event_orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "event_coupons",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "event_multiwin_allowed_users",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "event_orders",
+        "from_column": "brand_id",
+        "to_table": "brands",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "event_orders",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "event_orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "executive_attendances",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "executive_retailer_mappings",
+        "from_column": "retailer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "executive_survey_answer_submissions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "feedback_forms",
+        "from_column": "state_ids",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "feedback_submissions",
+        "from_column": "feedback_form_id",
+        "to_table": "feedback_forms",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "feedback_submissions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "feedbacks",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "garages",
+        "from_column": "branch_id",
+        "to_table": "branches",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "garages",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "garages",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "geo_states",
+        "from_column": "zone_id",
+        "to_table": "zones",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_cards",
+        "from_column": "gift_category_id",
+        "to_table": "gift_categories",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "gift_cards",
+        "from_column": "gift_product_id",
+        "to_table": "gift_products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_categories",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_gamification",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_inventories",
+        "from_column": "gift_order_id",
+        "to_table": "gift_orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_inventories",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_inventories",
+        "from_column": "retailer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_order_timelines",
+        "from_column": "gift_order_id",
+        "to_table": "gift_orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_orders",
+        "from_column": "address_id",
+        "to_table": "addresses",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_orders",
+        "from_column": "gift_card_id",
+        "to_table": "gift_cards",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "gift_orders",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "gift_scan_wallet_transactions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "greeting_templates",
+        "from_column": "occasion_id",
+        "to_table": "occasions",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "group_management",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "home_banner",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "home_banner",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "incentive_gift_orders",
+        "from_column": "address_id",
+        "to_table": "addresses",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "incentive_gift_orders",
+        "from_column": "incentive_scheme_id",
+        "to_table": "incentive_schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "incentive_gift_orders",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "incentive_gift_orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "incentive_schemes",
+        "from_column": "brand_id",
+        "to_table": "brands",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "incentive_schemes",
+        "from_column": "state_ids",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "inventory",
+        "from_column": "branch_id",
+        "to_table": "branches",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "inventory",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "inventory",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "inventory_values",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "inventory_values",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "manual_transactions",
+        "from_column": "uploaded_by",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "manual_transactions",
+        "from_column": "withdrawal_request_id",
+        "to_table": "withdrawal_request",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "mapping_incentive_users",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "master_categories",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "mechanic_details",
+        "from_column": "branch_id",
+        "to_table": "branches",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "mechanic_details",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "mechanic_details",
+        "from_column": "employee_id",
+        "to_table": "employees",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "mechanic_details",
+        "from_column": "garage_id",
+        "to_table": "garages",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "module_maps",
+        "from_column": "module_id",
+        "to_table": "packages_modules",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "module_maps",
+        "from_column": "package_id",
+        "to_table": "packages",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "mom_thread_participants",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "monthly_averages",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "monthly_district_pha",
+        "from_column": "district_id",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "monthly_district_pha",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "monthly_district_pha",
+        "from_column": "zone_id",
+        "to_table": "zones",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "monthly_pincode_pha",
+        "from_column": "district_id",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "monthly_pincode_pha",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "monthly_pincode_pha",
+        "from_column": "zone_id",
+        "to_table": "zones",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "mybenefits",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "mypoints",
+        "from_column": "user_role",
+        "to_table": "role",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "mypoints",
+        "from_column": "users_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "notification_logs",
+        "from_column": "notification_id",
+        "to_table": "notifications",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "notification_logs",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "notifications",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "notifications",
+        "from_column": "notification_event_id",
+        "to_table": "notification_events",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "notifications",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "notifications",
+        "from_column": "state_ids",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "notifications",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "offer",
+        "from_column": "state_ids",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "offer",
+        "from_column": "user_role",
+        "to_table": "role",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "offer_conditions",
+        "from_column": "offer_id",
+        "to_table": "offer",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "offer_mapping",
+        "from_column": "category_sub_group_id",
+        "to_table": "category_sub_groups",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "offer_mapping",
+        "from_column": "offer_id",
+        "to_table": "offer",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "offer_mapping",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "offers_and_promotions",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "offline_sku_inventories",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "onboarding_targets",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "order_categories",
+        "from_column": "brand_id",
+        "to_table": "brands",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "order_invoices",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "order_invoices",
+        "from_column": "order_updated_by",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "order_items",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "order_items",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "otp",
+        "from_column": "user_role",
+        "to_table": "role",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "per_target_scheme_coupons",
+        "from_column": "per_target_scheme_id",
+        "to_table": "per_target_schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "per_target_scheme_coupons",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "permission",
+        "from_column": "module_id",
+        "to_table": "module",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "pincode_address_maps",
+        "from_column": "district_id",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "pincode_address_maps",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "pincode_population",
+        "from_column": "district_id",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "pincode_population",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "pincode_population",
+        "from_column": "zone_id",
+        "to_table": "zones",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "pincode_with_pha_values",
+        "from_column": "district_id",
+        "to_table": "districts",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "pincode_with_pha_values",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "pincode_with_pha_values",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "points",
+        "from_column": "users_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "products",
+        "from_column": "brand_id",
+        "to_table": "brands",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "products_bulk_imports",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "purchase_targets",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "read_notifications",
+        "from_column": "notification_id",
+        "to_table": "notifications",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "read_notifications",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "redemption_requests",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "referral_details",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "referral_details",
+        "from_column": "user_role",
+        "to_table": "role",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "referral_details",
+        "from_column": "wallet_transaction_id",
+        "to_table": "wallet_transaction",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "required_mechanic_details",
+        "from_column": "branch_id",
+        "to_table": "branches",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "required_mechanic_details",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "retailer_category_qualified",
+        "from_column": "retailer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "retailer_credit_notes",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "retailer_distributor_mappings",
+        "from_column": "retailer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "retailer_schemes_mapping",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "retailer_schemes_mapping",
+        "from_column": "users_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "retailer_targets",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "retailer_targets",
+        "from_column": "retailer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "retailer_wholesaler_mappings",
+        "from_column": "retailer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "role_conversion_histories",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "role_permission_module",
+        "from_column": "module_id",
+        "to_table": "module",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "role_permission_module",
+        "from_column": "permission_id",
+        "to_table": "permission",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "role_permission_module",
+        "from_column": "role_id",
+        "to_table": "role",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "s_e_quaterly_targets",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "s_e_targets",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sample_order_feedbacks",
+        "from_column": "sample_order_id",
+        "to_table": "sample_orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sample_order_feedbacks",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sample_order_items",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sample_order_items",
+        "from_column": "sample_order_id",
+        "to_table": "sample_orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sample_order_timelines",
+        "from_column": "sample_order_id",
+        "to_table": "sample_orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sample_orders",
+        "from_column": "address_id",
+        "to_table": "addresses",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sample_orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scanned_qrcode_history",
+        "from_column": "sku_inventories_id",
+        "to_table": "sku_inventories",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scanned_qrcode_history",
+        "from_column": "users_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheduled_visits",
+        "from_column": "beat_plan_id",
+        "to_table": "beat_plans",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "scheduled_visits",
+        "from_column": "retailer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "scheduled_visits",
+        "from_column": "sales_executive_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "scheme_gift_items",
+        "from_column": "gift_product_id",
+        "to_table": "gift_products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_gift_items",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_gift_orders",
+        "from_column": "address_id",
+        "to_table": "addresses",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_gift_orders",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_gift_orders",
+        "from_column": "scheme_gift_item_id",
+        "to_table": "scheme_gift_items",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_gift_orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_orders",
+        "from_column": "brand_id",
+        "to_table": "brands",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_orders",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_state_mapping",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_state_mapping",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_wallet_transactions",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "scheme_wallet_transactions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "se_task",
+        "from_column": "task_issue_id",
+        "to_table": "task_issue",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "se_task",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "se_task_history",
+        "from_column": "se_task_id",
+        "to_table": "se_task",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sessions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "shop_verification_images",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sku_inventories",
+        "from_column": "distributer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sku_inventories",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sku_products",
+        "from_column": "category_sub_group_id",
+        "to_table": "category_sub_groups",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "spin_history",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "spin_history",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "state",
+        "from_column": "zone_id",
+        "to_table": "zones",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "state_user_mapping",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "state_user_mapping",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "state_with_pha_values",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "state_with_pha_values",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "survey_form_submissions",
+        "from_column": "survey_form_id",
+        "to_table": "survey_forms",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "survey_form_submissions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "survey_forms",
+        "from_column": "state_ids",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "table_qr_pdfs",
+        "from_column": "company_id",
+        "to_table": "companies",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "table_qr_pdfs",
+        "from_column": "product_id",
+        "to_table": "products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "tds_certificates",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "tds_certificates",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "user_flags",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "user_geotag_photos",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "user_scan_permissions",
+        "from_column": "blocked_reason_id",
+        "to_table": "blocked_reasons",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "user_scan_permissions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "user_withdrawal_block_histories",
+        "from_column": "blocked_reason_id",
+        "to_table": "blocked_reasons",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "user_withdrawal_block_histories",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "users",
+        "from_column": "business_info_id",
+        "to_table": "business_information",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "users",
+        "from_column": "distributer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "users",
+        "from_column": "employee_id",
+        "to_table": "employees",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "users",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "users",
+        "from_column": "user_role",
+        "to_table": "role",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "vendor_bank_accounts",
+        "from_column": "vendor_id",
+        "to_table": "vendors",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "vendor_element_state_mappings",
+        "from_column": "branding_element_id",
+        "to_table": "branding_elements",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "vendor_element_state_mappings",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "vendor_element_state_mappings",
+        "from_column": "vendor_id",
+        "to_table": "vendors",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "vendors",
+        "from_column": "state_id",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "video_responses",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "visit_check_in_check_out",
+        "from_column": "beat_plan_id",
+        "to_table": "beat_plans",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "visit_check_in_check_out",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "visit_trackings",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "wallet_transaction",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "weekly_scheme_groups",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "weekly_scheme_prizes",
+        "from_column": "scheme_id",
+        "to_table": "schemes",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "weekly_schemes",
+        "from_column": "state_ids",
+        "to_table": "state",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "weekly_schemes",
+        "from_column": "zone_ids",
+        "to_table": "zones",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "wholesale_wallet_transactions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "wholesaler_targets",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "wholesaler_winter_targets",
+        "from_column": "financial_year_id",
+        "to_table": "financial_years",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "winter_gift_items",
+        "from_column": "gift_product_id",
+        "to_table": "gift_products",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "winter_gift_order_timelines",
+        "from_column": "winter_gift_order_id",
+        "to_table": "winter_gift_orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "winter_gift_orders",
+        "from_column": "address_id",
+        "to_table": "addresses",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "winter_gift_orders",
+        "from_column": "gift_card_id",
+        "to_table": "gift_cards",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "winter_gift_orders",
+        "from_column": "order_id",
+        "to_table": "orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "winter_gift_orders",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "winter_scan_wallet_transactions",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "wishlists",
+        "from_column": "gift_card_id",
+        "to_table": "gift_cards",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "wishlists",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "withdrawal_request",
+        "from_column": "automatic_transaction_id",
+        "to_table": "automatic_transactions",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "withdrawal_request",
+        "from_column": "bank_transaction_id",
+        "to_table": "bank_transactions",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "withdrawal_request",
+        "from_column": "gift_order_id",
+        "to_table": "gift_orders",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "withdrawal_request",
+        "from_column": "user_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "sku_inventories",
+        "from_column": "sku_code",
+        "to_table": "qr_point_map",
+        "to_column": "sku_code",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "sku_inventories",
+        "from_column": "sku_code",
+        "to_table": "sku_qr_points_map",
+        "to_column": "sku_code",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "sku_inventories",
+        "from_column": "status_retailer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "sku_inventories",
+        "from_column": "status_wholeseller_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "EXPLICIT_FK"
+    },
+    {
+        "from_table": "retailer_distributor_mappings",
+        "from_column": "distributor_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
+    },
+    {
+        "from_table": "companies",
+        "from_column": "customer_id",
+        "to_table": "users",
+        "to_column": "id",
+        "type": "Many-to-One",
+        "origin": "LOGICAL_INFERRED"
     }
 ]

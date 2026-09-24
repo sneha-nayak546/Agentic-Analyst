@@ -1,6 +1,11 @@
-import requests
-import time
+import os
 import sys
+import time
+import requests
+try:
+    from app.llm.llm_config import OLLAMA_TIMEOUT
+except Exception:
+    OLLAMA_TIMEOUT = float(os.getenv("OLLAMA_TIMEOUT", "300"))
 
 questions = [
     "Show wallet transactions for July 2026",
@@ -24,7 +29,7 @@ def verify():
     for q in questions:
         print(f"\nQ: {q}")
         try:
-            resp = requests.post("http://localhost:8000/query", json={"question": q, "execute": True}, timeout=120)
+            resp = requests.post("http://localhost:8000/query", json={"question": q, "execute": True}, timeout=OLLAMA_TIMEOUT)
             if resp.status_code == 200:
                 data = resp.json()
                 if data.get("status") == "success":

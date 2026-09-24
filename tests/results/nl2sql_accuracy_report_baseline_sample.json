@@ -1,0 +1,989 @@
+{
+  "version": "Baseline_Sample",
+  "timestamp": "2026-09-07T07:55:53Z",
+  "total_questions": 10,
+  "passed": 0,
+  "failed": 10,
+  "end_to_end_accuracy": 0.0,
+  "intent_accuracy": 60.0,
+  "schema_retrieval_accuracy": 100.0,
+  "sql_semantic_accuracy": 100.0,
+  "sql_execution_success": 60.0,
+  "database_result_accuracy": 0.0,
+  "final_response_accuracy": 90.0,
+  "latency_percentiles": {
+    "avg_ms": 258949.55,
+    "p50_ms": 206739.68,
+    "p95_ms": 586555.14
+  },
+  "difficulty_breakdown": {
+    "EASY": {
+      "total": 10,
+      "passed": 0,
+      "accuracy": 0.0
+    },
+    "MEDIUM": {
+      "total": 0,
+      "passed": 0,
+      "accuracy": 0.0
+    },
+    "HARD": {
+      "total": 0,
+      "passed": 0,
+      "accuracy": 0.0
+    }
+  },
+  "category_breakdown": {
+    "filtering": {
+      "total": 2,
+      "passed": 0,
+      "accuracy": 0.0
+    },
+    "simple_lookup": {
+      "total": 8,
+      "passed": 0,
+      "accuracy": 0.0
+    }
+  },
+  "failure_taxonomy": [
+    {
+      "failure_type": "WRONG_DATABASE_RESULT",
+      "count": 6
+    },
+    {
+      "failure_type": "SQL_EXECUTION_FAILURE",
+      "count": 3
+    },
+    {
+      "failure_type": "WRONG_FINAL_RESPONSE",
+      "count": 1
+    }
+  ],
+  "results": [
+    {
+      "id": 1,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Show user details for ID 5997",
+      "intent_correct": false,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": false,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "SQL_EXECUTION_FAILURE",
+      "failure_reason": "EXPLAIN Plan Error: (sqlite3.OperationalError) no such column: u.pincode\n[SQL: EXPLAIN QUERY PLAN SELECT u.id, u.name, u.mobile_number, u.email, u.user_role, u.status, u.wallet_balance, u.city, u.district, u.state_id, u.pincode, u.created_at FROM users AS u WHERE u.id = 5997 LIMIT 1]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+      "latency_ms": 41658.03,
+      "pipeline_checkpoints": {
+        "1_user_question": "Show user details for ID 5997",
+        "2_detected_intent": null,
+        "3_retrieved_schema": [],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.id, u.name, u.mobile_number, u.email, u.user_role, u.status, u.wallet_balance, u.city, u.district, u.state_id, u.pincode, u.created_at FROM users AS u WHERE u.id = 5997 LIMIT 1",
+        "6_validation": "BLOCKED",
+        "7_sql_execution": false,
+        "8_actual_db_result_rows": 0,
+        "9_answer_gen_input": [],
+        "10_final_response": "Query could not be executed: EXPLAIN Plan Error: (sqlite3.OperationalError) no such column: u.pincode\n[SQL: EXPLAIN QUERY PLAN SELECT u.id, u.name, u.mobile_number, u.email, u.user_role, u.status, u.wallet_balance, u.city, u.district, u.state_id, u.pincode, u.created_at FROM users AS u WHERE u.id = 5997 LIMIT 1]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+      }
+    },
+    {
+      "id": 2,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Give details for retailer ID 50225",
+      "intent_correct": false,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": false,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "SQL_EXECUTION_FAILURE",
+      "failure_reason": "EXPLAIN Plan Error: (sqlite3.OperationalError) no such column: u.business_pan\n[SQL: EXPLAIN QUERY PLAN SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.address, u.city, u.district, u.state_id, u.business_pan, u.business_info_id, u.wallet_balance, u.created_at, u.updated_at FROM users AS u WHERE u.id = 50225 AND u.user_role = 2 LIMIT 100]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+      "latency_ms": 156597.62,
+      "pipeline_checkpoints": {
+        "1_user_question": "Give details for retailer ID 50225",
+        "2_detected_intent": null,
+        "3_retrieved_schema": [],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.address, u.city, u.district, u.state_id, u.business_pan, u.business_info_id, u.wallet_balance, u.created_at, u.updated_at FROM users AS u WHERE u.id = 50225 AND u.user_role = 2 LIMIT 100",
+        "6_validation": "BLOCKED",
+        "7_sql_execution": false,
+        "8_actual_db_result_rows": 0,
+        "9_answer_gen_input": [],
+        "10_final_response": "Query could not be executed: EXPLAIN Plan Error: (sqlite3.OperationalError) no such column: u.business_pan\n[SQL: EXPLAIN QUERY PLAN SELECT u.id AS user_id, u.name, u.mobile_number, u.email, u.address, u.city, u.district, u.state_id, u.business_pan, u.business_info_id, u.wallet_balance, u.created_at, u.updated_at FROM users AS u WHERE u.id = 50225 AND u.user_role = 2 LIMIT 100]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+      }
+    },
+    {
+      "id": 3,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Lookup distributor with ID 6016",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "WRONG_DATABASE_RESULT",
+      "failure_reason": "Result mismatch: Generated 1 rows, Reference 1 rows.",
+      "latency_ms": 199275.23,
+      "pipeline_checkpoints": {
+        "1_user_question": "Lookup distributor with ID 6016",
+        "2_detected_intent": "lookup",
+        "3_retrieved_schema": [
+          "users"
+        ],
+        "4_sql_plan": {
+          "business_requirement": {
+            "original_question": "Lookup distributor with ID 6016",
+            "intent": "lookup",
+            "query_type": "ranking",
+            "entities": [
+              "distributor"
+            ],
+            "entity_roles": {},
+            "relationships": [],
+            "specific_ids": {
+              "distributor_id": 6016
+            },
+            "metrics": [],
+            "aggregation": [],
+            "dimensions": [],
+            "filters": [
+              {
+                "field": "distributor_id",
+                "operator": "=",
+                "value": "6016"
+              }
+            ],
+            "dates": [],
+            "periods": [],
+            "date_period": null,
+            "relative_dates": null,
+            "comparison": null,
+            "comparisons": [],
+            "comparison_specs": {},
+            "grouping": [],
+            "sorting": [],
+            "ranking": null,
+            "limit": 1,
+            "requested_columns": [],
+            "output_type": "summary",
+            "output_format": "summary",
+            "conditions": [],
+            "clarification_required": false,
+            "clarification_reason": null,
+            "atomic_tasks": [],
+            "context_classification": "NEW_QUERY",
+            "confidence": 1.0,
+            "context_requirements": {}
+          },
+          "resolved_entities": [
+            "distributor -> users (user_role=4)"
+          ],
+          "resolved_relationships": [],
+          "relevant_tables": [
+            "users"
+          ],
+          "relevant_columns": [
+            "users.id",
+            "users.name",
+            "users.email",
+            "users.mobile_number",
+            "users.user_role"
+          ],
+          "required_joins": [],
+          "filters": [
+            {
+              "field": "distributor_id",
+              "operator": "=",
+              "value": "6016"
+            }
+          ],
+          "metrics": [],
+          "aggregations": [],
+          "grouping": [],
+          "sorting": [],
+          "limit": 1,
+          "date_boundaries": {},
+          "business_rules": [
+            "Filter users by id = 6016",
+            "Filter users by user_role = 4 to ensure the user is a distributor"
+          ],
+          "rag_evidence": "Table `executive_distributor_mappings`:\n  Columns: created_at (timestamp), distributor_id (bigint), executive_id (bigint), id (bigint), updated_at (timestamp)\n\nTable `retailer_wholesaler_mappings`:\n  Columns: created_at (timestamp), id (bigint), retailer_id (bigint), updated_at (timestamp), wholesaler_id (bigint)\n  Relationships: JOIN users ON retailer_wholesaler_mappings.retailer_id = users.id\n\nTable `users`:\n  Columns: account_holder_name (varchar), account_no (varchar), account_type (varchar), address (varchar), adhaar (varchar), adhaar_back_image (varchar), adhaar_details (text), adhaar_front_image (varchar), adhaar_image (varchar), anniversary_date (date), app_updated (tinyint), bank_details_status (tinyint), bank_name (varchar), block_gift_redeem (tinyint), block_gift_redeem_message (text), block_withdrawal (tinyint), block_withdrawal_message (text), bonus_points (bigint), business_info_id (bigint), business_pan (varchar), city (varchar), club (varchar), country_code (varchar), created_at (timestamp), deleted_at (timestamp), designation (text), device_id (varchar), direct_manager_id (bigint), disable_scan (tinyint), disable_scan_message (text), distributer_id (bigint), district (varchar), dob (date), email (varchar), email_verified_at (timestamp), employee_id (varchar), fcm_token (varchar), gender (varchar), id (bigint), ifsc_code (varchar), image_path (varchar), isBlacklisted (tinyint), kyc_status (int), lang_id (int), last_login (datetime), last_name (varchar), membership_id (varchar), mobile_number (bigint), name (varchar), nat_state_id (int), old_user_id (int), pan_card (varchar), pan_card_image (varchar), passbook_image (varchar), password (varchar), pincode (int), primary_distributor_id (bigint), profile_image (varchar), referral_code (varchar), remark (text), remember_token (varchar), scan_limit (int), shop_branding (tinyint), state_id (int), status (varchar), two_factor_recovery_codes (text), two_factor_secret (text), updated_at (timestamp), upi (varchar), user_role (int), wallet_balance (bigint)\n  Relationships: JOIN role ON users.user_role = role.id\n\nTable `retailer_distributor_mappings`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), retailer_id (bigint), updated_at (timestamp)\n  Relationships: JOIN users ON retailer_distributor_mappings.retailer_id = users.id\n\nTable `distributor_pincode_mapping`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), pincode (varchar), updated_at (timestamp)\n\nTable `distributor_wholesaler`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), updated_at (timestamp), wholesaler_id (bigint), wholesaler_quarterly_target (bigint)\n\nTable `role`:\n  Columns: created_at (datetime), deleted_at (datetime), id (int), is_editable (tinyint), name (varchar), updated_at (datetime)",
+          "missing_information": [],
+          "logical_query_plan": {
+            "task": "lookup_distributor",
+            "tables": [
+              "users"
+            ],
+            "columns": [],
+            "joins": [],
+            "filters": [
+              "users.id = 6016",
+              "users.user_role = 4"
+            ],
+            "metric": null,
+            "group_by": [],
+            "order_by": null,
+            "limit": 1,
+            "atomic_tasks": []
+          }
+        },
+        "5_generated_sql": "SELECT u.id, u.name, u.mobile_number, u.email, u.status, u.wallet_balance, u.city, u.district, u.state_id, u.created_at FROM users AS u WHERE u.id = 6016 AND u.user_role = 4 LIMIT 1",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "id": 6016,
+            "name": "Devyani And Company",
+            "mobile_number": "9096500543",
+            "email": "devyani@distrib.com",
+            "status": "approved",
+            "wallet_balance": 32000.0,
+            "city": "Satara",
+            "district": "Satara",
+            "state_id": 14,
+            "created_at": "2025-01-10 10:00:00"
+          }
+        ],
+        "10_final_response": "The highest earning retailer is **Devyani And Company** (ID: 6016) ."
+      }
+    },
+    {
+      "id": 4,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Find distributor details for ID 5903",
+      "intent_correct": false,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": false,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "SQL_EXECUTION_FAILURE",
+      "failure_reason": "EXPLAIN Plan Error: (sqlite3.OperationalError) no such column: u.pan_card\n[SQL: EXPLAIN QUERY PLAN SELECT u.id AS distributor_id, u.name, u.email, u.mobile_number, u.address, u.city, u.state_id, u.district, u.pan_card, u.adhaar, u.ifsc_code, u.upi, u.bank_name, u.bank_details_status, u.wallet_balance, u.status, u.created_at, u.updated_at FROM users AS u WHERE u.id = 5903 AND u.user_role = 4 LIMIT 1]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+      "latency_ms": 639662.25,
+      "pipeline_checkpoints": {
+        "1_user_question": "Find distributor details for ID 5903",
+        "2_detected_intent": null,
+        "3_retrieved_schema": [],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.id AS distributor_id, u.name, u.email, u.mobile_number, u.address, u.city, u.state_id, u.district, u.pan_card, u.adhaar, u.ifsc_code, u.upi, u.bank_name, u.bank_details_status, u.wallet_balance, u.status, u.created_at, u.updated_at FROM users AS u WHERE u.id = 5903 AND u.user_role = 4 LIMIT 1",
+        "6_validation": "BLOCKED",
+        "7_sql_execution": false,
+        "8_actual_db_result_rows": 0,
+        "9_answer_gen_input": [],
+        "10_final_response": "Query could not be executed: EXPLAIN Plan Error: (sqlite3.OperationalError) no such column: u.pan_card\n[SQL: EXPLAIN QUERY PLAN SELECT u.id AS distributor_id, u.name, u.email, u.mobile_number, u.address, u.city, u.state_id, u.district, u.pan_card, u.adhaar, u.ifsc_code, u.upi, u.bank_name, u.bank_details_status, u.wallet_balance, u.status, u.created_at, u.updated_at FROM users AS u WHERE u.id = 5903 AND u.user_role = 4 LIMIT 1]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+      }
+    },
+    {
+      "id": 5,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Show retailer with ID 50284",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "WRONG_DATABASE_RESULT",
+      "failure_reason": "Result mismatch: Generated 1 rows, Reference 1 rows.",
+      "latency_ms": 239377.7,
+      "pipeline_checkpoints": {
+        "1_user_question": "Show retailer with ID 50284",
+        "2_detected_intent": "lookup",
+        "3_retrieved_schema": [
+          "users"
+        ],
+        "4_sql_plan": {
+          "business_requirement": {
+            "original_question": "Show retailer with ID 50284",
+            "intent": "lookup",
+            "query_type": "data_retrieval",
+            "entities": [
+              "retailer"
+            ],
+            "entity_roles": {},
+            "relationships": [],
+            "specific_ids": {
+              "retailer_id": 50284
+            },
+            "metrics": [],
+            "aggregation": [],
+            "dimensions": [],
+            "filters": [
+              {
+                "field": "retailer_id",
+                "operator": "=",
+                "value": "50284"
+              }
+            ],
+            "dates": [],
+            "periods": [],
+            "date_period": null,
+            "relative_dates": null,
+            "comparison": null,
+            "comparisons": [],
+            "comparison_specs": {},
+            "grouping": [],
+            "sorting": [],
+            "ranking": null,
+            "limit": null,
+            "requested_columns": [
+              "retailer_id",
+              "retailer_name"
+            ],
+            "output_type": "table",
+            "output_format": "table",
+            "conditions": [],
+            "clarification_required": false,
+            "clarification_reason": null,
+            "atomic_tasks": [],
+            "context_classification": "NEW_QUERY",
+            "confidence": 1.0,
+            "context_requirements": {}
+          },
+          "resolved_entities": [
+            "retailer -> users (user_role=2)"
+          ],
+          "resolved_relationships": [],
+          "relevant_tables": [
+            "users"
+          ],
+          "relevant_columns": [
+            "retailer_distributor_mappings.retailer_id",
+            "users.name"
+          ],
+          "required_joins": [],
+          "filters": [
+            {
+              "field": "retailer_id",
+              "operator": "=",
+              "value": "50284"
+            }
+          ],
+          "metrics": [],
+          "aggregations": [],
+          "grouping": [],
+          "sorting": [],
+          "limit": null,
+          "date_boundaries": {},
+          "business_rules": [
+            "Specific rules or filters deduced from schema"
+          ],
+          "rag_evidence": "Table `retailer_wholesaler_mappings`:\n  Columns: created_at (timestamp), id (bigint), retailer_id (bigint), updated_at (timestamp), wholesaler_id (bigint)\n  Relationships: JOIN users ON retailer_wholesaler_mappings.retailer_id = users.id\n\nTable `users`:\n  Columns: account_holder_name (varchar), account_no (varchar), account_type (varchar), address (varchar), adhaar (varchar), adhaar_back_image (varchar), adhaar_details (text), adhaar_front_image (varchar), adhaar_image (varchar), anniversary_date (date), app_updated (tinyint), bank_details_status (tinyint), bank_name (varchar), block_gift_redeem (tinyint), block_gift_redeem_message (text), block_withdrawal (tinyint), block_withdrawal_message (text), bonus_points (bigint), business_info_id (bigint), business_pan (varchar), city (varchar), club (varchar), country_code (varchar), created_at (timestamp), deleted_at (timestamp), designation (text), device_id (varchar), direct_manager_id (bigint), disable_scan (tinyint), disable_scan_message (text), distributer_id (bigint), district (varchar), dob (date), email (varchar), email_verified_at (timestamp), employee_id (varchar), fcm_token (varchar), gender (varchar), id (bigint), ifsc_code (varchar), image_path (varchar), isBlacklisted (tinyint), kyc_status (int), lang_id (int), last_login (datetime), last_name (varchar), membership_id (varchar), mobile_number (bigint), name (varchar), nat_state_id (int), old_user_id (int), pan_card (varchar), pan_card_image (varchar), passbook_image (varchar), password (varchar), pincode (int), primary_distributor_id (bigint), profile_image (varchar), referral_code (varchar), remark (text), remember_token (varchar), scan_limit (int), shop_branding (tinyint), state_id (int), status (varchar), two_factor_recovery_codes (text), two_factor_secret (text), updated_at (timestamp), upi (varchar), user_role (int), wallet_balance (bigint)\n  Relationships: JOIN role ON users.user_role = role.id\n\nTable `executive_retailer_mappings`:\n  Columns: created_at (timestamp), executive_id (bigint), id (bigint), retailer_id (bigint), updated_at (timestamp)\n  Relationships: JOIN users ON executive_retailer_mappings.retailer_id = users.id\n\nTable `retailer_distributor_mappings`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), retailer_id (bigint), updated_at (timestamp)\n  Relationships: JOIN users ON retailer_distributor_mappings.retailer_id = users.id\n\nTable `retailer_category_qualified`:\n  Columns: category_id (bigint), id (bigint), qualified_at (date), retailer_id (bigint)\n  Relationships: JOIN users ON retailer_category_qualified.retailer_id = users.id\n\nTable `distributor_wholesaler`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), updated_at (timestamp), wholesaler_id (bigint), wholesaler_quarterly_target (bigint)\n\nTable `role`:\n  Columns: created_at (datetime), deleted_at (datetime), id (int), is_editable (tinyint), name (varchar), updated_at (datetime)",
+          "missing_information": [],
+          "logical_query_plan": {
+            "task": "lookup_retailer",
+            "tables": [
+              "users"
+            ],
+            "columns": [
+              "retailer_id",
+              "retailer_name"
+            ],
+            "joins": [],
+            "filters": [
+              "users.id = 50284",
+              "users.user_role = 2"
+            ],
+            "metric": null,
+            "group_by": [],
+            "order_by": null,
+            "limit": null,
+            "atomic_tasks": []
+          }
+        },
+        "5_generated_sql": "SELECT u.id AS retailer_id, u.name AS retailer_name FROM users AS u WHERE u.id = 50284 AND u.user_role = 2 LIMIT 100",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "retailer_id": 50284,
+            "retailer_name": "Shree Ganesh Traders Retailer"
+          }
+        ],
+        "10_final_response": "The total retailer id is 50,284."
+      }
+    },
+    {
+      "id": 6,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "unseen_eval",
+      "question": "Show profile for user ID 77802",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "WRONG_DATABASE_RESULT",
+      "failure_reason": "Result mismatch: Generated 1 rows, Reference 1 rows.",
+      "latency_ms": 521646.46,
+      "pipeline_checkpoints": {
+        "1_user_question": "Show profile for user ID 77802",
+        "2_detected_intent": "lookup",
+        "3_retrieved_schema": [
+          "users"
+        ],
+        "4_sql_plan": {
+          "business_requirement": {
+            "original_question": "Show profile for user ID 77802",
+            "intent": "lookup",
+            "query_type": "data_retrieval",
+            "entities": [
+              "user"
+            ],
+            "entity_roles": {},
+            "relationships": [],
+            "specific_ids": {
+              "user_id": 77802
+            },
+            "metrics": [],
+            "aggregation": [],
+            "dimensions": [],
+            "filters": [
+              {
+                "field": "user_id",
+                "operator": "=",
+                "value": "77802"
+              }
+            ],
+            "dates": [],
+            "periods": [],
+            "date_period": null,
+            "relative_dates": null,
+            "comparison": null,
+            "comparisons": [],
+            "comparison_specs": {},
+            "grouping": [],
+            "sorting": [],
+            "ranking": null,
+            "limit": null,
+            "requested_columns": [
+              "profile"
+            ],
+            "output_type": "table",
+            "output_format": "table",
+            "conditions": [],
+            "clarification_required": false,
+            "clarification_reason": null,
+            "atomic_tasks": [],
+            "context_classification": "NEW_QUERY",
+            "confidence": 1.0,
+            "context_requirements": {}
+          },
+          "resolved_entities": [
+            "retailer -> users (user_role=2)"
+          ],
+          "resolved_relationships": [],
+          "relevant_tables": [
+            "users"
+          ],
+          "relevant_columns": [
+            "box_gift_orders.address_id",
+            "addresses.id",
+            "orders.id",
+            "users.id"
+          ],
+          "required_joins": [],
+          "filters": [
+            {
+              "field": "user_id",
+              "operator": "=",
+              "value": "77802"
+            }
+          ],
+          "metrics": [],
+          "aggregations": [],
+          "grouping": [],
+          "sorting": [],
+          "limit": null,
+          "date_boundaries": {},
+          "business_rules": [
+            "The query involves joining multiple tables to retrieve information about box gift orders, including addresses, orders, and users. The retailer is mapped to users where user_role=2."
+          ],
+          "rag_evidence": "Table `claimed_offers`:\n  Columns: created_at (timestamp), id (bigint), offer_condition_id (bigint), quantity (bigint), remark (text), shop_name (varchar), status (enum), updated_at (timestamp), used_boxes (int), user_id (bigint)\n  Enums: status IN (pending,completed,rejected)\n  Relationships: JOIN users ON claimed_offers.user_id = users.id\n\nTable `read_notifications`:\n  Columns: created_at (timestamp), id (bigint), notification_id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON read_notifications.user_id = users.id\n\nTable `wallet_transaction`:\n  Columns: amount (decimal), created_at (timestamp), id (bigint), reference_id (int), reference_type (enum), remark (varchar), status (tinyint), transaction_type (tinyint), updated_at (timestamp), user_id (int)\n  Enums: reference_type IN (cash_point,withdrawal,topup,bonus_conversion,referral_earning,returned,coupon_redeem,credit_note,incentive,spin,target_scheme_coupon)\n  Relationships: JOIN users ON wallet_transaction.user_id = users.id\n\nTable `tds_certificates`:\n  Columns: business_type (varchar), created_at (timestamp), financial_year_id (int), id (bigint), tds_certificate (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON tds_certificates.user_id = users.id\n\nTable `addresses`:\n  Columns: address_line_1 (varchar), address_line_2 (varchar), address_title (varchar), address_type (varchar), city (varchar), created_at (timestamp), deleted_at (timestamp), id (bigint), landmark (varchar), phone (varchar), state (varchar), updated_at (timestamp), user_id (bigint), zip_code (varchar)\n  Relationships: JOIN users ON addresses.user_id = users.id\n\nTable `bulk_sku_mappings`:\n  Columns: created_at (timestamp), csv_process_date (date), failed_file_path (text), id (bigint), isCompleted (tinyint), state_ids (json), updated_at (timestamp), uploded_file_path (text), user_id (bigint)\n  Relationships: JOIN users ON bulk_sku_mappings.user_id = users.id\n\nTable `state_user_mapping`:\n  Columns: created_at (timestamp), deleted_at (timestamp), id (bigint), state_id (int), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON state_user_mapping.user_id = users.id\n\nTable `details_approvals`:\n  Columns: approved_by (bigint), coloumn_data (text), coloumn_name (text), created_at (timestamp), id (bigint), isApproved (tinyint), remark (text), status (text), table_name (text), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON details_approvals.user_id = users.id\n\nTable `blacklist_reports`:\n  Columns: action_by (bigint), created_at (timestamp), id (bigint), reason (text), status (int), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON blacklist_reports.user_id = users.id\n\nTable `wishlists`:\n  Columns: agent_id (bigint), agent_name (varchar), created_at (timestamp), gift_card_id (int), id (bigint), type (enum), updated_at (timestamp), user_id (bigint)\n  Enums: type IN (gift_card,scheme_gift_card,winter_gift_card)\n  Relationships: JOIN users ON wishlists.user_id = users.id\n\nTable `points`:\n  Columns: created_at (timestamp), id (bigint), point (varchar), point_type (varchar), updated_at (timestamp), users_id (int)\n  Relationships: JOIN users ON points.users_id = users.id\n\nTable `ecatalogue`:\n  Columns: business_info_id (bigint), created_at (timestamp), deleted_at (timestamp), id (bigint), path (varchar), updated_at (timestamp), user_id (int)\n  Relationships: JOIN users ON ecatalogue.user_id = users.id\n\nTable `credit_notes`:\n  Columns: amount (double), created_at (timestamp), id (bigint), name (varchar), purpose (varchar), reference_type (enum), updated_at (timestamp), user_id (bigint), wallet_transaction_id (bigint)\n  Enums: reference_type IN (cash_wallet,deactivated_qr_wallet)\n  Relationships: JOIN users ON credit_notes.user_id = users.id; JOIN wallet_transaction ON credit_notes.wallet_transaction_id = wallet_transaction.id\n\nTable `withdrawal_request`:\n  Columns: amount (int), automatic_transaction_id (bigint), bank_transaction_id (varchar), created_at (timestamp), delivery_proof (varchar), gift_order_id (bigint), id (bigint), status (tinyint), tds_amount (decimal), tds_deducted_amount (decimal), updated_at (timestamp), user_id (int), withdraw_request_type (varchar)\n  Relationships: JOIN automatic_transactions ON withdrawal_request.automatic_transaction_id = automatic_transactions.id; JOIN gift_orders ON withdrawal_request.gift_order_id = gift_orders.id; JOIN users ON withdrawal_request.user_id = users.id\n\nTable `group_management`:\n  Columns: created_at (timestamp), group_id (bigint), id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON group_management.user_id = users.id\n\nTable `automatic_transactions`:\n  Columns: amount (double), bank_reference_number (varchar), created_at (timestamp), id (bigint), reference_id (varchar), res_code (longtext), response_data (longtext), status (varchar), transaction_id (varchar), transaction_source (varchar), transfer_type (varchar), updated_at (timestamp), user_id (bigint), users_account_number (varchar), users_phone_number (varchar)\n  Relationships: JOIN users ON automatic_transactions.user_id = users.id\n\nTable `digio_kyc_details`:\n  Columns: created_at (timestamp), customer_identifier (varchar), customer_name (varchar), id (bigint), kid (varchar), reference_id (varchar), template_id (varchar), transaction_id (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON digio_kyc_details.user_id = users.id\n\nTable `distributor_teams`:\n  Columns: created_at (timestamp), deleted_at (timestamp), distributor_id (bigint), id (bigint), is_active (tinyint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON distributor_teams.user_id = users.id\n\nTable `adhaar_verifications`:\n  Columns: adhaar_number (varchar), created_at (timestamp), id (bigint), reference_id (varchar), response_code (varchar), response_message (varchar), updated_at (timestamp), user_id (bigint), verify_reference_id (varchar), verify_response_code (varchar), verify_response_message (varchar)\n  Relationships: JOIN users ON adhaar_verifications.user_id = users.id\n\nTable `spin_history`:\n  Columns: created_at (timestamp), group_id (bigint), id (bigint), is_winner (tinyint), prize_id (bigint), prize_rank (tinyint), scheme_id (bigint), updated_at (timestamp), user_id (bigint), week_end (date), week_start (date)\n  Relationships: JOIN users ON spin_history.user_id = users.id\n\nTable `gift_order_timelines`:\n  Columns: created_at (timestamp), description (varchar), gift_order_id (bigint), id (bigint), order_type (varchar), updated_at (timestamp), user (varchar)\n  Relationships: JOIN gift_orders ON gift_order_timelines.gift_order_id = gift_orders.id\n\nTable `brand_wise_limits`:\n  Columns: brand_id (bigint), created_at (timestamp), id (bigint), limit (int), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON brand_wise_limits.user_id = users.id\n\nTable `feedbacks`:\n  Columns: created_at (timestamp), description (varchar), id (bigint), stars (int), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON feedbacks.user_id = users.id\n\nTable `offline_sku_inventories`:\n  Columns: created_at (timestamp), id (bigint), lat (decimal), lng (decimal), message (text), qr_code (varchar), scan_type (varchar), sku_code (varchar), sku_inventory_id (bigint), status (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON offline_sku_inventories.user_id = users.id\n\nTable `scheme_wallet_transactions`:\n  Columns: amount (decimal), created_at (timestamp), id (bigint), reference_id (bigint), reference_type (enum), remark (varchar), scheme_id (int), transaction_type (tinyint), updated_at (timestamp), user_id (bigint)\n  Enums: reference_type IN (sku_scan,scheme_gift_order,incentive,cash_convert,credit_note,topup)\n  Relationships: JOIN users ON scheme_wallet_transactions.user_id = users.id\n\nTable `sample_orders`:\n  Columns: address_id (bigint), created_at (timestamp), id (bigint), order_date (timestamp), order_number (varchar), order_status (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN addresses ON sample_orders.address_id = addresses.id; JOIN users ON sample_orders.user_id = users.id\n\nTable `visit_trackings`:\n  Columns: accuracy (decimal), address (varchar), battery (int), created_at (timestamp), date (date), id (bigint), latitude (decimal), longitude (decimal), speed (decimal), total_time (int), tracking_time (time), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON visit_trackings.user_id = users.id\n\nTable `bulk_reports`:\n  Columns: complete_time (timestamp), created_at (timestamp), file_name (varchar), file_path (varchar), filter_data (json), id (bigint), process_time (timestamp), processed_records (int), report_id (bigint), status (tinyint), total_records (int), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON bulk_reports.user_id = users.id\n\nTable `executive_survey_answer_submissions`:\n  Columns: answers (json), created_at (timestamp), id (bigint), se_id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON executive_survey_answer_submissions.user_id = users.id\n\nTable `connection_request`:\n  Columns: auth_code (varchar), business_info_id (bigint), connection_id (varchar), created_at (datetime), deleted_at (int), id (int), updated_at (datetime), user_id (bigint)\n  Relationships: JOIN users ON connection_request.user_id = users.id\n\nTable `scheme_gift_orders`:\n  Columns: address_id (int), assigned_at (datetime), assigned_type (tinyint), assignee_id (bigint), cn_amount (decimal), cn_date (date), created_at (timestamp), deleted_at (timestamp), id (bigint), order_date (date), order_id (varchar), other_details (text), quantity (int), remarks (varchar), scheme_gift_item_id (bigint), shop_name (varchar), status (enum), updated_at (timestamp), used_points (int), user_id (bigint)\n  Enums: status IN (Pending,Processing,Delivered,Cancelled,Closed,CN adjusted)\n  Relationships: JOIN addresses ON scheme_gift_orders.address_id = addresses.id; JOIN orders ON scheme_gift_orders.order_id = orders.id; JOIN users ON scheme_gift_orders.user_id = users.id\n\nTable `wholesale_wallet_transactions`:\n  Columns: amount (decimal), created_at (timestamp), id (bigint), reference_id (bigint), reference_type (enum), remark (varchar), status (tinyint), transaction_type (tinyint), updated_at (timestamp), user_id (bigint)\n  Enums: reference_type IN (sku_scan,credit_note,cash_withdrawal)\n  Relationships: JOIN users ON wholesale_wallet_transactions.user_id = users.id\n\nTable `user_geotag_photos`:\n  Columns: address (longtext), address_name (varchar), approval_status (tinyint), created_at (timestamp), deleted_at (timestamp), details (text), id (bigint), image (varchar), is_default (tinyint), latitude (varchar), longitude (varchar), pincode (int), reject_remark (text), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON user_geotag_photos.user_id = users.id\n\nTable `branding_requests`:\n  Columns: amount (decimal), branding_element_id (bigint), created_at (timestamp), created_by (bigint), current_cost (decimal), deleted_at (timestamp), dimensions (text), id (bigint), installation_date (datetime), installation_images (text), order_otp (int), payment_date (datetime), payment_mode (varchar), payment_status (tinyint), rejected_reason (varchar), status (tinyint), survey_images (text), transaction_id (varchar), updated_at (timestamp), user_id (bigint), user_location_id (bigint), vendor_id (bigint)\n  Relationships: JOIN users ON branding_requests.user_id = users.id\n\nTable `video_responses`:\n  Columns: banner_id (bigint), created_at (timestamp), id (bigint), response (enum), updated_at (timestamp), user_id (bigint)\n  Enums: response IN (interested,se_visit,call_back)\n  Relationships: JOIN users ON video_responses.user_id = users.id\n\nTable `survey_form_submissions`:\n  Columns: answers (json), created_at (timestamp), id (bigint), survey_form_id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON survey_form_submissions.user_id = users.id\n\nTable `role_conversion_histories`:\n  Columns: changed_at (timestamp), changed_by (bigint), created_at (timestamp), id (bigint), new_role (varchar), old_role (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON role_conversion_histories.user_id = users.id\n\nTable `beat_plan_retailers`:\n  Columns: beat_plan_id (bigint), created_at (timestamp), id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON beat_plan_retailers.user_id = users.id\n\nTable `cart_items`:\n  Columns: created_at (timestamp), id (bigint), product_id (bigint), product_type (enum), quantity (int), uom (varchar), updated_at (timestamp), user_id (bigint)\n  Enums: product_type IN (core,winter)\n  Relationships: JOIN users ON cart_items.user_id = users.id\n\nTable `retailer_credit_notes`:\n  Columns: amount (decimal), business_type (varchar), created_at (timestamp), date_time (datetime), generated_by (bigint), id (bigint), reason (varchar), status (tinyint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON retailer_credit_notes.user_id = users.id\n\nTable `blocked_locations`:\n  Columns: address (varchar), city (varchar), created_at (timestamp), id (bigint), latitude (varchar), longitude (varchar), pincode (int), state_id (int), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON blocked_locations.user_id = users.id\n\nTable `employees`:\n  Columns: branch_id (bigint), company_id (bigint), created_at (timestamp), deleted_at (timestamp), executive_id (text), executive_name (text), id (bigint), image (text), mobile (bigint), name (text), old_employee_id (int), password (varchar), registered_date (date), status (tinyint), updated_at (timestamp), user_id (int), username (text), working_area (text)\n  Relationships: JOIN users ON employees.user_id = users.id\n\nTable `activate_qrs_requests`:\n  Columns: approved_by (bigint), created_at (timestamp), id (bigint), sku_inventory_id (bigint), status (tinyint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON activate_qrs_requests.user_id = users.id\n\nTable `gift_scan_wallet_transactions`:\n  Columns: amount (decimal), created_at (timestamp), id (bigint), reference_id (bigint), reference_type (enum), remark (text), transaction_type (tinyint), updated_at (timestamp), user_id (bigint)\n  Enums: reference_type IN (sku_scan,gift_order,topup,credit_note,incentive,cash_convert)\n  Relationships: JOIN users ON gift_scan_wallet_transactions.user_id = users.id\n\nTable `bank_accounts`:\n  Columns: account_holder_name (varchar), bank_account_number (varchar), bank_account_type (varchar), bank_name (varchar), cashfree_beneficiary_id (varchar), created_at (timestamp), decentro_beneficiary_id (varchar), deleted_at (timestamp), id (bigint), ifsc_code (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON bank_accounts.user_id = users.id\n\nTable `mapping_incentive_users`:\n  Columns: created_at (timestamp), id (bigint), incentive_id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON mapping_incentive_users.user_id = users.id\n\nTable `event_orders`:\n  Columns: brand_id (int), category_id (bigint), created_at (timestamp), delivered_date (date), delivered_quantity (int), event_id (bigint), id (bigint), order_id (varchar), order_status (varchar), order_type (enum), ordered_date (date), outer_order_id (varchar), quantity (int), total_coupons (int), updated_at (timestamp), updated_by (bigint), user_id (bigint)\n  Enums: order_type IN (box,carton,pcs)\n  Relationships: JOIN orders ON event_orders.order_id = orders.id; JOIN users ON event_orders.user_id = users.id\n\nTable `feedback_submissions`:\n  Columns: answers (json), created_at (timestamp), deleted_at (timestamp), feedback_form_id (bigint), id (bigint), supportive_document (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON feedback_submissions.user_id = users.id\n\nTable `monthly_averages`:\n  Columns: created_at (timestamp), id (bigint), message (text), monthly_average (int), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON monthly_averages.user_id = users.id\n\nTable `redemption_requests`:\n  Columns: created_at (timestamp), id (bigint), order_date (date), orderId (varchar), redeemed_amount (varchar), retailer_name (varchar), status (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON redemption_requests.user_id = users.id\n\nTable `event_multiwin_allowed_users`:\n  Columns: created_at (timestamp), event_id (bigint), id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON event_multiwin_allowed_users.user_id = users.id\n\nTable `scheme_orders`:\n  Columns: brand_id (bigint), created_at (timestamp), id (bigint), order_date (date), order_number (varchar), order_status (tinyint), quantity (int), remark (varchar), scheme_id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON scheme_orders.user_id = users.id\n\nTable `bulk_lpn_imports`:\n  Columns: created_at (timestamp), failed_count (int), failed_file_path (varchar), id (bigint), isCompleted (tinyint), success_count (int), updated_at (timestamp), uploaded_file_path (varchar), user_id (bigint)\n  Relationships: JOIN users ON bulk_lpn_imports.user_id = users.id\n\nTable `winter_gift_orders`:\n  Columns: address_id (bigint), assigned_at (datetime), assigned_type (tinyint), assignee_id (bigint), cash_benefit (decimal), cn_amount (decimal), cn_date (date), created_at (timestamp), deleted_at (timestamp), gift_card_id (bigint), id (bigint), order_date (date), order_id (varchar), other_details (text), quantity (int), received_at (timestamp), remarks (text), shop_name (varchar), status (enum), updated_at (timestamp), used_points (int), user_id (bigint)\n  Enums: status IN (Pending,Processing,Delivered,Cancelled,Closed,CN adjusted)\n  Relationships: JOIN addresses ON winter_gift_orders.address_id = addresses.id; JOIN orders ON winter_gift_orders.order_id = orders.id; JOIN users ON winter_gift_orders.user_id = users.id\n\nTable `coupons`:\n  Columns: agent_id (bigint), agent_name (varchar), business_type (tinyint), client_number (varchar), coupon_code (varchar), coupon_expiry (date), coupon_name (varchar), coupon_points_value (decimal), coupon_status (tinyint), coupon_type (tinyint), created_at (timestamp), deleted_at (timestamp), id (bigint), reason_id (bigint), redeemed_on (timestamp), remark (text), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON coupons.user_id = users.id\n\nTable `sessions`:\n  Columns: id (varchar), ip_address (varchar), last_activity (int), payload (longtext), user_agent (text), user_id (bigint)\n  Relationships: JOIN users ON sessions.user_id = users.id\n\nTable `products_bulk_imports`:\n  Columns: created_at (timestamp), failed_file_path (text), id (bigint), isCompleted (tinyint), updated_at (timestamp), uploded_file_path (text), user_id (bigint)\n  Relationships: JOIN users ON products_bulk_imports.user_id = users.id\n\nTable `engagement_event_reward_logs`:\n  Columns: created_at (timestamp), cycle_year (year), event_id (bigint), id (bigint), reward_date (date), reward_month (int), reward_reference_id (bigint), reward_table (varchar), reward_week (int), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON engagement_event_reward_logs.user_id = users.id\n\nTable `user_flags`:\n  Columns: created_at (timestamp), flagged_by (bigint), id (bigint), remarks (text), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON user_flags.user_id = users.id\n\nTable `winter_gift_order_timelines`:\n  Columns: created_at (timestamp), description (varchar), id (bigint), updated_at (timestamp), user (varchar), winter_gift_order_id (bigint)\n  Relationships: JOIN winter_gift_orders ON winter_gift_order_timelines.winter_gift_order_id = winter_gift_orders.id\n\nTable `user_withdrawal_block_histories`:\n  Columns: blocked_reason_id (int), created_at (timestamp), id (bigint), status (tinyint), updated_at (timestamp), user_id (bigint), withdrawal_type (enum)\n  Enums: withdrawal_type IN (cash,gift_redeem)\n  Relationships: JOIN users ON user_withdrawal_block_histories.user_id = users.id\n\nTable `shop_verification_images`:\n  Columns: created_at (timestamp), deleted_at (timestamp), executive_id (bigint), id (bigint), image_path (varchar), updated_at (timestamp), user_id (bigint), user_type (varchar)\n  Relationships: JOIN users ON shop_verification_images.user_id = users.id\n\nTable `per_target_scheme_coupons`:\n  Columns: cn_amount (decimal), cn_date (date), coupon_code (varchar), coupon_date (date), created_at (timestamp), id (bigint), per_target_scheme_id (bigint), remark (text), reward_amount (varchar), status (enum), updated_at (timestamp), user_id (bigint)\n  Enums: status IN (pending,delivered,cancelled,cn_adjusted)\n  Relationships: JOIN users ON per_target_scheme_coupons.user_id = users.id\n\nTable `orders`:\n  Columns: created_at (timestamp), delivered_date (date), delivered_quantity (int), distributor_id (bigint), id (bigint), order_by (bigint), order_date (date), order_no (varchar), order_status (tinyint), order_type (enum), product_type (enum), quantity (int), updated_at (timestamp), user_id (bigint)\n  Enums: order_type IN (by_call,by_visit); product_type IN (core,winter)\n  Relationships: JOIN users ON orders.user_id = users.id\n\nTable `bonus_transactions`:\n  Columns: bonus_event_id (int), created_at (timestamp), id (bigint), points (decimal), reference_id (bigint), reference_type (enum), remark (text), type (enum), updated_at (timestamp), user_id (bigint)\n  Enums: reference_type IN (gift_order,cash_point,coupon_redeem,incentive,credit_note); type IN (credit,debit)\n  Relationships: JOIN users ON bonus_transactions.user_id = users.id\n\nTable `se_task`:\n  Columns: agent_id (bigint), agent_name (varchar), call_id (varchar), completed_date (timestamp), created_at (timestamp), current_latitude (varchar), current_longitude (varchar), deleted_at (timestamp), description (text), due_date (timestamp), id (bigint), remarks (longtext), se_id (bigint), status (varchar), task_issue_id (bigint), title (varchar), updated_at (timestamp), user_id (varchar)\n  Relationships: JOIN users ON se_task.user_id = users.id\n\nTable `winter_scan_wallet_transactions`:\n  Columns: amount (decimal), cash_value (decimal), created_at (timestamp), id (bigint), reference_id (bigint), reference_type (enum), remark (varchar), transaction_type (tinyint), updated_at (timestamp), user_id (bigint)\n  Enums: reference_type IN (sku_scan,gift_order,cash_withdrawal,topup,credit_note)\n  Relationships: JOIN users ON winter_scan_wallet_transactions.user_id = users.id\n\nTable `gift_orders`:\n  Columns: address_id (bigint), assigned_at (datetime), assigned_type (tinyint), assignee_id (bigint), cn_amount (decimal), cn_date (date), created_at (timestamp), delivery_proof (text), delivery_remark (text), gift_card_id (bigint), id (bigint), order_date (date), order_id (varchar), other_details (text), point_type (enum), quantity (varchar), shop_name (text), status (text), transaction_no (varchar), updated_at (timestamp), used_points (int), user_id (bigint)\n  Enums: point_type IN (cash_point,bonus_point)\n  Relationships: JOIN addresses ON gift_orders.address_id = addresses.id; JOIN orders ON gift_orders.order_id = orders.id; JOIN users ON gift_orders.user_id = users.id\n\nTable `visit_check_in_check_out`:\n  Columns: beat_plan_id (bigint), check_in_address (varchar), check_in_image (varchar), check_in_latitude (decimal), check_in_longitude (decimal), check_in_time (time), check_out_address (varchar), check_out_image (varchar), check_out_latitude (decimal), check_out_longitude (decimal), check_out_time (time), created_at (timestamp), customer_id (bigint), date (date), id (bigint), reason (varchar), updated_at (timestamp), user_id (bigint), visit_type (varchar)\n  Relationships: JOIN users ON visit_check_in_check_out.user_id = users.id\n\nTable `users`:\n  Columns: account_holder_name (varchar), account_no (varchar), account_type (varchar), address (varchar), adhaar (varchar), adhaar_back_image (varchar), adhaar_details (text), adhaar_front_image (varchar), adhaar_image (varchar), anniversary_date (date), app_updated (tinyint), bank_details_status (tinyint), bank_name (varchar), block_gift_redeem (tinyint), block_gift_redeem_message (text), block_withdrawal (tinyint), block_withdrawal_message (text), bonus_points (bigint), business_info_id (bigint), business_pan (varchar), city (varchar), club (varchar), country_code (varchar), created_at (timestamp), deleted_at (timestamp), designation (text), device_id (varchar), direct_manager_id (bigint), disable_scan (tinyint), disable_scan_message (text), distributer_id (bigint), district (varchar), dob (date), email (varchar), email_verified_at (timestamp), employee_id (varchar), fcm_token (varchar), gender (varchar), id (bigint), ifsc_code (varchar), image_path (varchar), isBlacklisted (tinyint), kyc_status (int), lang_id (int), last_login (datetime), last_name (varchar), membership_id (varchar), mobile_number (bigint), name (varchar), nat_state_id (int), old_user_id (int), pan_card (varchar), pan_card_image (varchar), passbook_image (varchar), password (varchar), pincode (int), primary_distributor_id (bigint), profile_image (varchar), referral_code (varchar), remark (text), remember_token (varchar), scan_limit (int), shop_branding (tinyint), state_id (int), status (varchar), two_factor_recovery_codes (text), two_factor_secret (text), updated_at (timestamp), upi (varchar), user_role (int), wallet_balance (bigint)\n  Relationships: JOIN employees ON users.employee_id = employees.id\n\nTable `referral_details`:\n  Columns: city (varchar), created_at (timestamp), id (bigint), name (varchar), phone (varchar), referral_amount_given (tinyint), referral_id (bigint), referral_type (varchar), registered_on (timestamp), updated_at (timestamp), user_id (bigint), user_role (int), wallet_transaction_id (bigint)\n  Relationships: JOIN users ON referral_details.user_id = users.id; JOIN wallet_transaction ON referral_details.wallet_transaction_id = wallet_transaction.id\n\nTable `deactivated_qr_wallet_transactions`:\n  Columns: amount (decimal), created_at (timestamp), id (bigint), reference_id (bigint), reference_type (enum), remark (varchar), season (varchar), transaction_type (tinyint), updated_at (timestamp), user_id (bigint)\n  Enums: reference_type IN (sku_scan,topup,credit_note)\n  Relationships: JOIN users ON deactivated_qr_wallet_transactions.user_id = users.id\n\nTable `notification_logs`:\n  Columns: created_at (timestamp), device_token (varchar), id (bigint), message (text), notification_id (bigint), sent_at (timestamp), status (enum), updated_at (timestamp), user_id (bigint)\n  Enums: status IN (pending,success,failed,skipped)\n  Relationships: JOIN users ON notification_logs.user_id = users.id\n\nTable `sample_order_feedbacks`:\n  Columns: created_at (timestamp), feedback (text), id (bigint), rating (tinyint), sample_order_id (bigint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN sample_orders ON sample_order_feedbacks.sample_order_id = sample_orders.id; JOIN users ON sample_order_feedbacks.user_id = users.id\n\nTable `box_gift_orders`:\n  Columns: address_id (bigint), assigned_at (datetime), assigned_type (tinyint), assignee_id (bigint), cn_amount (decimal), cn_date (date), created_at (timestamp), deleted_at (timestamp), gift_card_id (bigint), id (bigint), order_date (date), order_id (varchar), other_details (text), quantity (int), received_at (timestamp), remarks (text), shop_name (varchar), status (enum), updated_at (timestamp), used_points (int), user_id (bigint)\n  Enums: status IN (Pending,Processing,Delivered,Cancelled,Closed,CN adjusted)\n  Relationships: JOIN addresses ON box_gift_orders.address_id = addresses.id; JOIN orders ON box_gift_orders.order_id = orders.id; JOIN users ON box_gift_orders.user_id = users.id\n\nTable `purchase_targets`:\n  Columns: category_wise_target (json), created_at (timestamp), event_id (bigint), id (bigint), target (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON purchase_targets.user_id = users.id\n\nTable `campaign_logs`:\n  Columns: campaign_id (bigint), created_at (timestamp), device_token (varchar), id (bigint), image (varchar), message (text), page_address (varchar), scheme_id (bigint), sent_at (timestamp), status (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON campaign_logs.user_id = users.id\n\nTable `incentive_gift_orders`:\n  Columns: address_id (bigint), assigned_at (datetime), assigned_type (tinyint), assignee_id (bigint), cn_amount (decimal), cn_date (date), created_at (timestamp), delivery_proof (text), delivery_remark (text), gift_name (varchar), id (bigint), incentive_scheme_id (bigint), order_date (date), order_id (varchar), other_details (text), point_type (enum), quantity (varchar), shop_name (text), status (text), transaction_no (varchar), updated_at (timestamp), used_points (int), user_id (bigint)\n  Enums: point_type IN (cash_point,bonus_point)\n  Relationships: JOIN addresses ON incentive_gift_orders.address_id = addresses.id; JOIN orders ON incentive_gift_orders.order_id = orders.id; JOIN users ON incentive_gift_orders.user_id = users.id\n\nTable `user_scan_permissions`:\n  Columns: blocked_reason_id (bigint), created_at (timestamp), id (bigint), status (tinyint), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON user_scan_permissions.user_id = users.id\n\nTable `gift_gamification`:\n  Columns: created_at (timestamp), id (bigint), points (int), reference_id (bigint), reference_type (varchar), remark (varchar), status (varchar), type (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON gift_gamification.user_id = users.id\n\nTable `event_coupons`:\n  Columns: coupon_code (varchar), coupon_rank (varchar), created_at (timestamp), event_id (bigint), event_order_id (bigint), event_prizes (bigint), id (bigint), updated_at (timestamp), updated_by (bigint), user_id (bigint)\n  Relationships: JOIN event_orders ON event_coupons.event_order_id = event_orders.id; JOIN users ON event_coupons.user_id = users.id\n\nTable `account_deletion_requests`:\n  Columns: created_at (timestamp), deleted_on (date), id (bigint), otp (text), otp_verified (tinyint), phone_number (text), reason_for_deletion (text), request_on (date), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON account_deletion_requests.user_id = users.id\n\nTable `executive_attendances`:\n  Columns: clock_in_ip (varchar), clock_out_ip (varchar), created_at (timestamp), date (date), id (bigint), latitude_in (varchar), latitude_out (varchar), longitude_in (varchar), longitude_out (varchar), punch_in (timestamp), punch_in_image (varchar), punch_out (timestamp), punch_out_image (varchar), updated_at (timestamp), user_id (bigint)\n  Relationships: JOIN users ON executive_attendances.user_id = users.id",
+          "missing_information": [],
+          "logical_query_plan": {
+            "task": "lookup_user",
+            "tables": [
+              "users"
+            ],
+            "columns": [
+              "profile"
+            ],
+            "joins": [],
+            "filters": [
+              "users.id = 77802"
+            ],
+            "metric": null,
+            "group_by": [],
+            "order_by": null,
+            "limit": null,
+            "atomic_tasks": []
+          }
+        },
+        "5_generated_sql": "SELECT id, name, email, mobile_number, user_role, wallet_balance, status, created_at FROM users WHERE users.id = 77802 LIMIT 1",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "id": 77802,
+            "name": "Venkateshwara Stores Retailer",
+            "email": "venkat@retail.com",
+            "mobile_number": "9876543217",
+            "user_role": 2,
+            "wallet_balance": 14300.0,
+            "status": "approved",
+            "created_at": "2025-03-15 11:00:00"
+          }
+        ],
+        "10_final_response": "Here is the verified profile for User ID 77802.\n\n**User Profile Details**\n*   **Name:** Venkateshwara Stores Retailer\n*   **Email:** venkat@retail.com\n*   **Mobile Number:** 9876543217\n*   **User Role:** 2\n*   **Wallet Balance:** \u20b914,300.00\n*   **Status:** approved\n*   **Created At:** 2025-03-15 11:00:00\n\n**Summary**\n1 record was found for the requested user ID. The user is an approved retailer with a current wallet balance of \u20b914,300.00."
+      }
+    },
+    {
+      "id": 7,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "unseen_eval",
+      "question": "Lookup wholesaler details for ID 64945",
+      "intent_correct": false,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": false,
+      "db_result_correct": false,
+      "response_correct": false,
+      "end_to_end_correct": false,
+      "primary_failure": "WRONG_FINAL_RESPONSE",
+      "failure_reason": "Failed to communicate empty zero-result.",
+      "latency_ms": 244832.2,
+      "pipeline_checkpoints": {
+        "1_user_question": "Lookup wholesaler details for ID 64945",
+        "2_detected_intent": null,
+        "3_retrieved_schema": [],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.id AS wholesaler_id, u.name, u.email, u.mobile_number, u.address, u.city, u.state_id, u.district, u.business_info_id, u.business_pan, u.pan_card, u.adhaar, u.kyc_status, u.status, u.user_role FROM users AS u WHERE u.id = 64945 AND u.user_role = 5 LIMIT 1",
+        "6_validation": "BLOCKED",
+        "7_sql_execution": false,
+        "8_actual_db_result_rows": 0,
+        "9_answer_gen_input": [],
+        "10_final_response": "Query could not be executed: Required entity ['wholesaler'] missing from plan tables: ['users']"
+      }
+    },
+    {
+      "id": 8,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "unseen_eval",
+      "question": "Find retailer ID 56229",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "WRONG_DATABASE_RESULT",
+      "failure_reason": "Result mismatch: Generated 1 rows, Reference 1 rows.",
+      "latency_ms": 204100.91,
+      "pipeline_checkpoints": {
+        "1_user_question": "Find retailer ID 56229",
+        "2_detected_intent": "lookup",
+        "3_retrieved_schema": [
+          "users"
+        ],
+        "4_sql_plan": {
+          "business_requirement": {
+            "original_question": "Find retailer ID 56229",
+            "intent": "lookup",
+            "query_type": "data_retrieval",
+            "entities": [
+              "retailer"
+            ],
+            "entity_roles": {},
+            "relationships": [],
+            "specific_ids": {
+              "retailer_id": 56229
+            },
+            "metrics": [],
+            "aggregation": [],
+            "dimensions": [],
+            "filters": [
+              {
+                "field": "retailer_id",
+                "operator": "=",
+                "value": "56229"
+              }
+            ],
+            "dates": [],
+            "periods": [],
+            "date_period": null,
+            "relative_dates": null,
+            "comparison": null,
+            "comparisons": [],
+            "comparison_specs": {},
+            "grouping": [],
+            "sorting": [],
+            "ranking": null,
+            "limit": null,
+            "requested_columns": [
+              "retailer_id",
+              "retailer_name"
+            ],
+            "output_type": "table",
+            "output_format": "table",
+            "conditions": [],
+            "clarification_required": false,
+            "clarification_reason": null,
+            "atomic_tasks": [],
+            "context_classification": "NEW_QUERY",
+            "confidence": 1.0,
+            "context_requirements": {}
+          },
+          "resolved_entities": [
+            "retailer -> users (user_role=2)"
+          ],
+          "resolved_relationships": [],
+          "relevant_tables": [
+            "users"
+          ],
+          "relevant_columns": [
+            "retailer_targets.retailer_id"
+          ],
+          "required_joins": [],
+          "filters": [
+            {
+              "field": "retailer_id",
+              "operator": "=",
+              "value": "56229"
+            }
+          ],
+          "metrics": [],
+          "aggregations": [],
+          "grouping": [],
+          "sorting": [],
+          "limit": null,
+          "date_boundaries": {},
+          "business_rules": [
+            "Specific rules or filters deduced from schema"
+          ],
+          "rag_evidence": "Table `distributor_wholesaler`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), updated_at (timestamp), wholesaler_id (bigint), wholesaler_quarterly_target (bigint)\n\nTable `retailer_targets`:\n  Columns: created_at (timestamp), financial_year_id (bigint), id (bigint), q1_category_target (json), q1_target (int), q2_category_target (json), q2_target (int), q3_category_target (json), q3_target (int), q4_category_target (json), q4_target (int), retailer_id (bigint), updated_at (timestamp), updated_by (bigint)\n  Relationships: JOIN users ON retailer_targets.retailer_id = users.id\n\nTable `retailer_wholesaler_mappings`:\n  Columns: created_at (timestamp), id (bigint), retailer_id (bigint), updated_at (timestamp), wholesaler_id (bigint)\n  Relationships: JOIN users ON retailer_wholesaler_mappings.retailer_id = users.id\n\nTable `retailer_category_qualified`:\n  Columns: category_id (bigint), id (bigint), qualified_at (date), retailer_id (bigint)\n  Relationships: JOIN users ON retailer_category_qualified.retailer_id = users.id\n\nTable `users`:\n  Columns: account_holder_name (varchar), account_no (varchar), account_type (varchar), address (varchar), adhaar (varchar), adhaar_back_image (varchar), adhaar_details (text), adhaar_front_image (varchar), adhaar_image (varchar), anniversary_date (date), app_updated (tinyint), bank_details_status (tinyint), bank_name (varchar), block_gift_redeem (tinyint), block_gift_redeem_message (text), block_withdrawal (tinyint), block_withdrawal_message (text), bonus_points (bigint), business_info_id (bigint), business_pan (varchar), city (varchar), club (varchar), country_code (varchar), created_at (timestamp), deleted_at (timestamp), designation (text), device_id (varchar), direct_manager_id (bigint), disable_scan (tinyint), disable_scan_message (text), distributer_id (bigint), district (varchar), dob (date), email (varchar), email_verified_at (timestamp), employee_id (varchar), fcm_token (varchar), gender (varchar), id (bigint), ifsc_code (varchar), image_path (varchar), isBlacklisted (tinyint), kyc_status (int), lang_id (int), last_login (datetime), last_name (varchar), membership_id (varchar), mobile_number (bigint), name (varchar), nat_state_id (int), old_user_id (int), pan_card (varchar), pan_card_image (varchar), passbook_image (varchar), password (varchar), pincode (int), primary_distributor_id (bigint), profile_image (varchar), referral_code (varchar), remark (text), remember_token (varchar), scan_limit (int), shop_branding (tinyint), state_id (int), status (varchar), two_factor_recovery_codes (text), two_factor_secret (text), updated_at (timestamp), upi (varchar), user_role (int), wallet_balance (bigint)\n  Relationships: JOIN role ON users.user_role = role.id\n\nTable `retailer_distributor_mappings`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), retailer_id (bigint), updated_at (timestamp)\n  Relationships: JOIN users ON retailer_distributor_mappings.retailer_id = users.id\n\nTable `executive_retailer_mappings`:\n  Columns: created_at (timestamp), executive_id (bigint), id (bigint), retailer_id (bigint), updated_at (timestamp)\n  Relationships: JOIN users ON executive_retailer_mappings.retailer_id = users.id\n\nTable `gift_inventories`:\n  Columns: batch_details (json), carton_no (varchar), courier_name (varchar), created_at (timestamp), customer_info (json), delivered_to_retailer_at (datetime), distributor_accepted_at (datetime), distributor_id (bigint), gift_order_id (bigint), gift_order_type (enum), id (bigint), invoice_date (date), invoice_number (varchar), invoiced_by (varchar), invoiced_quantity (int), lpn_code (varchar), lpn_number (varchar), mode_of_transport (varchar), mrp (decimal), order_date (date), order_reference (varchar), packed_quantity (int), product_id (bigint), retailer_id (bigint), shipping_no (varchar), sku_code (varchar), sku_description (varchar), status (tinyint), unit_price (decimal), uom (varchar), updated_at (timestamp), warehouse (varchar)\n  Enums: gift_order_type IN (gift_orders,box_gift_orders,scheme_gift_orders,winter_gift_orders)\n  Relationships: JOIN users ON gift_inventories.retailer_id = users.id\n\nTable `scheduled_visits`:\n  Columns: beat_plan_id (bigint), created_at (timestamp), id (bigint), remarks (text), retailer_id (bigint), sales_executive_id (bigint), status (tinyint), updated_at (timestamp), visit_date (date)\n  Relationships: JOIN users ON scheduled_visits.retailer_id = users.id; JOIN users ON scheduled_visits.sales_executive_id = users.id\n\nTable `role`:\n  Columns: created_at (datetime), deleted_at (datetime), id (int), is_editable (tinyint), name (varchar), updated_at (datetime)",
+          "missing_information": [],
+          "logical_query_plan": {
+            "task": "lookup_retailer",
+            "tables": [
+              "users"
+            ],
+            "columns": [
+              "retailer_id",
+              "retailer_name"
+            ],
+            "joins": [],
+            "filters": [
+              "users.id = 56229",
+              "users.user_role = 2"
+            ],
+            "metric": null,
+            "group_by": [],
+            "order_by": null,
+            "limit": null,
+            "atomic_tasks": []
+          }
+        },
+        "5_generated_sql": "SELECT u.id AS retailer_id, u.name AS retailer_name FROM users AS u WHERE u.id = 56229 AND u.user_role = 2 LIMIT 100",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "retailer_id": 56229,
+            "retailer_name": "Royal Retailers"
+          }
+        ],
+        "10_final_response": "The total retailer id is 56,229."
+      }
+    },
+    {
+      "id": 9,
+      "category": "filtering",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Show retailers in Bengaluru",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "WRONG_DATABASE_RESULT",
+      "failure_reason": "Result mismatch: Generated 3 rows, Reference 3 rows.",
+      "latency_ms": 132966.6,
+      "pipeline_checkpoints": {
+        "1_user_question": "Show retailers in Bengaluru",
+        "2_detected_intent": "list_entities",
+        "3_retrieved_schema": [
+          "users"
+        ],
+        "4_sql_plan": {
+          "business_requirement": {
+            "original_question": "Show retailers in Bengaluru",
+            "intent": "list_entities",
+            "query_type": "data_retrieval",
+            "entities": [
+              "retailer"
+            ],
+            "entity_roles": {},
+            "relationships": [],
+            "specific_ids": {},
+            "metrics": [],
+            "aggregation": [],
+            "dimensions": [],
+            "filters": [
+              {
+                "field": "city",
+                "operator": "=",
+                "value": "Bengaluru"
+              }
+            ],
+            "dates": [],
+            "periods": [],
+            "date_period": null,
+            "relative_dates": null,
+            "comparison": null,
+            "comparisons": [],
+            "comparison_specs": {},
+            "grouping": [],
+            "sorting": [],
+            "ranking": null,
+            "limit": null,
+            "requested_columns": [
+              "retailer_name",
+              "city"
+            ],
+            "output_type": "table",
+            "output_format": "table",
+            "conditions": [],
+            "clarification_required": false,
+            "clarification_reason": null,
+            "atomic_tasks": [],
+            "context_classification": "NEW_QUERY",
+            "confidence": 1.0,
+            "context_requirements": {}
+          },
+          "resolved_entities": [
+            "retailer -> users (user_role=2)"
+          ],
+          "resolved_relationships": [],
+          "relevant_tables": [
+            "users"
+          ],
+          "relevant_columns": [
+            "retailer_distributor_mappings.retailer_id",
+            "users.name",
+            "users.city"
+          ],
+          "required_joins": [],
+          "filters": [
+            {
+              "field": "city",
+              "operator": "=",
+              "value": "Bengaluru"
+            }
+          ],
+          "metrics": [],
+          "aggregations": [],
+          "grouping": [],
+          "sorting": [],
+          "limit": null,
+          "date_boundaries": {},
+          "business_rules": [
+            "Filter retailers based on city 'Bengaluru'"
+          ],
+          "rag_evidence": "Table `retailer_wholesaler_mappings`:\n  Columns: created_at (timestamp), id (bigint), retailer_id (bigint), updated_at (timestamp), wholesaler_id (bigint)\n  Relationships: JOIN users ON retailer_wholesaler_mappings.retailer_id = users.id\n\nTable `products`:\n  Columns: brand_id (int), category_id (bigint), color (varchar), created_at (timestamp), hsn_code (varchar), id (bigint), image (varchar), is_featured (tinyint), mrp (decimal), product_code (varchar), product_name (varchar), retailer_bonus_point (decimal), retailer_cash_point (decimal), size (varchar), sku_code (varchar), status (tinyint), uom (varchar), updated_at (timestamp), wholesaler_bonus_point (decimal), wholesaler_cash_point (decimal)\n\nTable `retailer_category_qualified`:\n  Columns: category_id (bigint), id (bigint), qualified_at (date), retailer_id (bigint)\n  Relationships: JOIN users ON retailer_category_qualified.retailer_id = users.id\n\nTable `users`:\n  Columns: account_holder_name (varchar), account_no (varchar), account_type (varchar), address (varchar), adhaar (varchar), adhaar_back_image (varchar), adhaar_details (text), adhaar_front_image (varchar), adhaar_image (varchar), anniversary_date (date), app_updated (tinyint), bank_details_status (tinyint), bank_name (varchar), block_gift_redeem (tinyint), block_gift_redeem_message (text), block_withdrawal (tinyint), block_withdrawal_message (text), bonus_points (bigint), business_info_id (bigint), business_pan (varchar), city (varchar), club (varchar), country_code (varchar), created_at (timestamp), deleted_at (timestamp), designation (text), device_id (varchar), direct_manager_id (bigint), disable_scan (tinyint), disable_scan_message (text), distributer_id (bigint), district (varchar), dob (date), email (varchar), email_verified_at (timestamp), employee_id (varchar), fcm_token (varchar), gender (varchar), id (bigint), ifsc_code (varchar), image_path (varchar), isBlacklisted (tinyint), kyc_status (int), lang_id (int), last_login (datetime), last_name (varchar), membership_id (varchar), mobile_number (bigint), name (varchar), nat_state_id (int), old_user_id (int), pan_card (varchar), pan_card_image (varchar), passbook_image (varchar), password (varchar), pincode (int), primary_distributor_id (bigint), profile_image (varchar), referral_code (varchar), remark (text), remember_token (varchar), scan_limit (int), shop_branding (tinyint), state_id (int), status (varchar), two_factor_recovery_codes (text), two_factor_secret (text), updated_at (timestamp), upi (varchar), user_role (int), wallet_balance (bigint)\n  Relationships: JOIN role ON users.user_role = role.id\n\nTable `retailer_distributor_mappings`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), retailer_id (bigint), updated_at (timestamp)\n  Relationships: JOIN users ON retailer_distributor_mappings.retailer_id = users.id\n\nTable `executive_retailer_mappings`:\n  Columns: created_at (timestamp), executive_id (bigint), id (bigint), retailer_id (bigint), updated_at (timestamp)\n  Relationships: JOIN users ON executive_retailer_mappings.retailer_id = users.id\n\nTable `role`:\n  Columns: created_at (datetime), deleted_at (datetime), id (int), is_editable (tinyint), name (varchar), updated_at (datetime)",
+          "missing_information": [],
+          "logical_query_plan": {
+            "task": "list_entities_retailer",
+            "tables": [
+              "users"
+            ],
+            "columns": [
+              "retailer_name",
+              "city"
+            ],
+            "joins": [],
+            "filters": [
+              "users.city = 'Bengaluru'",
+              "users.user_role = 2"
+            ],
+            "metric": null,
+            "group_by": [],
+            "order_by": null,
+            "limit": null,
+            "atomic_tasks": []
+          }
+        },
+        "5_generated_sql": "SELECT u.name AS retailer_name, u.city FROM users AS u WHERE u.city = 'Bengaluru' AND u.user_role = 2 LIMIT 100",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 3,
+        "9_answer_gen_input": [
+          {
+            "retailer_name": "Lakshmi Enterprises Retailer",
+            "city": "Bengaluru"
+          },
+          {
+            "retailer_name": "Royal Retailers",
+            "city": "Bengaluru"
+          },
+          {
+            "retailer_name": "Venkateshwara Stores Retailer",
+            "city": "Bengaluru"
+          }
+        ],
+        "10_final_response": "Here are the retailers located in Bengaluru:\n\n1. Lakshmi Enterprises Retailer\n2. Royal Retailers\n3. Venkateshwara Stores Retailer"
+      }
+    },
+    {
+      "id": 10,
+      "category": "filtering",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Show distributors in Kochi",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": false,
+      "response_correct": true,
+      "end_to_end_correct": false,
+      "primary_failure": "WRONG_DATABASE_RESULT",
+      "failure_reason": "Result mismatch: Generated 1 rows, Reference 1 rows.",
+      "latency_ms": 209378.45,
+      "pipeline_checkpoints": {
+        "1_user_question": "Show distributors in Kochi",
+        "2_detected_intent": "list_entities",
+        "3_retrieved_schema": [
+          "users"
+        ],
+        "4_sql_plan": {
+          "business_requirement": {
+            "original_question": "Show distributors in Kochi",
+            "intent": "list_entities",
+            "query_type": "data_retrieval",
+            "entities": [
+              "distributor"
+            ],
+            "entity_roles": {},
+            "relationships": [],
+            "specific_ids": {},
+            "metrics": [],
+            "aggregation": [],
+            "dimensions": [
+              "Kochi"
+            ],
+            "filters": [],
+            "dates": [],
+            "periods": [],
+            "date_period": null,
+            "relative_dates": null,
+            "comparison": null,
+            "comparisons": [],
+            "comparison_specs": {},
+            "grouping": [],
+            "sorting": [],
+            "ranking": null,
+            "limit": null,
+            "requested_columns": [
+              "distributor_id",
+              "distributor_name"
+            ],
+            "output_type": "table",
+            "output_format": "table",
+            "conditions": [],
+            "clarification_required": false,
+            "clarification_reason": null,
+            "atomic_tasks": [],
+            "context_classification": "NEW_QUERY",
+            "confidence": 1.0,
+            "context_requirements": {}
+          },
+          "resolved_entities": [
+            "distributor -> users (user_role=4)"
+          ],
+          "resolved_relationships": [],
+          "relevant_tables": [
+            "users"
+          ],
+          "relevant_columns": [
+            "users.name",
+            "users.city"
+          ],
+          "required_joins": [],
+          "filters": [],
+          "metrics": [],
+          "aggregations": [],
+          "grouping": [],
+          "sorting": [],
+          "limit": null,
+          "date_boundaries": {},
+          "business_rules": [
+            "Filter distributors based on city 'Kochi'"
+          ],
+          "rag_evidence": "Table `executive_distributor_mappings`:\n  Columns: created_at (timestamp), distributor_id (bigint), executive_id (bigint), id (bigint), updated_at (timestamp)\n\nTable `wholesaler_targets`:\n  Columns: created_at (timestamp), distributor_id (bigint), financial_year_id (bigint), id (bigint), q1_target (bigint), q2_target (bigint), q3_target (bigint), q4_target (bigint), target_details (json), updated_at (timestamp), updated_by (bigint), wholesaler_id (bigint)\n\nTable `retailer_wholesaler_mappings`:\n  Columns: created_at (timestamp), id (bigint), retailer_id (bigint), updated_at (timestamp), wholesaler_id (bigint)\n  Relationships: JOIN users ON retailer_wholesaler_mappings.retailer_id = users.id\n\nTable `users`:\n  Columns: account_holder_name (varchar), account_no (varchar), account_type (varchar), address (varchar), adhaar (varchar), adhaar_back_image (varchar), adhaar_details (text), adhaar_front_image (varchar), adhaar_image (varchar), anniversary_date (date), app_updated (tinyint), bank_details_status (tinyint), bank_name (varchar), block_gift_redeem (tinyint), block_gift_redeem_message (text), block_withdrawal (tinyint), block_withdrawal_message (text), bonus_points (bigint), business_info_id (bigint), business_pan (varchar), city (varchar), club (varchar), country_code (varchar), created_at (timestamp), deleted_at (timestamp), designation (text), device_id (varchar), direct_manager_id (bigint), disable_scan (tinyint), disable_scan_message (text), distributer_id (bigint), district (varchar), dob (date), email (varchar), email_verified_at (timestamp), employee_id (varchar), fcm_token (varchar), gender (varchar), id (bigint), ifsc_code (varchar), image_path (varchar), isBlacklisted (tinyint), kyc_status (int), lang_id (int), last_login (datetime), last_name (varchar), membership_id (varchar), mobile_number (bigint), name (varchar), nat_state_id (int), old_user_id (int), pan_card (varchar), pan_card_image (varchar), passbook_image (varchar), password (varchar), pincode (int), primary_distributor_id (bigint), profile_image (varchar), referral_code (varchar), remark (text), remember_token (varchar), scan_limit (int), shop_branding (tinyint), state_id (int), status (varchar), two_factor_recovery_codes (text), two_factor_secret (text), updated_at (timestamp), upi (varchar), user_role (int), wallet_balance (bigint)\n  Relationships: JOIN role ON users.user_role = role.id\n\nTable `retailer_distributor_mappings`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), retailer_id (bigint), updated_at (timestamp)\n  Relationships: JOIN users ON retailer_distributor_mappings.retailer_id = users.id\n\nTable `distributor_wholesaler`:\n  Columns: created_at (timestamp), distributor_id (bigint), id (bigint), updated_at (timestamp), wholesaler_id (bigint), wholesaler_quarterly_target (bigint)\n\nTable `role`:\n  Columns: created_at (datetime), deleted_at (datetime), id (int), is_editable (tinyint), name (varchar), updated_at (datetime)",
+          "missing_information": [],
+          "logical_query_plan": {
+            "task": "list_entities_distributor",
+            "tables": [
+              "users"
+            ],
+            "columns": [
+              "distributor_id",
+              "distributor_name"
+            ],
+            "joins": [],
+            "filters": [
+              "users.city = 'Kochi'",
+              "users.user_role = 4"
+            ],
+            "metric": null,
+            "group_by": [],
+            "order_by": null,
+            "limit": null,
+            "atomic_tasks": []
+          }
+        },
+        "5_generated_sql": "SELECT u.id AS distributor_id, u.name AS distributor_name FROM users AS u WHERE u.city = 'Kochi' AND u.user_role = 4 LIMIT 100",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "distributor_id": 5903,
+            "distributor_name": "Pottekat Baiju Distributor"
+          }
+        ],
+        "10_final_response": "The total distributor id is 5,903."
+      }
+    }
+  ]
+}

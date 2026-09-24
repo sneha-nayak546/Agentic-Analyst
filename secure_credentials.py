@@ -37,7 +37,7 @@ def secure_environment():
     # Step 2: Read plain text environment credentials
     load_dotenv(env_path, override=True)
 
-    db_host = os.getenv("DB_HOST", "64.227.153.110")
+    db_host = os.getenv("DB_HOST", "168.144.28.208")
     db_port = os.getenv("DB_PORT", "3306")
     db_name = os.getenv("DB_NAME", "jghMasterDB")
     db_user = os.getenv("DB_USER", "readonly")

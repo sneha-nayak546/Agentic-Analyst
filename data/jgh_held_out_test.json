@@ -1,0 +1,1006 @@
+[
+  {
+    "id": 1,
+    "category": "earnings",
+    "difficulty": "MEDIUM",
+    "question": "Show total earnings in Karnataka in July 2026",
+    "business_requirement": "Calculate authorized financial earnings for state adhering strictly to JGH earnings rules.",
+    "relevant_business_rules": [
+      "Earnings must use wallet_transaction wt",
+      "wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem')",
+      "wt.amount > 0",
+      "Metric: SUM(wt.amount)",
+      "Timestamp: wt.created_at"
+    ],
+    "relevant_tables": [
+      "users",
+      "wallet_transaction",
+      "state"
+    ],
+    "relevant_columns": [
+      "id",
+      "state_id",
+      "sname",
+      "amount",
+      "reference_type",
+      "created_at"
+    ],
+    "relationships": [
+      "wallet_transaction.user_id = users.id",
+      "users.state_id = state.id"
+    ],
+    "expected_sql": "SELECT s.sname AS state_name, SUM(wt.amount) AS total_earnings FROM wallet_transaction wt JOIN users u ON wt.user_id = u.id JOIN state s ON u.state_id = s.id WHERE s.sname = 'Karnataka' AND wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem') AND wt.amount > 0 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY s.sname;",
+    "expected_limit": 1,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 1
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 2,
+    "category": "null_handling",
+    "difficulty": "MEDIUM",
+    "question": "Count SKU inventories where retailer scan is missing",
+    "business_requirement": "Execute query answering: 'Count SKU inventories where retailer scan is missing'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "sku_inventories"
+    ],
+    "relevant_columns": [
+      "retailer_scanned_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT COUNT(*) AS unscanned_count FROM sku_inventories WHERE retailer_scanned_at IS NULL;",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 3,
+    "category": "follow_up_questions",
+    "difficulty": "HARD",
+    "question": "Show their wallet balances",
+    "business_requirement": "Execute query answering: 'Show their wallet balances'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "user_role"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT id, name, wallet_balance FROM users WHERE user_role = 4;",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": {
+      "entity": "distributor",
+      "role_id": 4,
+      "is_explicit_follow_up": true
+    },
+    "split": "held_out_test"
+  },
+  {
+    "id": 4,
+    "category": "complex_multi_condition",
+    "difficulty": "HARD",
+    "question": "Show SKU inventories with unit price above 1000 and mrp above 1500 in warehouse JGH_1100",
+    "business_requirement": "Execute query answering: 'Show SKU inventories with unit price above 1000 and mrp above 1500 in warehouse JGH_1100'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "sku_inventories"
+    ],
+    "relevant_columns": [
+      "id",
+      "sku_code"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT id, sku_code, unit_price, mrp FROM sku_inventories WHERE unit_price > 1000 AND mrp > 1500 AND warehouse = 'JGH_1100' LIMIT 20;",
+    "expected_limit": 20,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 20
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 5,
+    "category": "complex_multi_condition",
+    "difficulty": "HARD",
+    "question": "Show cash point transactions on July 10 2026 with amount strictly greater than 10",
+    "business_requirement": "Execute query answering: 'Show cash point transactions on July 10 2026 with amount strictly greater than 10'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "id",
+      "amount",
+      "reference_type",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT id, user_id, amount, created_at FROM wallet_transaction WHERE reference_type = 'cash_point' AND amount > 10 AND created_at >= '2026-07-10 00:00:00' AND created_at <= '2026-07-10 23:59:59' LIMIT 20;",
+    "expected_limit": 20,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 20
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 6,
+    "category": "box_scanning",
+    "difficulty": "MEDIUM",
+    "question": "Which state had the most boxes scanned in July 2026?",
+    "business_requirement": "Calculate box quantity using authoritative JGH formula SUM(qpm.box_calculation_uom) for state.",
+    "relevant_business_rules": [
+      "Box quantity calculation: SUM(qpm.box_calculation_uom) joined on sku_inventories.sku_code = qpm.sku_code",
+      "NEVER use COUNT(si.id) for box quantities",
+      "Filter scanning timestamps using si.retailer_scanned_at"
+    ],
+    "relevant_tables": [
+      "users",
+      "sku_inventories",
+      "sku_qr_points_maps",
+      "state"
+    ],
+    "relevant_columns": [
+      "id",
+      "state_id",
+      "sname",
+      "sku_code",
+      "retailer_scanned_at",
+      "status_retailer_id",
+      "box_calculation_uom"
+    ],
+    "relationships": [
+      "sku_inventories.sku_code = sku_qr_points_maps.sku_code",
+      "sku_inventories.status_retailer_id = users.id"
+    ],
+    "expected_sql": "SELECT s.sname AS state_name, SUM(qpm.box_calculation_uom) AS total_boxes_scanned FROM sku_inventories si JOIN sku_qr_points_maps qpm ON si.sku_code = qpm.sku_code JOIN users u ON si.status_retailer_id = u.id JOIN state s ON u.state_id = s.id WHERE si.retailer_scanned_at >= '2026-07-01 00:00:00' AND si.retailer_scanned_at < '2026-08-01 00:00:00' GROUP BY s.sname ORDER BY total_boxes_scanned DESC LIMIT 1;",
+    "expected_limit": 1,
+    "expected_order": "DESC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 1
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 7,
+    "category": "fewer_than_requested",
+    "difficulty": "MEDIUM",
+    "question": "Show top 10 distributors in Karnataka",
+    "business_requirement": "Execute query answering: 'Show top 10 distributors in Karnataka'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "user_role",
+      "state_id"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT id, name, city FROM users WHERE user_role = 4 AND state_id = 11 LIMIT 10;",
+    "expected_limit": 10,
+    "expected_order": "DESC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 10
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 8,
+    "category": "grouping",
+    "difficulty": "MEDIUM",
+    "question": "Show total earnings grouped by reference type in July 2026",
+    "business_requirement": "Execute query answering: 'Show total earnings grouped by reference type in July 2026'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "amount",
+      "reference_type",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT reference_type, COUNT(*) AS tx_count, SUM(amount) AS total_amount FROM wallet_transaction WHERE created_at >= '2026-07-01 00:00:00' AND created_at < '2026-08-01 00:00:00' GROUP BY reference_type;",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 9,
+    "category": "multi_metric",
+    "difficulty": "HARD",
+    "question": "Show top 5 retailers by boxes scanned with their total earnings in July 2026",
+    "business_requirement": "Pre-aggregate box scans and wallet earnings in independent CTEs before joining to prevent Cartesian row multiplication.",
+    "relevant_business_rules": [
+      "Separate CTE for scans: SUM(qpm.box_calculation_uom) grouped by retailer",
+      "Separate CTE for earnings: SUM(wt.amount) grouped by retailer with reference_type whitelist and amount > 0",
+      "LEFT JOIN scans with earnings on retailer_id"
+    ],
+    "relevant_tables": [
+      "users",
+      "wallet_transaction",
+      "sku_inventories",
+      "sku_qr_points_maps"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "user_role",
+      "amount",
+      "reference_type",
+      "created_at",
+      "sku_code",
+      "retailer_scanned_at",
+      "status_retailer_id",
+      "box_calculation_uom"
+    ],
+    "relationships": [
+      "sku_inventories.status_retailer_id = users.id",
+      "wallet_transaction.user_id = users.id"
+    ],
+    "expected_sql": "WITH retailer_scans AS (SELECT r.id AS retailer_id, r.name AS retailer_name, SUM(qpm.box_calculation_uom) AS total_boxes_scanned FROM sku_inventories si JOIN sku_qr_points_maps qpm ON si.sku_code = qpm.sku_code JOIN users r ON si.status_retailer_id = r.id WHERE r.user_role = 2 AND si.retailer_scanned_at >= '2026-07-01 00:00:00' AND si.retailer_scanned_at < '2026-08-01 00:00:00' GROUP BY r.id, r.name), retailer_earnings AS (SELECT u.id AS retailer_id, SUM(wt.amount) AS total_earnings FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE u.user_role = 2 AND wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem') AND wt.amount > 0 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id) SELECT rs.retailer_name, rs.total_boxes_scanned, COALESCE(re.total_earnings, 0) AS total_earnings FROM retailer_scans rs LEFT JOIN retailer_earnings re ON rs.retailer_id = re.retailer_id ORDER BY rs.total_boxes_scanned DESC LIMIT 5;",
+    "expected_limit": 5,
+    "expected_order": "DESC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 5
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 10,
+    "category": "percentage_calculations",
+    "difficulty": "HARD",
+    "question": "Percentage of total wallet transactions that were positive credits in July 2026",
+    "business_requirement": "Execute query answering: 'Percentage of total wallet transactions that were positive credits in July 2026'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "amount",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT (SUM(CASE WHEN amount > 0 THEN 1.0 ELSE 0.0 END) * 100.0 / COUNT(*)) AS credit_percentage FROM wallet_transaction WHERE created_at >= '2026-07-01 00:00:00' AND created_at < '2026-08-01 00:00:00';",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 11,
+    "category": "trend_questions",
+    "difficulty": "HARD",
+    "question": "Show daily withdrawal trend for July 2026",
+    "business_requirement": "Execute query answering: 'Show daily withdrawal trend for July 2026'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "amount",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT DATE(created_at) AS tx_date, SUM(ABS(amount)) AS total_withdrawn FROM wallet_transaction WHERE amount < 0 AND created_at >= '2026-07-01 00:00:00' AND created_at < '2026-08-01 00:00:00' GROUP BY DATE(created_at) ORDER BY tx_date ASC;",
+    "expected_limit": null,
+    "expected_order": "ASC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 12,
+    "category": "multiple_filters",
+    "difficulty": "MEDIUM",
+    "question": "Show SKU inventories with order type Distributor and warehouse JGH_1100",
+    "business_requirement": "Execute query answering: 'Show SKU inventories with order type Distributor and warehouse JGH_1100'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "sku_inventories"
+    ],
+    "relevant_columns": [],
+    "relationships": [],
+    "expected_sql": "SELECT * FROM sku_inventories WHERE order_type = 'Distributor' AND warehouse = 'JGH_1100' LIMIT 20;",
+    "expected_limit": 20,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 20
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 13,
+    "category": "box_scanning",
+    "difficulty": "MEDIUM",
+    "question": "Which retailer had the highest boxes scanned in July 2026?",
+    "business_requirement": "Calculate box quantity using authoritative JGH formula SUM(qpm.box_calculation_uom) for retailer.",
+    "relevant_business_rules": [
+      "Box quantity calculation: SUM(qpm.box_calculation_uom) joined on sku_inventories.sku_code = qpm.sku_code",
+      "NEVER use COUNT(si.id) for box quantities",
+      "Filter scanning timestamps using si.retailer_scanned_at"
+    ],
+    "relevant_tables": [
+      "users",
+      "sku_inventories",
+      "sku_qr_points_maps"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "user_role",
+      "sku_code",
+      "retailer_scanned_at",
+      "status_retailer_id",
+      "box_calculation_uom"
+    ],
+    "relationships": [
+      "sku_inventories.sku_code = sku_qr_points_maps.sku_code",
+      "sku_inventories.status_retailer_id = users.id"
+    ],
+    "expected_sql": "SELECT u.id AS retailer_id, u.name AS retailer_name, SUM(qpm.box_calculation_uom) AS total_boxes_scanned FROM sku_inventories si JOIN sku_qr_points_maps qpm ON si.sku_code = qpm.sku_code JOIN users u ON si.status_retailer_id = u.id WHERE u.user_role = 2 AND si.retailer_scanned_at >= '2026-07-01 00:00:00' AND si.retailer_scanned_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name ORDER BY total_boxes_scanned DESC LIMIT 1;",
+    "expected_limit": 1,
+    "expected_order": "DESC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 1
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 14,
+    "category": "edge_cases",
+    "difficulty": "HARD",
+    "question": "Show transactions with zero amount",
+    "business_requirement": "Execute query answering: 'Show transactions with zero amount'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "amount"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT * FROM wallet_transaction WHERE amount = 0;",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 15,
+    "category": "multiple_filters",
+    "difficulty": "MEDIUM",
+    "question": "Show retailers in Kochi with wallet balance above 5000",
+    "business_requirement": "Execute query answering: 'Show retailers in Kochi with wallet balance above 5000'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users"
+    ],
+    "relevant_columns": [
+      "user_role"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT * FROM users WHERE user_role = 2 AND city = 'Kochi' AND wallet_balance > 5000;",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 16,
+    "category": "context_dependent",
+    "difficulty": "HARD",
+    "question": "Filter by approved status",
+    "business_requirement": "Execute query answering: 'Filter by approved status'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users"
+    ],
+    "relevant_columns": [
+      "user_role",
+      "status"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT * FROM users WHERE user_role = 2 AND (city = 'Bengaluru' OR district = 'Bengaluru Urban') AND status = 'approved';",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": {
+      "entity": "retailer",
+      "city": "Bengaluru",
+      "is_explicit_follow_up": true
+    },
+    "split": "held_out_test"
+  },
+  {
+    "id": 17,
+    "category": "earnings",
+    "difficulty": "MEDIUM",
+    "question": "Which retailer had the highest earnings in July 2026?",
+    "business_requirement": "Calculate authorized financial earnings for retailer adhering strictly to JGH earnings rules.",
+    "relevant_business_rules": [
+      "Earnings must use wallet_transaction wt",
+      "wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem')",
+      "wt.amount > 0",
+      "Metric: SUM(wt.amount)",
+      "Timestamp: wt.created_at"
+    ],
+    "relevant_tables": [
+      "users",
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "user_role",
+      "amount",
+      "reference_type",
+      "created_at"
+    ],
+    "relationships": [
+      "wallet_transaction.user_id = users.id",
+      "users.state_id = state.id"
+    ],
+    "expected_sql": "SELECT u.id AS retailer_id, u.name AS retailer_name, SUM(wt.amount) AS total_earnings FROM wallet_transaction wt JOIN users u ON wt.user_id = u.id WHERE u.user_role = 2 AND wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem') AND wt.amount > 0 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name ORDER BY total_earnings DESC LIMIT 1;",
+    "expected_limit": 1,
+    "expected_order": "DESC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 1
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 18,
+    "category": "box_scanning",
+    "difficulty": "MEDIUM",
+    "question": "Show boxes scanned by state in July 2026",
+    "business_requirement": "Calculate box quantity using authoritative JGH formula SUM(qpm.box_calculation_uom) for state.",
+    "relevant_business_rules": [
+      "Box quantity calculation: SUM(qpm.box_calculation_uom) joined on sku_inventories.sku_code = qpm.sku_code",
+      "NEVER use COUNT(si.id) for box quantities",
+      "Filter scanning timestamps using si.retailer_scanned_at"
+    ],
+    "relevant_tables": [
+      "users",
+      "sku_inventories",
+      "sku_qr_points_maps",
+      "state"
+    ],
+    "relevant_columns": [
+      "id",
+      "state_id",
+      "sname",
+      "sku_code",
+      "retailer_scanned_at",
+      "status_retailer_id",
+      "box_calculation_uom"
+    ],
+    "relationships": [
+      "sku_inventories.sku_code = sku_qr_points_maps.sku_code",
+      "sku_inventories.status_retailer_id = users.id"
+    ],
+    "expected_sql": "SELECT s.sname AS state_name, SUM(qpm.box_calculation_uom) AS total_boxes_scanned FROM sku_inventories si JOIN sku_qr_points_maps qpm ON si.sku_code = qpm.sku_code JOIN users u ON si.status_retailer_id = u.id JOIN state s ON u.state_id = s.id WHERE si.retailer_scanned_at >= '2026-07-01 00:00:00' AND si.retailer_scanned_at < '2026-08-01 00:00:00' GROUP BY s.sname ORDER BY total_boxes_scanned DESC;",
+    "expected_limit": 10,
+    "expected_order": "DESC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 10
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 19,
+    "category": "multi_table",
+    "difficulty": "HARD",
+    "question": "Show total earnings of retailers under distributor Sri Balaji Distributors in July 2026",
+    "business_requirement": "Execute query answering: 'Show total earnings of retailers under distributor Sri Balaji Distributors in July 2026'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users",
+      "wallet_transaction",
+      "retailer_distributor_mappings"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "amount",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT SUM(wt.amount) AS total_earnings FROM wallet_transaction wt JOIN retailer_distributor_mappings rdm ON wt.user_id = rdm.retailer_id JOIN users d ON rdm.distributor_id = d.id WHERE d.name LIKE '%Sri Balaji%' AND wt.amount > 0 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00';",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 20,
+    "category": "filtering",
+    "difficulty": "HARD",
+    "question": "Show details for distributor ID 5997",
+    "business_requirement": "Execute query answering: 'Show details for distributor ID 5997'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users"
+    ],
+    "relevant_columns": [
+      "id",
+      "user_role"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT * FROM users WHERE id = 5997 AND user_role = 4;",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 21,
+    "category": "distinct_counting",
+    "difficulty": "MEDIUM",
+    "question": "How many unique users performed wallet transactions in July 2026?",
+    "business_requirement": "Execute query answering: 'How many unique users performed wallet transactions in July 2026?'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT COUNT(DISTINCT user_id) AS active_users FROM wallet_transaction WHERE created_at >= '2026-07-01 00:00:00' AND created_at < '2026-08-01 00:00:00';",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 22,
+    "category": "similar_names",
+    "difficulty": "MEDIUM",
+    "question": "Find user mobile numbers and created_at timestamps for retailers",
+    "business_requirement": "Execute query answering: 'Find user mobile numbers and created_at timestamps for retailers'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "mobile_number",
+      "user_role",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT id, name, mobile_number, created_at FROM users WHERE user_role = 2;",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 23,
+    "category": "joins",
+    "difficulty": "MEDIUM",
+    "question": "Show retailers assigned to distributor Sri Balaji Distributors",
+    "business_requirement": "Execute query answering: 'Show retailers assigned to distributor Sri Balaji Distributors'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users",
+      "retailer_distributor_mappings"
+    ],
+    "relevant_columns": [
+      "id",
+      "name"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT r.id, r.name, r.city FROM users r JOIN retailer_distributor_mappings rdm ON r.id = rdm.retailer_id JOIN users d ON d.id = rdm.distributor_id WHERE d.name LIKE '%Sri Balaji%';",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 24,
+    "category": "complex_multi_condition",
+    "difficulty": "HARD",
+    "question": "Show cash point transactions in July 2026 between amounts 10 and 50",
+    "business_requirement": "Execute query answering: 'Show cash point transactions in July 2026 between amounts 10 and 50'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "id",
+      "amount",
+      "reference_type",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT id, user_id, amount, created_at FROM wallet_transaction WHERE reference_type = 'cash_point' AND amount >= 10 AND amount <= 50 AND created_at >= '2026-07-01 00:00:00' AND created_at < '2026-08-01 00:00:00' LIMIT 20;",
+    "expected_limit": 20,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 20
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 25,
+    "category": "zero_result_queries",
+    "difficulty": "MEDIUM",
+    "question": "Show top 5 retailers by earnings in June 2026",
+    "business_requirement": "Execute query answering: 'Show top 5 retailers by earnings in June 2026'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users",
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "user_role",
+      "amount",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT u.id, u.name, SUM(wt.amount) AS earnings FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE u.user_role = 2 AND wt.amount > 0 AND wt.created_at >= '2026-06-01 00:00:00' AND wt.created_at < '2026-07-01 00:00:00' GROUP BY u.id, u.name ORDER BY earnings DESC LIMIT 5;",
+    "expected_limit": 5,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 5
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 26,
+    "category": "bottom_n",
+    "difficulty": "MEDIUM",
+    "question": "Show the retailer with the lowest wallet balance",
+    "business_requirement": "Execute query answering: 'Show the retailer with the lowest wallet balance'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "users"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "user_role"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT id, name, wallet_balance FROM users WHERE user_role = 2 ORDER BY wallet_balance ASC LIMIT 1;",
+    "expected_limit": 1,
+    "expected_order": "ASC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 1
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 27,
+    "category": "sum_aggregations",
+    "difficulty": "MEDIUM",
+    "question": "Total credits for user ID 50225",
+    "business_requirement": "Execute query answering: 'Total credits for user ID 50225'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "amount"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT SUM(amount) FROM wallet_transaction WHERE user_id = 50225;",
+    "expected_limit": null,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 100
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 28,
+    "category": "synonyms",
+    "difficulty": "MEDIUM",
+    "question": "Show payouts requested in July 2026",
+    "business_requirement": "Execute query answering: 'Show payouts requested in July 2026'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "reference_type",
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT * FROM wallet_transaction WHERE reference_type = 'withdrawal' AND created_at >= '2026-07-01 00:00:00' AND created_at < '2026-08-01 00:00:00' LIMIT 20;",
+    "expected_limit": 20,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 20
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 29,
+    "category": "date_time",
+    "difficulty": "MEDIUM",
+    "question": "Show wallet transactions created after July 20th 2026",
+    "business_requirement": "Execute query answering: 'Show wallet transactions created after July 20th 2026'",
+    "relevant_business_rules": [
+      "Authoritative JGH business rules",
+      "Strict read-only execution"
+    ],
+    "relevant_tables": [
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "created_at"
+    ],
+    "relationships": [],
+    "expected_sql": "SELECT * FROM wallet_transaction WHERE created_at >= '2026-07-20 00:00:00' LIMIT 50;",
+    "expected_limit": 50,
+    "expected_order": null,
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 50
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  },
+  {
+    "id": 30,
+    "category": "earnings",
+    "difficulty": "MEDIUM",
+    "question": "Show top 3 retailers by earnings in June 2026",
+    "business_requirement": "Calculate authorized financial earnings for retailer adhering strictly to JGH earnings rules.",
+    "relevant_business_rules": [
+      "Earnings must use wallet_transaction wt",
+      "wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem')",
+      "wt.amount > 0",
+      "Metric: SUM(wt.amount)",
+      "Timestamp: wt.created_at"
+    ],
+    "relevant_tables": [
+      "users",
+      "wallet_transaction"
+    ],
+    "relevant_columns": [
+      "id",
+      "name",
+      "user_role",
+      "amount",
+      "reference_type",
+      "created_at"
+    ],
+    "relationships": [
+      "wallet_transaction.user_id = users.id",
+      "users.state_id = state.id"
+    ],
+    "expected_sql": "SELECT u.id AS retailer_id, u.name AS retailer_name, SUM(wt.amount) AS total_earnings FROM wallet_transaction wt JOIN users u ON wt.user_id = u.id WHERE u.user_role = 2 AND wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem') AND wt.amount > 0 AND wt.created_at >= '2026-06-01 00:00:00' AND wt.created_at < '2026-07-01 00:00:00' GROUP BY u.id, u.name ORDER BY total_earnings DESC LIMIT 3;",
+    "expected_limit": 3,
+    "expected_order": "DESC",
+    "expected_result_properties": {
+      "is_empty": false,
+      "max_rows": 3
+    },
+    "is_ambiguous": false,
+    "is_adversarial": false,
+    "preceding_context": null,
+    "split": "held_out_test"
+  }
+]

@@ -44,6 +44,20 @@ class MemoryManager:
         request_id: Optional[str] = None
     ):
         """Appends a conversation turn to session memory."""
+        context_snapshot = self.structured_context.get(session_id, {}).copy()
+        
+        # Track structured fields requested by Step 6
+        context_snapshot["last_intent"] = response_payload.get("intent") or response_payload.get("mode", "SQL_ANALYTICS")
+        context_snapshot["last_entities"] = response_payload.get("affected_tables") or response_payload.get("entities", [])
+        context_snapshot["last_metrics"] = response_payload.get("metrics", [])
+        context_snapshot["last_filters"] = response_payload.get("filters", [])
+        context_snapshot["last_date_period"] = response_payload.get("date_period") or response_payload.get("period")
+        context_snapshot["last_grouping"] = response_payload.get("grouping", [])
+        context_snapshot["last_execution_plan"] = response_payload.get("execution_plan", {})
+        context_snapshot["last_result_summary"] = response_payload.get("summary") or response_payload.get("response", "")
+
+        self.structured_context[session_id] = context_snapshot
+
         turn = {
             "user_id": user_id or "default_user",
             "request_id": request_id,
@@ -52,7 +66,7 @@ class MemoryManager:
             "sql": response_payload.get("generated_sql") or response_payload.get("sql_query", ""),
             "summary": response_payload.get("summary") or response_payload.get("response", ""),
             "entities": response_payload.get("affected_tables", []),
-            "context": self.structured_context.get(session_id, {}).copy()
+            "context": context_snapshot
         }
 
         self.sessions[session_id].append(turn)

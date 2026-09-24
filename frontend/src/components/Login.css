@@ -2,6 +2,8 @@
   height: 100vh;
   width: 100vw;
   display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--bg-app);
   position: relative;
   overflow: hidden;
@@ -101,6 +103,8 @@
   width: 100%;
   max-width: 440px;
   margin: 0 auto;
+  position: relative;
+  z-index: 10;
 }
 
 .login-header {

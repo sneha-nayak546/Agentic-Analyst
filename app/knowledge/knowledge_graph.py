@@ -122,16 +122,52 @@ class BusinessKnowledgeGraph:
                         if t['table'] != ref_table:
                             self.add_edge(t['table'], ref_table, col_name, 'id', "inferred_fk")
 
-        # 3. Explicit Graph Edges for sku_inventories, sku_qr_points_map & Dual-Role Box Scanning
+        # 3. Ingest all connections from connections_knowledge.json (~238 tables, 289 connections)
+        conn_path = "knowledge/connections_knowledge.json"
+        if os.path.exists(conn_path):
+            try:
+                with open(conn_path, "r", encoding="utf-8") as f:
+                    conn_data = json.load(f)
+                for src_tbl, info in conn_data.items():
+                    if f"table:{src_tbl}" not in self.nodes:
+                        self.nodes[f"table:{src_tbl}"] = {"id": f"table:{src_tbl}", "type": "Table", "name": src_tbl}
+                    for ob in info.get("outbound", []):
+                        t_tbl = ob.get("target_table")
+                        s_col = ob.get("column")
+                        t_col = ob.get("target_column")
+                        rel_type = "explicit_fk" if ob.get("type") == "Explicit" else "inferred_fk"
+                        if t_tbl and s_col and t_col:
+                            self.add_edge(src_tbl, t_tbl, s_col, t_col, rel_type)
+            except Exception as e:
+                print(f"[KG NOTICE] Loading connections_knowledge: {e}")
+
+        # 4. Ingest relationship builder graph
+        try:
+            from app.knowledge.relationship_builder import get_relationship_graph
+            for rel in get_relationship_graph():
+                f_tbl, f_col = rel["from_table"], rel["from_column"]
+                t_tbl, t_col = rel["to_table"], rel["to_column"]
+                rel_type = "explicit_fk" if rel.get("origin") == "database_foreign_key" else "inferred_fk"
+                self.add_edge(f_tbl, t_tbl, f_col, t_col, rel_type)
+        except Exception as e:
+            print(f"[KG NOTICE] Loading relationship_builder: {e}")
+
+        # 5. Guarantee core JGH scanning, state, and wallet edges
+        self.add_edge("sku_inventories", "qr_point_map", "sku_code", "sku_code", "explicit_fk")
+        self.add_edge("qr_point_map", "sku_inventories", "sku_code", "sku_code", "explicit_fk")
         self.add_edge("sku_inventories", "sku_qr_points_map", "sku_code", "sku_code", "explicit_fk")
         self.add_edge("sku_inventories", "users", "status_retailer_id", "id", "explicit_fk")
         self.add_edge("sku_inventories", "users", "status_wholeseller_id", "id", "explicit_fk")
         self.add_edge("sku_inventories", "users", "distributer_id", "id", "explicit_fk")
+        self.add_edge("users", "state", "state_id", "id", "explicit_fk")
+        self.add_edge("state", "users", "id", "state_id", "explicit_fk")
+        self.add_edge("wallet_transaction", "users", "user_id", "id", "explicit_fk")
+        self.add_edge("users", "wallet_transaction", "id", "user_id", "explicit_fk")
         self.add_edge("sku_qr_points_map", "sku_inventories", "sku_code", "sku_code", "explicit_fk")
         self.add_edge("sku_qr_points_map", "users", "status_wholesaler_id", "id", "explicit_fk")
         self.add_edge("sku_qr_points_map", "users", "status_retailer_id", "id", "explicit_fk")
         
-        # 3. Save Relationship Metadata
+        # 6. Save Relationship Metadata
         os.makedirs("knowledge/graph", exist_ok=True)
         with open("knowledge/graph/join_graph.json", "w") as f:
             json.dump(self.join_graph, f, indent=4)
@@ -257,19 +293,27 @@ class BusinessKnowledgeGraph:
             "mechanic_details": ["mechanic details", "garage", "vending"],
             "withdrawal_request": ["withdrawal request", "payout request", "tds", "neft"],
             "automatic_transactions": ["automatic transfer", "bank transfer", "imps", "cashfree"],
+            "retailer_distributor_mappings": [
+                "retailer distributor mapping", "retailer distributor mappings",
+                "linked to distributor", "retailers linked to distributor", "retailer linked to distributor",
+                "retailers under distributor", "distributor's retailers", "distributor retailer"
+            ],
             "sku_qr_points_map": USER_FRIENDLY_TABLE_ALIASES["sku_qr_points_map"] + ["scanned_boxes", "qr points", "box calculation uom", "box scans", "sku qr points map", "scanned_boxes_retailer", "scanned_boxes_wholesaler"]
         }
         
         for tbl_name, tbl_aliases in aliases.items():
             for alias in tbl_aliases:
-                if re.search(rf"\b{alias}\b", q_lower):
+                if re.search(rf"\b{re.escape(alias)}\b", q_lower):
                     if tbl_name in self.schema_meta:
                         detected_tables.add(tbl_name)
                         if tbl_name == "role":
                             detected_tables.add("users")
         
-        # 1. Match terms via column names & enums
+        # 1. Match terms via column names & enums (excluding generic auxiliary tables)
+        ignored_aux_tables = {"mom_thread_participants", "repository_documents", "notifications", "app_link_report"}
         for tbl_name, tbl_info in self.schema_meta.items():
+            if tbl_name in ignored_aux_tables:
+                continue
             cols = tbl_info.get("columns", {})
             col_list = cols.values() if isinstance(cols, dict) else (cols if isinstance(cols, list) else [])
             for col_data in col_list:
@@ -277,17 +321,18 @@ class BusinessKnowledgeGraph:
                 
                 if col_name.lower() not in ["id", "name", "created_at", "updated_at", "status", "type"]:
                     col_words = col_name.replace("_", " ")
-                    if len(col_name) > 3 and re.search(rf"\b{col_words}\b", q_lower):
-                        detected_tables.add(tbl_name)
-                        
-                for enum_val in col_data.get("enum_values", []):
-                    if re.search(rf"\b{str(enum_val).lower()}\b", q_lower):
+                    if len(col_name) > 3 and re.search(rf"\b{re.escape(col_words)}\b", q_lower):
                         detected_tables.add(tbl_name)
 
         # Disambiguation: if retailer/wholesaler/mechanic is asked, remove companies unless explicitly asked
         if "users" in detected_tables and "companies" in detected_tables:
             if not any(k in q_lower for k in ["company", "companies", "brand", "manufacturer", "sap_code", "business unit"]):
                 detected_tables.discard("companies")
+
+        # Explicit relationship resolution between retailers and distributors
+        if any(r in q_lower for r in ["retailer", "retailers"]) and any(d in q_lower for d in ["distributor", "distributors"]):
+            detected_tables.add("users")
+            detected_tables.add("retailer_distributor_mappings")
 
         # Explicit cross-linking for user wallet transaction queries
         user_terms = ["user", "users", "retailer", "retailers", "dealer", "dealers", "distributor", "distributors", "wholesaler", "wholesalers", "mechanic", "mechanics", "shop owner", "customer", "customers", "name", "mobile", "phone"]

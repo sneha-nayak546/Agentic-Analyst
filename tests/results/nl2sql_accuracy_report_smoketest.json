@@ -1,0 +1,143 @@
+{
+  "version": "SmokeTest",
+  "timestamp": "2026-09-23T09:22:10Z",
+  "total_questions": 2,
+  "passed": 2,
+  "failed": 0,
+  "end_to_end_accuracy": 100.0,
+  "intent_accuracy": 100.0,
+  "schema_retrieval_accuracy": 100.0,
+  "sql_semantic_accuracy": 100.0,
+  "sql_execution_success": 100.0,
+  "database_result_accuracy": 100.0,
+  "final_response_accuracy": 100.0,
+  "latency_percentiles": {
+    "avg_ms": 8254.49,
+    "p50_ms": 8254.49,
+    "p95_ms": 9312.5
+  },
+  "difficulty_breakdown": {
+    "EASY": {
+      "total": 2,
+      "passed": 2,
+      "accuracy": 100.0
+    },
+    "MEDIUM": {
+      "total": 0,
+      "passed": 0,
+      "accuracy": 0.0
+    },
+    "HARD": {
+      "total": 0,
+      "passed": 0,
+      "accuracy": 0.0
+    }
+  },
+  "category_breakdown": {
+    "simple_lookup": {
+      "total": 2,
+      "passed": 2,
+      "accuracy": 100.0
+    }
+  },
+  "failure_taxonomy": [],
+  "results": [
+    {
+      "id": 1,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Show user details for ID 5997",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": true,
+      "response_correct": true,
+      "end_to_end_correct": true,
+      "primary_failure": null,
+      "failure_reason": null,
+      "latency_ms": 9430.06,
+      "pipeline_checkpoints": {
+        "1_user_question": "Show user details for ID 5997",
+        "2_detected_intent": "aggregate_analytics",
+        "3_retrieved_schema": [
+          "users",
+          "state"
+        ],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.id, u.name, u.email, u.mobile_number, u.address, u.city, u.district, s.sname AS state_name, u.status, u.user_role, u.wallet_balance, u.created_at, u.updated_at FROM users u LEFT JOIN state s ON u.state_id = s.id WHERE u.id = 5997",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "id": 5997,
+            "name": "Sri Balaji Distributors",
+            "email": "balaji@distrib.com",
+            "mobile_number": "9876543210",
+            "address": "MG Road",
+            "city": "Bengaluru",
+            "district": "Bengaluru Urban",
+            "state_name": "Maharashtra",
+            "status": "approved",
+            "user_role": 4,
+            "wallet_balance": 45000.0,
+            "created_at": "2025-01-01 10:00:00",
+            "updated_at": "2026-01-01 00:00:00"
+          }
+        ],
+        "10_final_response": "Direct Answer:\nThe user with ID 5997 is Sri Balaji Distributors, with email balaji@distrib.com and mobile number 9876543210. This user is located at MG Road, Bengaluru, Bengaluru Urban, Maharashtra, has a status of approved, user role 4, and a wallet balance of 45000.0.\n\nExplanation:\nThe database query returned the specific user details for ID 5997, including their name, contact information, address, status, user role, wallet balance, and creation and update timestamps.\n\nResults:\n| Id | Name | Email | Mobile Number | Address | City | District | State | Status | User Role | Wallet Balance | Created At | Updated At |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 5,997 | Sri Balaji Distributors | balaji@distrib.com | 9876543210 | MG Road | Bengaluru | Bengaluru Urban | Maharashtra | approved | 4 | \u20b945,000.00 | 2025-01-01 10:00:00 | 2026-01-01 00:00:00 |"
+      }
+    },
+    {
+      "id": 2,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Give details for retailer ID 50225",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": true,
+      "response_correct": true,
+      "end_to_end_correct": true,
+      "primary_failure": null,
+      "failure_reason": null,
+      "latency_ms": 7078.92,
+      "pipeline_checkpoints": {
+        "1_user_question": "Give details for retailer ID 50225",
+        "2_detected_intent": "data_retrieval",
+        "3_retrieved_schema": [
+          "users",
+          "state"
+        ],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.*, s.sname AS state_name FROM users u LEFT JOIN state s ON u.state_id = s.id WHERE u.id = 50225 AND u.user_role = 2",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "id": 50225,
+            "name": "Lakshmi Enterprises Retailer",
+            "mobile_number": "9876543211",
+            "email": "lakshmi@retail.com",
+            "user_role": 2,
+            "state_id": 11,
+            "city": "Bengaluru",
+            "district": "Bengaluru Urban",
+            "address": "Indiranagar",
+            "wallet_balance": 12500.0,
+            "status": "approved",
+            "created_at": "2025-02-01 11:00:00",
+            "updated_at": "2026-01-01 00:00:00",
+            "state_name": "Maharashtra"
+          }
+        ],
+        "10_final_response": "Direct Answer:\nThe details for retailer ID 50225 are: Lakshmi Enterprises Retailer, mobile number 9876543211, email lakshmi@retail.com, located at Indiranagar, Bengaluru, Bengaluru Urban, Maharashtra, with a wallet balance of 12500.0 and an approved status.\n\nExplanation:\nThe database confirms that user ID 50225, with user role 2, is Lakshmi Enterprises Retailer, residing in Maharashtra, Bengaluru, Bengaluru Urban, Indiranagar, with a mobile number of 9876543211, email lakshmi@retail.com, wallet balance of 12500.0, and status approved.\n\nResults:\n| Id | Name | Mobile Number | Email | User Role | State Id | City | District | Address | Wallet Balance | Status | Created At | Updated At | State |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 50,225 | Lakshmi Enterprises Retailer | 9876543211 | lakshmi@retail.com | 2 | 11 | Bengaluru | Bengaluru Urban | Indiranagar | \u20b912,500.00 | approved | 2025-02-01 11:00:00 | 2026-01-01 00:00:00 | Maharashtra |"
+      }
+    }
+  ]
+}

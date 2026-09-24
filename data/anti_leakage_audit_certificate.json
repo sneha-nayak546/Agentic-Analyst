@@ -1,0 +1,25 @@
+{
+  "status": "APPROVED_ZERO_LEAKAGE",
+  "timestamp": "2026-09-23",
+  "counts": {
+    "train": 150,
+    "val": 30,
+    "held_out_test": 30,
+    "unseen_generalization": 30,
+    "adversarial": 15,
+    "total": 255
+  },
+  "fingerprints": {
+    "train_sha256": "f5348a93765aee6b361b60745db00e38230a7d493d840e22f43b4b8dd59e159b",
+    "val_sha256": "502ddb324ed55ef20636e58b7ce053326920cfcd857514a959be11a4dbcb195f",
+    "held_out_test_sha256": "3dda80516b62df88fde15f9e0aa23b1c7f838cbe87d86b3ca74c7407f5cb21b6",
+    "unseen_generalization_sha256": "130682afe8604aac46136ef3b396b3f8ea2386cd6b168ed92478efe3dc00fd64",
+    "adversarial_sha256": "17c09e408eb536d3b50d096de6df219d8312f08260286201b36b6aea5ca7bc19"
+  },
+  "leakage_audit": {
+    "exact_question_collisions": 0,
+    "exact_sql_collisions": 0,
+    "high_jaccard_collisions": 0,
+    "verdict": "CERTIFIED ZERO TEST LEAKAGE"
+  }
+}

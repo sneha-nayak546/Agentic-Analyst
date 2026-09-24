@@ -1,4 +1,272 @@
 {
+    "beat_plans.frequency": [
+        "daily",
+        "weekly",
+        "biweekly",
+        "monthly"
+    ],
+    "bonus_transactions.reference_type": [
+        "gift_order",
+        "cash_point",
+        "coupon_redeem",
+        "incentive",
+        "credit_note"
+    ],
+    "bonus_transactions.type": [
+        "credit",
+        "debit"
+    ],
+    "box_gift_orders.status": [
+        "Pending",
+        "Processing",
+        "Delivered",
+        "Cancelled",
+        "Closed",
+        "CN adjusted"
+    ],
+    "branding_elements.type": [
+        "printed",
+        "digital",
+        "other"
+    ],
+    "brands.status": [
+        "1",
+        "0"
+    ],
+    "cart_items.product_type": [
+        "core",
+        "winter"
+    ],
+    "claimed_offers.status": [
+        "pending",
+        "completed",
+        "rejected"
+    ],
+    "conference_events.order_type": [
+        "all",
+        "core",
+        "winter"
+    ],
+    "conference_events.order_unit": [
+        "all",
+        "box",
+        "carton",
+        "pcs"
+    ],
+    "credit_notes.reference_type": [
+        "cash_wallet",
+        "deactivated_qr_wallet"
+    ],
+    "deactivated_qr_wallet_transactions.reference_type": [
+        "sku_scan",
+        "topup",
+        "credit_note"
+    ],
+    "engagement_event_conditions.status": [
+        "active",
+        "inactive"
+    ],
+    "engagement_events.recurrence_type": [
+        "none",
+        "daily",
+        "weekly",
+        "monthly",
+        "yearly"
+    ],
+    "engagement_events.status": [
+        "active",
+        "inactive",
+        "expired"
+    ],
+    "engagement_reward_masters.status": [
+        "active",
+        "inactive"
+    ],
+    "event_orders.order_type": [
+        "box",
+        "carton",
+        "pcs"
+    ],
+    "executive_survey_forms.answer_type": [
+        "numeric",
+        "text",
+        "image"
+    ],
+    "gift_cards.gift_type": [
+        "points",
+        "box"
+    ],
+    "gift_cards.points_applicability": [
+        "all",
+        "date_range"
+    ],
+    "gift_inventories.gift_order_type": [
+        "gift_orders",
+        "box_gift_orders",
+        "scheme_gift_orders",
+        "winter_gift_orders"
+    ],
+    "gift_orders.point_type": [
+        "cash_point",
+        "bonus_point"
+    ],
+    "gift_scan_wallet_transactions.reference_type": [
+        "sku_scan",
+        "gift_order",
+        "topup",
+        "credit_note",
+        "incentive",
+        "cash_convert"
+    ],
+    "incentive_gift_orders.point_type": [
+        "cash_point",
+        "bonus_point"
+    ],
+    "incentive_schemes.additional_monthly_bonus": [
+        "0",
+        "1"
+    ],
+    "incentive_schemes.reward_type": [
+        "cash",
+        "bonus",
+        "cash_bonus",
+        "gift"
+    ],
+    "incentive_schemes.type": [
+        "customized_scheme",
+        "monthly",
+        "monthly_average"
+    ],
+    "incentive_schemes.value_type": [
+        "fixed",
+        "perScan",
+        "gift"
+    ],
+    "master_categories.status": [
+        "1",
+        "0"
+    ],
+    "mom_thread_participants.user_type": [
+        "SE",
+        "ASM",
+        "RSM",
+        "ZSM",
+        "Retailer",
+        "Distributor",
+        "Wholesaler"
+    ],
+    "mom_threads.isVisitModule": [
+        "0",
+        "1"
+    ],
+    "notification_logs.status": [
+        "pending",
+        "success",
+        "failed",
+        "skipped"
+    ],
+    "notifications.notification_type": [
+        "General",
+        "Sticky",
+        "Alert"
+    ],
+    "notifications.user_type": [
+        "All",
+        "Distributor",
+        "Retailer",
+        "Wholesaler",
+        "Executive",
+        "Vender"
+    ],
+    "order_categories.category_type": [
+        "winter",
+        "core"
+    ],
+    "orders.order_type": [
+        "by_call",
+        "by_visit"
+    ],
+    "orders.product_type": [
+        "core",
+        "winter"
+    ],
+    "per_target_scheme_coupons.status": [
+        "pending",
+        "delivered",
+        "cancelled",
+        "cn_adjusted"
+    ],
+    "per_target_schemes.product_type": [
+        "all",
+        "core",
+        "winter"
+    ],
+    "repository_documents.app_type": [
+        "all",
+        "SE",
+        "Retailer",
+        "Distributor"
+    ],
+    "scheme_gift_orders.status": [
+        "Pending",
+        "Processing",
+        "Delivered",
+        "Cancelled",
+        "Closed",
+        "CN adjusted"
+    ],
+    "scheme_wallet_transactions.reference_type": [
+        "sku_scan",
+        "scheme_gift_order",
+        "incentive",
+        "cash_convert",
+        "credit_note",
+        "topup"
+    ],
+    "schemes.point_type": [
+        "box_value",
+        "cash_value"
+    ],
+    "schemes.scheme_type": [
+        "autoEnroll",
+        "manualEnroll"
+    ],
+    "schemes.user_type": [
+        "retailer",
+        "wholesaler",
+        "both"
+    ],
+    "se_reports.report_name": [
+        "new_retailers",
+        "new_category"
+    ],
+    "sku_products.season": [
+        "winter",
+        "summer",
+        "rainy",
+        "core"
+    ],
+    "user_withdrawal_block_histories.withdrawal_type": [
+        "cash",
+        "gift_redeem"
+    ],
+    "vendors.gender": [
+        "male",
+        "female",
+        "other"
+    ],
+    "video_responses.response": [
+        "interested",
+        "se_visit",
+        "call_back"
+    ],
+    "wallet_transaction.reference_type": [
+        "cash_point",
+        "withdrawal",
+        "referral_earning",
+        "topup",
+        "coupon_redeem"
+    ],
     "wallet_transaction.transaction_type": [
         "1",
         "0",
@@ -7,11 +275,34 @@
         "topup",
         "coupon_redeem"
     ],
-    "wallet_transaction.reference_type": [
-        "cash_point",
-        "withdrawal",
-        "referral_earning",
+    "weekly_scheme_prizes.type": [
+        "cash",
+        "gift",
+        "bonus"
+    ],
+    "wholesale_wallet_transactions.reference_type": [
+        "sku_scan",
+        "credit_note",
+        "cash_withdrawal"
+    ],
+    "winter_gift_orders.status": [
+        "Pending",
+        "Processing",
+        "Delivered",
+        "Cancelled",
+        "Closed",
+        "CN adjusted"
+    ],
+    "winter_scan_wallet_transactions.reference_type": [
+        "sku_scan",
+        "gift_order",
+        "cash_withdrawal",
         "topup",
-        "coupon_redeem"
+        "credit_note"
+    ],
+    "wishlists.type": [
+        "gift_card",
+        "scheme_gift_card",
+        "winter_gift_card"
     ]
 }

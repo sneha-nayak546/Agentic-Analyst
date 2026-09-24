@@ -1,10 +1,15 @@
 import os
 import json
 import traceback
+from datetime import datetime
 from sqlalchemy import text, inspect
 from sqlalchemy.exc import SQLAlchemyError
 from typing import Dict, Any, List
 from app.database.config import get_db_engine
+
+EXPLICIT_FK = "EXPLICIT_FK"
+VERIFIED_UNIQUE_KEY = "VERIFIED_UNIQUE_KEY"
+LOGICAL_INFERRED = "LOGICAL_INFERRED"
 
 def get_engine():
     return get_db_engine()
@@ -100,80 +105,84 @@ def ingest_csv_dumps(metadata: Dict[str, Any]) -> Dict[str, Any]:
 
     return metadata
 
-def extract_table_metadata(engine) -> Dict[str, Any]:
+def extract_table_metadata(engine=None) -> Dict[str, Any]:
     metadata = {}
-    try:
-        inspector = inspect(engine)
-        with engine.connect() as conn:
-            row_counts = {}
-            try:
-                rc_rows = safe_execute(conn, "SELECT TABLE_NAME, TABLE_ROWS FROM information_schema.tables WHERE TABLE_SCHEMA = DATABASE();")
-                for r in rc_rows:
-                    row_counts[r[0]] = r[1] or 0
-            except Exception:
-                pass
+    schema_file = "knowledge/schema/schema_metadata.json"
+    
+    # 1. Attempt Live DB Inspection
+    if engine is not None:
+        try:
+            inspector = inspect(engine)
+            db_tables = inspector.get_table_names()
+            if db_tables:
+                print(f"[METADATA DISCOVERY] Live MySQL online. Discovered {len(db_tables)} tables in database.")
+                with engine.connect() as conn:
+                    row_counts = {}
+                    try:
+                        rc_rows = safe_execute(conn, "SELECT TABLE_NAME, TABLE_ROWS FROM information_schema.tables WHERE TABLE_SCHEMA = DATABASE();")
+                        for r in rc_rows:
+                            row_counts[r[0]] = r[1] or 0
+                    except Exception:
+                        pass
 
-            for table_name in TARGET_TABLES:
-                print(f"Extracting schema and stats for table: {table_name}")
-                source_table = table_name
-                try:
-                    columns = inspector.get_columns(source_table)
-                except Exception:
-                    if table_name == "user_role":
-                        source_table = "role"
-                        columns = inspector.get_columns(source_table)
-                    else:
-                        columns = []
-
-                table_info = {
-                    "name": table_name,
-                    "columns": {},
-                    "primary_keys": inspector.get_pk_constraint(source_table).get('constrained_columns', []) if columns else [],
-                    "foreign_keys": inspector.get_foreign_keys(source_table) if columns else [],
-                    "indexes": inspector.get_indexes(source_table) if columns else [],
-                    "unique_constraints": inspector.get_unique_constraints(source_table) if columns else [],
-                    "row_count": row_counts.get(source_table, 0)
-                }
-                for col in columns:
-                    col_name = col['name']
-                    col_type = str(col['type'])
-                    
-                    col_info = {
-                        "name": col_name,
-                        "type": col_type,
-                        "nullable": col['nullable'],
-                        "default": str(col.get('default')),
-                        "comment": col.get('comment', ''),
-                        "is_enum": 'ENUM' in col_type.upper(),
-                        "enum_values": []
-                    }
-                    
-                    if col_info["is_enum"]:
+                    for table_name in db_tables:
+                        source_table = table_name
                         try:
-                            enum_str = col_type[col_type.find("(")+1:col_type.rfind(")")]
-                            col_info["enum_values"] = [v.strip("'\" ") for v in enum_str.split(",")]
+                            columns = inspector.get_columns(source_table)
                         except Exception:
-                            pass
-                    
-                    table_info["columns"][col_name] = col_info
+                            columns = []
 
-                try:
-                    sample_rows = safe_execute(conn, f"SELECT * FROM `{source_table}` LIMIT 25")
-                    if sample_rows:
-                        cols_list = list(table_info["columns"].keys())
-                        for c_idx, col_name in enumerate(cols_list):
-                            vals = [row[c_idx] for row in sample_rows if row[c_idx] is not None]
-                            distinct_vals = list(dict.fromkeys([str(v) for v in vals]))
-                            table_info["columns"][col_name]["top_values"] = distinct_vals[:3]
-                            table_info["columns"][col_name]["distinct_count"] = len(distinct_vals)
-                            table_info["columns"][col_name]["non_null_count"] = len(vals)
-                            table_info["columns"][col_name]["null_count"] = len(sample_rows) - len(vals)
-                except Exception:
-                    pass
-                    
-                metadata[table_name] = table_info
-    except Exception as e:
-        print(f"Warning: DB metadata extraction failed ({e}). Proceeding with CSV dumps ingestion.")
+                        table_info = {
+                            "name": table_name,
+                            "columns": {},
+                            "primary_keys": inspector.get_pk_constraint(source_table).get('constrained_columns', []) if columns else [],
+                            "foreign_keys": inspector.get_foreign_keys(source_table) if columns else [],
+                            "indexes": inspector.get_indexes(source_table) if columns else [],
+                            "unique_constraints": inspector.get_unique_constraints(source_table) if columns else [],
+                            "row_count": row_counts.get(source_table, 0)
+                        }
+                        for col in columns:
+                            col_name = col['name']
+                            col_type = str(col['type'])
+                            col_info = {
+                                "name": col_name,
+                                "type": col_type,
+                                "nullable": col['nullable'],
+                                "default": str(col.get('default')),
+                                "comment": col.get('comment', ''),
+                                "is_enum": 'ENUM' in col_type.upper(),
+                                "enum_values": []
+                            }
+                            if col_info["is_enum"]:
+                                try:
+                                    enum_str = col_type[col_type.find("(")+1:col_type.rfind(")")]
+                                    col_info["enum_values"] = [v.strip("'\" ") for v in enum_str.split(",")]
+                                except Exception:
+                                    pass
+                            table_info["columns"][col_name] = col_info
+                        metadata[table_name] = table_info
+        except Exception as e:
+            print(f"[METADATA NOTICE] Live DB extraction unavailable ({e}). Loading complete cached schema metadata.")
+
+    # 2. Fallback / Augmentation from comprehensive schema_metadata.json (~240-256 tables)
+    if not metadata and os.path.exists(schema_file):
+        try:
+            with open(schema_file, "r", encoding="utf-8") as f:
+                cached_data = json.load(f)
+            for tbl, tbl_info in cached_data.items():
+                metadata[tbl] = {
+                    "name": tbl,
+                    "comment": tbl_info.get("comment", ""),
+                    "columns": tbl_info.get("columns", {}),
+                    "primary_keys": tbl_info.get("primary_keys", []),
+                    "foreign_keys": tbl_info.get("foreign_keys", []),
+                    "indexes": tbl_info.get("indexes", []),
+                    "unique_constraints": tbl_info.get("unique_constraints", []),
+                    "row_count": tbl_info.get("row_count", 0)
+                }
+            print(f"[METADATA SUCCESS] Loaded {len(metadata)} discoverable tables from complete schema metadata.")
+        except Exception as err:
+            print(f"[METADATA ERROR] Failed to load schema metadata: {err}")
 
     # Merge CSV dump columns and enums
     metadata = ingest_csv_dumps(metadata)
@@ -183,11 +192,11 @@ def discover_dynamic_relationships(metadata: Dict[str, Any]) -> List[Dict[str, A
     relationships = []
     seen = set()
     
-    # 1. Formal Foreign Keys from DB
+    # 1. Formal Foreign Keys from Database Schema (No artificial table filters)
     for table_name, info in metadata.items():
         for fk in info.get("foreign_keys", []):
             ref_tbl = fk.get("referred_table")
-            if ref_tbl in TARGET_TABLES:
+            if ref_tbl:
                 src_cols = fk.get("constrained_columns", [])
                 ref_cols = fk.get("referred_columns", [])
                 if src_cols and ref_cols:
@@ -200,63 +209,79 @@ def discover_dynamic_relationships(metadata: Dict[str, Any]) -> List[Dict[str, A
                             "to_table": ref_tbl,
                             "to_column": ref_cols[0],
                             "type": "Many-to-One",
-                            "origin": "database_foreign_key"
+                            "origin": EXPLICIT_FK
                         })
-    
-    # 2. Logical Column-Matching Inference
-    for t_name, info in metadata.items():
-        for col_name in info.get("columns", {}).keys():
-            col_l = col_name.lower()
-            if col_l in ["user_id", "mechanic_id", "distributer_id", "customer_id"] and "users" in metadata and t_name != "users":
-                rel_key = (t_name, col_name, "users", "id")
-                if rel_key not in seen:
-                    seen.add(rel_key)
-                    relationships.append({
-                        "from_table": t_name,
-                        "from_column": col_name,
-                        "to_table": "users",
-                        "to_column": "id",
-                        "type": "Many-to-One",
-                        "origin": "logical_entity_mapping"
-                    })
-            elif (col_l in ["user_role", "role_id"]) and "role" in metadata and t_name != "role":
-                rel_key = (t_name, col_name, "role", "id")
-                if rel_key not in seen:
-                    seen.add(rel_key)
-                    relationships.append({
-                        "from_table": t_name,
-                        "from_column": col_name,
-                        "to_table": "role",
-                        "to_column": "id",
-                        "type": "Many-to-One",
-                        "origin": "lookup_role_mapping"
-                    })
-            elif col_l in ["company_id"] and "companies" in metadata and t_name != "companies":
-                rel_key = (t_name, col_name, "companies", "id")
-                if rel_key not in seen:
-                    seen.add(rel_key)
-                    relationships.append({
-                        "from_table": t_name,
-                        "from_column": col_name,
-                        "to_table": "companies",
-                        "to_column": "id",
-                        "type": "Many-to-One",
-                        "origin": "organization_mapping"
-                    })
-            elif col_l in ["automatic_transaction_id", "auto_trans_id"] and "automatic_transactions" in metadata and t_name != "automatic_transactions":
-                rel_key = (t_name, col_name, "automatic_transactions", "id")
-                if rel_key not in seen:
-                    seen.add(rel_key)
-                    relationships.append({
-                        "from_table": t_name,
-                        "from_column": col_name,
-                        "to_table": "automatic_transactions",
-                        "to_column": "id",
-                        "type": "Many-to-One",
-                        "origin": "payout_transaction_mapping"
-                    })
+
+    # 2. Ingest Complete Table Connections Catalog (connections_knowledge.json)
+    conn_path = "knowledge/connections_knowledge.json"
+    if os.path.exists(conn_path):
+        try:
+            with open(conn_path, "r", encoding="utf-8") as f:
+                conn_data = json.load(f)
+            for src_tbl, info in conn_data.items():
+                for ob in info.get("outbound", []):
+                    target_tbl = ob.get("target_table")
+                    src_col = ob.get("column")
+                    target_col = ob.get("target_column")
+                    rel_type = ob.get("type", "Logical")
+                    if target_tbl and src_col and target_col:
+                        rel_key = (src_tbl, src_col, target_tbl, target_col)
+                        if rel_key not in seen:
+                            seen.add(rel_key)
+                            origin_val = EXPLICIT_FK if rel_type == "Explicit" else (VERIFIED_UNIQUE_KEY if rel_type == "UniqueKey" else LOGICAL_INFERRED)
+                            relationships.append({
+                                "from_table": src_tbl,
+                                "from_column": src_col,
+                                "to_table": target_tbl,
+                                "to_column": target_col,
+                                "type": "Many-to-One",
+                                "origin": origin_val
+                            })
+        except Exception as e:
+            print(f"[RELATIONSHIP NOTICE] Error loading connections_knowledge.json: {e}")
+
+    # 3. Authoritative JGH Business Domain Relationships
+    JGH_AUTHORITATIVE_JOINS = [
+        ("sku_inventories", "sku_code", "qr_point_map", "sku_code", EXPLICIT_FK),
+        ("sku_inventories", "sku_code", "sku_qr_points_map", "sku_code", EXPLICIT_FK),
+        ("sku_inventories", "status_retailer_id", "users", "id", EXPLICIT_FK),
+        ("sku_inventories", "distributer_id", "users", "id", EXPLICIT_FK),
+        ("sku_inventories", "status_wholeseller_id", "users", "id", EXPLICIT_FK),
+        ("wallet_transaction", "user_id", "users", "id", EXPLICIT_FK),
+        ("users", "state_id", "state", "id", EXPLICIT_FK),
+        ("users", "user_role", "role", "id", EXPLICIT_FK),
+        ("retailer_distributor_mappings", "distributor_id", "users", "id", LOGICAL_INFERRED),
+        ("retailer_distributor_mappings", "retailer_id", "users", "id", LOGICAL_INFERRED),
+        ("withdrawal_request", "user_id", "users", "id", EXPLICIT_FK),
+        ("companies", "customer_id", "users", "id", LOGICAL_INFERRED),
+    ]
+    for src_t, src_c, tgt_t, tgt_c, orig in JGH_AUTHORITATIVE_JOINS:
+        rel_key = (src_t, src_c, tgt_t, tgt_c)
+        if rel_key not in seen:
+            seen.add(rel_key)
+            relationships.append({
+                "from_table": src_t,
+                "from_column": src_c,
+                "to_table": tgt_t,
+                "to_column": tgt_c,
+                "type": "Many-to-One",
+                "origin": orig
+            })
 
     return relationships
+
+def refresh_database_schema() -> Dict[str, Any]:
+    """
+    Refreshes the complete database knowledge model:
+    1. Discovers ALL ~256 tables.
+    2. Discovers ALL columns, data types, nullability, defaults.
+    3. Discovers PKs, FKs, and builds complete relationship graph.
+    4. Extracts enum and status values.
+    5. Updates knowledge graph and RAG semantic index.
+    """
+    print("[SCHEMA REFRESH] Initiating complete database discovery & relationship mapping...")
+    return generate_enterprise_knowledge_base()
+
 
 def build_join_graph(tables: List[str], relationships: List[Dict[str, Any]]) -> Dict[str, Any]:
     nodes = list(tables)
@@ -284,50 +309,67 @@ def extract_business_vocabulary(engine, metadata: Dict[str, Any]) -> Dict[str, A
         "AutomaticTransaction": {"table": "automatic_transactions", "description": "Direct bank transfer logs and settlement transaction records"}
     }
     
-    with engine.connect() as conn:
-        if "role" in metadata:
-            role_rows = safe_execute(conn, "SELECT id, name FROM `role`")
-            for r in role_rows:
-                r_id, r_name = r[0], str(r[1]).strip()
-                if r_name:
-                    business_terminology[r_name.lower()] = {
-                        "table": "role",
-                        "column": "id",
-                        "value": r_id,
-                        "condition": f"users.user_role = {r_id}",
-                        "description": f"Users having the '{r_name}' role (role.id = {r_id})"
-                    }
-                    entity_dict[r_name.title()] = {
-                        "table": "users",
-                        "filter": f"users.user_role = {r_id}",
-                        "description": f"Business entity: {r_name}"
-                    }
-                    
-        if "wallet_transaction" in metadata:
-            types = safe_execute(conn, "SELECT DISTINCT transaction_type FROM `wallet_transaction` WHERE transaction_type IS NOT NULL")
-            for t in types:
-                t_val = str(t[0]).strip()
-                if t_val:
-                    business_terminology[f"{t_val.lower()} transactions"] = {
-                        "table": "wallet_transaction",
-                        "column": "transaction_type",
-                        "value": t_val,
-                        "condition": f"wallet_transaction.transaction_type = '{t_val}'",
-                        "description": f"Wallet records with type '{t_val}'"
-                    }
-                    
-        if "withdrawal_request" in metadata:
-            statuses = safe_execute(conn, "SELECT DISTINCT status FROM `withdrawal_request` WHERE status IS NOT NULL")
-            for s in statuses:
-                s_val = str(s[0]).strip()
-                if s_val:
-                    business_terminology[f"{s_val.lower()} withdrawals"] = {
-                        "table": "withdrawal_request",
-                        "column": "status",
-                        "value": s_val,
-                        "condition": f"withdrawal_request.status = '{s_val}'",
-                        "description": f"Withdrawal requests currently '{s_val}'"
-                    }
+    try:
+        with engine.connect() as conn:
+            if "role" in metadata:
+                role_rows = safe_execute(conn, "SELECT id, name FROM `role`")
+                for r in role_rows:
+                    r_id, r_name = r[0], str(r[1]).strip()
+                    if r_name:
+                        business_terminology[r_name.lower()] = {
+                            "table": "role",
+                            "column": "id",
+                            "value": r_id,
+                            "condition": f"users.user_role = {r_id}",
+                            "description": f"Users having the '{r_name}' role (role.id = {r_id})"
+                        }
+                        entity_dict[r_name.title()] = {
+                            "table": "users",
+                            "filter": f"users.user_role = {r_id}",
+                            "description": f"Business entity: {r_name}"
+                        }
+                        
+            if "wallet_transaction" in metadata:
+                types = safe_execute(conn, "SELECT DISTINCT transaction_type FROM `wallet_transaction` WHERE transaction_type IS NOT NULL")
+                for t in types:
+                    t_val = str(t[0]).strip()
+                    if t_val:
+                        business_terminology[f"{t_val.lower()} transactions"] = {
+                            "table": "wallet_transaction",
+                            "column": "transaction_type",
+                            "value": t_val,
+                            "condition": f"wallet_transaction.transaction_type = '{t_val}'",
+                            "description": f"Wallet records with type '{t_val}'"
+                        }
+                        
+            if "withdrawal_request" in metadata:
+                statuses = safe_execute(conn, "SELECT DISTINCT status FROM `withdrawal_request` WHERE status IS NOT NULL")
+                for s in statuses:
+                    s_val = str(s[0]).strip()
+                    if s_val:
+                        business_terminology[f"{s_val.lower()} withdrawals"] = {
+                            "table": "withdrawal_request",
+                            "column": "status",
+                            "value": s_val,
+                            "condition": f"withdrawal_request.status = '{s_val}'",
+                            "description": f"Withdrawal requests currently '{s_val}'"
+                        }
+    except Exception as e:
+        print(f"[VOCABULARY NOTICE] Live connection unavailable ({e}); using baseline business terminology.")
+        business_terminology["retailer"] = {
+            "table": "role",
+            "column": "id",
+            "value": 2,
+            "condition": "users.user_role = 2",
+            "description": "Users having the 'retailer' role (role.id = 2)"
+        }
+        business_terminology["distributor"] = {
+            "table": "role",
+            "column": "id",
+            "value": 4,
+            "condition": "users.user_role = 4",
+            "description": "Users having the 'distributor' role (role.id = 4)"
+        }
 
     return {"business_terminology": business_terminology, "entities": entity_dict}
 
@@ -409,7 +451,7 @@ def generate_enterprise_knowledge_base():
         {"rule": "Read Only", "description": "Always generate SELECT statements only."},
         {"rule": "Default Result Limit", "description": "Limit queries to 500 rows unless computing an aggregate (COUNT, SUM, AVG)."},
         {"rule": "Live Database Execution", "description": "Always execute SQL against the real MySQL database. Never return cached metadata values."},
-        {"rule": "Table Scoping", "description": "Only query from the 8 profiled enterprise business tables."}
+        {"rule": "Table Scoping", "description": "All ~256 database tables are discoverable and queryable across the enterprise schema."}
     ]
     with open("knowledge/graph/business_rules.json", "w", encoding="utf-8") as f:
         json.dump(business_rules, f, indent=4)
@@ -466,9 +508,34 @@ def generate_enterprise_knowledge_base():
     with open("knowledge/graph/knowledge_graph.json", "w", encoding="utf-8") as f:
         json.dump(knowledge_graph, f, indent=4)
         
+    # 13. schema_refresh_meta.json (Section 27 Specification)
+    db_name = os.getenv("DB_NAME") or "jghMasterDB"
+    refresh_meta = {
+        "database": db_name,
+        "timestamp": datetime.now().isoformat(),
+        "table_count": len(metadata),
+        "column_count": sum(len(info.get("columns", {})) for info in metadata.values()),
+        "relationship_count": len(relationships),
+        "relationships_by_origin": {
+            "EXPLICIT_FK": sum(1 for r in relationships if r.get("origin") == EXPLICIT_FK),
+            "VERIFIED_UNIQUE_KEY": sum(1 for r in relationships if r.get("origin") == VERIFIED_UNIQUE_KEY),
+            "LOGICAL_INFERRED": sum(1 for r in relationships if r.get("origin") == LOGICAL_INFERRED)
+        }
+    }
+    with open("knowledge/schema/schema_refresh_meta.json", "w", encoding="utf-8") as f:
+        json.dump(refresh_meta, f, indent=4)
+
     print("\n" + "=" * 60)
     print("ALL 12 ENTERPRISE KNOWLEDGE LAYER ARTIFACTS DYNAMICALLY GENERATED")
+    print(f"Database: {db_name} | Tables: {refresh_meta['table_count']} | Columns: {refresh_meta['column_count']} | Relationships: {refresh_meta['relationship_count']}")
     print("=" * 60)
+    return {
+        "metadata": metadata,
+        "relationships": relationships,
+        "join_graph": join_graph,
+        "vocabulary": vocab_res,
+        "refresh_meta": refresh_meta
+    }
 
 if __name__ == "__main__":
     generate_enterprise_knowledge_base()

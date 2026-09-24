@@ -8,7 +8,7 @@ import './DataGrid.css';
 
 const formatCellValue = (val, colName = '') => {
   if (val === null || val === undefined) {
-    return <span className="datagrid-cell-null">NULL</span>;
+    return <span className="datagrid-cell-null">N/A</span>;
   }
 
   // Boolean

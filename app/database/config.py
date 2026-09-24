@@ -77,29 +77,36 @@ def get_db_credentials() -> dict:
                 "Ensure MASTER_SECRET_KEY is set in environment or stored in .master.key"
             )
         config = decrypt_payload(encrypted_config, master_key)
-        _cached_credentials = {
+        creds = {
             "host": config.get("DB_HOST", "localhost"),
             "port": str(config.get("DB_PORT", "3306")),
             "name": config.get("DB_NAME", ""),
             "user": config.get("DB_USER", ""),
             "password": config.get("DB_PASSWORD", ""),
         }
-        return _cached_credentials
+    else:
+        # Fallback to plain-text environment variables
+        creds = {
+            "host": os.getenv("DB_HOST", "localhost"),
+            "port": os.getenv("DB_PORT", "3306"),
+            "name": os.getenv("DB_NAME", ""),
+            "user": os.getenv("DB_USER", ""),
+            "password": os.getenv("DB_PASSWORD", ""),
+        }
 
-    # Fallback to plain-text environment variables (for transition/dev)
-    host = os.getenv("DB_HOST", "localhost")
-    port = os.getenv("DB_PORT", "3306")
-    name = os.getenv("DB_NAME", "")
-    user = os.getenv("DB_USER", "")
-    password = os.getenv("DB_PASSWORD", "")
+    # Allow explicit environment variables to override defaults
+    if os.getenv("DB_HOST"):
+        creds["host"] = os.getenv("DB_HOST").strip()
+    if os.getenv("DB_PORT"):
+        creds["port"] = os.getenv("DB_PORT").strip()
+    if os.getenv("DB_NAME"):
+        creds["name"] = os.getenv("DB_NAME").strip()
+    if os.getenv("DB_USER"):
+        creds["user"] = os.getenv("DB_USER").strip()
+    if os.getenv("DB_PASSWORD"):
+        creds["password"] = os.getenv("DB_PASSWORD").strip()
 
-    _cached_credentials = {
-        "host": host,
-        "port": port,
-        "name": name,
-        "user": user,
-        "password": password,
-    }
+    _cached_credentials = creds
     return _cached_credentials
 
 def get_db_url() -> URL:
@@ -118,13 +125,15 @@ def get_db_url() -> URL:
 
 def get_db_engine(**kwargs):
     """
-    Creates a SQLAlchemy Engine configured with TLS/SSL wire encryption.
+    Creates a SQLAlchemy Engine configured with optional TLS/SSL wire encryption.
     """
     url = get_db_url()
-    # Default parameters for resilient MySQL pooling with SSL wire encryption
     connect_args = kwargs.pop("connect_args", {})
-    if "ssl" not in connect_args:
-        connect_args["ssl"] = {}
+    if os.getenv("DB_SSL", "").lower() in ("true", "1", "yes"):
+        if "ssl" not in connect_args:
+            connect_args["ssl"] = {}
+    if "connect_timeout" not in connect_args:
+        connect_args["connect_timeout"] = int(os.getenv("DB_CONNECT_TIMEOUT", "3"))
     
     default_kwargs = {
         "connect_args": connect_args,

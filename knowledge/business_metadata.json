@@ -3,39 +3,39 @@
   "domain": "Full Database Intelligence",
   "enum_values": {
     "wallet_transaction.reference_type": [
-      "scan_reward",
-      "credit_note",
-      "transfer",
       "referral_earning",
-      "bonus",
-      "scan",
-      "incentive",
-      "topup",
       "bonus_conversion",
+      "scan",
+      "credit_note",
+      "bonus",
+      "transfer",
+      "scan_reward",
+      "topup",
+      "withdrawal",
       "cash_point",
-      "withdrawal"
+      "incentive"
     ],
     "automatic_transactions.transfer_type": [
-      "failed",
-      "NEFT",
       "Manual",
-      "RTGS",
+      "failed",
       "IMPS",
-      "UPI",
-      "Manual_success"
+      "NEFT",
+      "Manual_success",
+      "RTGS",
+      "UPI"
     ],
     "users.account_type": [
       "Savings",
       "Current"
     ],
     "users.status": [
-      "pending",
-      "approved"
+      "approved",
+      "pending"
     ],
     "automatic_transactions.status": [
       "success",
-      "failed",
       "pending",
+      "failed",
       "rejected",
       "faled"
     ],
@@ -43,30 +43,30 @@
       "winter_cash_point"
     ],
     "sku_inventories.order_type": [
-      "Distributor",
-      "Distributors"
+      "Distributors",
+      "Distributor"
     ],
     "mechanic_details.firm_type": [
       "Sole Proprietorship",
-      "Partnership",
-      "Private Limited Company (Pvt. Ltd.)",
-      "Limited Liability Partership (LLP)",
       "Select Business Type",
+      "Limited Liability Partership (LLP)",
+      "Private Limited Company (Pvt. Ltd.)",
       "CORE",
+      "Partnership",
       "Limited Liability Partnership (LLP)"
     ],
     "addresses.address_type": [
+      "Work",
       "Home",
-      "Other",
-      "Work"
+      "Other"
     ],
     "bank_accounts.bank_account_type": [
       "Savings",
       "Current"
     ],
     "bank_transactions.moneyTransferStatus": [
-      "FAILURE",
-      "SUCCESS"
+      "SUCCESS",
+      "FAILURE"
     ],
     "bank_transactions.transactionType": [
       "MAIN REVERSAL",
@@ -77,26 +77,26 @@
       "NEFT"
     ],
     "bank_transactions.type": [
-      "DEBIT",
-      "CREDIT"
+      "CREDIT",
+      "DEBIT"
     ],
     "beat_plans.frequency": [],
     "bonus_transactions.reference_type": [
-      "cash_point",
       "credit_note",
-      "gift_order"
+      "gift_order",
+      "cash_point"
     ],
     "bonus_transactions.type": [
       "debit",
       "credit"
     ],
     "box_gift_orders.status": [
-      "Pending",
-      "Closed",
-      "Delivered",
       "Processing",
+      "Pending",
+      "CN adjusted",
+      "Delivered",
       "Cancelled",
-      "CN adjusted"
+      "Closed"
     ],
     "branding_elements.type": [
       "printed",
@@ -104,13 +104,13 @@
       "digital"
     ],
     "brands.status": [
-      "0",
-      "1"
+      "1",
+      "0"
     ],
     "campaign_logs.status": [
       "read",
-      "success",
       "skipped",
+      "success",
       "failed"
     ],
     "cart_items.product_type": [
@@ -125,6 +125,7 @@
       "winter"
     ],
     "conference_events.order_unit": [
+      "all",
       "carton"
     ],
     "coupon_transactions.type": [
@@ -134,21 +135,21 @@
       "deactivated_qr_wallet"
     ],
     "deactivated_qr_wallet_transactions.reference_type": [
-      "topup",
       "credit_note",
-      "sku_scan"
+      "sku_scan",
+      "topup"
     ],
     "dms_bulk_exports.export_type": [],
     "dms_bulk_exports.status": [],
     "engagement_event_conditions.status": [
-      "inactive",
-      "active"
+      "active",
+      "inactive"
     ],
     "engagement_events.recurrence_type": [],
     "engagement_events.status": [],
     "engagement_reward_masters.status": [
-      "inactive",
-      "active"
+      "active",
+      "inactive"
     ],
     "event_orders.order_status": [
       "0"
@@ -163,23 +164,23 @@
       "box"
     ],
     "gift_cards.points_applicability": [
-      "date_range",
-      "all"
+      "all",
+      "date_range"
     ],
     "gift_gamification.reference_type": [],
     "gift_gamification.status": [],
     "gift_gamification.type": [],
     "gift_inventories.gift_order_type": [
-      "gift_orders",
-      "box_gift_orders"
+      "box_gift_orders",
+      "gift_orders"
     ],
     "gift_order_timelines.order_type": [
-      "box_gift_order",
       "box_order",
-      "box_gift_orders",
-      "scheme_order",
       "gift_order",
-      "scheme_gift_order"
+      "scheme_gift_order",
+      "box_gift_order",
+      "scheme_order",
+      "box_gift_orders"
     ],
     "gift_orders.point_type": [
       "bonus_point",
@@ -187,29 +188,29 @@
     ],
     "gift_scan_wallet_transactions.reference_type": [
       "cash_convert",
-      "credit_note",
       "gift_order",
+      "credit_note",
       "sku_scan"
     ],
     "home_banner.redirect_to_type": [
+      "file_upload",
       "redirect_link",
-      "type_option",
-      "file_upload"
+      "type_option"
     ],
     "incentive_gift_orders.point_type": [],
     "incentive_schemes.additional_monthly_bonus": [
       "0"
     ],
     "incentive_schemes.incentive_type": [
-      "PRO",
-      "June Growth Scheme",
       "ELITE",
       "Growth Scheme for Retailer's Monthly Average between 5-24 Boxes",
-      "DIAMOND",
       "CHAMP",
+      "PRO",
       "GOLD",
+      "June Growth Scheme",
+      "Growth scheme for Retailers who’s monthly average scan is equal to or more than 25 Units",
       "SILVER",
-      "Growth scheme for Retailers who’s monthly average scan is equal to or more than 25 Units"
+      "DIAMOND"
     ],
     "incentive_schemes.min_scan_type": [
       "fixed",
@@ -222,8 +223,8 @@
       "monthly_average"
     ],
     "incentive_schemes.value_type": [
-      "fixed",
-      "perScan"
+      "perScan",
+      "fixed"
     ],
     "manual_transactions.transactionType": [
       "PAYOUT"
@@ -239,29 +240,29 @@
     ],
     "mom_attachments.file_type": [],
     "mom_thread_participants.user_type": [
-      "Wholesaler",
       "RSM",
+      "ZSM",
       "SE",
+      "ASM",
       "Retailer",
       "Distributor",
-      "ASM",
-      "ZSM"
+      "Wholesaler"
     ],
     "mom_threads.isVisitModule": [
-      "0",
-      "1"
+      "1",
+      "0"
     ],
     "mom_threads.status": [
       "open"
     ],
     "notification_logs.status": [
-      "pending",
-      "failed"
+      "failed",
+      "pending"
     ],
     "notifications.notification_type": [
-      "General",
       "Sticky",
-      "Alert"
+      "Alert",
+      "General"
     ],
     "notifications.user_type": [
       "All",
@@ -270,43 +271,43 @@
     "offline_sku_inventories.scan_type": [],
     "offline_sku_inventories.status": [],
     "order_categories.category_name": [
+      "Kashmira",
+      "MACHO SPORTO/SPORTO ULTIMA",
+      "NEW- SPORTO NEO MODAL VEST",
+      "Hot Coat",
+      "NEW-COMFY CASUAL TRACKS & JOGGERS",
+      "NEW- COMFY ATHELIX RN TEE",
+      "MACHO SPORTO/SPORTO MAGMA",
+      "NEW- SPORTO NEO MODAL TRUNKS",
+      "AMUL COMFY ULTIMA FIRE",
+      "NEW-COMFY CASUAL PLAIN SHORTS",
+      "NEW-COMFY CASUAL RN TEE",
+      "Colour Premium",
+      "MCH/SPT BRIEFS & MT",
+      "MCH/SPT PARKA",
+      "MAGMA",
+      "COMFY TRUNKS & BRIEFS",
+      "MCH/SPT LONG & FCD",
+      "SPORTO MARVEL KIDS",
+      "NEW COMFY ATHELIX POLO TEE",
+      "COMFY LADIES",
+      "AMUL COMFY KASHMIRA",
+      "MACHO SPORTO/SPORTO NEO THERMAL",
+      "SPORTO NEO SERIES",
+      "MCH/SPT FINE & DERBY VEST",
+      "NEW- COMFY ATHELIX MEGA VEST",
+      "launch category",
+      "NEW-COMFY CASUAL PRINT BERMUDAS",
+      "SPORTO GYM VEST",
+      "COMFY Vest",
+      "Parka",
+      "NEW-COMFY CASUAL POLO TEE",
       "COMFY GYM VEST",
+      "AMUL COMFY HOTCOAT",
       "NEW- COMFY ATHELIX SHORTS",
       "AMUL COMFY COLOUR PREMIUM",
-      "Hot Coat",
-      "MACHO SPORTO/SPORTO ULTIMA",
-      "NEW-COMFY CASUAL POLO TEE",
       "NEW- COMFY ATHELIX TRACKS",
-      "COMFY LADIES",
-      "NEW-COMFY CASUAL TRACKS & JOGGERS",
-      "NEW- COMFY ATHELIX MEGA VEST",
-      "COMFY TRUNKS & BRIEFS",
-      "COMFY Vest",
-      "NEW-COMFY CASUAL PRINT BERMUDAS",
-      "MCH/SPT BRIEFS & MT",
-      "AMUL COMFY HOTCOAT",
-      "SPORTO MARVEL KIDS",
-      "NEW- COMFY ATHELIX RN TEE",
-      "Parka",
-      "NEW- SPORTO NEO MODAL TRUNKS",
-      "MCH/SPT LONG & FCD",
-      "SPORTO GYM VEST",
-      "AMUL COMFY PARKA",
-      "Kashmira",
-      "NEW- SPORTO NEO MODAL VEST",
-      "NEW-COMFY CASUAL RN TEE",
-      "MACHO SPORTO/SPORTO MAGMA",
-      "NEW-COMFY CASUAL PLAIN SHORTS",
-      "NEW COMFY ATHELIX POLO TEE",
-      "MCH/SPT FINE & DERBY VEST",
-      "MAGMA",
-      "Colour Premium",
-      "MCH/SPT PARKA",
-      "SPORTO NEO SERIES",
-      "launch category",
-      "AMUL COMFY ULTIMA FIRE",
-      "AMUL COMFY KASHMIRA",
-      "MACHO SPORTO/SPORTO NEO THERMAL"
+      "AMUL COMFY PARKA"
     ],
     "order_categories.category_type": [
       "core",
@@ -336,32 +337,32 @@
     "repository_documents.app_type": [],
     "repository_documents.document_type": [],
     "retailer_bulk_requests.report_type": [
+      "retailer_scan_master_report",
+      "gift_redemption_report",
+      "distributor_scan_count",
       "retailer_scan_count",
-      "retailer_consolidated_report",
+      "distribributor_list_export",
+      "scanned_distributor_list",
       "retailer_scan_report",
       "retailer_scan_reports",
-      "wholesaler_scan_list",
-      "scanned_distributor_list",
-      "distribributor_list_export",
-      "wholeseller_points_summary",
-      "cash_redemption_report",
-      "retailer_list",
       "wholesaler_list_export",
-      "retailer_scan_count_report",
-      "distributor_scan_count",
-      "gift_redemption_report",
+      "wholeseller_points_summary",
+      "retailer_consolidated_report",
       "wholesaler_reatiler_master_report_export",
+      "blacklist_whitelist_report",
+      "retailer_list",
+      "retailer_scan_count_report",
+      "wholesaler_scan_list",
       "qr_list_master_report",
-      "retailer_scan_master_report",
-      "blacklist_whitelist_report"
+      "cash_redemption_report"
     ],
     "retailer_bulk_requests.status": [
-      "pending",
-      "completed"
+      "completed",
+      "pending"
     ],
     "retailer_credit_notes.business_type": [
-      "wholesaler",
-      "retailer"
+      "retailer",
+      "wholesaler"
     ],
     "role_conversion_histories.new_role": [
       "5",
@@ -375,51 +376,51 @@
     "sample_orders.order_status": [],
     "scanned_qrcode_history.type": [
       "manual",
-      "regular",
-      "bulk_scan"
+      "bulk_scan",
+      "regular"
     ],
     "scheme_gift_orders.status": [
-      "Pending",
-      "Delivered",
       "Processing",
-      "Cancelled",
-      "CN adjusted"
+      "Pending",
+      "CN adjusted",
+      "Delivered",
+      "Cancelled"
     ],
     "scheme_wallet_transactions.reference_type": [
+      "scheme_gift_order",
       "credit_note",
       "cash_convert",
       "topup",
-      "sku_scan",
-      "scheme_gift_order"
+      "sku_scan"
     ],
     "schemes.point_type": [
       "box_value"
     ],
     "schemes.scheme_type": [
-      "autoEnroll",
-      "manualEnroll"
+      "manualEnroll",
+      "autoEnroll"
     ],
     "schemes.user_type": [
       "retailer"
     ],
     "se_reports.report_name": [
-      "new_category",
-      "new_retailers"
+      "new_retailers",
+      "new_category"
     ],
     "se_task.status": [
       "4",
       "3"
     ],
     "se_task_history.status": [
-      "4",
-      "2",
+      "1",
       "3",
-      "1"
+      "2",
+      "4"
     ],
     "shop_verification_images.user_type": [
-      "distributor",
       "wholeseller",
-      "retailer"
+      "retailer",
+      "distributor"
     ],
     "sku_products.season": [
       "core",
@@ -437,64 +438,64 @@
       "Bearer"
     ],
     "user_withdrawal_block_histories.withdrawal_type": [
-      "gift_redeem",
-      "cash"
+      "cash",
+      "gift_redeem"
     ],
     "vendors.gender": [
       "female"
     ],
     "video_responses.response": [],
     "visit_check_in_check_out.visit_type": [
-      "bindal Garments",
+      "yes",
+      "Singla Ready-made",
+      "vijit for Order",
       "Stock Available",
-      "aggarwal collection",
-      "owner not their",
-      "check in vismaya collection Palakkad",
-      "Molarband",
-      "visit to order",
-      "check in barcode pothanpadam",
-      "market Visit",
-      "Counter visits",
-      "checking in",
-      "kashish Cosmetic",
-      "Moralband",
-      "check in out look Cherplassery",
+      "I already visited but I can't check out",
       "orde not received",
-      "xycbkbhd",
-      "teken order",
-      "to visit",
-      "2",
-      "to take order",
-      "visiting",
       "visit",
-      "check in cotton club Cherplassery",
-      "no order",
-      "sales",
-      "stock",
       "testing checkin",
       "check in",
-      "shop visit",
-      "ORDER RECEIVED",
-      "Badarpur",
-      "Singla Ready-made",
       "order",
-      "laxmi Garments Badarpur",
-      "visit complete",
-      "yes",
+      "to take order",
+      "check in barcode pothanpadam",
+      "Molarband",
+      "checking in",
+      "visit complete ✅",
+      "no order",
       "chech in",
-      "taken order",
-      "I already visited but I can't check out",
+      "Counter visits",
+      "shop visit",
+      "Distributor",
+      "visit for order",
       "chebismi silks Kollengode",
       "Non stop Collection",
-      "Vipul Redaymead",
+      "aggarwal collection",
       "owner not present",
-      "parmod Gupta Saree Centar",
-      "Distributor",
-      "vijit for Order",
-      "test",
-      "visit for order",
+      "Badarpur",
+      "market Visit",
+      "to visit",
       "Dinesh Kumar",
-      "visit complete ✅"
+      "stock",
+      "check in out look Cherplassery",
+      "check in cotton club Cherplassery",
+      "visiting",
+      "ORDER RECEIVED",
+      "sales",
+      "kashish Cosmetic",
+      "laxmi Garments Badarpur",
+      "bindal Garments",
+      "test",
+      "taken order",
+      "2",
+      "parmod Gupta Saree Centar",
+      "Vipul Redaymead",
+      "teken order",
+      "check in vismaya collection Palakkad",
+      "visit to order",
+      "visit complete",
+      "owner not their",
+      "xycbkbhd",
+      "Moralband"
     ],
     "weekly_scheme_prizes.type": [],
     "wholesale_wallet_transactions.reference_type": [
@@ -507,16 +508,16 @@
       "Delivered"
     ],
     "winter_scan_wallet_transactions.reference_type": [
+      "gift_order",
       "credit_note",
-      "cash_withdrawal",
       "topup",
-      "sku_scan",
-      "gift_order"
+      "cash_withdrawal",
+      "sku_scan"
     ],
     "wishlists.type": [
-      "gift_card",
+      "scheme_gift_card",
       "winter_gift_card",
-      "scheme_gift_card"
+      "gift_card"
     ]
   },
   "business_terminology": {
@@ -1333,12 +1334,12 @@
         "name": "NARANG TRADERS",
         "phone": "9815236212",
         "email": "narangtraders@gmail.com",
-        "sap_code": "D19kHN0201",
+        "sap_code": "D19KHN0201",
         "business_unit": "None",
         "jgh_company": "NARANG TRADERS",
         "image": "None",
         "created_at": "2025-01-30T11:47:57",
-        "updated_at": "2025-11-11T09:36:21",
+        "updated_at": "2026-09-21T15:24:13",
         "business_info_id": "None",
         "customer_id": "466",
         "monthly_percent_deactivate_qr_limit": "0.00",

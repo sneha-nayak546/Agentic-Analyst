@@ -66,7 +66,8 @@ def run_test_suite():
     
     results = []
     
-    with ThreadPoolExecutor(max_workers=2) as executor:
+    # Run strictly sequentially on CPU to prevent resource starvation and thread contention
+    with ThreadPoolExecutor(max_workers=1) as executor:
         results = list(executor.map(evaluate_query, BENCHMARK_QUERIES))
         
     total_latency = 0

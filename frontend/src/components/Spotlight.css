@@ -1,0 +1,122 @@
+/* ============================================================
+   Spotlight.css  –  Aceternity UI Spotlight Component Styles
+   Agent JGH Executive Midnight Navy & Gold Aesthetics
+   ============================================================ */
+
+.aceternity-spotlight {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  height: 169%;
+  width: 138%;
+  max-width: none;
+  transform: translate(-72%, -62%) scale(0.65);
+  animation: aceternitySpotlight 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s 1 forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes aceternitySpotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.65);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+/* ── Responsive Adaptations for Desktop, Laptop, and Tablet ── */
+
+/* Laptops & Standard Monitors (1024px – 1439px) */
+@media (min-width: 1024px) {
+  .aceternity-spotlight {
+    width: 96%;
+    height: 155%;
+  }
+}
+
+/* Large Desktops & High-DPI Displays (≥ 1440px) */
+@media (min-width: 1440px) {
+  .aceternity-spotlight {
+    width: 84%;
+    height: 169%;
+  }
+}
+
+/* Tablet & Mobile (≤ 1023px) */
+@media (max-width: 1023px) {
+  .aceternity-spotlight {
+    width: 150%;
+    height: 140%;
+    transform: translate(-55%, -35%) scale(0.75);
+    animation: aceternitySpotlightMobile 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s 1 forwards;
+  }
+}
+
+@keyframes aceternitySpotlightMobile {
+  0% {
+    opacity: 0;
+    transform: translate(-65%, -50%) scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -35%) scale(0.85);
+  }
+}
+
+/* ── Positioning & Theme Presets ── */
+
+/* Chat Landing Primary Hero Spotlight (Upper-Left radiating to center) */
+.chat-spotlight-gold {
+  top: -120px;
+  left: -80px;
+}
+
+@media (min-width: 1024px) {
+  .chat-spotlight-gold {
+    top: -160px;
+    left: -40px;
+  }
+}
+
+/* Secondary Ambient Beam from Top-Right */
+.chat-spotlight-blue {
+  top: -100px;
+  right: -100px;
+  left: auto;
+  transform: scaleX(-1) translate(-30%, -40%) scale(0.9);
+  animation: aceternitySpotlightSecondary 2.5s cubic-bezier(0.16, 1, 0.3, 1) 0.7s 1 forwards;
+}
+
+@keyframes aceternitySpotlightSecondary {
+  0% {
+    opacity: 0;
+    transform: scaleX(-1) translate(-50%, -50%) scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(-1) translate(-25%, -35%) scale(0.9);
+  }
+}
+
+/* Login Card Spotlight (Centering over authentication form) */
+.login-spotlight-gold {
+  top: -180px;
+  left: 10%;
+}
+
+@media (min-width: 1024px) {
+  .login-spotlight-gold {
+    top: -140px;
+    left: 20%;
+  }
+}
+
+.login-spotlight-blue {
+  top: -80px;
+  right: 5%;
+  left: auto;
+  transform: scaleX(-1) translate(-30%, -40%) scale(0.85);
+}

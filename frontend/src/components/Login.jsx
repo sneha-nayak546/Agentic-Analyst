@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, ArrowRight, Lock, Mail, ShieldCheck } from 'lucide-react';
+import Spotlight from './Spotlight';
 import './Login.css';
 
 const Login = ({ onLogin }) => {
@@ -25,8 +26,20 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login-container">
-      {/* 3D Background */}
+      {/* 3D Background with Aceternity Spotlight */}
       <div className="login-bg-elements">
+        <Spotlight
+          className="login-spotlight-gold"
+          fill="#F59E0B"
+          fillOpacity={0.20}
+          filterId="login-spotlight-gold"
+        />
+        <Spotlight
+          className="login-spotlight-blue"
+          fill="#1677FF"
+          fillOpacity={0.10}
+          filterId="login-spotlight-blue"
+        />
         <div className="login-orb"></div>
         <div className="login-orb-glow"></div>
         <div className="login-grid"></div>

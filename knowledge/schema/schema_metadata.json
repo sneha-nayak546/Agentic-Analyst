@@ -6904,6 +6904,138 @@
       }
     }
   },
+  "district_pha_pincode_map": {
+    "type": "BASE TABLE",
+    "comment": "",
+    "columns": {
+      "district_id": {
+        "name": "district_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "id": {
+        "name": "id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": true,
+        "is_auto_increment": true,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "pincode": {
+        "name": "pincode",
+        "datatype": "varchar",
+        "full_type": "varchar(20)",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "state_id": {
+        "name": "state_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "zone_id": {
+        "name": "zone_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      }
+    }
+  },
+  "district_pha_pincode_map_bkp_20260916": {
+    "type": "BASE TABLE",
+    "comment": "",
+    "columns": {
+      "district_id": {
+        "name": "district_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "id": {
+        "name": "id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "pincode": {
+        "name": "pincode",
+        "datatype": "varchar",
+        "full_type": "varchar(20)",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "state_id": {
+        "name": "state_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "zone_id": {
+        "name": "zone_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      }
+    }
+  },
   "district_population": {
     "type": "BASE TABLE",
     "comment": "",
@@ -6940,6 +7072,96 @@
         "default": null,
         "is_primary": true,
         "is_auto_increment": true,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "population": {
+        "name": "population",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "state_id": {
+        "name": "state_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "updated_at": {
+        "name": "updated_at",
+        "datatype": "timestamp",
+        "full_type": "timestamp",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "zone_id": {
+        "name": "zone_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      }
+    }
+  },
+  "district_population_bkp_20260910": {
+    "type": "BASE TABLE",
+    "comment": "",
+    "columns": {
+      "created_at": {
+        "name": "created_at",
+        "datatype": "timestamp",
+        "full_type": "timestamp",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "district_id": {
+        "name": "district_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "id": {
+        "name": "id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
         "comment": "",
         "is_enum": false,
         "enum_values": []
@@ -9264,6 +9486,18 @@
         "is_enum": false,
         "enum_values": []
       },
+      "end_date": {
+        "name": "end_date",
+        "datatype": "date",
+        "full_type": "date",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
       "executive_id": {
         "name": "executive_id",
         "datatype": "bigint",
@@ -9293,6 +9527,18 @@
         "datatype": "bigint",
         "full_type": "bigint unsigned",
         "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "start_date": {
+        "name": "start_date",
+        "datatype": "date",
+        "full_type": "date",
+        "is_nullable": true,
         "default": null,
         "is_primary": false,
         "is_auto_increment": false,
@@ -15468,6 +15714,144 @@
       }
     }
   },
+  "monthly_district_pha_bkp_20260910": {
+    "type": "BASE TABLE",
+    "comment": "",
+    "columns": {
+      "created_at": {
+        "name": "created_at",
+        "datatype": "timestamp",
+        "full_type": "timestamp",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "district_id": {
+        "name": "district_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "id": {
+        "name": "id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "month": {
+        "name": "month",
+        "datatype": "int",
+        "full_type": "int",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "pha_value": {
+        "name": "pha_value",
+        "datatype": "varchar",
+        "full_type": "varchar(255)",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "population": {
+        "name": "population",
+        "datatype": "int",
+        "full_type": "int",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "state_id": {
+        "name": "state_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "total_scan": {
+        "name": "total_scan",
+        "datatype": "varchar",
+        "full_type": "varchar(255)",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "updated_at": {
+        "name": "updated_at",
+        "datatype": "timestamp",
+        "full_type": "timestamp",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "year": {
+        "name": "year",
+        "datatype": "int",
+        "full_type": "int",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "zone_id": {
+        "name": "zone_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      }
+    }
+  },
   "monthly_pincode_pha": {
     "type": "BASE TABLE",
     "comment": "",
@@ -19092,6 +19476,258 @@
         "default": null,
         "is_primary": true,
         "is_auto_increment": true,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "pincode": {
+        "name": "pincode",
+        "datatype": "varchar",
+        "full_type": "varchar(255)",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "population": {
+        "name": "population",
+        "datatype": "bigint",
+        "full_type": "bigint",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "state_id": {
+        "name": "state_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "updated_at": {
+        "name": "updated_at",
+        "datatype": "timestamp",
+        "full_type": "timestamp",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "zone_id": {
+        "name": "zone_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      }
+    }
+  },
+  "pincode_population_bkp_20260910": {
+    "type": "BASE TABLE",
+    "comment": "",
+    "columns": {
+      "25_26": {
+        "name": "25_26",
+        "datatype": "varchar",
+        "full_type": "varchar(255)",
+        "is_nullable": true,
+        "default": "25",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "26_27": {
+        "name": "26_27",
+        "datatype": "varchar",
+        "full_type": "varchar(255)",
+        "is_nullable": true,
+        "default": "26",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "created_at": {
+        "name": "created_at",
+        "datatype": "timestamp",
+        "full_type": "timestamp",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "district_id": {
+        "name": "district_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "id": {
+        "name": "id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "pincode": {
+        "name": "pincode",
+        "datatype": "varchar",
+        "full_type": "varchar(255)",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "population": {
+        "name": "population",
+        "datatype": "bigint",
+        "full_type": "bigint",
+        "is_nullable": false,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "state_id": {
+        "name": "state_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "updated_at": {
+        "name": "updated_at",
+        "datatype": "timestamp",
+        "full_type": "timestamp",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "zone_id": {
+        "name": "zone_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      }
+    }
+  },
+  "pincode_population_bkp_prebackfill": {
+    "type": "BASE TABLE",
+    "comment": "",
+    "columns": {
+      "25_26": {
+        "name": "25_26",
+        "datatype": "varchar",
+        "full_type": "varchar(255)",
+        "is_nullable": true,
+        "default": "25",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "26_27": {
+        "name": "26_27",
+        "datatype": "varchar",
+        "full_type": "varchar(255)",
+        "is_nullable": true,
+        "default": "26",
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "created_at": {
+        "name": "created_at",
+        "datatype": "timestamp",
+        "full_type": "timestamp",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "district_id": {
+        "name": "district_id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": true,
+        "default": null,
+        "is_primary": false,
+        "is_auto_increment": false,
+        "comment": "",
+        "is_enum": false,
+        "enum_values": []
+      },
+      "id": {
+        "name": "id",
+        "datatype": "bigint",
+        "full_type": "bigint unsigned",
+        "is_nullable": false,
+        "default": "0",
+        "is_primary": false,
+        "is_auto_increment": false,
         "comment": "",
         "is_enum": false,
         "enum_values": []

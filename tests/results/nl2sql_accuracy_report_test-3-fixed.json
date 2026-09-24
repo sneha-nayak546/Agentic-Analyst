@@ -1,0 +1,190 @@
+{
+  "version": "Test-3-fixed",
+  "timestamp": "2026-09-23T07:13:20Z",
+  "total_questions": 3,
+  "passed": 3,
+  "failed": 0,
+  "end_to_end_accuracy": 100.0,
+  "intent_accuracy": 100.0,
+  "schema_retrieval_accuracy": 100.0,
+  "sql_semantic_accuracy": 100.0,
+  "sql_execution_success": 100.0,
+  "database_result_accuracy": 100.0,
+  "final_response_accuracy": 100.0,
+  "latency_percentiles": {
+    "avg_ms": 3139.35,
+    "p50_ms": 3409.29,
+    "p95_ms": 3468.97
+  },
+  "difficulty_breakdown": {
+    "EASY": {
+      "total": 3,
+      "passed": 3,
+      "accuracy": 100.0
+    },
+    "MEDIUM": {
+      "total": 0,
+      "passed": 0,
+      "accuracy": 0.0
+    },
+    "HARD": {
+      "total": 0,
+      "passed": 0,
+      "accuracy": 0.0
+    }
+  },
+  "category_breakdown": {
+    "simple_lookup": {
+      "total": 3,
+      "passed": 3,
+      "accuracy": 100.0
+    }
+  },
+  "failure_taxonomy": [],
+  "results": [
+    {
+      "id": 1,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Show user details for ID 5997",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": true,
+      "response_correct": true,
+      "end_to_end_correct": true,
+      "primary_failure": null,
+      "failure_reason": null,
+      "latency_ms": 2533.17,
+      "pipeline_checkpoints": {
+        "1_user_question": "Show user details for ID 5997",
+        "2_detected_intent": "aggregate_analytics",
+        "3_retrieved_schema": [
+          "users",
+          "state"
+        ],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.id, u.name, u.email, u.mobile_number, u.address, u.city, u.district, u.state_id, u.status, u.user_role, u.wallet_balance, u.created_at, u.updated_at\nFROM users u\nWHERE u.id = 5997",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "id": 5997,
+            "name": "Sri Balaji Distributors",
+            "email": "balaji@distrib.com",
+            "mobile_number": "9876543210",
+            "address": "MG Road",
+            "city": "Bengaluru",
+            "district": "Bengaluru Urban",
+            "state_id": 11,
+            "status": "approved",
+            "user_role": 4,
+            "wallet_balance": 45000.0,
+            "created_at": "2025-01-01 10:00:00",
+            "updated_at": "2026-01-01 00:00:00"
+          }
+        ],
+        "10_final_response": "Direct Answer:\nSri Balaji Distributors recorded 45000.0 for wallet balance.\n\nExplanation:\nThe query returned 1 qualifying record from the database based on the requested criteria.\n\nResults:\n| Id | Name | Email | Mobile Number | Address | City | District | State Id | Status | User Role | Wallet Balance | Created At | Updated At |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 5,997 | Sri Balaji Distributors | balaji@distrib.com | 9876543210 | MG Road | Bengaluru | Bengaluru Urban | 11 | approved | 4 | \u20b945,000.00 | 2025-01-01 10:00:00 | 2026-01-01 00:00:00 |"
+      }
+    },
+    {
+      "id": 2,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Give details for retailer ID 50225",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": true,
+      "response_correct": true,
+      "end_to_end_correct": true,
+      "primary_failure": null,
+      "failure_reason": null,
+      "latency_ms": 3409.29,
+      "pipeline_checkpoints": {
+        "1_user_question": "Give details for retailer ID 50225",
+        "2_detected_intent": "data_retrieval",
+        "3_retrieved_schema": [
+          "users",
+          "state"
+        ],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.id, u.name, u.email, u.mobile_number, u.address, u.city, u.state_id, u.district, u.status, u.created_at, u.updated_at, u.user_role, u.wallet_balance\nFROM users u\nWHERE u.id = 50225\n  AND u.user_role = 2",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "id": 50225,
+            "name": "Lakshmi Enterprises Retailer",
+            "email": "lakshmi@retail.com",
+            "mobile_number": "9876543211",
+            "address": "Indiranagar",
+            "city": "Bengaluru",
+            "state_id": 11,
+            "district": "Bengaluru Urban",
+            "status": "approved",
+            "created_at": "2025-02-01 11:00:00",
+            "updated_at": "2026-01-01 00:00:00",
+            "user_role": 2,
+            "wallet_balance": 12500.0
+          }
+        ],
+        "10_final_response": "Direct Answer:\nLakshmi Enterprises Retailer recorded 12500.0 for wallet balance.\n\nExplanation:\nThe query returned 1 qualifying record from the database based on the requested criteria.\n\nResults:\n| Id | Name | Email | Mobile Number | Address | City | State Id | District | Status | Created At | Updated At | User Role | Wallet Balance |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 50,225 | Lakshmi Enterprises Retailer | lakshmi@retail.com | 9876543211 | Indiranagar | Bengaluru | 11 | Bengaluru Urban | approved | 2025-02-01 11:00:00 | 2026-01-01 00:00:00 | 2 | \u20b912,500.00 |"
+      }
+    },
+    {
+      "id": 3,
+      "category": "simple_lookup",
+      "difficulty": "EASY",
+      "split": "train_dev",
+      "question": "Lookup distributor with ID 6016",
+      "intent_correct": true,
+      "schema_correct": true,
+      "sql_semantic_correct": true,
+      "execution_success": true,
+      "db_result_correct": true,
+      "response_correct": true,
+      "end_to_end_correct": true,
+      "primary_failure": null,
+      "failure_reason": null,
+      "latency_ms": 3475.6,
+      "pipeline_checkpoints": {
+        "1_user_question": "Lookup distributor with ID 6016",
+        "2_detected_intent": "data_retrieval",
+        "3_retrieved_schema": [
+          "users",
+          "state"
+        ],
+        "4_sql_plan": null,
+        "5_generated_sql": "SELECT u.id, u.name, u.email, u.mobile_number, u.address, u.city, u.district, u.state_id, u.status, u.created_at, u.updated_at, u.user_role, u.wallet_balance FROM users u WHERE u.id = 6016 AND u.user_role = 4",
+        "6_validation": "VERIFIED",
+        "7_sql_execution": true,
+        "8_actual_db_result_rows": 1,
+        "9_answer_gen_input": [
+          {
+            "id": 6016,
+            "name": "Devyani And Company",
+            "email": "devyani@distrib.com",
+            "mobile_number": "9096500543",
+            "address": "Main Road",
+            "city": "Satara",
+            "district": "Satara",
+            "state_id": 14,
+            "status": "approved",
+            "created_at": "2025-01-10 10:00:00",
+            "updated_at": "2026-01-01 00:00:00",
+            "user_role": 4,
+            "wallet_balance": 32000.0
+          }
+        ],
+        "10_final_response": "Direct Answer:\nDistributor ID 6016 is Devyani And Company, email devyani@distrib.com, mobile 9096500543, located at Main Road, Satara, Satara, state ID\u202f14, status approved, created\n\nExplanation:\nThe query returned 1 matching records from the database.\n\nResults:\n| Id | Name | Email | Mobile Number | Address | City | District | State Id | Status | Created At | Updated At | User Role | Wallet Balance |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 6,016 | Devyani And Company | devyani@distrib.com | 9096500543 | Main Road | Satara | Satara | 14 | approved | 2025-01-10 10:00:00 | 2026-01-01 00:00:00 | 4 | \u20b932,000.00 |"
+      }
+    }
+  ]
+}

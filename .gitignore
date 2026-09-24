@@ -11,6 +11,7 @@ __pycache__/
 *.pyc
 reports/
 logs/
+*.log
 node_modules/
 dist/
 .gcp_credentials.json

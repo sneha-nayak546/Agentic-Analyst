@@ -9,6 +9,7 @@ from copy import deepcopy
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from app.agent.nlp_understanding import nlp_agent
+from app.llm.llm_config import OLLAMA_TIMEOUT
 
 # We will define detailed tests covering the requirements
 tests = [
@@ -316,6 +317,8 @@ def check_list_match(expected_list, actual_list, field_to_check):
             return False
     return True
 
+from app.llm.llm_config import OLLAMA_TIMEOUT
+
 metrics_names = [
     "intent", "entity", "relationship", "id", "metric", "time", "filter",
     "aggregation", "grouping", "ranking_limit", "output_column", "clarification"
@@ -329,58 +332,91 @@ timeouts = 0
 errors = 0
 complete_pass_count = 0
 failed_details = []
+all_test_records = []
+intermediate_file = "nlp_eval_intermediate_results.json"
 
 for i, test in enumerate(tests):
     print(f"\n[{i+1}/{len(tests)}] Testing: {test['question']}")
-    
-    def run_test():
-        return nlp_agent.parse_question(test['question'], context=test.get('context'))
+    sys.stdout.flush()
 
     q_start = time.time()
-    executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+    req = None
+    test_status = "UNKNOWN"
+    failure_reason = ""
+    failed_fields = []
+
     try:
-        future = executor.submit(run_test)
-        req = future.result(timeout=120) # 120 second timeout per test
+        executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        future = executor.submit(nlp_agent.parse_question, test['question'], context=test.get('context'))
+        req = future.result(timeout=OLLAMA_TIMEOUT)
         executor.shutdown(wait=False)
     except concurrent.futures.TimeoutError:
-        print(f"TIMEOUT: Test {i+1} took longer than 120 seconds.")
+        q_time = round(time.time() - q_start, 2)
+        test_status = "TIMEOUT"
+        failure_reason = f"Execution exceeded {OLLAMA_TIMEOUT}s timeout."
+        print(f"Status: TIMEOUT")
+        print(f"Time: {q_time}s")
+        print(f"Reason: {failure_reason}")
+        sys.stdout.flush()
         executor.shutdown(wait=False)
         timeouts += 1
+        all_test_records.append({
+            "index": i + 1,
+            "question": test['question'],
+            "status": "TIMEOUT",
+            "time_seconds": q_time,
+            "reason": failure_reason
+        })
+        with open(intermediate_file, "w", encoding="utf-8") as f:
+            json.dump({"completed": i + 1, "total": len(tests), "records": all_test_records}, f, indent=2)
         continue
     except Exception as e:
-        print(f"ERROR: Test {i+1} failed with exception: {e}")
+        q_time = round(time.time() - q_start, 2)
+        test_status = "ERROR"
+        failure_reason = f"{type(e).__name__}: {str(e)}"
+        print(f"Status: ERROR")
+        print(f"Time: {q_time}s")
+        print(f"Reason: {failure_reason}")
+        sys.stdout.flush()
         errors += 1
+        all_test_records.append({
+            "index": i + 1,
+            "question": test['question'],
+            "status": "ERROR",
+            "time_seconds": q_time,
+            "reason": failure_reason
+        })
+        with open(intermediate_file, "w", encoding="utf-8") as f:
+            json.dump({"completed": i + 1, "total": len(tests), "records": all_test_records}, f, indent=2)
         continue
-        
-    q_time = time.time() - q_start
+
+    q_time = round(time.time() - q_start, 2)
     total_inference_time += q_time
     successful_tests += 1
 
     expected = test['expected']
-    
-    failed_fields = []
-    
+
     # 1. Intent
     if 'intent' in expected:
         if req.intent == expected['intent']: results['intent']['pass'] += 1
         else:
             results['intent']['fail'] += 1
             failed_fields.append('intent')
-        
+
     # 2. Entity
     if 'entities' in expected:
         if check_list_match(expected['entities'], req.entities, 'entities'): results['entity']['pass'] += 1
         else:
             results['entity']['fail'] += 1
             failed_fields.append('entity')
-        
+
     # 3. Relationship
     if 'relationships' in expected:
         if check_list_match(expected['relationships'], req.relationships, 'relationships'): results['relationship']['pass'] += 1
         else:
             results['relationship']['fail'] += 1
             failed_fields.append('relationship')
-        
+
     # 4. ID
     if 'specific_ids' in expected:
         match = True
@@ -390,7 +426,7 @@ for i, test in enumerate(tests):
         else:
             results['id']['fail'] += 1
             failed_fields.append('id')
-        
+
     # 5. Metric
     if 'metrics' in expected:
         if check_list_match([{"name": m.get("name")} for m in expected['metrics'] if "name" in m], req.metrics, 'metrics'):
@@ -398,7 +434,7 @@ for i, test in enumerate(tests):
         else:
             results['metric']['fail'] += 1
             failed_fields.append('metric')
-        
+
     # 6. Time
     if 'time' in expected:
         if expected['time'] is None:
@@ -411,14 +447,14 @@ for i, test in enumerate(tests):
             else:
                 results['time']['fail'] += 1
                 failed_fields.append('time')
-            
+
     # 7. Filter
     if 'filters' in expected:
         if check_list_match(expected['filters'], req.filters, 'filters'): results['filter']['pass'] += 1
         else:
             results['filter']['fail'] += 1
             failed_fields.append('filter')
-        
+
     # 8. Aggregation
     if 'metrics' in expected:
         agg_expected = [m.get("aggregation") for m in expected['metrics'] if m.get("aggregation")]
@@ -426,21 +462,18 @@ for i, test in enumerate(tests):
             results['aggregation']['pass'] += 1
         else:
             agg_actual = req.aggregation
-            # Just check if we found some aggregations
             if len(agg_actual) > 0: results['aggregation']['pass'] += 1
             else:
                 results['aggregation']['fail'] += 1
                 failed_fields.append('aggregation')
-                results['aggregation']['fail'] += 1
-                failed_fields.append('aggregation')
-            
+
     # 9. Grouping
     if 'group_by' in expected:
         if set(expected['group_by']).issubset(set(req.grouping)): results['grouping']['pass'] += 1
         else:
             results['grouping']['fail'] += 1
             failed_fields.append('grouping')
-        
+
     # 10. Ranking/Limit
     if 'limit' in expected or 'sort' in expected:
         match = True
@@ -450,14 +483,14 @@ for i, test in enumerate(tests):
         else:
             results['ranking_limit']['fail'] += 1
             failed_fields.append('ranking_limit')
-        
+
     # 11. Output-column
     if 'requested_columns' in expected:
         if set(expected['requested_columns']).issubset(set(req.requested_columns)): results['output_column']['pass'] += 1
         else:
             results['output_column']['fail'] += 1
             failed_fields.append('output_column')
-        
+
     # 12. Clarification
     if 'clarification_required' in expected:
         if expected['clarification_required'] == 'not_null':
@@ -471,11 +504,16 @@ for i, test in enumerate(tests):
                 results['clarification']['fail'] += 1
                 failed_fields.append('clarification')
 
-
-
     if len(failed_fields) == 0:
+        test_status = "PASS"
         complete_pass_count += 1
+        print(f"Status: PASS")
+        print(f"Time: {q_time}s")
     else:
+        test_status = "FAIL"
+        print(f"Status: FAIL")
+        print(f"Time: {q_time}s")
+        print(f"Failed fields: {', '.join(failed_fields)}")
         req_dict = getattr(req, 'model_dump', lambda: req.__dict__)()
         if not isinstance(req_dict, dict): req_dict = req.__dict__
         failed_details.append({
@@ -485,6 +523,19 @@ for i, test in enumerate(tests):
             "failed_fields": failed_fields
         })
 
+    sys.stdout.flush()
+
+    all_test_records.append({
+        "index": i + 1,
+        "question": test['question'],
+        "status": test_status,
+        "time_seconds": q_time,
+        "failed_fields": failed_fields
+    })
+
+    # Save intermediate results after every completed test
+    with open(intermediate_file, "w", encoding="utf-8") as f:
+        json.dump({"completed": i + 1, "total": len(tests), "records": all_test_records}, f, indent=2)
 
 print("\n==============================")
 print("NLP Evaluation Results")
@@ -508,14 +559,14 @@ print(f"Complete Requirement Accuracy: {complete_pass_count}/{successful_tests} 
 print(f"Total execution time: {total_time:.2f} seconds")
 print(f"Average inference time per successful question: {avg_time:.2f} seconds")
 
-print("\n==============================")
-print("Failed Questions Report")
-print("==============================\n")
-import json
-for fd in failed_details:
-    print(f"Question: {fd['question']}")
-    print(f"Failed fields: {', '.join(fd['failed_fields'])}")
-    print(f"Expected: {json.dumps(fd['expected'], default=str)}")
-    print(f"Actual:   {json.dumps(fd['actual'], default=str)}")
-    print("-" * 40)
+if failed_details:
+    print("\n==============================")
+    print("Failed Questions Report")
+    print("==============================\n")
+    for fd in failed_details:
+        print(f"Question: {fd['question']}")
+        print(f"Failed fields: {', '.join(fd['failed_fields'])}")
+        print(f"Expected: {json.dumps(fd['expected'], default=str)}")
+        print(f"Actual:   {json.dumps(fd['actual'], default=str)}")
+        print("-" * 40)
 

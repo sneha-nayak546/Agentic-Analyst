@@ -55,15 +55,14 @@ def extract_db_schema() -> Dict[str, Any]:
         )
 
         with connection.cursor() as cursor:
-            # 1. Fetch Column definitions for target tables
-            format_strings = ','.join(['%s'] * len(TARGET_SCOPE_TABLES))
-            query_columns = f"""
+            # 1. Fetch Column definitions for ALL tables in the database
+            query_columns = """
                 SELECT TABLE_NAME, COLUMN_NAME, DATA_TYPE, COLUMN_TYPE, IS_NULLABLE, COLUMN_KEY, EXTRA, COLUMN_COMMENT
                 FROM INFORMATION_SCHEMA.COLUMNS
-                WHERE TABLE_SCHEMA = %s AND TABLE_NAME IN ({format_strings})
+                WHERE TABLE_SCHEMA = %s
                 ORDER BY TABLE_NAME, ORDINAL_POSITION;
             """
-            cursor.execute(query_columns, [db_name] + TARGET_SCOPE_TABLES)
+            cursor.execute(query_columns, [db_name])
             columns_raw = cursor.fetchall()
 
             for col in columns_raw:
@@ -91,8 +90,8 @@ def extract_db_schema() -> Dict[str, Any]:
                 if col["COLUMN_KEY"] == "PRI":
                     schema_data[tbl]["primary_keys"].append(col["COLUMN_NAME"])
 
-            # 2. Fetch Foreign Key Relationships
-            query_fks = f"""
+            # 2. Fetch Foreign Key Relationships across ALL tables
+            query_fks = """
                 SELECT 
                     TABLE_NAME, 
                     COLUMN_NAME, 
@@ -100,10 +99,9 @@ def extract_db_schema() -> Dict[str, Any]:
                     REFERENCED_COLUMN_NAME
                 FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
                 WHERE TABLE_SCHEMA = %s 
-                  AND REFERENCED_TABLE_NAME IS NOT NULL
-                  AND TABLE_NAME IN ({format_strings});
+                  AND REFERENCED_TABLE_NAME IS NOT NULL;
             """
-            cursor.execute(query_fks, [db_name] + TARGET_SCOPE_TABLES)
+            cursor.execute(query_fks, [db_name])
             fks_raw = cursor.fetchall()
 
             for fk in fks_raw:
@@ -115,14 +113,14 @@ def extract_db_schema() -> Dict[str, Any]:
                         "referenced_column": fk["REFERENCED_COLUMN_NAME"]
                     })
 
-            # 3. Fetch Indexes
-            query_indexes = f"""
+            # 3. Fetch Indexes across ALL tables
+            query_indexes = """
                 SELECT TABLE_NAME, INDEX_NAME, COLUMN_NAME, NON_UNIQUE
                 FROM INFORMATION_SCHEMA.STATISTICS
-                WHERE TABLE_SCHEMA = %s AND TABLE_NAME IN ({format_strings})
+                WHERE TABLE_SCHEMA = %s
                 ORDER BY TABLE_NAME, INDEX_NAME, SEQ_IN_INDEX;
             """
-            cursor.execute(query_indexes, [db_name] + TARGET_SCOPE_TABLES)
+            cursor.execute(query_indexes, [db_name])
             indexes_raw = cursor.fetchall()
 
             for idx in indexes_raw:
@@ -140,8 +138,6 @@ def extract_db_schema() -> Dict[str, Any]:
 
         connection.close()
 
-
-
         # Save to knowledge directory
         os.makedirs("knowledge/schema", exist_ok=True)
         schema_file = "knowledge/schema/schema_metadata.json"
@@ -151,7 +147,15 @@ def extract_db_schema() -> Dict[str, Any]:
         print(f"[SCHEMA EXTRACTOR SUCCESS] Extracted metadata for {len(schema_data)} tables -> {schema_file}")
 
     except Exception as e:
-        print(f"[SCHEMA EXTRACTOR ERROR] Failed to extract database schema: {e}")
+        print(f"[SCHEMA EXTRACTOR NOTICE] Live DB extraction unavailable ({e}). Loading cached schema metadata...")
+        schema_file = "knowledge/schema/schema_metadata.json"
+        if os.path.exists(schema_file):
+            try:
+                with open(schema_file, "r", encoding="utf-8") as f:
+                    schema_data = json.load(f)
+                print(f"[SCHEMA EXTRACTOR SUCCESS] Loaded cached metadata for {len(schema_data)} tables.")
+            except Exception as load_err:
+                print(f"[SCHEMA EXTRACTOR ERROR] Failed to load cached schema: {load_err}")
 
     return schema_data
 

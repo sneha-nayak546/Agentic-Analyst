@@ -3,7 +3,7 @@ import logging
 import re
 from typing import Dict, Any, Optional
 
-from app.llm.sql_generator import generate_sql
+from app.llm.sql_generator import call_llm
 
 logger = logging.getLogger(__name__)
 
@@ -54,21 +54,27 @@ Output EXACTLY this JSON structure:
 """
 
     def parse_intent(self, question: str, previous_context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        prompt = self._build_extraction_prompt(question, previous_context)
         try:
-            # We use temperature 0 for deterministic JSON extraction
-            response = generate_sql(prompt, temperature=0.0)
-            
-            # Extract JSON block
-            json_match = re.search(r'\{[\s\S]*\}', response)
-            if json_match:
-                parsed = json.loads(json_match.group(0))
-                return parsed
-            else:
-                logger.error("Failed to extract JSON from LLM response.")
-                return self._fallback_plan(question)
+            from app.agent.nlp_understanding import nlp_agent
+            req = nlp_agent.parse_question(question, context=previous_context)
+            return {
+                "intent": req.intent,
+                "entities": req.entities or [],
+                "primary_entity": req.entities[0] if req.entities else None,
+                "relationships": req.relationships or [],
+                "filters": req.filters or {},
+                "specific_id": req.specific_ids or {},
+                "metrics": req.metrics or [],
+                "aggregation": req.aggregation or [],
+                "grouping": req.grouping or [],
+                "sorting": req.sorting or [],
+                "limit": req.limit,
+                "date_boundaries": {"label": req.date_period} if req.date_period else {},
+                "missing_information": [req.clarification_reason] if req.clarification_required else [],
+                "is_follow_up": bool(previous_context and any(w in question.lower() for w in ["what about", "how about", "and"]))
+            }
         except Exception as e:
-            logger.error(f"NLP parsing failed: {e}")
+            logger.warning(f"Fast intent parsing fallback: {e}")
             return self._fallback_plan(question)
 
     def _fallback_plan(self, question: str) -> Dict[str, Any]:
