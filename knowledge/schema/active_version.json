@@ -1,17 +1,29 @@
 {
-  "version": "knowledge_v20260826_154449",
-  "activated_at": "2026-08-26T15:44:49.894285",
+  "version": "knowledge_v20260924_100656",
+  "activated_at": "2026-09-24T10:06:56.974058",
   "drift_report": {
     "status": "DRIFT_DETECTED",
-    "checked_at": "2026-08-26T15:44:49.882668",
-    "active_version": "knowledge_v20260826_131205",
-    "total_discrepancies": 1,
+    "checked_at": "2026-09-24T10:06:56.973630",
+    "active_version": "knowledge_v20260923_170458",
+    "total_discrepancies": 3,
     "discrepancies": [
       {
         "type": "TYPE_MODIFIED",
         "table": "conference_events",
         "column": "rate_of_coupon_generation",
         "details": "Type mismatch on 'conference_events.rate_of_coupon_generation': baseline=int, live=bigint"
+      },
+      {
+        "type": "COLUMN_ADDED",
+        "table": "executive_retailer_mappings",
+        "column": "end_date",
+        "details": "New column 'executive_retailer_mappings.end_date' detected in live database."
+      },
+      {
+        "type": "COLUMN_ADDED",
+        "table": "executive_retailer_mappings",
+        "column": "start_date",
+        "details": "New column 'executive_retailer_mappings.start_date' detected in live database."
       }
     ]
   }

@@ -1,52 +1,1120 @@
 {
     "nodes": [
-        "users",
-        "companies",
-        "wallet_transaction",
-        "role",
-        "user_role",
-        "sku_inventories",
-        "mechanic_details",
-        "withdrawal_request",
+        "academy_videos",
+        "account_deletion_requests",
+        "activate_qrs_requests",
+        "addresses",
+        "adhaar_verifications",
+        "app_link_report",
         "automatic_transactions",
-        "sku_qr_points_map",
-        "state"
+        "bank_accounts",
+        "bank_transactions",
+        "beat_plan_retailers",
+        "beat_plans",
+        "billings",
+        "blacklist_reports",
+        "blocked_locations",
+        "blocked_reasons",
+        "bonus_events",
+        "bonus_transactions",
+        "box_gift_orders",
+        "branches",
+        "brand_wise_limits",
+        "branding_elements",
+        "branding_requests",
+        "brands",
+        "bulk_lpn_imports",
+        "bulk_reports",
+        "bulk_sku_mappings",
+        "business_information",
+        "campaign_logs",
+        "campaigns",
+        "cart_items",
+        "category_sub_group_master_category_mapping",
+        "category_sub_groups",
+        "claimed_offers",
+        "code_status",
+        "companies",
+        "company_controls",
+        "conference_events",
+        "connection_request",
+        "contact_groups",
+        "contacts",
+        "coupon_plans",
+        "coupon_reasons",
+        "coupon_transactions",
+        "coupons",
+        "credit_notes",
+        "currency",
+        "dashboard_daily_data",
+        "deactivated_qr_wallet_transactions",
+        "details_approvals",
+        "digio_kyc_details",
+        "distributor_pincode_mapping",
+        "distributor_point_deduction_approvals",
+        "distributor_targets",
+        "distributor_teams",
+        "distributor_wholesaler",
+        "district_population",
+        "district_with_pha_values",
+        "districts",
+        "dms_bulk_exports",
+        "dms_divisions",
+        "dms_gst_masters",
+        "dynamic_reports",
+        "dynamics",
+        "ecatalogue",
+        "employees",
+        "engagement_event_conditions",
+        "engagement_event_reward_logs",
+        "engagement_events",
+        "engagement_reward_masters",
+        "event_coupons",
+        "event_multiwin_allowed_users",
+        "event_orders",
+        "event_prizes",
+        "executive_attendances",
+        "executive_distributor_mappings",
+        "executive_retailer_mappings",
+        "executive_survey_answer_submissions",
+        "executive_survey_forms",
+        "failed_jobs",
+        "failed_sku_inventories_callback",
+        "failed_skus_callback_csvs",
+        "feedback_forms",
+        "feedback_submissions",
+        "feedbacks",
+        "financial_years",
+        "garage_details",
+        "garages",
+        "geo_districts",
+        "geo_pincodes",
+        "geo_states",
+        "gift_cards",
+        "gift_categories",
+        "gift_gamification",
+        "gift_inventories",
+        "gift_order_timelines",
+        "gift_orders",
+        "gift_products",
+        "gift_scan_wallet_transactions",
+        "gift_sku_bulk_imports",
+        "greeting_templates",
+        "group_management",
+        "home_banner",
+        "incentive_gift_orders",
+        "incentive_schemes",
+        "inventory",
+        "inventory_values",
+        "kolkata_apis_csvs",
+        "language",
+        "manual_transactions",
+        "mapping_incentive_users",
+        "master_categories",
+        "mechanic_account_types",
+        "mechanic_details",
+        "migrations",
+        "module",
+        "module_maps",
+        "mom_attachments",
+        "mom_messages",
+        "mom_thread_participants",
+        "mom_threads",
+        "monthly_averages",
+        "monthly_district_pha",
+        "monthly_pincode_pha",
+        "mybenefits",
+        "mypoints",
+        "notification_events",
+        "notification_logs",
+        "notifications",
+        "occasions",
+        "offer",
+        "offer_conditions",
+        "offer_mapping",
+        "offers_and_promotions",
+        "offline_sku_inventories",
+        "onboarding_targets",
+        "order_bulk_mapping",
+        "order_categories",
+        "order_invoices",
+        "order_items",
+        "orders",
+        "otp",
+        "packages",
+        "packages_modules",
+        "password_resets",
+        "payment_response_codes",
+        "per_target_scheme_coupons",
+        "per_target_schemes",
+        "permission",
+        "personal_access_tokens",
+        "pincode_address_maps",
+        "pincode_boundaries",
+        "pincode_population",
+        "pincode_with_pha_values",
+        "points",
+        "products",
+        "products_bulk_imports",
+        "purchase_targets",
+        "qr_universe",
+        "razorpay_transaction",
+        "read_notifications",
+        "redemption_requests",
+        "referral_details",
+        "referral_mappings",
+        "reports",
+        "repository_documents",
+        "required_mechanic_details",
+        "retailer_bulk_requests",
+        "retailer_category_qualified",
+        "retailer_credit_notes",
+        "retailer_distributor_mappings",
+        "retailer_schemes_mapping",
+        "retailer_targets",
+        "retailer_wholesaler_mappings",
+        "role",
+        "role_conversion_histories",
+        "role_permission_module",
+        "s_e_quaterly_targets",
+        "s_e_targets",
+        "sample_order_feedbacks",
+        "sample_order_items",
+        "sample_order_timelines",
+        "sample_orders",
+        "scanned_qrcode_history",
+        "scheduled_visits",
+        "scheme_gift_items",
+        "scheme_gift_orders",
+        "scheme_orders",
+        "scheme_state_mapping",
+        "scheme_wallet_transactions",
+        "schemes",
+        "se_reports",
+        "se_task",
+        "se_task_history",
+        "sessions",
+        "shop_verification_images",
+        "sku_bulk_imports",
+        "sku_inventories",
+        "sku_products",
+        "sku_qr_points_maps",
+        "sources",
+        "spin_history",
+        "state",
+        "state_user_mapping",
+        "state_with_pha_values",
+        "suppliers",
+        "survey_form_submissions",
+        "survey_forms",
+        "sync_tripur_data",
+        "table_qr_pdfs",
+        "task_issue",
+        "tds_certificates",
+        "tripur_api_tokens",
+        "user_flags",
+        "user_geotag_photos",
+        "user_scan_permissions",
+        "user_withdrawal_block_histories",
+        "users",
+        "vendor_bank_accounts",
+        "vendor_element_state_logs",
+        "vendor_element_state_mappings",
+        "vendors",
+        "video_responses",
+        "visit_check_in_check_out",
+        "visit_trackings",
+        "wallet_transaction",
+        "weekly_scheme_groups",
+        "weekly_scheme_prizes",
+        "weekly_schemes",
+        "wholesale_wallet_transactions",
+        "wholesaler_targets",
+        "wholesaler_winter_targets",
+        "winter_gift_items",
+        "winter_gift_order_timelines",
+        "winter_gift_orders",
+        "winter_scan_wallet_transactions",
+        "wishlists",
+        "withdrawal_request",
+        "zones",
+        "qr_point_map"
     ],
     "edges": [
         {
-            "source": "users",
-            "target": "role",
-            "source_column": "user_role",
-            "target_column": "id",
-            "join_clause": "users.user_role = role.id"
-        },
-        {
-            "source": "companies",
-            "target": "users",
-            "source_column": "customer_id",
-            "target_column": "id",
-            "join_clause": "companies.customer_id = users.id"
-        },
-        {
-            "source": "wallet_transaction",
+            "source": "account_deletion_requests",
             "target": "users",
             "source_column": "user_id",
             "target_column": "id",
-            "join_clause": "wallet_transaction.user_id = users.id"
+            "join_clause": "account_deletion_requests.user_id = users.id"
         },
         {
-            "source": "sku_inventories",
+            "source": "activate_qrs_requests",
             "target": "users",
-            "source_column": "distributer_id",
+            "source_column": "user_id",
             "target_column": "id",
-            "join_clause": "sku_inventories.distributer_id = users.id"
+            "join_clause": "activate_qrs_requests.user_id = users.id"
+        },
+        {
+            "source": "addresses",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "addresses.user_id = users.id"
+        },
+        {
+            "source": "adhaar_verifications",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "adhaar_verifications.user_id = users.id"
+        },
+        {
+            "source": "automatic_transactions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "automatic_transactions.user_id = users.id"
+        },
+        {
+            "source": "bank_accounts",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "bank_accounts.user_id = users.id"
+        },
+        {
+            "source": "beat_plan_retailers",
+            "target": "beat_plans",
+            "source_column": "beat_plan_id",
+            "target_column": "id",
+            "join_clause": "beat_plan_retailers.beat_plan_id = beat_plans.id"
+        },
+        {
+            "source": "beat_plan_retailers",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "beat_plan_retailers.user_id = users.id"
+        },
+        {
+            "source": "beat_plans",
+            "target": "districts",
+            "source_column": "district_id",
+            "target_column": "id",
+            "join_clause": "beat_plans.district_id = districts.id"
+        },
+        {
+            "source": "beat_plans",
+            "target": "users",
+            "source_column": "sales_executive_id",
+            "target_column": "id",
+            "join_clause": "beat_plans.sales_executive_id = users.id"
+        },
+        {
+            "source": "beat_plans",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "beat_plans.state_id = state.id"
+        },
+        {
+            "source": "billings",
+            "target": "business_information",
+            "source_column": "business_id",
+            "target_column": "id",
+            "join_clause": "billings.business_id = business_information.id"
+        },
+        {
+            "source": "billings",
+            "target": "packages",
+            "source_column": "package_id",
+            "target_column": "id",
+            "join_clause": "billings.package_id = packages.id"
+        },
+        {
+            "source": "blacklist_reports",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "blacklist_reports.user_id = users.id"
+        },
+        {
+            "source": "blocked_locations",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "blocked_locations.state_id = state.id"
+        },
+        {
+            "source": "blocked_locations",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "blocked_locations.user_id = users.id"
+        },
+        {
+            "source": "bonus_transactions",
+            "target": "bonus_events",
+            "source_column": "bonus_event_id",
+            "target_column": "id",
+            "join_clause": "bonus_transactions.bonus_event_id = bonus_events.id"
+        },
+        {
+            "source": "bonus_transactions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "bonus_transactions.user_id = users.id"
+        },
+        {
+            "source": "box_gift_orders",
+            "target": "addresses",
+            "source_column": "address_id",
+            "target_column": "id",
+            "join_clause": "box_gift_orders.address_id = addresses.id"
+        },
+        {
+            "source": "box_gift_orders",
+            "target": "gift_cards",
+            "source_column": "gift_card_id",
+            "target_column": "id",
+            "join_clause": "box_gift_orders.gift_card_id = gift_cards.id"
+        },
+        {
+            "source": "box_gift_orders",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "box_gift_orders.order_id = orders.id"
+        },
+        {
+            "source": "box_gift_orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "box_gift_orders.user_id = users.id"
+        },
+        {
+            "source": "branches",
+            "target": "companies",
+            "source_column": "company_id",
+            "target_column": "id",
+            "join_clause": "branches.company_id = companies.id"
+        },
+        {
+            "source": "brand_wise_limits",
+            "target": "brands",
+            "source_column": "brand_id",
+            "target_column": "id",
+            "join_clause": "brand_wise_limits.brand_id = brands.id"
+        },
+        {
+            "source": "brand_wise_limits",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "brand_wise_limits.user_id = users.id"
+        },
+        {
+            "source": "branding_requests",
+            "target": "branding_elements",
+            "source_column": "branding_element_id",
+            "target_column": "id",
+            "join_clause": "branding_requests.branding_element_id = branding_elements.id"
+        },
+        {
+            "source": "branding_requests",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "branding_requests.user_id = users.id"
+        },
+        {
+            "source": "branding_requests",
+            "target": "vendors",
+            "source_column": "vendor_id",
+            "target_column": "id",
+            "join_clause": "branding_requests.vendor_id = vendors.id"
+        },
+        {
+            "source": "bulk_lpn_imports",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "bulk_lpn_imports.user_id = users.id"
+        },
+        {
+            "source": "bulk_reports",
+            "target": "reports",
+            "source_column": "report_id",
+            "target_column": "id",
+            "join_clause": "bulk_reports.report_id = reports.id"
+        },
+        {
+            "source": "bulk_reports",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "bulk_reports.user_id = users.id"
+        },
+        {
+            "source": "bulk_sku_mappings",
+            "target": "state",
+            "source_column": "state_ids",
+            "target_column": "id",
+            "join_clause": "bulk_sku_mappings.state_ids = state.id"
+        },
+        {
+            "source": "bulk_sku_mappings",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "bulk_sku_mappings.user_id = users.id"
+        },
+        {
+            "source": "campaign_logs",
+            "target": "campaigns",
+            "source_column": "campaign_id",
+            "target_column": "id",
+            "join_clause": "campaign_logs.campaign_id = campaigns.id"
+        },
+        {
+            "source": "campaign_logs",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "campaign_logs.scheme_id = schemes.id"
+        },
+        {
+            "source": "campaign_logs",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "campaign_logs.user_id = users.id"
+        },
+        {
+            "source": "campaigns",
+            "target": "offer",
+            "source_column": "offer_id",
+            "target_column": "id",
+            "join_clause": "campaigns.offer_id = offer.id"
+        },
+        {
+            "source": "campaigns",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "campaigns.scheme_id = schemes.id"
+        },
+        {
+            "source": "cart_items",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "cart_items.product_id = products.id"
+        },
+        {
+            "source": "cart_items",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "cart_items.user_id = users.id"
+        },
+        {
+            "source": "category_sub_group_master_category_mapping",
+            "target": "category_sub_groups",
+            "source_column": "category_sub_group_id",
+            "target_column": "id",
+            "join_clause": "category_sub_group_master_category_mapping.category_sub_group_id = category_sub_groups.id"
+        },
+        {
+            "source": "category_sub_groups",
+            "target": "brands",
+            "source_column": "brand_id",
+            "target_column": "id",
+            "join_clause": "category_sub_groups.brand_id = brands.id"
+        },
+        {
+            "source": "claimed_offers",
+            "target": "offer_conditions",
+            "source_column": "offer_condition_id",
+            "target_column": "id",
+            "join_clause": "claimed_offers.offer_condition_id = offer_conditions.id"
+        },
+        {
+            "source": "claimed_offers",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "claimed_offers.user_id = users.id"
+        },
+        {
+            "source": "companies",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "companies.business_info_id = business_information.id"
+        },
+        {
+            "source": "company_controls",
+            "target": "companies",
+            "source_column": "company_id",
+            "target_column": "id",
+            "join_clause": "company_controls.company_id = companies.id"
+        },
+        {
+            "source": "conference_events",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "conference_events.state_id = state.id"
+        },
+        {
+            "source": "connection_request",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "connection_request.business_info_id = business_information.id"
+        },
+        {
+            "source": "connection_request",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "connection_request.user_id = users.id"
+        },
+        {
+            "source": "coupon_transactions",
+            "target": "packages",
+            "source_column": "package_id",
+            "target_column": "id",
+            "join_clause": "coupon_transactions.package_id = packages.id"
+        },
+        {
+            "source": "coupons",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "coupons.user_id = users.id"
+        },
+        {
+            "source": "credit_notes",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "credit_notes.user_id = users.id"
+        },
+        {
+            "source": "credit_notes",
+            "target": "wallet_transaction",
+            "source_column": "wallet_transaction_id",
+            "target_column": "id",
+            "join_clause": "credit_notes.wallet_transaction_id = wallet_transaction.id"
+        },
+        {
+            "source": "deactivated_qr_wallet_transactions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "deactivated_qr_wallet_transactions.user_id = users.id"
+        },
+        {
+            "source": "details_approvals",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "details_approvals.user_id = users.id"
+        },
+        {
+            "source": "digio_kyc_details",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "digio_kyc_details.user_id = users.id"
+        },
+        {
+            "source": "distributor_targets",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "distributor_targets.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "distributor_teams",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "distributor_teams.user_id = users.id"
+        },
+        {
+            "source": "district_population",
+            "target": "districts",
+            "source_column": "district_id",
+            "target_column": "id",
+            "join_clause": "district_population.district_id = districts.id"
+        },
+        {
+            "source": "district_population",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "district_population.state_id = state.id"
+        },
+        {
+            "source": "district_population",
+            "target": "zones",
+            "source_column": "zone_id",
+            "target_column": "id",
+            "join_clause": "district_population.zone_id = zones.id"
+        },
+        {
+            "source": "district_with_pha_values",
+            "target": "districts",
+            "source_column": "district_id",
+            "target_column": "id",
+            "join_clause": "district_with_pha_values.district_id = districts.id"
+        },
+        {
+            "source": "district_with_pha_values",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "district_with_pha_values.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "district_with_pha_values",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "district_with_pha_values.state_id = state.id"
+        },
+        {
+            "source": "dynamics",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "dynamics.business_info_id = business_information.id"
+        },
+        {
+            "source": "ecatalogue",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "ecatalogue.business_info_id = business_information.id"
+        },
+        {
+            "source": "ecatalogue",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "ecatalogue.user_id = users.id"
+        },
+        {
+            "source": "employees",
+            "target": "branches",
+            "source_column": "branch_id",
+            "target_column": "id",
+            "join_clause": "employees.branch_id = branches.id"
+        },
+        {
+            "source": "employees",
+            "target": "companies",
+            "source_column": "company_id",
+            "target_column": "id",
+            "join_clause": "employees.company_id = companies.id"
+        },
+        {
+            "source": "employees",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "employees.user_id = users.id"
+        },
+        {
+            "source": "engagement_event_reward_logs",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "engagement_event_reward_logs.user_id = users.id"
+        },
+        {
+            "source": "engagement_events",
+            "target": "districts",
+            "source_column": "district_ids",
+            "target_column": "id",
+            "join_clause": "engagement_events.district_ids = districts.id"
+        },
+        {
+            "source": "engagement_events",
+            "target": "users",
+            "source_column": "retailer_ids",
+            "target_column": "id",
+            "join_clause": "engagement_events.retailer_ids = users.id"
+        },
+        {
+            "source": "engagement_events",
+            "target": "state",
+            "source_column": "state_ids",
+            "target_column": "id",
+            "join_clause": "engagement_events.state_ids = state.id"
+        },
+        {
+            "source": "engagement_events",
+            "target": "zones",
+            "source_column": "zone_ids",
+            "target_column": "id",
+            "join_clause": "engagement_events.zone_ids = zones.id"
+        },
+        {
+            "source": "event_coupons",
+            "target": "event_orders",
+            "source_column": "event_order_id",
+            "target_column": "id",
+            "join_clause": "event_coupons.event_order_id = event_orders.id"
+        },
+        {
+            "source": "event_coupons",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "event_coupons.user_id = users.id"
+        },
+        {
+            "source": "event_multiwin_allowed_users",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "event_multiwin_allowed_users.user_id = users.id"
+        },
+        {
+            "source": "event_orders",
+            "target": "brands",
+            "source_column": "brand_id",
+            "target_column": "id",
+            "join_clause": "event_orders.brand_id = brands.id"
+        },
+        {
+            "source": "event_orders",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "event_orders.order_id = orders.id"
+        },
+        {
+            "source": "event_orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "event_orders.user_id = users.id"
+        },
+        {
+            "source": "executive_attendances",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "executive_attendances.user_id = users.id"
+        },
+        {
+            "source": "executive_retailer_mappings",
+            "target": "users",
+            "source_column": "retailer_id",
+            "target_column": "id",
+            "join_clause": "executive_retailer_mappings.retailer_id = users.id"
+        },
+        {
+            "source": "executive_survey_answer_submissions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "executive_survey_answer_submissions.user_id = users.id"
+        },
+        {
+            "source": "feedback_forms",
+            "target": "state",
+            "source_column": "state_ids",
+            "target_column": "id",
+            "join_clause": "feedback_forms.state_ids = state.id"
+        },
+        {
+            "source": "feedback_submissions",
+            "target": "feedback_forms",
+            "source_column": "feedback_form_id",
+            "target_column": "id",
+            "join_clause": "feedback_submissions.feedback_form_id = feedback_forms.id"
+        },
+        {
+            "source": "feedback_submissions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "feedback_submissions.user_id = users.id"
+        },
+        {
+            "source": "feedbacks",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "feedbacks.user_id = users.id"
+        },
+        {
+            "source": "garages",
+            "target": "branches",
+            "source_column": "branch_id",
+            "target_column": "id",
+            "join_clause": "garages.branch_id = branches.id"
+        },
+        {
+            "source": "garages",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "garages.business_info_id = business_information.id"
+        },
+        {
+            "source": "garages",
+            "target": "companies",
+            "source_column": "company_id",
+            "target_column": "id",
+            "join_clause": "garages.company_id = companies.id"
+        },
+        {
+            "source": "geo_states",
+            "target": "zones",
+            "source_column": "zone_id",
+            "target_column": "id",
+            "join_clause": "geo_states.zone_id = zones.id"
+        },
+        {
+            "source": "gift_cards",
+            "target": "gift_categories",
+            "source_column": "gift_category_id",
+            "target_column": "id",
+            "join_clause": "gift_cards.gift_category_id = gift_categories.id"
+        },
+        {
+            "source": "gift_cards",
+            "target": "gift_products",
+            "source_column": "gift_product_id",
+            "target_column": "id",
+            "join_clause": "gift_cards.gift_product_id = gift_products.id"
+        },
+        {
+            "source": "gift_categories",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "gift_categories.business_info_id = business_information.id"
+        },
+        {
+            "source": "gift_gamification",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "gift_gamification.user_id = users.id"
+        },
+        {
+            "source": "gift_inventories",
+            "target": "gift_orders",
+            "source_column": "gift_order_id",
+            "target_column": "id",
+            "join_clause": "gift_inventories.gift_order_id = gift_orders.id"
+        },
+        {
+            "source": "gift_inventories",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "gift_inventories.product_id = products.id"
+        },
+        {
+            "source": "gift_inventories",
+            "target": "users",
+            "source_column": "retailer_id",
+            "target_column": "id",
+            "join_clause": "gift_inventories.retailer_id = users.id"
+        },
+        {
+            "source": "gift_order_timelines",
+            "target": "gift_orders",
+            "source_column": "gift_order_id",
+            "target_column": "id",
+            "join_clause": "gift_order_timelines.gift_order_id = gift_orders.id"
+        },
+        {
+            "source": "gift_orders",
+            "target": "addresses",
+            "source_column": "address_id",
+            "target_column": "id",
+            "join_clause": "gift_orders.address_id = addresses.id"
+        },
+        {
+            "source": "gift_orders",
+            "target": "gift_cards",
+            "source_column": "gift_card_id",
+            "target_column": "id",
+            "join_clause": "gift_orders.gift_card_id = gift_cards.id"
+        },
+        {
+            "source": "gift_orders",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "gift_orders.order_id = orders.id"
+        },
+        {
+            "source": "gift_orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "gift_orders.user_id = users.id"
+        },
+        {
+            "source": "gift_scan_wallet_transactions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "gift_scan_wallet_transactions.user_id = users.id"
+        },
+        {
+            "source": "greeting_templates",
+            "target": "occasions",
+            "source_column": "occasion_id",
+            "target_column": "id",
+            "join_clause": "greeting_templates.occasion_id = occasions.id"
+        },
+        {
+            "source": "group_management",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "group_management.user_id = users.id"
+        },
+        {
+            "source": "home_banner",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "home_banner.business_info_id = business_information.id"
+        },
+        {
+            "source": "home_banner",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "home_banner.scheme_id = schemes.id"
+        },
+        {
+            "source": "incentive_gift_orders",
+            "target": "addresses",
+            "source_column": "address_id",
+            "target_column": "id",
+            "join_clause": "incentive_gift_orders.address_id = addresses.id"
+        },
+        {
+            "source": "incentive_gift_orders",
+            "target": "incentive_schemes",
+            "source_column": "incentive_scheme_id",
+            "target_column": "id",
+            "join_clause": "incentive_gift_orders.incentive_scheme_id = incentive_schemes.id"
+        },
+        {
+            "source": "incentive_gift_orders",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "incentive_gift_orders.order_id = orders.id"
+        },
+        {
+            "source": "incentive_gift_orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "incentive_gift_orders.user_id = users.id"
+        },
+        {
+            "source": "incentive_schemes",
+            "target": "brands",
+            "source_column": "brand_id",
+            "target_column": "id",
+            "join_clause": "incentive_schemes.brand_id = brands.id"
+        },
+        {
+            "source": "incentive_schemes",
+            "target": "state",
+            "source_column": "state_ids",
+            "target_column": "id",
+            "join_clause": "incentive_schemes.state_ids = state.id"
+        },
+        {
+            "source": "inventory",
+            "target": "branches",
+            "source_column": "branch_id",
+            "target_column": "id",
+            "join_clause": "inventory.branch_id = branches.id"
+        },
+        {
+            "source": "inventory",
+            "target": "companies",
+            "source_column": "company_id",
+            "target_column": "id",
+            "join_clause": "inventory.company_id = companies.id"
+        },
+        {
+            "source": "inventory",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "inventory.product_id = products.id"
+        },
+        {
+            "source": "inventory_values",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "inventory_values.product_id = products.id"
+        },
+        {
+            "source": "inventory_values",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "inventory_values.state_id = state.id"
+        },
+        {
+            "source": "manual_transactions",
+            "target": "users",
+            "source_column": "uploaded_by",
+            "target_column": "id",
+            "join_clause": "manual_transactions.uploaded_by = users.id"
+        },
+        {
+            "source": "manual_transactions",
+            "target": "withdrawal_request",
+            "source_column": "withdrawal_request_id",
+            "target_column": "id",
+            "join_clause": "manual_transactions.withdrawal_request_id = withdrawal_request.id"
+        },
+        {
+            "source": "mapping_incentive_users",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "mapping_incentive_users.user_id = users.id"
+        },
+        {
+            "source": "master_categories",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "master_categories.business_info_id = business_information.id"
         },
         {
             "source": "mechanic_details",
-            "target": "users",
-            "source_column": "mechanic_id",
+            "target": "branches",
+            "source_column": "branch_id",
             "target_column": "id",
-            "join_clause": "mechanic_details.mechanic_id = users.id"
+            "join_clause": "mechanic_details.branch_id = branches.id"
         },
         {
             "source": "mechanic_details",
@@ -56,11 +1124,1117 @@
             "join_clause": "mechanic_details.company_id = companies.id"
         },
         {
-            "source": "withdrawal_request",
+            "source": "mechanic_details",
+            "target": "employees",
+            "source_column": "employee_id",
+            "target_column": "id",
+            "join_clause": "mechanic_details.employee_id = employees.id"
+        },
+        {
+            "source": "mechanic_details",
+            "target": "garages",
+            "source_column": "garage_id",
+            "target_column": "id",
+            "join_clause": "mechanic_details.garage_id = garages.id"
+        },
+        {
+            "source": "module_maps",
+            "target": "packages_modules",
+            "source_column": "module_id",
+            "target_column": "id",
+            "join_clause": "module_maps.module_id = packages_modules.id"
+        },
+        {
+            "source": "module_maps",
+            "target": "packages",
+            "source_column": "package_id",
+            "target_column": "id",
+            "join_clause": "module_maps.package_id = packages.id"
+        },
+        {
+            "source": "mom_thread_participants",
             "target": "users",
             "source_column": "user_id",
             "target_column": "id",
-            "join_clause": "withdrawal_request.user_id = users.id"
+            "join_clause": "mom_thread_participants.user_id = users.id"
+        },
+        {
+            "source": "monthly_averages",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "monthly_averages.user_id = users.id"
+        },
+        {
+            "source": "monthly_district_pha",
+            "target": "districts",
+            "source_column": "district_id",
+            "target_column": "id",
+            "join_clause": "monthly_district_pha.district_id = districts.id"
+        },
+        {
+            "source": "monthly_district_pha",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "monthly_district_pha.state_id = state.id"
+        },
+        {
+            "source": "monthly_district_pha",
+            "target": "zones",
+            "source_column": "zone_id",
+            "target_column": "id",
+            "join_clause": "monthly_district_pha.zone_id = zones.id"
+        },
+        {
+            "source": "monthly_pincode_pha",
+            "target": "districts",
+            "source_column": "district_id",
+            "target_column": "id",
+            "join_clause": "monthly_pincode_pha.district_id = districts.id"
+        },
+        {
+            "source": "monthly_pincode_pha",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "monthly_pincode_pha.state_id = state.id"
+        },
+        {
+            "source": "monthly_pincode_pha",
+            "target": "zones",
+            "source_column": "zone_id",
+            "target_column": "id",
+            "join_clause": "monthly_pincode_pha.zone_id = zones.id"
+        },
+        {
+            "source": "mybenefits",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "mybenefits.business_info_id = business_information.id"
+        },
+        {
+            "source": "mypoints",
+            "target": "role",
+            "source_column": "user_role",
+            "target_column": "id",
+            "join_clause": "mypoints.user_role = role.id"
+        },
+        {
+            "source": "mypoints",
+            "target": "users",
+            "source_column": "users_id",
+            "target_column": "id",
+            "join_clause": "mypoints.users_id = users.id"
+        },
+        {
+            "source": "notification_logs",
+            "target": "notifications",
+            "source_column": "notification_id",
+            "target_column": "id",
+            "join_clause": "notification_logs.notification_id = notifications.id"
+        },
+        {
+            "source": "notification_logs",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "notification_logs.user_id = users.id"
+        },
+        {
+            "source": "notifications",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "notifications.business_info_id = business_information.id"
+        },
+        {
+            "source": "notifications",
+            "target": "notification_events",
+            "source_column": "notification_event_id",
+            "target_column": "id",
+            "join_clause": "notifications.notification_event_id = notification_events.id"
+        },
+        {
+            "source": "notifications",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "notifications.order_id = orders.id"
+        },
+        {
+            "source": "notifications",
+            "target": "state",
+            "source_column": "state_ids",
+            "target_column": "id",
+            "join_clause": "notifications.state_ids = state.id"
+        },
+        {
+            "source": "notifications",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "notifications.user_id = users.id"
+        },
+        {
+            "source": "offer",
+            "target": "state",
+            "source_column": "state_ids",
+            "target_column": "id",
+            "join_clause": "offer.state_ids = state.id"
+        },
+        {
+            "source": "offer",
+            "target": "role",
+            "source_column": "user_role",
+            "target_column": "id",
+            "join_clause": "offer.user_role = role.id"
+        },
+        {
+            "source": "offer_conditions",
+            "target": "offer",
+            "source_column": "offer_id",
+            "target_column": "id",
+            "join_clause": "offer_conditions.offer_id = offer.id"
+        },
+        {
+            "source": "offer_mapping",
+            "target": "category_sub_groups",
+            "source_column": "category_sub_group_id",
+            "target_column": "id",
+            "join_clause": "offer_mapping.category_sub_group_id = category_sub_groups.id"
+        },
+        {
+            "source": "offer_mapping",
+            "target": "offer",
+            "source_column": "offer_id",
+            "target_column": "id",
+            "join_clause": "offer_mapping.offer_id = offer.id"
+        },
+        {
+            "source": "offer_mapping",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "offer_mapping.product_id = products.id"
+        },
+        {
+            "source": "offers_and_promotions",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "offers_and_promotions.business_info_id = business_information.id"
+        },
+        {
+            "source": "offline_sku_inventories",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "offline_sku_inventories.user_id = users.id"
+        },
+        {
+            "source": "onboarding_targets",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "onboarding_targets.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "order_categories",
+            "target": "brands",
+            "source_column": "brand_id",
+            "target_column": "id",
+            "join_clause": "order_categories.brand_id = brands.id"
+        },
+        {
+            "source": "order_invoices",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "order_invoices.order_id = orders.id"
+        },
+        {
+            "source": "order_invoices",
+            "target": "users",
+            "source_column": "order_updated_by",
+            "target_column": "id",
+            "join_clause": "order_invoices.order_updated_by = users.id"
+        },
+        {
+            "source": "order_items",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "order_items.order_id = orders.id"
+        },
+        {
+            "source": "order_items",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "order_items.product_id = products.id"
+        },
+        {
+            "source": "orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "orders.user_id = users.id"
+        },
+        {
+            "source": "otp",
+            "target": "role",
+            "source_column": "user_role",
+            "target_column": "id",
+            "join_clause": "otp.user_role = role.id"
+        },
+        {
+            "source": "per_target_scheme_coupons",
+            "target": "per_target_schemes",
+            "source_column": "per_target_scheme_id",
+            "target_column": "id",
+            "join_clause": "per_target_scheme_coupons.per_target_scheme_id = per_target_schemes.id"
+        },
+        {
+            "source": "per_target_scheme_coupons",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "per_target_scheme_coupons.user_id = users.id"
+        },
+        {
+            "source": "permission",
+            "target": "module",
+            "source_column": "module_id",
+            "target_column": "id",
+            "join_clause": "permission.module_id = module.id"
+        },
+        {
+            "source": "pincode_address_maps",
+            "target": "districts",
+            "source_column": "district_id",
+            "target_column": "id",
+            "join_clause": "pincode_address_maps.district_id = districts.id"
+        },
+        {
+            "source": "pincode_address_maps",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "pincode_address_maps.state_id = state.id"
+        },
+        {
+            "source": "pincode_population",
+            "target": "districts",
+            "source_column": "district_id",
+            "target_column": "id",
+            "join_clause": "pincode_population.district_id = districts.id"
+        },
+        {
+            "source": "pincode_population",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "pincode_population.state_id = state.id"
+        },
+        {
+            "source": "pincode_population",
+            "target": "zones",
+            "source_column": "zone_id",
+            "target_column": "id",
+            "join_clause": "pincode_population.zone_id = zones.id"
+        },
+        {
+            "source": "pincode_with_pha_values",
+            "target": "districts",
+            "source_column": "district_id",
+            "target_column": "id",
+            "join_clause": "pincode_with_pha_values.district_id = districts.id"
+        },
+        {
+            "source": "pincode_with_pha_values",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "pincode_with_pha_values.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "pincode_with_pha_values",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "pincode_with_pha_values.state_id = state.id"
+        },
+        {
+            "source": "points",
+            "target": "users",
+            "source_column": "users_id",
+            "target_column": "id",
+            "join_clause": "points.users_id = users.id"
+        },
+        {
+            "source": "products",
+            "target": "brands",
+            "source_column": "brand_id",
+            "target_column": "id",
+            "join_clause": "products.brand_id = brands.id"
+        },
+        {
+            "source": "products_bulk_imports",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "products_bulk_imports.user_id = users.id"
+        },
+        {
+            "source": "purchase_targets",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "purchase_targets.user_id = users.id"
+        },
+        {
+            "source": "read_notifications",
+            "target": "notifications",
+            "source_column": "notification_id",
+            "target_column": "id",
+            "join_clause": "read_notifications.notification_id = notifications.id"
+        },
+        {
+            "source": "read_notifications",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "read_notifications.user_id = users.id"
+        },
+        {
+            "source": "redemption_requests",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "redemption_requests.user_id = users.id"
+        },
+        {
+            "source": "referral_details",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "referral_details.user_id = users.id"
+        },
+        {
+            "source": "referral_details",
+            "target": "role",
+            "source_column": "user_role",
+            "target_column": "id",
+            "join_clause": "referral_details.user_role = role.id"
+        },
+        {
+            "source": "referral_details",
+            "target": "wallet_transaction",
+            "source_column": "wallet_transaction_id",
+            "target_column": "id",
+            "join_clause": "referral_details.wallet_transaction_id = wallet_transaction.id"
+        },
+        {
+            "source": "required_mechanic_details",
+            "target": "branches",
+            "source_column": "branch_id",
+            "target_column": "id",
+            "join_clause": "required_mechanic_details.branch_id = branches.id"
+        },
+        {
+            "source": "required_mechanic_details",
+            "target": "companies",
+            "source_column": "company_id",
+            "target_column": "id",
+            "join_clause": "required_mechanic_details.company_id = companies.id"
+        },
+        {
+            "source": "retailer_category_qualified",
+            "target": "users",
+            "source_column": "retailer_id",
+            "target_column": "id",
+            "join_clause": "retailer_category_qualified.retailer_id = users.id"
+        },
+        {
+            "source": "retailer_credit_notes",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "retailer_credit_notes.user_id = users.id"
+        },
+        {
+            "source": "retailer_distributor_mappings",
+            "target": "users",
+            "source_column": "retailer_id",
+            "target_column": "id",
+            "join_clause": "retailer_distributor_mappings.retailer_id = users.id"
+        },
+        {
+            "source": "retailer_schemes_mapping",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "retailer_schemes_mapping.scheme_id = schemes.id"
+        },
+        {
+            "source": "retailer_schemes_mapping",
+            "target": "users",
+            "source_column": "users_id",
+            "target_column": "id",
+            "join_clause": "retailer_schemes_mapping.users_id = users.id"
+        },
+        {
+            "source": "retailer_targets",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "retailer_targets.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "retailer_targets",
+            "target": "users",
+            "source_column": "retailer_id",
+            "target_column": "id",
+            "join_clause": "retailer_targets.retailer_id = users.id"
+        },
+        {
+            "source": "retailer_wholesaler_mappings",
+            "target": "users",
+            "source_column": "retailer_id",
+            "target_column": "id",
+            "join_clause": "retailer_wholesaler_mappings.retailer_id = users.id"
+        },
+        {
+            "source": "role_conversion_histories",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "role_conversion_histories.user_id = users.id"
+        },
+        {
+            "source": "role_permission_module",
+            "target": "module",
+            "source_column": "module_id",
+            "target_column": "id",
+            "join_clause": "role_permission_module.module_id = module.id"
+        },
+        {
+            "source": "role_permission_module",
+            "target": "permission",
+            "source_column": "permission_id",
+            "target_column": "id",
+            "join_clause": "role_permission_module.permission_id = permission.id"
+        },
+        {
+            "source": "role_permission_module",
+            "target": "role",
+            "source_column": "role_id",
+            "target_column": "id",
+            "join_clause": "role_permission_module.role_id = role.id"
+        },
+        {
+            "source": "s_e_quaterly_targets",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "s_e_quaterly_targets.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "s_e_targets",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "s_e_targets.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "sample_order_feedbacks",
+            "target": "sample_orders",
+            "source_column": "sample_order_id",
+            "target_column": "id",
+            "join_clause": "sample_order_feedbacks.sample_order_id = sample_orders.id"
+        },
+        {
+            "source": "sample_order_feedbacks",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "sample_order_feedbacks.user_id = users.id"
+        },
+        {
+            "source": "sample_order_items",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "sample_order_items.product_id = products.id"
+        },
+        {
+            "source": "sample_order_items",
+            "target": "sample_orders",
+            "source_column": "sample_order_id",
+            "target_column": "id",
+            "join_clause": "sample_order_items.sample_order_id = sample_orders.id"
+        },
+        {
+            "source": "sample_order_timelines",
+            "target": "sample_orders",
+            "source_column": "sample_order_id",
+            "target_column": "id",
+            "join_clause": "sample_order_timelines.sample_order_id = sample_orders.id"
+        },
+        {
+            "source": "sample_orders",
+            "target": "addresses",
+            "source_column": "address_id",
+            "target_column": "id",
+            "join_clause": "sample_orders.address_id = addresses.id"
+        },
+        {
+            "source": "sample_orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "sample_orders.user_id = users.id"
+        },
+        {
+            "source": "scanned_qrcode_history",
+            "target": "sku_inventories",
+            "source_column": "sku_inventories_id",
+            "target_column": "id",
+            "join_clause": "scanned_qrcode_history.sku_inventories_id = sku_inventories.id"
+        },
+        {
+            "source": "scanned_qrcode_history",
+            "target": "users",
+            "source_column": "users_id",
+            "target_column": "id",
+            "join_clause": "scanned_qrcode_history.users_id = users.id"
+        },
+        {
+            "source": "scheduled_visits",
+            "target": "beat_plans",
+            "source_column": "beat_plan_id",
+            "target_column": "id",
+            "join_clause": "scheduled_visits.beat_plan_id = beat_plans.id"
+        },
+        {
+            "source": "scheduled_visits",
+            "target": "users",
+            "source_column": "retailer_id",
+            "target_column": "id",
+            "join_clause": "scheduled_visits.retailer_id = users.id"
+        },
+        {
+            "source": "scheduled_visits",
+            "target": "users",
+            "source_column": "sales_executive_id",
+            "target_column": "id",
+            "join_clause": "scheduled_visits.sales_executive_id = users.id"
+        },
+        {
+            "source": "scheme_gift_items",
+            "target": "gift_products",
+            "source_column": "gift_product_id",
+            "target_column": "id",
+            "join_clause": "scheme_gift_items.gift_product_id = gift_products.id"
+        },
+        {
+            "source": "scheme_gift_items",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "scheme_gift_items.scheme_id = schemes.id"
+        },
+        {
+            "source": "scheme_gift_orders",
+            "target": "addresses",
+            "source_column": "address_id",
+            "target_column": "id",
+            "join_clause": "scheme_gift_orders.address_id = addresses.id"
+        },
+        {
+            "source": "scheme_gift_orders",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "scheme_gift_orders.order_id = orders.id"
+        },
+        {
+            "source": "scheme_gift_orders",
+            "target": "scheme_gift_items",
+            "source_column": "scheme_gift_item_id",
+            "target_column": "id",
+            "join_clause": "scheme_gift_orders.scheme_gift_item_id = scheme_gift_items.id"
+        },
+        {
+            "source": "scheme_gift_orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "scheme_gift_orders.user_id = users.id"
+        },
+        {
+            "source": "scheme_orders",
+            "target": "brands",
+            "source_column": "brand_id",
+            "target_column": "id",
+            "join_clause": "scheme_orders.brand_id = brands.id"
+        },
+        {
+            "source": "scheme_orders",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "scheme_orders.scheme_id = schemes.id"
+        },
+        {
+            "source": "scheme_orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "scheme_orders.user_id = users.id"
+        },
+        {
+            "source": "scheme_state_mapping",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "scheme_state_mapping.scheme_id = schemes.id"
+        },
+        {
+            "source": "scheme_state_mapping",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "scheme_state_mapping.state_id = state.id"
+        },
+        {
+            "source": "scheme_wallet_transactions",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "scheme_wallet_transactions.scheme_id = schemes.id"
+        },
+        {
+            "source": "scheme_wallet_transactions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "scheme_wallet_transactions.user_id = users.id"
+        },
+        {
+            "source": "se_task",
+            "target": "task_issue",
+            "source_column": "task_issue_id",
+            "target_column": "id",
+            "join_clause": "se_task.task_issue_id = task_issue.id"
+        },
+        {
+            "source": "se_task",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "se_task.user_id = users.id"
+        },
+        {
+            "source": "se_task_history",
+            "target": "se_task",
+            "source_column": "se_task_id",
+            "target_column": "id",
+            "join_clause": "se_task_history.se_task_id = se_task.id"
+        },
+        {
+            "source": "sessions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "sessions.user_id = users.id"
+        },
+        {
+            "source": "shop_verification_images",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "shop_verification_images.user_id = users.id"
+        },
+        {
+            "source": "sku_inventories",
+            "target": "users",
+            "source_column": "distributer_id",
+            "target_column": "id",
+            "join_clause": "sku_inventories.distributer_id = users.id"
+        },
+        {
+            "source": "sku_inventories",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "sku_inventories.product_id = products.id"
+        },
+        {
+            "source": "sku_products",
+            "target": "category_sub_groups",
+            "source_column": "category_sub_group_id",
+            "target_column": "id",
+            "join_clause": "sku_products.category_sub_group_id = category_sub_groups.id"
+        },
+        {
+            "source": "spin_history",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "spin_history.scheme_id = schemes.id"
+        },
+        {
+            "source": "spin_history",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "spin_history.user_id = users.id"
+        },
+        {
+            "source": "state",
+            "target": "zones",
+            "source_column": "zone_id",
+            "target_column": "id",
+            "join_clause": "state.zone_id = zones.id"
+        },
+        {
+            "source": "state_user_mapping",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "state_user_mapping.state_id = state.id"
+        },
+        {
+            "source": "state_user_mapping",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "state_user_mapping.user_id = users.id"
+        },
+        {
+            "source": "state_with_pha_values",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "state_with_pha_values.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "state_with_pha_values",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "state_with_pha_values.state_id = state.id"
+        },
+        {
+            "source": "survey_form_submissions",
+            "target": "survey_forms",
+            "source_column": "survey_form_id",
+            "target_column": "id",
+            "join_clause": "survey_form_submissions.survey_form_id = survey_forms.id"
+        },
+        {
+            "source": "survey_form_submissions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "survey_form_submissions.user_id = users.id"
+        },
+        {
+            "source": "survey_forms",
+            "target": "state",
+            "source_column": "state_ids",
+            "target_column": "id",
+            "join_clause": "survey_forms.state_ids = state.id"
+        },
+        {
+            "source": "table_qr_pdfs",
+            "target": "companies",
+            "source_column": "company_id",
+            "target_column": "id",
+            "join_clause": "table_qr_pdfs.company_id = companies.id"
+        },
+        {
+            "source": "table_qr_pdfs",
+            "target": "products",
+            "source_column": "product_id",
+            "target_column": "id",
+            "join_clause": "table_qr_pdfs.product_id = products.id"
+        },
+        {
+            "source": "tds_certificates",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "tds_certificates.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "tds_certificates",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "tds_certificates.user_id = users.id"
+        },
+        {
+            "source": "user_flags",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "user_flags.user_id = users.id"
+        },
+        {
+            "source": "user_geotag_photos",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "user_geotag_photos.user_id = users.id"
+        },
+        {
+            "source": "user_scan_permissions",
+            "target": "blocked_reasons",
+            "source_column": "blocked_reason_id",
+            "target_column": "id",
+            "join_clause": "user_scan_permissions.blocked_reason_id = blocked_reasons.id"
+        },
+        {
+            "source": "user_scan_permissions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "user_scan_permissions.user_id = users.id"
+        },
+        {
+            "source": "user_withdrawal_block_histories",
+            "target": "blocked_reasons",
+            "source_column": "blocked_reason_id",
+            "target_column": "id",
+            "join_clause": "user_withdrawal_block_histories.blocked_reason_id = blocked_reasons.id"
+        },
+        {
+            "source": "user_withdrawal_block_histories",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "user_withdrawal_block_histories.user_id = users.id"
+        },
+        {
+            "source": "users",
+            "target": "business_information",
+            "source_column": "business_info_id",
+            "target_column": "id",
+            "join_clause": "users.business_info_id = business_information.id"
+        },
+        {
+            "source": "users",
+            "target": "users",
+            "source_column": "distributer_id",
+            "target_column": "id",
+            "join_clause": "users.distributer_id = users.id"
+        },
+        {
+            "source": "users",
+            "target": "employees",
+            "source_column": "employee_id",
+            "target_column": "id",
+            "join_clause": "users.employee_id = employees.id"
+        },
+        {
+            "source": "users",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "users.state_id = state.id"
+        },
+        {
+            "source": "users",
+            "target": "role",
+            "source_column": "user_role",
+            "target_column": "id",
+            "join_clause": "users.user_role = role.id"
+        },
+        {
+            "source": "vendor_bank_accounts",
+            "target": "vendors",
+            "source_column": "vendor_id",
+            "target_column": "id",
+            "join_clause": "vendor_bank_accounts.vendor_id = vendors.id"
+        },
+        {
+            "source": "vendor_element_state_mappings",
+            "target": "branding_elements",
+            "source_column": "branding_element_id",
+            "target_column": "id",
+            "join_clause": "vendor_element_state_mappings.branding_element_id = branding_elements.id"
+        },
+        {
+            "source": "vendor_element_state_mappings",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "vendor_element_state_mappings.state_id = state.id"
+        },
+        {
+            "source": "vendor_element_state_mappings",
+            "target": "vendors",
+            "source_column": "vendor_id",
+            "target_column": "id",
+            "join_clause": "vendor_element_state_mappings.vendor_id = vendors.id"
+        },
+        {
+            "source": "vendors",
+            "target": "state",
+            "source_column": "state_id",
+            "target_column": "id",
+            "join_clause": "vendors.state_id = state.id"
+        },
+        {
+            "source": "video_responses",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "video_responses.user_id = users.id"
+        },
+        {
+            "source": "visit_check_in_check_out",
+            "target": "beat_plans",
+            "source_column": "beat_plan_id",
+            "target_column": "id",
+            "join_clause": "visit_check_in_check_out.beat_plan_id = beat_plans.id"
+        },
+        {
+            "source": "visit_check_in_check_out",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "visit_check_in_check_out.user_id = users.id"
+        },
+        {
+            "source": "visit_trackings",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "visit_trackings.user_id = users.id"
+        },
+        {
+            "source": "wallet_transaction",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "wallet_transaction.user_id = users.id"
+        },
+        {
+            "source": "weekly_scheme_groups",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "weekly_scheme_groups.scheme_id = schemes.id"
+        },
+        {
+            "source": "weekly_scheme_prizes",
+            "target": "schemes",
+            "source_column": "scheme_id",
+            "target_column": "id",
+            "join_clause": "weekly_scheme_prizes.scheme_id = schemes.id"
+        },
+        {
+            "source": "weekly_schemes",
+            "target": "state",
+            "source_column": "state_ids",
+            "target_column": "id",
+            "join_clause": "weekly_schemes.state_ids = state.id"
+        },
+        {
+            "source": "weekly_schemes",
+            "target": "zones",
+            "source_column": "zone_ids",
+            "target_column": "id",
+            "join_clause": "weekly_schemes.zone_ids = zones.id"
+        },
+        {
+            "source": "wholesale_wallet_transactions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "wholesale_wallet_transactions.user_id = users.id"
+        },
+        {
+            "source": "wholesaler_targets",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "wholesaler_targets.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "wholesaler_winter_targets",
+            "target": "financial_years",
+            "source_column": "financial_year_id",
+            "target_column": "id",
+            "join_clause": "wholesaler_winter_targets.financial_year_id = financial_years.id"
+        },
+        {
+            "source": "winter_gift_items",
+            "target": "gift_products",
+            "source_column": "gift_product_id",
+            "target_column": "id",
+            "join_clause": "winter_gift_items.gift_product_id = gift_products.id"
+        },
+        {
+            "source": "winter_gift_order_timelines",
+            "target": "winter_gift_orders",
+            "source_column": "winter_gift_order_id",
+            "target_column": "id",
+            "join_clause": "winter_gift_order_timelines.winter_gift_order_id = winter_gift_orders.id"
+        },
+        {
+            "source": "winter_gift_orders",
+            "target": "addresses",
+            "source_column": "address_id",
+            "target_column": "id",
+            "join_clause": "winter_gift_orders.address_id = addresses.id"
+        },
+        {
+            "source": "winter_gift_orders",
+            "target": "gift_cards",
+            "source_column": "gift_card_id",
+            "target_column": "id",
+            "join_clause": "winter_gift_orders.gift_card_id = gift_cards.id"
+        },
+        {
+            "source": "winter_gift_orders",
+            "target": "orders",
+            "source_column": "order_id",
+            "target_column": "id",
+            "join_clause": "winter_gift_orders.order_id = orders.id"
+        },
+        {
+            "source": "winter_gift_orders",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "winter_gift_orders.user_id = users.id"
+        },
+        {
+            "source": "winter_scan_wallet_transactions",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "winter_scan_wallet_transactions.user_id = users.id"
+        },
+        {
+            "source": "wishlists",
+            "target": "gift_cards",
+            "source_column": "gift_card_id",
+            "target_column": "id",
+            "join_clause": "wishlists.gift_card_id = gift_cards.id"
+        },
+        {
+            "source": "wishlists",
+            "target": "users",
+            "source_column": "user_id",
+            "target_column": "id",
+            "join_clause": "wishlists.user_id = users.id"
         },
         {
             "source": "withdrawal_request",
@@ -70,11 +2244,67 @@
             "join_clause": "withdrawal_request.automatic_transaction_id = automatic_transactions.id"
         },
         {
-            "source": "automatic_transactions",
+            "source": "withdrawal_request",
+            "target": "bank_transactions",
+            "source_column": "bank_transaction_id",
+            "target_column": "id",
+            "join_clause": "withdrawal_request.bank_transaction_id = bank_transactions.id"
+        },
+        {
+            "source": "withdrawal_request",
+            "target": "gift_orders",
+            "source_column": "gift_order_id",
+            "target_column": "id",
+            "join_clause": "withdrawal_request.gift_order_id = gift_orders.id"
+        },
+        {
+            "source": "withdrawal_request",
             "target": "users",
             "source_column": "user_id",
             "target_column": "id",
-            "join_clause": "automatic_transactions.user_id = users.id"
+            "join_clause": "withdrawal_request.user_id = users.id"
+        },
+        {
+            "source": "sku_inventories",
+            "target": "qr_point_map",
+            "source_column": "sku_code",
+            "target_column": "sku_code",
+            "join_clause": "sku_inventories.sku_code = qr_point_map.sku_code"
+        },
+        {
+            "source": "sku_inventories",
+            "target": "sku_qr_points_map",
+            "source_column": "sku_code",
+            "target_column": "sku_code",
+            "join_clause": "sku_inventories.sku_code = sku_qr_points_map.sku_code"
+        },
+        {
+            "source": "sku_inventories",
+            "target": "users",
+            "source_column": "status_retailer_id",
+            "target_column": "id",
+            "join_clause": "sku_inventories.status_retailer_id = users.id"
+        },
+        {
+            "source": "sku_inventories",
+            "target": "users",
+            "source_column": "status_wholeseller_id",
+            "target_column": "id",
+            "join_clause": "sku_inventories.status_wholeseller_id = users.id"
+        },
+        {
+            "source": "retailer_distributor_mappings",
+            "target": "users",
+            "source_column": "distributor_id",
+            "target_column": "id",
+            "join_clause": "retailer_distributor_mappings.distributor_id = users.id"
+        },
+        {
+            "source": "companies",
+            "target": "users",
+            "source_column": "customer_id",
+            "target_column": "id",
+            "join_clause": "companies.customer_id = users.id"
         }
     ],
     "entities": {
@@ -109,199 +2339,22 @@
         "AutomaticTransaction": {
             "table": "automatic_transactions",
             "description": "Direct bank transfer logs and settlement transaction records"
-        },
-        "Bussiness Admin": {
-            "table": "users",
-            "filter": "users.user_role = 1",
-            "description": "Business entity: Bussiness Admin"
-        },
-        "Retailer": {
-            "table": "users",
-            "filter": "users.user_role = 2",
-            "description": "Business entity: Retailer"
-        },
-        "Super Admin": {
-            "table": "users",
-            "filter": "users.user_role = 3",
-            "description": "Business entity: Super Admin"
-        },
-        "Distributor": {
-            "table": "users",
-            "filter": "users.user_role = 4",
-            "description": "Business entity: Distributor"
-        },
-        "Wholesaler": {
-            "table": "users",
-            "filter": "users.user_role = 5",
-            "description": "Business entity: Wholesaler"
-        },
-        "Executive": {
-            "table": "users",
-            "filter": "users.user_role = 6",
-            "description": "Business entity: Executive"
-        },
-        "Accountant Access": {
-            "table": "users",
-            "filter": "users.user_role = 7",
-            "description": "Business entity: Accountant Access"
-        },
-        "Distributor Staff": {
-            "table": "users",
-            "filter": "users.user_role = 8",
-            "description": "Business entity: Distributor Staff"
-        },
-        "Chat Support": {
-            "table": "users",
-            "filter": "users.user_role = 9",
-            "description": "Business entity: Chat Support"
-        },
-        "Mis User": {
-            "table": "users",
-            "filter": "users.user_role = 12",
-            "description": "Business entity: MIS User"
-        },
-        "Report Admin": {
-            "table": "users",
-            "filter": "users.user_role = 11",
-            "description": "Business entity: Report Admin"
-        },
-        "Reports Access": {
-            "table": "users",
-            "filter": "users.user_role = 13",
-            "description": "Business entity: Reports Access"
-        },
-        "Se Report": {
-            "table": "users",
-            "filter": "users.user_role = 14",
-            "description": "Business entity: SE report"
         }
     },
     "business_terminology": {
-        "bussiness admin": {
-            "table": "role",
-            "column": "id",
-            "value": 1,
-            "condition": "users.user_role = 1",
-            "description": "Users having the 'Bussiness Admin' role (role.id = 1)"
-        },
         "retailer": {
             "table": "role",
             "column": "id",
             "value": 2,
             "condition": "users.user_role = 2",
-            "description": "Users having the 'Retailer' role (role.id = 2)"
-        },
-        "super admin": {
-            "table": "role",
-            "column": "id",
-            "value": 3,
-            "condition": "users.user_role = 3",
-            "description": "Users having the 'Super Admin' role (role.id = 3)"
+            "description": "Users having the 'retailer' role (role.id = 2)"
         },
         "distributor": {
             "table": "role",
             "column": "id",
             "value": 4,
             "condition": "users.user_role = 4",
-            "description": "Users having the 'Distributor' role (role.id = 4)"
-        },
-        "wholesaler": {
-            "table": "role",
-            "column": "id",
-            "value": 5,
-            "condition": "users.user_role = 5",
-            "description": "Users having the 'Wholesaler' role (role.id = 5)"
-        },
-        "executive": {
-            "table": "role",
-            "column": "id",
-            "value": 6,
-            "condition": "users.user_role = 6",
-            "description": "Users having the 'Executive' role (role.id = 6)"
-        },
-        "accountant access": {
-            "table": "role",
-            "column": "id",
-            "value": 7,
-            "condition": "users.user_role = 7",
-            "description": "Users having the 'Accountant Access' role (role.id = 7)"
-        },
-        "distributor staff": {
-            "table": "role",
-            "column": "id",
-            "value": 8,
-            "condition": "users.user_role = 8",
-            "description": "Users having the 'Distributor Staff' role (role.id = 8)"
-        },
-        "chat support": {
-            "table": "role",
-            "column": "id",
-            "value": 9,
-            "condition": "users.user_role = 9",
-            "description": "Users having the 'Chat Support' role (role.id = 9)"
-        },
-        "mis user": {
-            "table": "role",
-            "column": "id",
-            "value": 12,
-            "condition": "users.user_role = 12",
-            "description": "Users having the 'MIS User' role (role.id = 12)"
-        },
-        "report admin": {
-            "table": "role",
-            "column": "id",
-            "value": 11,
-            "condition": "users.user_role = 11",
-            "description": "Users having the 'Report Admin' role (role.id = 11)"
-        },
-        "reports access": {
-            "table": "role",
-            "column": "id",
-            "value": 13,
-            "condition": "users.user_role = 13",
-            "description": "Users having the 'Reports Access' role (role.id = 13)"
-        },
-        "se report": {
-            "table": "role",
-            "column": "id",
-            "value": 14,
-            "condition": "users.user_role = 14",
-            "description": "Users having the 'SE report' role (role.id = 14)"
-        },
-        "0 transactions": {
-            "table": "wallet_transaction",
-            "column": "transaction_type",
-            "value": "0",
-            "condition": "wallet_transaction.transaction_type = '0'",
-            "description": "Wallet records with type '0'"
-        },
-        "1 transactions": {
-            "table": "wallet_transaction",
-            "column": "transaction_type",
-            "value": "1",
-            "condition": "wallet_transaction.transaction_type = '1'",
-            "description": "Wallet records with type '1'"
-        },
-        "0 withdrawals": {
-            "table": "withdrawal_request",
-            "column": "status",
-            "value": "0",
-            "condition": "withdrawal_request.status = '0'",
-            "description": "Withdrawal requests currently '0'"
-        },
-        "1 withdrawals": {
-            "table": "withdrawal_request",
-            "column": "status",
-            "value": "1",
-            "condition": "withdrawal_request.status = '1'",
-            "description": "Withdrawal requests currently '1'"
-        },
-        "2 withdrawals": {
-            "table": "withdrawal_request",
-            "column": "status",
-            "value": "2",
-            "condition": "withdrawal_request.status = '2'",
-            "description": "Withdrawal requests currently '2'"
+            "description": "Users having the 'distributor' role (role.id = 4)"
         }
     }
 }

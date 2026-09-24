@@ -180,18 +180,6 @@ def health_check():
     }
 
 
-@app.get("/api/llm/health")
-@app.get("/api/llm-health")
-def llm_health_check():
-    from app.llm.sql_generator import is_ollama_online, OLLAMA_BASE_URL
-    is_online = is_ollama_online()
-    return {
-        "status": "online" if is_online else "offline",
-        "url": OLLAMA_BASE_URL,
-        "model": APP_SETTINGS["model_name"]
-    }
-
-
 @app.get("/schema")
 def get_schema():
     """Returns a clean {table: [columns]} map for the frontend schema panel."""
@@ -351,7 +339,48 @@ def query_database(request: QueryRequest):
         memory_manager.add_turn(session_id, request.question, response_payload, user_id=user_id, request_id=req_id)
         return response_payload
 
-
+    # 3. Handle Exact ID / Identifier Lookup
+    from app.agent.id_search import extract_id_from_prompt, execute_exact_id_search
+    id_info = extract_id_from_prompt(request.question)
+    if id_info:
+        id_res = execute_exact_id_search(id_info)
+        response_payload = {
+            "status": id_res.get("status", "success"),
+            "mode": "EXACT_ID_LOOKUP",
+            "user_id": user_id,
+            "session_id": session_id,
+            "request_id": req_id,
+            "question": request.question,
+            "sql": id_res.get("sql_query", ""),
+            "sql_query": id_res.get("sql_query", ""),
+            "execution_time": 5,
+            "rows_returned": len(id_res.get("results", [])),
+            "summary": id_res.get("summary", ""),
+            "results": id_res.get("results", []),
+            "columns": id_res.get("columns", []),
+            "options": id_res.get("options", []),
+            "report_urls": {},
+            "schema": _get_schema_map(),
+            "understanding": id_res.get("understanding", {
+                "summary": f"ID Lookup: {id_info.get('raw_id')}"
+            }),
+            "understanding_summary": id_res.get("understanding", {}).get("summary"),
+            "context": session_ctx,
+            "affected_tables": ["users"]
+        }
+        if not is_private and id_res.get("id_found"):
+            log_query_history(
+                question=request.question,
+                generated_sql=id_res.get("sql_query", ""),
+                optimized_sql=id_res.get("sql_query", ""),
+                status="success",
+                execution_time_ms=5,
+                row_count=len(id_res.get("results", [])),
+                affected_tables=["users"],
+                is_private=is_private
+            )
+        memory_manager.add_turn(session_id, request.question, response_payload, user_id=user_id, request_id=req_id)
+        return response_payload
 
     from app.database.cache_manager import cache_manager
     bypass = request.bypass_cache or request.live

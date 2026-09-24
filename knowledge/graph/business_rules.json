@@ -13,6 +13,6 @@
     },
     {
         "rule": "Table Scoping",
-        "description": "Only query from the 8 profiled enterprise business tables."
+        "description": "All ~256 database tables are discoverable and queryable across the enterprise schema."
     }
 ]

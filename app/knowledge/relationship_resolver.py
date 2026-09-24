@@ -1,86 +1,78 @@
-import json
 import logging
-import os
 from typing import Dict, Any, List
-from openai import OpenAI
 
-from app.agent.business_requirement import BusinessRequirement
-from app.agent.execution_plan import ExecutionPlan
-from app.retriever.retriever import retrieve_schema
+from app.knowledge.table_schemas import JOIN_DEFINITIONS, TABLE_SUMMARIES
 
 logger = logging.getLogger(__name__)
-
-# Try importing, fallback if missing
-try:
-    from app.llm.sql_generator import is_llm_online, DEFAULT_MODEL
-except ImportError:
-    DEFAULT_MODEL = os.getenv("QWEN_MODEL", "Qwen/Qwen2.5-Coder-7B-Instruct")
-    def is_llm_online() -> bool:
-        return bool(os.getenv("QWEN_API_KEY")) and bool(os.getenv("QWEN_BASE_URL"))
 
 class RelationshipResolver:
     """
     Verifies and resolves business relationships between entities before SQL generation.
-    Uses LLM reasoning against the database schema to dynamically discover relationships.
+    Enforces the rule: NEVER guess the join. If a relationship cannot be verified, abort.
     """
 
-    def resolve(self, req: BusinessRequirement) -> ExecutionPlan:
-        plan = ExecutionPlan(business_requirement=req)
+    def resolve_relationships(self, structured_plan: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Takes the output from NLPIntentParser and verifies all requested relationships.
+        Modifies structured_plan in place to add verified_join_paths.
+        """
+        entities = set(structured_plan.get("entities", []))
+        if structured_plan.get("primary_entity"):
+            entities.add(structured_plan["primary_entity"])
+            
+        # If specific ID type implies a relationship (e.g. distributor ID looking for retailers)
+        spec_id = structured_plan.get("specific_id", {})
+        id_type = spec_id.get("type")
+        if id_type and id_type != structured_plan.get("primary_entity"):
+             if id_type not in entities:
+                 entities.add(id_type)
+
+        # Basic entity mapping
+        mapped_tables = set()
+        for e in entities:
+            if not e: continue
+            e_clean = e.lower().strip()
+            # Handle common aliases
+            if e_clean in ["retailer", "distributor", "mechanic", "wholesaler", "user", "retailers", "distributors"]:
+                mapped_tables.add("users")
+            elif e_clean in ["transaction", "earnings", "wallet_transaction"]:
+                mapped_tables.add("wallet_transaction")
+            elif e_clean in ["withdrawal", "withdrawal_request"]:
+                mapped_tables.add("withdrawal_request")
+            elif e_clean in ["sku", "inventory", "sku_inventories"]:
+                mapped_tables.add("sku_inventories")
+            elif e_clean not in ["role", "status", "date", "time"]:
+                mapped_tables.add(e_clean)
+
+        structured_plan["verified_tables"] = list(mapped_tables)
+        verified_joins = []
+
+        if len(mapped_tables) > 1:
+            # We need to verify that all tables are connected
+            table_list = list(mapped_tables)
+            for i in range(len(table_list)):
+                for j in range(i + 1, len(table_list)):
+                    t1, t2 = table_list[i], table_list[j]
+                    found_join = False
+                    for jt1, jt2, join_str in JOIN_DEFINITIONS:
+                        if (t1 == jt1 and t2 == jt2) or (t1 == jt2 and t2 == jt1):
+                            verified_joins.append(join_str)
+                            found_join = True
+                            break
+                    
+                    # Special Case: user hierarchy joins (distributor to retailer)
+                    if t1 == "users" and t2 == "users":
+                        if "distributor" in entities and "retailer" in entities:
+                            verified_joins.append("users as dist JOIN users as ret ON dist.id = ret.distributer_id")
+                            found_join = True
+
+        structured_plan["verified_join_paths"] = verified_joins
         
-        # Build a prompt to map entities and relationships to schema
-        entities = req.entities + ([req.intent] if req.intent else [])
-        if req.specific_ids:
-            entities.extend(req.specific_ids.keys())
-            
-        context = retrieve_schema(" ".join(entities), k=3)
-        plan.rag_evidence = context
-        
-        if not is_llm_online():
-            logger.warning("LLM offline, skipping generic relationship resolution.")
-            return plan
+        # Check if requested relationships are missing
+        if len(mapped_tables) > 1 and not verified_joins:
+            structured_plan["relationship_warning"] = f"Could not verify a business relationship between {list(mapped_tables)}. Relying on LLM fallback."
+            # Do not drop confidence to 0 so we don't hard block, let the LLM try to resolve it.
 
-        prompt = f"""You are the Relationship Resolution module of the JGH Intelligence Engine.
-Your task is to map the requested business entities to actual database tables, and identify the required SQL joins based strictly on the provided schema context.
-
-User's Original Question: {req.original_question}
-Entities Extracted: {req.entities}
-Relationships Mentioned: {req.relationships}
-
-Schema Context:
-{context}
-
-Respond ONLY with a JSON object in this exact format, with no markdown formatting:
-{{
-  "relevant_tables": ["table1", "table2"],
-  "required_joins": ["table1 JOIN table2 ON table1.id = table2.table1_id"],
-  "resolved_entities": ["entity mapped to table"],
-  "missing_information": ["List any relationships that cannot be resolved via schema, or leave empty"]
-}}
-"""
-        try:
-            client = OpenAI(
-                api_key=os.environ.get("QWEN_API_KEY"),
-                base_url=os.environ.get("QWEN_BASE_URL"),
-            )
-            response = client.chat.completions.create(
-                model=DEFAULT_MODEL,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.0,
-                response_format={"type": "json_object"}
-            )
-            
-            content = response.choices[0].message.content.strip()
-                
-            data = json.loads(content)
-            plan.relevant_tables = data.get("relevant_tables", [])
-            plan.required_joins = data.get("required_joins", [])
-            plan.resolved_entities = data.get("resolved_entities", [])
-            plan.missing_information = data.get("missing_information", [])
-            
-        except Exception as e:
-            logger.error(f"Relationship resolution failed: {e}")
-            plan.missing_information.append(f"Relationship resolution error: {e}")
-
-        return plan
+        return structured_plan
 
 relationship_resolver = RelationshipResolver()

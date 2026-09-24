@@ -1,13 +1,21 @@
 import re
 import json
-from openai import OpenAI
+import ollama
 import os
 from typing import List
 
-DEFAULT_MODEL = os.getenv("QWEN_MODEL", "Qwen/Qwen2.5-Coder-7B-Instruct")
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434").rstrip("/")
+DEFAULT_MODEL = os.getenv("LLM_MODEL", "qwen2.5-coder:7b")
 
-def is_llm_online() -> bool:
-    return bool(os.getenv("QWEN_API_KEY")) and bool(os.getenv("QWEN_BASE_URL"))
+def is_ollama_online() -> bool:
+    import urllib.request
+    try:
+        url = f"{OLLAMA_HOST}/api/tags"
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req, timeout=1.0) as response:
+            return response.status == 200
+    except Exception:
+        return False
 
 def decompose_query(question: str) -> List[str]:
     """
@@ -21,7 +29,7 @@ def decompose_query(question: str) -> List[str]:
         return [question]
         
     # 2. LLM Decomposition
-    if is_llm_online():
+    if is_ollama_online():
         prompt = (
             "You are an AI query decomposer. The user will provide a sentence. "
             "If the sentence contains multiple DISTINCT questions or tasks (e.g., asking for two separate tables or entirely separate insights), split them into independent, fully-formed sentences. "
@@ -41,18 +49,13 @@ def decompose_query(question: str) -> List[str]:
         )
         
         try:
-            client = OpenAI(
-                api_key=os.environ.get("QWEN_API_KEY"),
-                base_url=os.environ.get("QWEN_BASE_URL"),
-            )
-            response = client.chat.completions.create(
+            client = ollama.Client(host=OLLAMA_HOST)
+            response = client.chat(
                 model=DEFAULT_MODEL,
                 messages=[{"role": "user", "content": prompt}],
-                temperature=0.0,
-                top_p=0.9,
-                max_tokens=150
+                options={"temperature": 0.0, "top_p": 0.9, "num_predict": 150}
             )
-            content = response.choices[0].message.content.strip()
+            content = response.get("message", {}).get("content", "").strip()
             
             # Clean markdown if generated
             content = re.sub(r"^```(?:json)?\s*", "", content, flags=re.IGNORECASE)

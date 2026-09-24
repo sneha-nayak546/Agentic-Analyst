@@ -160,26 +160,10 @@ class ResultAccuracyValidator:
         sql: str,
         context: Dict[str, Any],
         execution_result: Dict[str, Any],
-        plan: Any = None
+        plan: Dict[str, Any] = None
     ) -> Dict[str, Any]:
         if plan is None:
-            plan_dict = {}
-        elif hasattr(plan, 'business_requirement'):
-            req = plan.business_requirement
-            plan_dict = {
-                "primary_entity": req.intent,
-                "role_id": None, # derived from context or entity
-                "region": None,
-                "status_filter": None,
-                "identifier_value": next(iter(req.specific_ids.values())) if req.specific_ids else None,
-                "output_format": req.output_format,
-                "group_by": req.grouping,
-                "date_range": req.date_period or req.relative_dates
-            }
-        else:
-            plan_dict = plan
-            
-        plan = plan_dict
+            plan = {}
         sql_upper = sql.upper() if sql else ""
         sql_lower = sql.lower() if sql else ""
         q_lower = question.lower() if question else ""

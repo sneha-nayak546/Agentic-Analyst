@@ -1,46 +1,26 @@
 [
   {
     "question": "Show earnings of retailers for July 2026",
-    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem') AND u.user_role = 2 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name, u.mobile_number;"
+    "sql": "SELECT u.id AS retailer_id, u.name AS retailer_name, SUM(wt.amount) AS total_earnings FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE u.user_role = 2 AND wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem') AND wt.amount > 0 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name ORDER BY total_earnings DESC;"
   },
   {
-    "question": "Show redemption amount per user for January 2026",
-    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(ABS(wt.amount)) AS total_redemption FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type = 'withdrawal' AND wt.created_at >= '2026-01-01 00:00:00' AND wt.created_at < '2026-02-01 00:00:00' GROUP BY u.id, u.name, u.mobile_number;"
+    "question": "Show total earnings for July 2026",
+    "sql": "SELECT SUM(wt.amount) AS total_earnings FROM wallet_transaction wt WHERE wt.reference_type IN ('topup', 'cash_point', 'referral_earning', 'coupon_redeem') AND wt.amount > 0 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00';"
   },
   {
-    "question": "Show top 10 users with highest wallet balance",
-    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_balance FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id GROUP BY u.id, u.name, u.mobile_number ORDER BY total_balance DESC LIMIT 10;"
+    "question": "Show the retailer scanning report for July 2026",
+    "sql": "SELECT u.id AS retailer_id, u.name AS retailer_name, SUM(qpm.box_calulation_um) AS box_scan_count FROM sku_inventories si JOIN qr_point_map qpm ON si.sku_code = qpm.sku_code JOIN users u ON si.status_retailer_id = u.id WHERE u.user_role = 2 AND si.retailer_scanned_at >= '2026-07-01 00:00:00' AND si.retailer_scanned_at < '2026-08-01 00:00:00' GROUP BY u.id, u.name ORDER BY box_scan_count DESC;"
   },
   {
-    "question": "Show redemption amount per user",
-    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(ABS(wt.amount)) AS total_redemption FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type = 'withdrawal' GROUP BY u.id, u.name, u.mobile_number;"
+    "question": "Show top 3 distributors by retailer box scans this month",
+    "sql": "SELECT u.id AS distributor_id, u.name AS distributor_name, SUM(qpm.box_calulation_um) AS box_scan_count FROM sku_inventories si JOIN qr_point_map qpm ON si.sku_code = qpm.sku_code JOIN users u ON si.distributer_id = u.id WHERE u.user_role = 4 AND si.retailer_scanned_at >= '2026-08-01 00:00:00' AND si.retailer_scanned_at < '2026-09-01 00:00:00' GROUP BY u.id, u.name ORDER BY box_scan_count DESC LIMIT 3;"
   },
   {
-    "question": "How many box he have scanned in this month",
-    "sql": "SELECT si.sku_code, si.sku_description, si.uom, COUNT(si.id) AS scanned_boxes_count FROM sku_inventories si WHERE si.retailer_scanned_at IS NOT NULL AND si.status_retailer_id IS NOT NULL AND si.retailer_scanned_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY si.sku_code, si.sku_description, si.uom;"
+    "question": "Which state has the highest number of boxes scanned",
+    "sql": "SELECT s.sname AS state_name, SUM(qpm.box_calulation_um) AS box_scan_count FROM sku_inventories si JOIN qr_point_map qpm ON si.sku_code = qpm.sku_code JOIN users u ON si.status_retailer_id = u.id JOIN state s ON u.state_id = s.id WHERE u.user_role = 2 GROUP BY s.sname ORDER BY box_scan_count DESC LIMIT 1;"
   },
   {
-    "question": "Show earnings of retailers this month",
-    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.reference_type IN ('cash_point', 'topup', 'coupon_redeem') AND u.user_role = 2 AND wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;"
-  },
-  {
-    "question": "i want this month balance details",
-    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_balance FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;"
-  },
-  {
-    "question": "show me balance details for retailers this month",
-    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(wt.amount) AS total_balance FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE u.user_role = 2 AND wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;"
-  },
-  {
-    "question": "Who all are retailers available in the users table, and for those retailers, how much are they earning in this month across cash_point, referral_earning, topup, coupon_redeem",
-    "sql": "SELECT u.id AS user_id, u.name, u.mobile_number, SUM(CASE WHEN wt.reference_type = 'cash_point' THEN wt.amount ELSE 0 END) AS cash_point_earning, SUM(CASE WHEN wt.reference_type = 'referral_earning' THEN wt.amount ELSE 0 END) AS referral_earning, SUM(CASE WHEN wt.reference_type = 'topup' THEN wt.amount ELSE 0 END) AS topup_earning, SUM(CASE WHEN wt.reference_type = 'coupon_redeem' THEN wt.amount ELSE 0 END) AS coupon_redeem_earning, SUM(wt.amount) AS total_monthly_earning FROM users u JOIN wallet_transaction wt ON u.id = wt.user_id WHERE u.user_role = 2 AND wt.created_at >= DATE_FORMAT(NOW(), '%Y-%m-01 00:00:00') GROUP BY u.id, u.name, u.mobile_number;"
-  },
-  {
-    "question": "Show wallet transactions for retailers in July 2026",
-    "sql": "SELECT u.id AS user_id, u.name, wt.amount, wt.reference_type, wt.created_at FROM wallet_transaction wt JOIN users u ON wt.user_id = u.id WHERE u.user_role = 2 AND wt.created_at >= '2026-07-01 00:00:00' AND wt.created_at < '2026-08-01 00:00:00' ORDER BY wt.created_at DESC LIMIT 500;"
-  },
-  {
-    "question": "Show transactions from last 7 days for users",
-    "sql": "SELECT u.id AS user_id, u.name, wt.amount, wt.reference_type, wt.created_at FROM wallet_transaction wt JOIN users u ON wt.user_id = u.id WHERE wt.created_at >= NOW() - INTERVAL 7 DAY ORDER BY wt.created_at DESC LIMIT 500;"
+    "question": "Which retailer under which distributor scanned the highest number of boxes",
+    "sql": "SELECT u_ret.id AS retailer_id, u_ret.name AS retailer_name, u_dist.id AS distributor_id, u_dist.name AS distributor_name, SUM(qpm.box_calulation_um) AS box_scan_count FROM sku_inventories si JOIN qr_point_map qpm ON si.sku_code = qpm.sku_code JOIN users u_ret ON si.status_retailer_id = u_ret.id JOIN users u_dist ON si.distributer_id = u_dist.id WHERE u_ret.user_role = 2 AND u_dist.user_role = 4 GROUP BY u_ret.id, u_ret.name, u_dist.id, u_dist.name ORDER BY box_scan_count DESC LIMIT 1;"
   }
 ]

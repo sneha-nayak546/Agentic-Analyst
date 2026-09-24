@@ -56,8 +56,12 @@ def run_audit():
             print(f"→ SQL execution result   : Success={exec_res.get('success')}, Rows={exec_res.get('row_count')}")
             
             val_res = debug.get('validation', {})
-            print(f"→ Result validation      : {val_res.get('status')} - {val_res.get('reason', '')}")
+            print(f"→ Result validation      : {res.get('validation_status')} - {val_res.get('status')} {val_res.get('reason', '')}")
             
+            diff_text = res.get('requirement_diff')
+            if diff_text:
+                print(f"→ Requirement Diff       :\n{diff_text}")
+                
             print(f"→ Final response         : {res.get('summary', res.get('clarification', 'No response'))}")
             
         except Exception as e:

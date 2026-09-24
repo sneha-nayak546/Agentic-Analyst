@@ -1,464 +1,210 @@
 {
-    "users": {
-        "id": [
-            "46516",
-            "46517",
-            "46518"
-        ],
-        "name": [
-            "ASHOK SONI",
-            "PRAVEEN KUMAR",
-            "VINEET SARAOGI"
-        ],
-        "email": [
-            "alok@simpel.ai",
-            "praveenkumarytc@gmail.com",
-            "Subhodip@simpel.ai"
-        ],
-        "deleted_at": [
-            "2025-01-30 12:47:49",
-            "2025-09-11 16:30:00",
-            "2025-09-11 16:15:00"
-        ],
-        "created_at": [
-            "2025-01-11 11:01:32",
-            "2025-01-12 05:58:53",
-            "2025-01-12 07:10:46"
-        ],
-        "updated_at": [
-            "2025-01-12 06:06:09",
-            "2025-01-12 06:05:33",
-            "2025-01-12 07:10:48"
-        ],
-        "mobile_number": [
-            "9651819580",
-            "9415797565",
-            "9855888555"
-        ],
-        "user_role": [
-            "5",
-            "2"
-        ],
-        "dob": [
-            "1954-06-15",
-            "1969-09-27",
-            "1970-01-10"
-        ],
-        "city": [
-            "Una",
-            "Nashik"
-        ],
-        "state_id": [
-            "28",
-            "11",
-            "10"
-        ],
-        "address": [
-            "LUCKNOW",
-            "JHARKHAND",
-            "PATIALA GATE NEAR PUNJAB &SIND BANK SANGRUR PUNJAB"
-        ],
-        "pincode": [
-            "226005",
-            "226017",
-            "560076"
-        ],
-        "anniversary_date": [
-            "1980-01-21",
-            "1991-06-20",
-            "1995-07-24"
-        ],
-        "account_holder_name": [
-            "Manish Uniyal",
-            "Satija traders",
-            "Sanghi Hosiery Industry"
-        ],
-        "bank_name": [
-            "ICICI bank",
-            "State Bank of india",
-            "Kotak Mahindra Bank"
-        ],
-        "account_no": [
-            "016401528094",
-            "30562504540",
-            "01862000006492"
-        ],
-        "ifsc_code": [
-            "ICIC0000250",
-            "SBIN0001759",
-            "KKBK0000186"
-        ],
-        "account_type": [
-            "Savings",
-            "Current"
-        ],
-        "district": [
-            "Una",
-            "Nashik"
-        ],
-        "profile_image": [
-            "images/profile_images/profile_mechanic_46523.jpeg",
-            "images/profile_images/profile_mechanic_46528.jpeg",
-            "images/profile_images/profile_mechanic_46555.jpeg"
-        ],
-        "wallet_balance": [
-            "10",
-            "0",
-            "30"
-        ],
-        "bank_details_status": [
-            "1",
-            "0"
-        ],
-        "adhaar": [
-            "817509013913",
-            "307679569895",
-            "455085495856"
-        ],
-        "pan_card": [
-            "ALXPS3166R",
-            "HSJPK6559L",
-            "ACGPV2355K"
-        ],
-        "status": [
-            "approved"
-        ],
-        "business_info_id": [
-            "6"
-        ],
-        "kyc_status": [
-            "0",
-            "1"
-        ],
-        "business_pan": [
-            "ALXPS3166R",
-            "HSJPK6559L",
-            "ACGPV2355K"
-        ],
-        "bonus_points": [
-            "0",
-            "2000",
-            "300"
-        ],
-        "isBlacklisted": [
-            "0",
-            "1"
-        ],
-        "scan_limit": [
-            "200",
-            "100"
-        ],
-        "referral_code": [
-            "C0E5C5",
-            "F0799A",
-            "0F3C10"
-        ],
-        "device_id": [
-            "eWEd--JNQ8WIzKvtlMXDSQ:APA91bE_8IXw746lhJEeXK-9FB1BaVdHeyAI3r26Bq7TQ4hf03nbJkXaf7B9CQFy6eTz8wnchDZGJFbcW9zEySX0JKUtq1-Nz_Tpi9Q6XYP3EbFZeTiVaaA"
-        ],
-        "last_login": [
-            "2025-07-19 17:53:30",
-            "2026-01-10 14:11:14",
-            "2026-02-13 16:16:58"
-        ],
-        "app_updated": [
-            "0",
-            "1"
-        ],
-        "block_withdrawal": [
-            "0"
-        ],
-        "block_gift_redeem": [
-            "0"
-        ],
-        "disable_scan": [
-            "0"
-        ],
-        "primary_distributor_id": [
-            "5997"
-        ]
-    },
-    "companies": {
-        "id": [
-            "5842",
-            "5845",
-            "5846"
-        ],
-        "name": [
-            "SRI SAIDATTA GARMENTS",
-            "NARANG TRADERS",
-            "JAGDAMBA HOSIERY"
-        ],
-        "phone": [
-            "8125644555",
-            "9815236212",
-            "8806633297"
-        ],
-        "email": [
-            "desusrinivas1978@gmail.com",
-            "narangtraders@gmail.com",
-            "joshi989882@gmail.com"
-        ],
-        "sap_code": [
-            "D01GNT0801",
-            "D19kHN0201",
-            "D13SAN0401"
-        ],
-        "business_unit": [
-            "CORE"
-        ],
-        "jgh_company": [
-            "NARANG TRADERS",
-            "JAGDAMBA HOSIERY",
-            "FASHION MARKETING"
-        ],
-        "created_at": [
-            "2025-01-30 11:30:58",
-            "2025-01-30 11:47:57",
-            "2025-01-30 11:58:42"
-        ],
-        "updated_at": [
-            "2025-02-06 13:42:04",
-            "2025-11-11 09:36:21",
-            "2025-06-25 16:10:23"
-        ],
-        "business_info_id": [
-            "6"
-        ],
-        "customer_id": [
-            "546",
-            "466",
-            "954"
-        ],
-        "monthly_percent_deactivate_qr_limit": [
-            "15.00",
-            "0.00"
-        ],
-        "additional_monthly_deactivate_qr_limit": [
-            "0",
-            "210"
-        ],
-        "additional_limit_valid_upto": [
-            "2026-09-30"
-        ]
-    },
-    "wallet_transaction": {
-        "id": [
-            "6662347",
-            "6662348",
-            "6662349",
-            "6662350",
-            "6662351"
-        ],
-        "user_id": [
-            "50225",
-            "62977",
-            "63852",
-            "62357",
-            "59767"
-        ],
-        "amount": [
-            "15.00",
-            "-2000.00",
-            "-700.00",
-            "-755.00",
-            "-580.00"
-        ],
-        "transaction_type": [
-            "1",
-            "0"
-        ],
-        "reference_id": [
-            "6410861",
-            "6410862",
-            "50934",
-            "50935",
-            "50936"
-        ],
-        "reference_type": [
-            "cash_point",
-            "withdrawal"
-        ],
-        "status": [
-            "1"
-        ],
-        "remark": [
-            "Successful TFTYAJX##ACM101BTRNK#100 QR scan",
-            "Successful VNZPXBC##ACM101BTRNK#95 QR scan",
-            "Cash Withdrawal",
-            "Successful kjv1xc5 QR scan",
-            "Successful ycyleay QR scan"
-        ],
-        "created_at": [
-            "2026-07-01 00:34:58",
-            "2026-07-01 02:25:13",
-            "2026-07-01 02:45:13",
-            "2026-07-01 06:20:14",
-            "2026-07-01 07:15:13"
-        ],
-        "updated_at": [
-            "2026-07-01 00:34:58",
-            "2026-07-01 02:25:13",
-            "2026-07-01 02:45:13",
-            "2026-07-01 06:20:14",
-            "2026-07-01 07:15:13"
-        ]
-    },
-    "role": {
-        "id": [
-            "1",
-            "2",
-            "3"
-        ],
-        "name": [
-            "Bussiness Admin",
-            "Retailer",
-            "Super Admin"
-        ],
-        "is_editable": [
-            "1",
-            "0"
-        ],
-        "created_at": [
-            "2024-04-12 09:36:52",
-            "2024-04-12 09:37:20",
-            "2024-05-21 16:10:38"
-        ],
-        "updated_at": [
-            "2024-05-21 16:07:19",
-            "2025-01-07 10:00:32",
-            "2025-01-07 10:00:47"
-        ]
-    },
-    "user_role": {
-        "id": [
-            "1",
-            "2",
-            "3"
-        ],
-        "name": [
-            "Bussiness Admin",
-            "Retailer",
-            "Super Admin"
-        ],
-        "is_editable": [
-            "1",
-            "0"
-        ],
-        "created_at": [
-            "2024-04-12 09:36:52",
-            "2024-04-12 09:37:20",
-            "2024-05-21 16:10:38"
-        ],
-        "updated_at": [
-            "2024-05-21 16:07:19",
-            "2025-01-07 10:00:32",
-            "2025-01-07 10:00:47"
-        ]
-    },
+    "academy_videos": {},
+    "account_deletion_requests": {},
+    "activate_qrs_requests": {},
+    "addresses": {},
+    "adhaar_verifications": {},
+    "app_link_report": {},
+    "automatic_transactions": {},
+    "bank_accounts": {},
+    "bank_transactions": {},
+    "beat_plan_retailers": {},
+    "beat_plans": {},
+    "billings": {},
+    "blacklist_reports": {},
+    "blocked_locations": {},
+    "blocked_reasons": {},
+    "bonus_events": {},
+    "bonus_transactions": {},
+    "box_gift_orders": {},
+    "branches": {},
+    "brand_wise_limits": {},
+    "branding_elements": {},
+    "branding_requests": {},
+    "brands": {},
+    "bulk_lpn_imports": {},
+    "bulk_reports": {},
+    "bulk_sku_mappings": {},
+    "business_information": {},
+    "campaign_logs": {},
+    "campaigns": {},
+    "cart_items": {},
+    "category_sub_group_master_category_mapping": {},
+    "category_sub_groups": {},
+    "claimed_offers": {},
+    "code_status": {},
+    "companies": {},
+    "company_controls": {},
+    "conference_events": {},
+    "connection_request": {},
+    "contact_groups": {},
+    "contacts": {},
+    "coupon_plans": {},
+    "coupon_reasons": {},
+    "coupon_transactions": {},
+    "coupons": {},
+    "credit_notes": {},
+    "currency": {},
+    "dashboard_daily_data": {},
+    "deactivated_qr_wallet_transactions": {},
+    "details_approvals": {},
+    "digio_kyc_details": {},
+    "distributor_pincode_mapping": {},
+    "distributor_point_deduction_approvals": {},
+    "distributor_targets": {},
+    "distributor_teams": {},
+    "distributor_wholesaler": {},
+    "district_population": {},
+    "district_with_pha_values": {},
+    "districts": {},
+    "dms_bulk_exports": {},
+    "dms_divisions": {},
+    "dms_gst_masters": {},
+    "dynamic_reports": {},
+    "dynamics": {},
+    "ecatalogue": {},
+    "employees": {},
+    "engagement_event_conditions": {},
+    "engagement_event_reward_logs": {},
+    "engagement_events": {},
+    "engagement_reward_masters": {},
+    "event_coupons": {},
+    "event_multiwin_allowed_users": {},
+    "event_orders": {},
+    "event_prizes": {},
+    "executive_attendances": {},
+    "executive_distributor_mappings": {},
+    "executive_retailer_mappings": {},
+    "executive_survey_answer_submissions": {},
+    "executive_survey_forms": {},
+    "failed_jobs": {},
+    "failed_sku_inventories_callback": {},
+    "failed_skus_callback_csvs": {},
+    "feedback_forms": {},
+    "feedback_submissions": {},
+    "feedbacks": {},
+    "financial_years": {},
+    "garage_details": {},
+    "garages": {},
+    "geo_districts": {},
+    "geo_pincodes": {},
+    "geo_states": {},
+    "gift_cards": {},
+    "gift_categories": {},
+    "gift_gamification": {},
+    "gift_inventories": {},
+    "gift_order_timelines": {},
+    "gift_orders": {},
+    "gift_products": {},
+    "gift_scan_wallet_transactions": {},
+    "gift_sku_bulk_imports": {},
+    "greeting_templates": {},
+    "group_management": {},
+    "home_banner": {},
+    "incentive_gift_orders": {},
+    "incentive_schemes": {},
+    "inventory": {},
+    "inventory_values": {},
+    "kolkata_apis_csvs": {},
+    "language": {},
+    "manual_transactions": {},
+    "mapping_incentive_users": {},
+    "master_categories": {},
+    "mechanic_account_types": {},
+    "mechanic_details": {},
+    "migrations": {},
+    "module": {},
+    "module_maps": {},
+    "mom_attachments": {},
+    "mom_messages": {},
+    "mom_thread_participants": {},
+    "mom_threads": {},
+    "monthly_averages": {},
+    "monthly_district_pha": {},
+    "monthly_pincode_pha": {},
+    "mybenefits": {},
+    "mypoints": {},
+    "notification_events": {},
+    "notification_logs": {},
+    "notifications": {},
+    "occasions": {},
+    "offer": {},
+    "offer_conditions": {},
+    "offer_mapping": {},
+    "offers_and_promotions": {},
+    "offline_sku_inventories": {},
+    "onboarding_targets": {},
+    "order_bulk_mapping": {},
+    "order_categories": {},
+    "order_invoices": {},
+    "order_items": {},
+    "orders": {},
+    "otp": {},
+    "packages": {},
+    "packages_modules": {},
+    "password_resets": {},
+    "payment_response_codes": {},
+    "per_target_scheme_coupons": {},
+    "per_target_schemes": {},
+    "permission": {},
+    "personal_access_tokens": {},
+    "pincode_address_maps": {},
+    "pincode_boundaries": {},
+    "pincode_population": {},
+    "pincode_with_pha_values": {},
+    "points": {},
+    "products": {},
+    "products_bulk_imports": {},
+    "purchase_targets": {},
+    "qr_universe": {},
+    "razorpay_transaction": {},
+    "read_notifications": {},
+    "redemption_requests": {},
+    "referral_details": {},
+    "referral_mappings": {},
+    "reports": {},
+    "repository_documents": {},
+    "required_mechanic_details": {},
+    "retailer_bulk_requests": {},
+    "retailer_category_qualified": {},
+    "retailer_credit_notes": {},
+    "retailer_distributor_mappings": {},
+    "retailer_schemes_mapping": {},
+    "retailer_targets": {},
+    "retailer_wholesaler_mappings": {},
+    "role": {},
+    "role_conversion_histories": {},
+    "role_permission_module": {},
+    "s_e_quaterly_targets": {},
+    "s_e_targets": {},
+    "sample_order_feedbacks": {},
+    "sample_order_items": {},
+    "sample_order_timelines": {},
+    "sample_orders": {},
+    "scanned_qrcode_history": {},
+    "scheduled_visits": {},
+    "scheme_gift_items": {},
+    "scheme_gift_orders": {},
+    "scheme_orders": {},
+    "scheme_state_mapping": {},
+    "scheme_wallet_transactions": {},
+    "schemes": {},
+    "se_reports": {},
+    "se_task": {},
+    "se_task_history": {},
+    "sessions": {},
+    "shop_verification_images": {},
+    "sku_bulk_imports": {},
     "sku_inventories": {
-        "id": [
-            "860",
-            "2811",
-            "11581",
-            "17117",
-            "18009"
-        ],
-        "mrp": [
-            "0"
-        ],
-        "sku_code": [
-            "ACM204SBLMR #55",
-            "ASP162BAST#M",
-            "ACM204BBLMR#90",
-            "ASP032BBLK#XXL",
-            "ASP032BAST#S"
-        ],
-        "unit_price": [
-            "80.00",
-            "125.62",
-            "129.62",
-            "0.68",
-            "0.00"
-        ],
-        "sku_description": [
-            "ACM204SBLMR #55",
-            "ASP162BAST#M",
-            "ACM204BBLMR#90",
-            "ASP032BBLK#XXL",
-            "ASP032BAST#S"
-        ],
-        "invoiced_quantity": [
-            "1",
-            "10",
-            "5",
-            "0"
-        ],
         "batch_details": [
             "[]"
         ],
-        "lpn_number": [
-            "VDKPEDW",
-            "XHDPOXA",
-            "WRVGAUZ",
-            "OYZIKWL",
-            "QNIGLOG"
-        ],
-        "packed_quantity": [
-            "0"
-        ],
-        "order_type": [
-            "Distributor",
-            "Distributors"
-        ],
-        "order_reference": [
-            "55",
-            "M",
-            "90",
-            "XXL",
-            "S"
-        ],
-        "product_id": [
-            "271975",
-            "286862",
-            "271967",
-            "286219",
-            "286206"
-        ],
-        "uom": [
-            "B10",
-            "B5"
-        ],
-        "invoice_number": [
-            "INV000000000058",
-            "INV-000000083365",
-            "INV-000000083376",
-            "INV-000000084995",
-            "INV-000000085010"
-        ],
-        "invoice_date": [
-            "2024-12-27",
-            "2025-02-01",
-            "2025-02-03",
-            "2025-02-04",
-            "2025-02-05"
-        ],
-        "warehouse": [
-            "JGH_1100"
-        ],
-        "invoiced_by": [
-            "subuser2@stockone.com",
-            "swaraj",
-            "sunilkumarchandra",
-            "madesh",
-            "ranjit"
-        ],
-        "order_date": [
-            "2024-12-27",
-            "2025-01-31",
-            "2025-02-01",
-            "2025-02-03",
-            "2025-02-05"
+        "created_at": [
+            "2025-01-28 16:40:43",
+            "2025-01-29 10:07:35",
+            "2025-01-31 12:20:03",
+            "2025-01-31 19:20:13",
+            "2025-02-01 11:12:25"
         ],
         "customer_info": [
             "\"{\\\"city\\\":null,\\\"name\\\":\\\"RUJUTA VENUGOPAL LAHOTI\\\",\\\"state\\\":null,\\\"country\\\":\\\"India\\\",\\\"pincode\\\":null,\\\"email_id\\\":\\\"rujuta121@gmail.com\\\",\\\"last_name\\\":null,\\\"pan_number\\\":null,\\\"tin_number\\\":\\\"29AAKCM8916G1ZZ\\\",\\\"customer_id\\\":4314,\\\"phone_number\\\":7875568844}\"",
@@ -474,45 +220,87 @@
             "5903",
             "6092"
         ],
-        "created_at": [
-            "2025-01-28 16:40:43",
-            "2025-01-29 10:07:35",
-            "2025-01-31 12:20:03",
-            "2025-01-31 19:20:13",
-            "2025-02-01 11:12:25"
+        "id": [
+            "860",
+            "2811",
+            "11581",
+            "17117",
+            "18009"
         ],
-        "updated_at": [
-            "2026-07-05 10:06:22",
-            "2026-07-04 13:21:47",
-            "2026-07-02 09:39:17",
-            "2026-07-03 16:41:55",
-            "2026-07-01 11:56:28"
+        "invoice_date": [
+            "2024-12-27",
+            "2025-02-01",
+            "2025-02-03",
+            "2025-02-04",
+            "2025-02-05"
+        ],
+        "invoice_number": [
+            "INV000000000058",
+            "INV-000000083365",
+            "INV-000000083376",
+            "INV-000000084995",
+            "INV-000000085010"
+        ],
+        "invoiced_by": [
+            "subuser2@stockone.com",
+            "swaraj",
+            "sunilkumarchandra",
+            "madesh",
+            "ranjit"
+        ],
+        "invoiced_quantity": [
+            "1",
+            "10",
+            "5",
+            "0"
+        ],
+        "is_active": [
+            "1"
         ],
         "is_callback": [
             "0",
             "1"
         ],
-        "status_wholeseller_id": [
-            "49225",
-            "48391",
-            "49055"
+        "is_offline": [
+            "0"
         ],
-        "status_retailer_id": [
-            "50284",
-            "50751",
-            "49758",
-            "52699",
-            "77802"
+        "lpn_number": [
+            "VDKPEDW",
+            "XHDPOXA",
+            "WRVGAUZ",
+            "OYZIKWL",
+            "QNIGLOG"
         ],
-        "sources": [
-            "tirupur",
-            "kolkata"
+        "mrp": [
+            "0"
         ],
-        "wholesaler_scanned_at": [
-            "2025-07-28 13:46:11",
-            "2025-07-28 13:46:12",
-            "2025-03-28 16:02:15",
-            "2025-05-15 11:26:49"
+        "order_date": [
+            "2024-12-27",
+            "2025-01-31",
+            "2025-02-01",
+            "2025-02-03",
+            "2025-02-05"
+        ],
+        "order_reference": [
+            "55",
+            "M",
+            "90",
+            "XXL",
+            "S"
+        ],
+        "order_type": [
+            "Distributor",
+            "Distributors"
+        ],
+        "packed_quantity": [
+            "0"
+        ],
+        "product_id": [
+            "271975",
+            "286862",
+            "271967",
+            "286219",
+            "286206"
         ],
         "retailer_scanned_at": [
             "2026-07-05 10:06:22",
@@ -521,217 +309,165 @@
             "2026-07-03 16:41:55",
             "2026-07-01 11:56:28"
         ],
-        "is_active": [
-            "1"
+        "sku_code": [
+            "ACM204SBLMR #55",
+            "ASP162BAST#M",
+            "ACM204BBLMR#90",
+            "ASP032BBLK#XXL",
+            "ASP032BAST#S"
         ],
-        "is_offline": [
-            "0"
-        ]
-    },
-    "mechanic_details": {
-        "id": [
-            "39007",
-            "39008",
-            "39009"
+        "sku_description": [
+            "ACM204SBLMR #55",
+            "ASP162BAST#M",
+            "ACM204BBLMR#90",
+            "ASP032BBLK#XXL",
+            "ASP032BAST#S"
         ],
-        "mechanic_id": [
-            "46799",
-            "46770",
-            "46880"
+        "sources": [
+            "tirupur",
+            "kolkata"
         ],
-        "mechanic_account_type": [
-            "0"
+        "status_retailer_id": [
+            "50284",
+            "50751",
+            "49758",
+            "52699",
+            "77802"
         ],
-        "gstin": [
-            "27AKZPP1552D1ZT",
-            "29AQQPP6842F1Z7",
-            "32AASFT6738Q1Z6"
+        "status_wholeseller_id": [
+            "49225",
+            "48391",
+            "49055"
         ],
-        "longitude": [
-            "77.6244171",
-            "80.9281757",
-            "77.6244226"
-        ],
-        "latitude": [
-            "12.9088922",
-            "26.8994209",
-            "12.9088897"
-        ],
-        "firm_type": [
-            "Sole Proprietorship",
-            "Partnership"
-        ],
-        "created_at": [
-            "2025-01-22 18:16:04",
-            "2025-01-22 18:19:49",
-            "2025-01-22 18:55:03"
-        ],
-        "updated_at": [
-            "2025-01-22 18:16:04",
-            "2025-01-22 18:19:49",
-            "2025-01-22 18:55:03"
-        ],
-        "shop_name": [
-            "Dd",
-            "Abcd",
-            "Aashirwad Collection"
-        ],
-        "shop_photo": [
-            "images/geo_tagimage_images/geo_tagimage_mechanic_46881_1756388045.jpeg",
-            "images/geo_tagimage_images/geo_tagimage_mechanic_46883.jpeg"
-        ],
-        "shop_address": [
-            "KALASH SAREE BABAI",
-            "SHATYASAINAGAR BANDALWADI INDAPUR ROAD BARAMATI-413102",
-            "Anuja Dresses"
-        ],
-        "geo_tag": [
-            "0",
-            "1"
-        ],
-        "gst_details": [
-            "null",
-            "{\"gstin\":\"27AKZPP1552D1ZT\",\"data\":{\"stjCd\":\"MHCG1173\",\"lgnm\":\"BAJARANGLAL SONARAM PAREEK\",\"dty\":\"Regular\",\"stj\":\"BARAMATI_701\",\"adadr\":[],\"cxdt\":null,\"gstin\":\"27AKZPP1552D1ZT\",\"nba\":[\"Retail Business\",\"Service Provision\",\"Recipient of Goods or Services\",\"Wholesale Business\"],\"lstupdt\":\"23\\/05\\/2023\",\"rgdt\":\"01\\/07\\/2017\",\"ctb\":\"Proprietorship\",\"pradr\":{\"addr\":{\"bnm\":null,\"st\":\"Indapur Road\",\"loc\":\"Gunwadi\",\"bno\":\"Gat No 663\\/4\",\"dst\":\"Pune\",\"lt\":\"18.13549308401282\",\"locality\":\"Satyasainagar Bandalwadi\",\"pncd\":\"413102\",\"landMark\":\"Vidya Pratishthans New Bal Vikas Mandir\",\"stcd\":\"Maharashtra\",\"geocodelvl\":\"Building\",\"flno\":\"Plot No 6\",\"lg\":\"74.6119523048401\"},\"ntr\":\"Retail Business, Service Provision, Recipient of Goods or Services, Wholesale Business\"},\"tradeNam\":\"SHAMBHU MARKETING\",\"ctjCd\":\"UD0901\",\"sts\":\"Active\",\"ctj\":\"RANGE-I\",\"einvoiceStatus\":\"No\"}}",
-            "{\"gstin\":\"29AQQPP6842F1Z7\",\"data\":{\"stjCd\":\"KA010\",\"lgnm\":\"VISHNU JAGDISHPRASAD PAREEK\",\"dty\":\"Regular\",\"stj\":\"LGSTO 035 - Bengaluru\",\"adadr\":[],\"cxdt\":null,\"gstin\":\"29AQQPP6842F1Z7\",\"nba\":[\"Wholesale Business\"],\"lstupdt\":\"30\\/05\\/2024\",\"rgdt\":\"01\\/07\\/2017\",\"ctb\":\"Proprietorship\",\"pradr\":{\"addr\":{\"bnm\":null,\"st\":\"KOWDENAHALLI, 14th CROSS,\",\"loc\":\"AKSHYANAGAR RAMAMURTHY NAGAR\",\"bno\":\"NO. 4\",\"dst\":\"Bengaluru Urban\",\"lt\":null,\"locality\":null,\"pncd\":\"560016\",\"landMark\":null,\"stcd\":\"Karnataka\",\"geocodelvl\":\"NA\",\"flno\":null,\"lg\":null},\"ntr\":\"Wholesale Business\"},\"tradeNam\":\"GAYTHRI DISTRIBUTORS\",\"ctjCd\":\"YT0604\",\"sts\":\"Active\",\"ctj\":\"RANGE-DED6\",\"einvoiceStatus\":\"No\"}}"
-        ]
-    },
-    "withdrawal_request": {
-        "id": [
-            "1",
-            "3",
-            "4"
-        ],
-        "user_id": [
-            "355",
-            "356",
-            "353"
-        ],
-        "amount": [
-            "250",
-            "420",
-            "0"
-        ],
-        "bank_transaction_id": [
-            "13141515",
-            "1213131",
-            "7894561230874125"
-        ],
-        "delivery_proof": [
-            "images/gift_order/maqsud_1735019576.png"
-        ],
-        "status": [
-            "1",
-            "2"
-        ],
-        "created_at": [
-            "2023-05-30 22:54:54",
-            "2023-05-31 05:16:34",
-            "2023-05-31 22:41:00"
-        ],
-        "updated_at": [
-            "1970-01-01 07:01:25",
-            "2023-06-02 04:15:56",
-            "2023-06-08 07:52:07"
-        ],
-        "automatic_transaction_id": [
-            "0"
-        ],
-        "tds_amount": [
+        "unit_price": [
+            "80.00",
+            "125.62",
+            "129.62",
+            "0.68",
             "0.00"
+        ],
+        "uom": [
+            "B10",
+            "B5"
+        ],
+        "updated_at": [
+            "2026-07-05 10:06:22",
+            "2026-07-04 13:21:47",
+            "2026-07-02 09:39:17",
+            "2026-07-03 16:41:55",
+            "2026-07-01 11:56:28"
+        ],
+        "warehouse": [
+            "JGH_1100"
+        ],
+        "wholesaler_scanned_at": [
+            "2025-07-28 13:46:11",
+            "2025-07-28 13:46:12",
+            "2025-03-28 16:02:15",
+            "2025-05-15 11:26:49"
         ]
     },
-    "automatic_transactions": {
-        "id": [
-            "76",
-            "77",
-            "78"
-        ],
-        "user_id": [
-            "48395",
-            "48208",
-            "48431"
-        ],
-        "transaction_id": [
-            "0473D966C02D47299DF0038FB3BA948F",
-            "614BF07DA9C147D5983E38E1429D8461",
-            "FE9783AB11834BCFA93C9EB3EAE0BD3B"
-        ],
-        "transfer_type": [
-            "IMPS"
-        ],
-        "res_code": [
-            "S00000"
-        ],
-        "status": [
-            "success"
-        ],
-        "users_phone_number": [
-            "7666475814",
-            "9987325368",
-            "9743792542"
-        ],
-        "users_account_number": [
-            "4745742560",
-            "7102500102755801",
-            "50387176197"
+    "sku_products": {},
+    "sku_qr_points_maps": {},
+    "sources": {},
+    "spin_history": {},
+    "state": {},
+    "state_user_mapping": {},
+    "state_with_pha_values": {},
+    "suppliers": {},
+    "survey_form_submissions": {},
+    "survey_forms": {},
+    "sync_tripur_data": {},
+    "table_qr_pdfs": {},
+    "task_issue": {},
+    "tds_certificates": {},
+    "tripur_api_tokens": {},
+    "user_flags": {},
+    "user_geotag_photos": {},
+    "user_scan_permissions": {},
+    "user_withdrawal_block_histories": {},
+    "users": {},
+    "vendor_bank_accounts": {},
+    "vendor_element_state_logs": {},
+    "vendor_element_state_mappings": {},
+    "vendors": {},
+    "video_responses": {},
+    "visit_check_in_check_out": {},
+    "visit_trackings": {},
+    "wallet_transaction": {
+        "amount": [
+            "15.00",
+            "-2000.00",
+            "-700.00",
+            "-755.00",
+            "-580.00"
         ],
         "created_at": [
-            "2025-02-08 05:24:22",
-            "2025-02-08 06:12:54",
-            "2025-02-09 04:53:31"
+            "2026-07-01 00:34:58",
+            "2026-07-01 02:25:13",
+            "2026-07-01 02:45:13",
+            "2026-07-01 06:20:14",
+            "2026-07-01 07:15:13"
+        ],
+        "id": [
+            "6662347",
+            "6662348",
+            "6662349",
+            "6662350",
+            "6662351"
+        ],
+        "reference_id": [
+            "6410861",
+            "6410862",
+            "50934",
+            "50935",
+            "50936"
+        ],
+        "reference_type": [
+            "cash_point",
+            "withdrawal"
+        ],
+        "remark": [
+            "Successful TFTYAJX##ACM101BTRNK#100 QR scan",
+            "Successful VNZPXBC##ACM101BTRNK#95 QR scan",
+            "Cash Withdrawal",
+            "Successful kjv1xc5 QR scan",
+            "Successful ycyleay QR scan"
+        ],
+        "status": [
+            "1"
+        ],
+        "transaction_type": [
+            "1",
+            "0"
         ],
         "updated_at": [
-            "2025-02-08 05:24:22",
-            "2025-02-08 06:12:54",
-            "2025-02-09 04:53:31"
+            "2026-07-01 00:34:58",
+            "2026-07-01 02:25:13",
+            "2026-07-01 02:45:13",
+            "2026-07-01 06:20:14",
+            "2026-07-01 07:15:13"
         ],
-        "amount": [
-            "2.0",
-            "45.0",
-            "240.0"
+        "user_id": [
+            "50225",
+            "62977",
+            "63852",
+            "62357",
+            "59767"
         ]
     },
-    "sku_qr_points_map": {},
-    "state": {
-        "id": [
-            "1",
-            "2",
-            "3"
-        ],
-        "sname": [
-            "Andhra Pradesh",
-            "Arunachal Pradesh",
-            "Assam"
-        ],
-        "updated_at": [
-            "2026-07-02 11:44:27",
-            "2024-04-17 02:14:17",
-            "2025-09-11 16:33:53"
-        ],
-        "jgh_magic_status": [
-            "1",
-            "0"
-        ],
-        "zone_id": [
-            "2",
-            "3",
-            "5"
-        ],
-        "cash_withdrawal": [
-            "1"
-        ],
-        "gift_redeem": [
-            "1"
-        ],
-        "scan_for_gift": [
-            "0"
-        ],
-        "winter_order": [
-            "0",
-            "1"
-        ],
-        "is_offline": [
-            "0"
-        ]
-    }
+    "weekly_scheme_groups": {},
+    "weekly_scheme_prizes": {},
+    "weekly_schemes": {},
+    "wholesale_wallet_transactions": {},
+    "wholesaler_targets": {},
+    "wholesaler_winter_targets": {},
+    "winter_gift_items": {},
+    "winter_gift_order_timelines": {},
+    "winter_gift_orders": {},
+    "winter_scan_wallet_transactions": {},
+    "wishlists": {},
+    "withdrawal_request": {},
+    "zones": {},
+    "qr_point_map": {}
 }
